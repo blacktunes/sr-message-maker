@@ -320,6 +320,8 @@ $width = 2000px
     width 100%
     height 100%
     background #d8d8d8
+    box-shadow 0 0 20px 5px rgba(0, 0, 0, 0.3)
+    border-radius 0 50px 0 0
 
     .header
       display flex
