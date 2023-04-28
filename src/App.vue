@@ -89,17 +89,29 @@ onMounted(() => {
       top 45px
       left 185px
       display flex
-      font-size 36px
       align-items center
       user-select none
 
       span
-        margin-left 20px
-        line-height 75px
-        color #f4f6f5
+        margin 0 0 15px 20px
+        font-size 46px
+        color #ddd
 </style>
 
 <style lang="stylus">
 body
   margin 0
+
+.del
+  transition opacity 0.2s
+
+&::-webkit-scrollbar
+  width 10px
+  height 10px
+
+&::-webkit-scrollbar-track
+  background #c6c6c6
+
+&::-webkit-scrollbar-thumb
+  background #545454
 </style>

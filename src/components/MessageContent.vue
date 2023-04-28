@@ -9,35 +9,46 @@
           <div class="info">{{ message.list[index].info }}</div>
         </div>
         <div class="message-list" ref="messageListDom">
-          <div
-            class="message"
-            :class="{
-              right: item.key === '开拓者',
-            }"
-            v-for="(item, key) in message.list[index].list"
-            :key="`message-${key}`"
+          <draggable
+            tag="transition-group"
+            :component-data="{ name: 'list', type: 'transition' }"
+            v-model="message.list[index].list"
+            :item-key="(item: any) => 'message' + message.list[index].list.indexOf(item)"
           >
-            <div class="avatar" @click="handelAvatarClick(key)">
-              <img :src="avatar[item.key || '']" alt="" />
-            </div>
-            <div class="message-content">
-              <div class="name">
-                {{ item.key === "开拓者" ? setting.name : item.name }}
-              </div>
-              <div class="img" v-if="item.img">
-                <img :src="item.img" alt="" />
-              </div>
+            <template #item="{ element, index }">
               <div
-                class="text"
-                v-else
-                contenteditable
-                @input="updateText($event, key)"
+                class="message"
+                :class="{
+                  right: element.key === '开拓者',
+                }"
               >
-                {{ item.text }}
+                <div class="avatar" @click="handelAvatarClick(index)">
+                  <img :src="avatar[element.key || '']" alt="" />
+                </div>
+                <div class="message-content">
+                  <div class="name">
+                    <span>
+                      {{
+                        element.key === "开拓者" ? setting.name : element.name
+                      }}
+                    </span>
+                    <div class="del" @click="handelDelClick(index)">×</div>
+                  </div>
+                  <div class="img" v-if="element.img">
+                    <img :src="element.img" alt="" />
+                  </div>
+                  <div
+                    class="text"
+                    v-else
+                    contenteditable
+                    @input="updateText($event, index)"
+                  >
+                    {{ element.text }}
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="del" @click="handelDelClick(key)">×</div>
-          </div>
+            </template>
+          </draggable>
         </div>
         <div class="bottom"></div>
       </div>
@@ -143,12 +154,13 @@
 </template>
 
 <script lang="ts" setup>
-import { avatar } from '@/assets/scripts/avatar'
+import { avatar } from '@/assets/scripts/character'
+import _screenshot from '@/assets/scripts/screenshot'
 import { input } from '@/store/input'
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
+import draggable from '@marshallswain/vuedraggable'
 import { computed, nextTick, ref, watch } from 'vue'
-import _screenshot from '@/assets/scripts/screenshot'
 
 const messageDom = ref<HTMLElement | null>(null)
 const messageListDom = ref<HTMLElement | null>(null)
@@ -349,7 +361,7 @@ $width = 2000px
         text-overflow ellipsis
 
     .message-list
-      // overflow-y auto
+      overflow-y overlay
       overflow-x hidden
       flex 1
       display flex
@@ -357,28 +369,20 @@ $width = 2000px
       margin 30px 60px 30px 50px
       padding-right 50px
 
-      &::-webkit-scrollbar
-        width 10px
-        height 10px
-
-      &::-webkit-scrollbar-track
-        background #c6c6c6
-
-      &::-webkit-scrollbar-thumb
-        background #545454
-
       .message
-        position relative
         display flex
         height fit-content
         width 100%
         margin 15px 0
 
         &:hover
+          background #ddd
+
           .del
-            opacity 1
+            opacity 1 !important
 
         .avatar
+          flex-shrink 0
           overflow hidden
           border-radius 50%
           width 140px
@@ -396,10 +400,29 @@ $width = 2000px
           flex-direction column
 
           .name
+            position relative
             color #6b6b6b
             font-size 45px
+            width fit-content
+
+            .del
+              display flex
+              align-items center
+              justify-content center
+              position absolute
+              right -100px
+              bottom -8px
+              width 80px
+              height 80px
+              font-size 50px
+              opacity 0
+              cursor pointer
+
+              &:hover
+                opacity 1
 
           .img
+            margin-top 30px
             max-width 600px
 
             img
@@ -413,22 +436,7 @@ $width = 2000px
             font-size 45px
             color #121212
             border-radius 0 20px
-
-        .del
-          display flex
-          align-items center
-          justify-content center
-          position absolute
-          left 30px
-          bottom 0
-          width 80px
-          height 80px
-          font-size 50px
-          opacity 0
-          cursor pointer
-
-          &:hover
-            opacity 1
+            word-break break-word
 
     .bottom
       align-self center
@@ -451,8 +459,8 @@ $width = 2000px
       border-radius 20px 0 20px 20px !important
 
   .del
-    left unset !important
-    right 30px
+    left -100px
+    right unset !important
 
 .menu
   display flex
@@ -521,4 +529,13 @@ $width = 2000px
       margin-left 20px
       font-size 32px
       font-weight bold
+
+.list-enter-active
+  transition all 0.2s
+
+.list-enter-from
+  transform scaleY(0)
+
+.list-enter-to
+  transform scaleY(1)
 </style>

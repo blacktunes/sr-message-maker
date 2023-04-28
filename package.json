@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@marshallswain/vuedraggable": "^4.2.0",
     "core-js": "^3.8.3",
     "dom-to-image": "^2.6.0",
     "vue": "^3.2.13"
