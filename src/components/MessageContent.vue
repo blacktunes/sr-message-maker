@@ -3,10 +3,14 @@
     <div class="message-wrapper">
       <div class="message-box" ref="messageDom">
         <div class="header">
-          <div class="title" contenteditable @input="updateTitle($event)">
+          <div
+            class="title"
+            :contenteditable="names.length !== 1"
+            @input="updateTitle($event)"
+          >
             {{ title }}
           </div>
-          <div class="info">{{ message.list[index].info }}</div>
+          <div class="info">{{ info }}</div>
         </div>
         <div class="message-list" ref="messageListDom">
           <draggable
@@ -15,7 +19,9 @@
             v-model="message.list[index].list"
             :item-key="(item: any) => 'message' + message.list[index].list.indexOf(item)"
           >
-            <template #item="{ element, index }">
+            <template
+              #item="{ element, index }: { element: Message, index: number }"
+            >
               <div
                 class="message"
                 :class="{
@@ -23,7 +29,7 @@
                 }"
               >
                 <div class="avatar" @click="handelAvatarClick(index)">
-                  <img :src="avatar[element.key || '']" alt="" />
+                  <img :src="element.avatar" alt="" />
                 </div>
                 <div class="message-content">
                   <div class="name">
@@ -55,7 +61,7 @@
     </div>
     <div class="menu">
       <div class="btn" @click="handelSelectClick">
-        <img :src="avatar[input.character]" alt="" />
+        <img :src="getAvatar(input.character)" alt="" />
       </div>
       <input
         type="text"
@@ -154,13 +160,14 @@
 </template>
 
 <script lang="ts" setup>
-import { avatar } from '@/assets/scripts/character'
 import _screenshot from '@/assets/scripts/screenshot'
+import { character } from '@/store/character'
 import { input } from '@/store/input'
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
 import draggable from '@marshallswain/vuedraggable'
 import { computed, nextTick, ref, watch } from 'vue'
+import { getAvatar } from '@/assets/scripts/avatar'
 
 const messageDom = ref<HTMLElement | null>(null)
 const messageListDom = ref<HTMLElement | null>(null)
@@ -182,19 +189,39 @@ watch(index, () => {
   scrollToBottom(true)
 })
 
-const title = computed(() => {
-  if (index.value === -1) return ''
-
+const names = computed(() => {
   const name: string[] = []
   for (const _message of message.list[index.value].list) {
     if (_message.key !== '开拓者' && !name.includes(_message.key)) {
       name.push(_message.key)
     }
   }
-  if (name.length === 1) return name[0]
+  return name
+})
+
+const title = computed(() => {
+  if (index.value === -1) return ''
+
+  if (names.value.length === 1) return names.value[0]
   if (message.list[index.value].title) return message.list[index.value].title
-  if (name.length > 1) return `${name.join('、')}、${setting.name}的群聊`
+  if (names.value.length > 1) return `${names.value.join('、')}、${setting.name}的群聊`
   return '未命名短信'
+})
+
+const info = computed(() => {
+  if (index.value === -1) return undefined
+
+  if (names.value.length === 1) {
+    let info
+    if (character.game[names.value[0]]) {
+      info = character.game[names.value[0]].info
+    } else if (character.custom[names.value[0]]) {
+      info = character.custom[names.value[0]].info
+    }
+    return info
+  } else {
+    return undefined
+  }
 })
 
 const handelMessageAddClick = () => {
@@ -213,6 +240,7 @@ const updateTitle = (e: Event) => {
 
 const updateText = (e: Event, key: number) => {
   message.list[index.value].list[key].text = (e.target as HTMLInputElement).innerText
+  message.list[index.value].time = Date.now()
 }
 
 const handelSelectClick = () => {
@@ -241,19 +269,21 @@ const handelImageClick = () => {
 }
 
 const handelAddClick = (img?: string) => {
-  // if (input.input.length < 1) return
   message.list[index.value].list.push({
     key: input.character,
     name: input.character,
+    avatar: getAvatar(input.character),
     text: input.input || '愿此行，终抵群星',
     img
   })
+  message.list[index.value].time = Date.now()
   input.input = ''
   scrollToBottom()
 }
 
 const handelDelClick = (key: number) => {
   message.list[index.value].list.splice(key, 1)
+  message.list[index.value].time = Date.now()
 }
 
 const scrollToBottom = (flag?: boolean) => {
@@ -343,7 +373,7 @@ $width = 2000px
       width 100%
       height 185px
       border-bottom 4px solid #aeaeae
-      padding 55px 70px
+      padding 0 70px
 
       .title
         color #121212
@@ -480,7 +510,7 @@ $width = 2000px
     justify-content center
     width 100px
     height 100px
-    margin 0 20px
+    margin 0 10px
     cursor pointer
     border-radius 5px
     background #e8e8e8

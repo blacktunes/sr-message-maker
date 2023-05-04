@@ -20,6 +20,7 @@ import { setting } from '@/store/setting'
 
 const list = computed(() => {
   const temp: {
+    time: number
     title: string
     list: MessageItem[]
   }[] = []
@@ -35,25 +36,33 @@ const list = computed(() => {
       const title = item.title || `${name.join('、')}、${setting.name}的群聊`
       const index = temp.findIndex(item2 => item2.title === title)
       if (index !== -1) {
-        temp[index].list.push(item)
+        temp[index].list.unshift(item)
+        temp[index].time = Math.max(temp[index].time, item.time)
+        temp[index].list.sort((a, b) => b.time - a.time)
       } else {
-        temp.push({
+        temp.unshift({
           title,
+          time: item.time,
           list: [item]
         })
       }
     } else {
       const index = temp.findIndex(item2 => item2.title === name[0])
       if (index !== -1) {
-        temp[index].list.push(item)
+        temp[index].list.unshift(item)
+        temp[index].time = Math.max(temp[index].time, item.time)
+        temp[index].list.sort((a, b) => b.time - a.time)
       } else {
-        temp.push({
+        temp.unshift({
           title: name[0],
+          time: item.time,
           list: [item]
         })
       }
     }
   })
+
+  temp.sort((a, b) => b.time - a.time)
 
   return temp
 })

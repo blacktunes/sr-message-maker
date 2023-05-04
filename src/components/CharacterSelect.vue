@@ -1,25 +1,71 @@
 <template>
-  <div class="charater-wrapper" @click="hide" v-show="input.select">
-    <div class="charater-list" @click.stop="">
-      <div
-        class="charater"
-        v-for="(item, key) in avatar"
-        :key="`avatar-${key}`"
-        @click="handelCharaterClick(String(key))"
-      >
-        <img
-          :src="item"
-          :alt="String(key)"
-          :title="String(key)"
-          draggable="false"
-        />
+  <div class="character-wrapper" @click="hide" v-show="input.select">
+    <div class="character-container" @click.stop="">
+      <div class="character-box">
+        <div class="character-title">游戏角色</div>
+        <div class="character-list">
+          <div
+            class="character"
+            v-for="(item, key) in character.game"
+            :key="`avatar-${key}`"
+            :title="`${item.name}`"
+            @click="handelcharacterClick(String(key))"
+          >
+            <div class="avatar">
+              <img
+                :src="item.avatar"
+                :alt="item.name"
+                draggable="false"
+              />
+            </div>
+            <div class="name">{{ item.name }}</div>
+            <div class="info" :title="item.info">{{ item.info || "" }}</div>
+          </div>
+        </div>
+        <div style="height: 30px"></div>
+        <div class="character-title">自定义角色</div>
+        <div class="character-list">
+          <div
+            class="character"
+            v-for="(item, key) in character.custom"
+            :key="`avatar-${key}`"
+            @click="handelcharacterClick(String(key))"
+          >
+            <div class="avatar">
+              <img
+                :src="item.avatar"
+                :alt="item.name"
+                :title="item.name"
+                draggable="false"
+              />
+            </div>
+            <div class="name">{{ item.name }}</div>
+            <div class="info">{{ item.info || "123" }}</div>
+            <div class="del" @click.stop="handelDelClick(String(key))">×</div>
+          </div>
+          <div class="add" @click="addCustom">
+            <svg
+              viewBox="0 0 1024 1024"
+              version="1.1"
+              xmlns="http://www.w3.org/2000/svg"
+              width="150"
+              height="150"
+            >
+              <path
+                d="M874.666667 469.333333H554.666667V149.333333c0-23.466667-19.2-42.666667-42.666667-42.666666s-42.666667 19.2-42.666667 42.666666v320H149.333333c-23.466667 0-42.666667 19.2-42.666666 42.666667s19.2 42.666667 42.666666 42.666667h320v320c0 23.466667 19.2 42.666667 42.666667 42.666666s42.666667-19.2 42.666667-42.666666V554.666667h320c23.466667 0 42.666667-19.2 42.666666-42.666667s-19.2-42.666667-42.666666-42.666667z"
+                fill="#afafaf"
+              ></path>
+            </svg>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { avatar } from '@/assets/scripts/avatar'
+import { getAvatar } from '@/assets/scripts/avatar'
+import { character } from '@/store/character'
 import { input } from '@/store/input'
 import { message } from '@/store/message'
 
@@ -27,20 +73,54 @@ const hide = () => {
   input.select = false
 }
 
-const handelCharaterClick = (key: string) => {
+const handelcharacterClick = (key: string) => {
   if (input.index) {
     message.list[input.index[0]].list[input.index[1]].key = key
     message.list[input.index[0]].list[input.index[1]].name = key
+    message.list[input.index[0]].list[input.index[1]].avatar = getAvatar(key)
     input.index = undefined
   } else {
     input.character = key
   }
   hide()
 }
+
+const addCustom = () => {
+  const input = document.createElement('input')
+  input.type = 'file'
+  input.accept = 'image/*'
+  input.onchange = () => {
+    if (input.files?.[0]) {
+      const file = new FileReader()
+      file.readAsDataURL(input.files[0])
+      file.onload = e => {
+        const avatar = e.target?.result as string || ''
+        const name = prompt('请输入角色名')
+        if (name === null) return
+        if (character.custom[name]) {
+          alert('角色已存在')
+          return
+        }
+        const info = prompt('请输入角色签名') || ''
+        character.custom[name] = {
+          name,
+          avatar,
+          info,
+          custom: true
+        }
+      }
+    }
+  }
+  input.click()
+}
+
+const handelDelClick = (key: string) => {
+  delete character.custom[key]
+}
 </script>
 
 <style lang="stylus" scoped>
-.charater-wrapper
+.character-wrapper
   display flex
   justify-content center
   align-items center
@@ -52,20 +132,89 @@ const handelCharaterClick = (key: string) => {
   background rgba(0, 0, 0, 0.3)
   user-select none
 
-  .charater-list
+  .character-container
     display flex
-    flex-wrap wrap
+    flex-direction column
+    justify-content center
+    align-items center
     width 90%
     height 80%
+    padding 20px
     background #d5d5d5
     box-shadow 0 0 20px 5px rgba(0, 0, 0, 0.3)
     cursor default
 
-    .charater
-      width 360px
-      height 360px
-      cursor pointer
+    .character-box
+      overflow overlay
+      width 100%
+      height 100%
+      padding 10px
 
-      img
-        width 100%
+      .character-title
+        font-size 60px
+        font-weight bold
+        margin-bottom 25px
+        padding-bottom 20px
+        border-bottom 1px solid
+
+      .character-list
+        display flex
+        flex-wrap wrap
+
+        .character
+          position relative
+          margin 10px
+          width 340px
+          cursor pointer
+
+          .avatar
+            width 340px
+            height 340px
+
+            img
+              width 100%
+
+          .name, .info
+            width 80%
+            overflow hidden
+            white-space nowrap
+            text-overflow ellipsis
+
+          .name
+            font-size 40px
+
+          .info
+            font-size 30px
+            color #6a6a6a
+
+          &:hover
+            .del
+              opacity 1
+
+        .add
+          box-sizing border-box
+          width 340px
+          height 340px
+          display flex
+          justify-content center
+          align-items center
+          flex-direction column
+          border 5px solid #afafaf
+          cursor pointer
+
+.del
+  display flex
+  align-items center
+  justify-content center
+  position absolute
+  right 0
+  bottom 10px
+  width 80px
+  height 80px
+  font-size 50px
+  opacity 0
+  cursor pointer
+
+  &:hover
+    opacity 1
 </style>

@@ -8,10 +8,7 @@
       @click="handelItemClick"
     >
       <div class="avatar">
-        <img
-          :src="avatar[title || ''] || require('@/assets/images/群聊.jpg')"
-          alt=""
-        />
+        <img :src="avatarUrl" alt="" />
       </div>
       <div class="name">{{ title || "未命名短信" }}</div>
       <svg
@@ -61,9 +58,10 @@
 </template>
 
 <script lang="ts" setup>
-import { avatar } from '@/assets/scripts/avatar'
+import { getAvatar } from '@/assets/scripts/avatar'
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
+import { computed } from '@vue/reactivity'
 
 const props = defineProps<{
   title?: string
@@ -100,6 +98,14 @@ const handelDelClick = (index: number) => {
     message.list.splice(id, 1)
   }
 }
+
+const avatarUrl = computed(() => {
+  if (props.title) {
+    return getAvatar(props.title) || require('@/assets/images/群聊.jpg')
+  } else {
+    return require('@/assets/images/群聊.jpg')
+  }
+})
 </script>
 
 <style lang="stylus" scoped>

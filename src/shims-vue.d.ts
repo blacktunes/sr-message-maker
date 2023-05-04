@@ -8,14 +8,22 @@ declare module '*.vue' {
 interface Message {
   key: string
   name: string
+  avatar: string
   text: string
   img?: string
+  notice?: boolean
 }
 
 interface MessageItem {
   time: number
   id: number
   title?: string
-  info?: string
   list: Message[]
+}
+
+interface Character {
+  name: string
+  avatar: string
+  info?: string
+  custom?: boolean
 }
