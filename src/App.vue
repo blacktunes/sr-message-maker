@@ -16,6 +16,15 @@
       <MessageContent />
       <CharacterSelect />
       <NameInput />
+      <div class="link">
+        <a href="https://github.com/blacktunes/sr-message-maker" target="_blank"
+          >Github</a
+        >
+        <span>·</span>
+        <a href="https://space.bilibili.com/1384118" target="_blank"
+          >BiliBili</a
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -58,7 +67,6 @@ onMounted(() => {
 
 <style lang="stylus" scoped>
 .main
-  overflow hidden
   position absolute
   top 0
   right 0
@@ -83,6 +91,24 @@ onMounted(() => {
       background url('https://patchwiki.biligame.com/images/sr/8/8e/2ywvn145o3txkmqwhhtt884nb5mjfh2.jpg')
       background-size 100%
       filter blur(30px)
+
+    .link
+      position absolute
+      bottom -80px
+      display flex
+      width 100%
+      justify-content center
+
+      a, span
+        color #666
+        font-size 50px
+        user-select none
+
+      a
+        text-decoration none
+
+      span
+        margin 0 20px
 
     .icon
       position absolute
