@@ -54,7 +54,7 @@ const list = computed(() => {
         temp[index].list.sort((a, b) => b.time - a.time)
       } else {
         temp.unshift({
-          title: name[0],
+          title: item.title || name[0],
           time: item.time,
           list: [item]
         })

@@ -100,6 +100,7 @@ const handelDelClick = (index: number) => {
 }
 
 const avatarUrl = computed(() => {
+  if (props.title === '星穹列车一家人') return require('@/assets/images/一家人.jpg')
   if (props.title) {
     return getAvatar(props.title) || require('@/assets/images/群聊.jpg')
   } else {

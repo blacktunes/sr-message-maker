@@ -121,6 +121,7 @@ const handelDelClick = (key: string) => {
 
 <style lang="stylus" scoped>
 .character-wrapper
+  z-index 99
   display flex
   justify-content center
   align-items center

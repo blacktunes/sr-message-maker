@@ -2,12 +2,11 @@
   <template v-if="setting.index">
     <div class="message-wrapper">
       <div class="message-box" ref="messageDom">
+        <div class="circle">
+          <div></div>
+        </div>
         <div class="header">
-          <div
-            class="title"
-            :contenteditable="names.length !== 1"
-            @input="updateTitle($event)"
-          >
+          <div class="title" contenteditable @input="updateTitle($event)">
             {{ title }}
           </div>
           <div class="info">{{ info }}</div>
@@ -223,17 +222,23 @@ const names = computed(() => {
   return name
 })
 
+const customTitle = computed(() => {
+  if (message.list[index.value].title) return message.list[index.value].title
+  return undefined
+})
+
 const title = computed(() => {
   if (index.value === -1) return ''
 
+  if (customTitle.value) return customTitle.value
   if (names.value.length === 1) return names.value[0]
-  if (message.list[index.value].title) return message.list[index.value].title
   if (names.value.length > 1) return `${names.value.join('、')}、${setting.name}的群聊`
   return '未命名短信'
 })
 
 const info = computed(() => {
-  if (index.value === -1) return undefined
+  if (index.value === -1) return
+  if (customTitle.value) return
 
   if (names.value.length === 1) {
     let info
@@ -388,7 +393,7 @@ $width = 2000px
     bottom -15px
     width 100%
     height 100%
-    border 5px solid #595556
+    border 5px solid rgba(180, 180, 180, 0.5)
     border-top none
     border-right none
     pointer-events none
@@ -402,15 +407,57 @@ $width = 2000px
     box-shadow 0 0 20px 5px rgba(0, 0, 0, 0.3)
     border-radius 0 50px 0 0
 
+    &:before
+      content ''
+      position absolute
+      box-sizing border-box
+      left 15px
+      top 0
+      width 0
+      height 350px
+      border-left 5px solid rgba(180, 180, 180, 0.5)
+      pointer-events none
+
+    &:after
+      content ''
+      position absolute
+      box-sizing border-box
+      left -15px
+      top 15px
+      width 350px
+      height 0
+      border-top 5px solid rgba(180, 180, 180, 0.5)
+      pointer-events none
+
+    .circle
+      overflow hidden
+      position absolute
+      box-sizing border-box
+      width 150px
+      height 150px
+      pointer-events none
+
+      div
+        z-index 1
+        border 5px solid rgba(180, 180, 180, 0.5)
+        position absolute
+        top -45px
+        left -40px
+        width 120%
+        height 120%
+        border-radius 50%
+
     .header
+      z-index 2
       display flex
       flex-direction column
       justify-content center
       box-sizing border-box
       width 100%
       height 185px
-      border-bottom 4px solid #aeaeae
       padding 0 70px
+      border-bottom 5px solid rgba(150, 150, 150, 0.5)
+      box-shadow 0px 40px 20px -20px rgba(210, 210, 210, 0.5)
 
       .title
         color #121212
@@ -433,8 +480,11 @@ $width = 2000px
       flex 1
       display flex
       flex-direction column
-      margin 30px 60px 30px 50px
-      padding-right 50px
+      margin 0 60px 0 50px
+      padding 30px 50px 30px 0
+
+      &::-webkit-scrollbar-track
+        margin 30px 0
 
       .notice
         display flex
@@ -442,7 +492,7 @@ $width = 2000px
         align-items center
         width 100%
         height 60px
-        padding 90px 0 20px 0
+        padding 80px 0 20px 0
         font-size 30px
         color #949595
 
@@ -484,7 +534,7 @@ $width = 2000px
         display flex
         height fit-content
         width 100%
-        margin 15px 0
+        padding 15px 0
 
         &:hover
           background #ddd

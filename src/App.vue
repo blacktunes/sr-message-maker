@@ -40,7 +40,7 @@ const width = 3200
 const height = 1440
 const scale = ref(1)
 const realWidth = computed(() => `${width * scale.value}px`)
-const realHeight = computed(() => `${height * scale.value}px`)
+const realHeight = computed(() => `${(height + 75) * scale.value}px`)
 
 const h = ref(1)
 const v = ref(1)
@@ -67,6 +67,7 @@ onMounted(() => {
 
 <style lang="stylus" scoped>
 .main
+  overflow hidden
   position absolute
   top 0
   right 0
