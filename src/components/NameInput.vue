@@ -1,7 +1,7 @@
 <template>
   <div class="name-wrapper">
     <span>ID:</span>
-    <div class="name" contenteditable @input="updateName($event)">
+    <div class="name" contenteditable @input="updateName($event)" title="修改角色名">
       {{ setting.name }}
     </div>
   </div>

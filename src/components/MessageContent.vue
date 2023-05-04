@@ -27,8 +27,8 @@
                 <span contenteditable @input="updateText($event, index)">
                   {{ element.text }}
                 </span>
-                <div class="del-wrapper">
-                  <div class="notice-del" @click="handelDelClick(index)">×</div>
+                <div>
+                  <div @click="handelDelClick(index)">×</div>
                 </div>
               </div>
               <div
@@ -442,15 +442,15 @@ $width = 2000px
         align-items center
         width 100%
         height 60px
-        padding 90px 0
+        padding 90px 0 20px 0
         font-size 30px
         color #949595
 
         &:hover
           background #ddd
 
-          .del-wrapper
-            .notice-del
+          div
+            div
               opacity 1
 
         span
@@ -460,11 +460,11 @@ $width = 2000px
           white-space nowrap
           text-overflow ellipsis
 
-        .del-wrapper
+        div
           position relative
           height 100%
 
-          .notice-del
+          div
             display flex
             align-items center
             justify-content center
