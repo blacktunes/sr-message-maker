@@ -50,7 +50,11 @@
                     <div class="del" @click="handelDelClick(index)">×</div>
                   </div>
                   <div class="img" v-if="element.img">
-                    <img :src="element.img" alt="" />
+                    <img
+                      :src="element.img"
+                      alt=""
+                      @click.stop="handelImageClick(index)"
+                    />
                   </div>
                   <div
                     class="text"
@@ -78,7 +82,7 @@
         v-model="input.input"
         @keydown.enter="handelAddClick()"
       />
-      <div class="btn" @click="handelImageClick" title="发送图片">
+      <div class="btn" @click="handelImageAddClick" title="发送图片">
         <svg
           viewBox="0 0 1024 1024"
           version="1.1"
@@ -276,12 +280,29 @@ const handelSelectClick = () => {
   input.select = true
 }
 
+const handelImageClick = (key: number) => {
+  const el = document.createElement('input')
+  el.type = 'file'
+  el.accept = 'image/*'
+  el.onchange = () => {
+    if (el.files?.[0]) {
+      const file = new FileReader()
+      file.readAsDataURL(el.files[0])
+      file.onload = e => {
+        message.list[index.value].list[key].text = e.target?.result as string
+        message.list[index.value].time = Date.now()
+      }
+    }
+  }
+  el.click()
+}
+
 const handelAvatarClick = (key: number) => {
   input.index = [index.value, key]
   input.select = true
 }
 
-const handelImageClick = () => {
+const handelImageAddClick = () => {
   const el = document.createElement('input')
   el.type = 'file'
   el.accept = 'image/*'
@@ -588,6 +609,7 @@ $width = 2000px
 
             img
               width 100%
+              cursor pointer
 
           .text
             background #ebebeb
