@@ -27,6 +27,22 @@
       </div>
     </div>
   </div>
+  <transition name="fade">
+    <div
+      class="horizontal"
+      v-if="horizontalTip && shouldHorizontal"
+      @click="horizontalTip = false"
+    >
+      <div class="bg"></div>
+      <div class="item">
+        <div class="img">
+          <img src="@/assets/images/horizontal.png" />
+        </div>
+        <div>推荐横屏使用</div>
+        <div style="font-size: 10px">(点击屏幕关闭提示)</div>
+      </div>
+    </div>
+  </transition>
 </template>
 
 <script lang="ts" setup>
@@ -53,6 +69,9 @@ const setSize = () => {
   scale.value = Math.min(h.value, v.value)
 }
 setSize()
+
+const horizontalTip = ref(true)
+const shouldHorizontal = computed(() => windowWidth.value <= 550 && v.value > h.value)
 
 window.onresize = () => {
   setSize()
@@ -123,6 +142,41 @@ onMounted(() => {
         margin 0 0 15px 20px
         font-size 46px
         color #ddd
+
+.horizontal
+  position fixed
+  top 0
+  left 0
+  width 100vw
+  height 100vh
+  display flex
+  justify-content center
+  align-items center
+
+  .bg
+    z-index 5
+    position absolute
+    top 0
+    left 0
+    width 100%
+    height 100%
+    background rgba(255, 255, 255, 0.8)
+
+  .item
+    z-index 9
+    display flex
+    flex-direction column
+    justify-content center
+    align-items center
+    width 100%
+    color #8a8a8a
+    user-select none
+
+    .img
+      width 25%
+
+      img
+        width 100%
 </style>
 
 <style lang="stylus">
