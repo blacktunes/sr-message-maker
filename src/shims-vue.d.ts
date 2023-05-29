@@ -12,6 +12,7 @@ interface Message {
   text: string
   img?: string
   notice?: boolean
+  loading?: boolean
 }
 
 interface MessageItem {

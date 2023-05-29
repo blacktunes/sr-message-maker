@@ -1,5 +1,12 @@
 <template>
   <template v-if="setting.index">
+    <Teleport to="body">
+      <div
+        class="mask"
+        v-if="autoPlaySetting.flag"
+        @click="handelMaskClick"
+      ></div>
+    </Teleport>
     <div class="message-wrapper">
       <div class="message-box" ref="messageDom">
         <div class="circle">
@@ -13,9 +20,7 @@
         </div>
         <div class="message-list" ref="messageListDom">
           <draggable
-            tag="transition-group"
-            :component-data="{ name: 'list', type: 'transition' }"
-            v-model="message.list[index].list"
+            v-model="dataList"
             :item-key="(item: any) => 'message' + message.list[index].list.indexOf(item)"
           >
             <template
@@ -37,33 +42,44 @@
                   right: element.key === '开拓者',
                 }"
               >
-                <div class="avatar" @click="handelAvatarClick(index)">
-                  <img :src="element.avatar" alt="" />
-                </div>
+                <transition name="avatar" appear>
+                  <div class="avatar" @click="handelAvatarClick(index)">
+                    <img :src="element.avatar" alt="" />
+                  </div>
+                </transition>
                 <div class="message-content">
-                  <div class="name">
-                    <span>
-                      {{
-                        element.key === "开拓者" ? setting.name : element.name
-                      }}
-                    </span>
-                    <div class="del" @click="handelDelClick(index)">×</div>
-                  </div>
-                  <div class="img" v-if="element.img">
-                    <img
-                      :src="element.img"
-                      alt=""
-                      @click.stop="handelImageClick(index)"
-                    />
-                  </div>
-                  <div
-                    class="text"
-                    v-else
-                    contenteditable
-                    @input="updateText($event, index)"
-                  >
-                    {{ element.text }}
-                  </div>
+                  <transition name="message" appear>
+                    <div class="name">
+                      <span>
+                        {{
+                          element.key === "开拓者" ? setting.name : element.name
+                        }}
+                      </span>
+                      <div class="del" @click="handelDelClick(index)">×</div>
+                    </div>
+                  </transition>
+                  <transition name="message" appear>
+                    <div v-if="element.loading" class="loading">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </div>
+                    <div class="img" v-else-if="element.img">
+                      <img
+                        :src="element.img"
+                        alt=""
+                        @click.stop="handelImageClick(index)"
+                      />
+                    </div>
+                    <div
+                      class="text"
+                      v-else
+                      contenteditable
+                      @input="updateText($event, index)"
+                    >
+                      {{ element.text }}
+                    </div>
+                  </transition>
                 </div>
               </div>
             </template>
@@ -183,18 +199,120 @@
       </div>
       <span>保存对话</span>
     </div>
+    <div class="btn" v-if="!autoPlaySetting.flag">
+      <div class="icon" @click="handelAutoPlayClick">
+        <svg
+          style="margin-left: 5px"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          width="60"
+          height="60"
+        >
+          <path
+            d="M213.333333 896V128a42.666667 42.666667 0 0 1 65.706667-35.882667l597.333333 384a42.666667 42.666667 0 0 1 0 71.765334l-597.333333 384A42.666667 42.666667 0 0 1 213.333333 896z m85.333334-78.165333L774.4 512 298.666667 206.165333v611.669334z"
+            fill="#161616"
+          ></path>
+        </svg>
+      </div>
+      <span>自动播放</span>
+    </div>
+    <div class="btn" v-else>
+      <div class="icon">
+        <svg
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          width="60"
+          height="60"
+        >
+          <path
+            d="M160 160v704h704V160H160z m624 624H240V240h544v544z"
+            fill="#161616"
+          ></path>
+        </svg>
+      </div>
+      <span>点击停止</span>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { getAvatar } from '@/assets/scripts/avatar'
 import _screenshot from '@/assets/scripts/screenshot'
 import { character } from '@/store/character'
 import { input } from '@/store/input'
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
 import draggable from '@marshallswain/vuedraggable'
-import { computed, nextTick, ref, watch } from 'vue'
-import { getAvatar } from '@/assets/scripts/avatar'
+import { computed, nextTick, reactive, ref, watch } from 'vue'
+
+// 要显示的数据
+const dataList = computed({
+  get: () => autoPlaySetting.flag ? autoPlaySetting.list : message.list[index.value].list,
+  set: (val) => {
+    if (!autoPlaySetting.flag) {
+      message.list[index.value].list = val
+    }
+  }
+})
+
+// 自动播放
+const autoPlaySetting = reactive<{
+  flag: boolean
+  list: Message[]
+}>({
+  flag: false,
+  list: []
+})
+
+const handelAutoPlayClick = () => {
+  autoPlaySetting.list = []
+  autoPlaySetting.flag = true
+  autoPlay(0, true)
+}
+
+const autoPlay = (i: number, loading: boolean) => {
+  if (!autoPlaySetting.flag) return
+
+  if (message.list[index.value].list[i].key === '开拓者' || message.list[index.value].list[i].notice) {
+    loading = false
+    autoPlaySetting.list.push(message.list[index.value].list[i])
+  } else {
+    if (loading) {
+      autoPlaySetting.list.push({
+        ...message.list[index.value].list[i],
+        loading: true
+      })
+    } else {
+      autoPlaySetting.list[i].loading = false
+    }
+  }
+
+  nextTick(() => {
+    scrollToBottom()
+
+    if (loading) {
+      setTimeout(() => {
+        autoPlay(i, false)
+      }, 1000)
+    } else {
+      if (message.list[index.value].list[i + 1]) {
+        setTimeout(() => {
+          autoPlay(i + 1, true)
+        }, 1000)
+      } else {
+        autoPlaySetting.flag = false
+      }
+    }
+  })
+}
+
+const handelMaskClick = () => {
+  autoPlaySetting.flag = false
+  autoPlaySetting.list = []
+  scrollToBottom()
+}
 
 const messageDom = ref<HTMLElement | null>(null)
 const messageListDom = ref<HTMLElement | null>(null)
@@ -603,8 +721,27 @@ $width = 2000px
               &:hover
                 opacity 1
 
+          .loading
+            display inline-flex
+            padding 35px 0 35px 10px
+
+            div
+              width 25px
+              height 25px
+              margin 0 3px
+              background #222
+              border-radius 50%
+              animation circle 2s linear infinite
+              opacity 0
+
+            & div:nth-child(2)
+              animation-delay 0.2s
+
+            & div:nth-child(3)
+              animation-delay 0.4s
+
           .img
-            margin-top 30px
+            margin-top 15px
             max-width 600px
 
             img
@@ -614,7 +751,7 @@ $width = 2000px
           .text
             background #ebebeb
             padding 35px
-            margin-top 30px
+            margin-top 15px
             width fit-content
             font-size 45px
             color #121212
@@ -715,12 +852,46 @@ $width = 2000px
       font-size 32px
       font-weight bold
 
-.list-enter-active
-  transition all 0.2s
+.mask
+  z-index 999
+  position fixed
+  width 100%
+  height 100%
 
-.list-enter-from
-  transform scaleY(0)
+.avatar-enter-active
+  animation avatar 0.5s ease
 
-.list-enter-to
-  transform scaleY(1)
+@keyframes avatar
+  0%
+    transform translateY(50%)
+    opacity 0
+
+  80%
+    transform translateY(-5%)
+    opacity 1
+
+  100%
+    transform translateY(0)
+
+.message-enter-active
+  transition all 0.5s
+
+.message-enter-from
+  opacity 0
+
+.message-enter-to
+  opacity 1
+
+@keyframes circle
+  0%
+    opacity 0
+
+  33%
+    opacity 1
+
+  66%
+    opacity 0
+
+  100%
+    opacity 0
 </style>
