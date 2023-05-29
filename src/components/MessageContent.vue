@@ -157,8 +157,8 @@
     </div>
   </template>
   <div class="btn-list">
-    <div class="btn">
-      <div class="icon" @click="handelMessageAddClick">
+    <div class="btn" @click="handelMessageAddClick">
+      <div class="icon">
         <svg
           viewBox="0 0 1024 1024"
           version="1.1"
@@ -178,8 +178,8 @@
       </div>
       <span>发短信</span>
     </div>
-    <div class="btn" v-if="setting.index">
-      <div class="icon" @click="screenshot">
+    <div class="btn" v-if="setting.index" @click="screenshot">
+      <div class="icon">
         <svg
           viewBox="0 0 1024 1024"
           version="1.1"
@@ -199,8 +199,8 @@
       </div>
       <span>保存对话</span>
     </div>
-    <div class="btn" v-if="!autoPlaySetting.flag">
-      <div class="icon" @click="handelAutoPlayClick">
+    <div class="btn" v-if="setting.index && !autoPlaySetting.flag" @click="handelAutoPlayClick">
+      <div class="icon">
         <svg
           style="margin-left: 5px"
           viewBox="0 0 1024 1024"
@@ -217,7 +217,7 @@
       </div>
       <span>自动播放</span>
     </div>
-    <div class="btn" v-else>
+    <div class="btn" v-if="setting.index && autoPlaySetting.flag">
       <div class="icon">
         <svg
           viewBox="0 0 1024 1024"
@@ -836,9 +836,9 @@ $width = 2000px
     align-items center
     user-select none
     margin-right 40px
+    cursor pointer
 
     .icon
-      cursor pointer
       background #e3e3e3
       border-radius 50%
       width 80px
@@ -857,6 +857,7 @@ $width = 2000px
   position fixed
   width 100%
   height 100%
+  cursor pointer
 
 .avatar-enter-active
   animation avatar 0.5s ease
