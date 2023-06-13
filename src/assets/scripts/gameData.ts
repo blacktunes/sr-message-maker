@@ -9,7 +9,7 @@ export const gameCharacter: { [name: string]: Character } = {
     name: '银狼',
     avatar: 'https://patchwiki.biligame.com/images/sr/5/5e/r7w07iajvrc1u9tb50p69vfr9jiwu2x.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/06/06/75216984/f46d36d98046af1f1826281157a2c03a_112340971313076076.png?x-oss-process=image/quality,q_75/resize,s_280',
-    info: ''
+    info: '不会做游戏就不要做'
   },
   希儿: {
     name: '希儿',
@@ -63,7 +63,7 @@ export const gameCharacter: { [name: string]: Character } = {
     name: '杰帕德',
     avatar: 'https://patchwiki.biligame.com/images/sr/0/03/7ov0bzo5i63usvzxt5n7087z4lynce3.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/25/288909604/7d7ebb840d47c8f6cdf121ae0ddf5ada_7197802014505535697.png?x-oss-process=image/quality,q_75/resize,s_280',
-    info: ''
+    info: '执勤回复较慢，请见谅'
   },
   三月七: {
     name: '三月七',
@@ -81,7 +81,7 @@ export const gameCharacter: { [name: string]: Character } = {
     name: '青雀',
     avatar: 'https://patchwiki.biligame.com/images/sr/3/33/pslaj26ydt1fbwo0b6v4vntsx6p277n.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/25/289862258/2b3abc5a3dbed9d233e61c11f659473c_3453594130231722833.png?x-oss-process=image/quality,q_75/resize,s_280',
-    info: ''
+    info: '工作可以，别耽误我打牌'
   },
   停云: {
     name: '停云',
@@ -111,7 +111,7 @@ export const gameCharacter: { [name: string]: Character } = {
     name: '娜塔莎',
     avatar: 'https://patchwiki.biligame.com/images/sr/4/4b/1xc2p3473ga5684ij5efwhh3wu2v8rf.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/22/288909604/98045ee394641ca42188a9c6b5ae186e_7769781659310285488.png?x-oss-process=image/quality,q_75/resize,s_280',
-    info: ''
+    info: '机械聚落巡诊，切勿跑空'
   },
   桑博: {
     name: '桑博',
@@ -135,7 +135,7 @@ export const gameCharacter: { [name: string]: Character } = {
     name: '佩拉',
     avatar: 'https://patchwiki.biligame.com/images/sr/thumb/a/a4/rhjc3ytba6ayywljljwmkeps0x0np3y.png/180px-%E4%BD%A9%E6%8B%89%E5%A4%B4%E5%83%8F.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/289862258/7099a63b46954eedc038bffc991a0437_5445770148856337075.png?x-oss-process=image/quality,q_75/resize,s_280',
-    info: ''
+    info: '情报提供请备注姓名'
   },
   素裳: {
     name: '素裳',

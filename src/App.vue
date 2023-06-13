@@ -51,6 +51,7 @@ import CharacterSelect from './components/CharacterSelect.vue'
 import MessageContent from './components/MessageContent.vue'
 import MessageList from './components/MessageList.vue'
 import NameInput from './components/NameInput.vue'
+import { input } from './store/input'
 
 const width = 3200
 const height = 1440
@@ -76,6 +77,16 @@ const shouldHorizontal = computed(() => windowWidth.value <= 550 && v.value > h.
 window.onresize = () => {
   setSize()
 }
+
+document.addEventListener('click', e => {
+  if ((e.target as HTMLElement).tagName.toLowerCase() === 'a') return
+  if (input.emoticon) {
+    input.emoticon = false
+  }
+  if (input.select) {
+    input.select = false
+  }
+})
 
 const ready = ref(false)
 onMounted(() => {
@@ -204,5 +215,4 @@ body
 
 .fade-enter-to, .fade-leave-from
   opacity 1
-
 </style>
