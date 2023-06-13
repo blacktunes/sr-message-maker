@@ -12,6 +12,7 @@ interface Message {
   text: string
   img?: string
   notice?: boolean
+  emoticon?: string
   loading?: boolean
 }
 

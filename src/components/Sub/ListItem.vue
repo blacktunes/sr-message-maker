@@ -73,6 +73,9 @@ const getLastMsg = (index: number) => {
     return '暂无消息'
   }
   if (props.list[index].list[props.list[index].list.length - 1].img) {
+    if (props.list[index].list[props.list[index].list.length - 1].emoticon) {
+      return `[${props.list[index].list[props.list[index].list.length - 1].emoticon}]`
+    }
     return '[图片]'
   }
   return props.list[index].list[props.list[index].list.length - 1].text || '暂无消息'

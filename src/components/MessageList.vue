@@ -15,7 +15,7 @@
 <script lang="ts" setup>
 import { message } from '@/store/message'
 import { computed } from 'vue'
-import ListItem from './List/ListItem.vue'
+import ListItem from './Sub/ListItem.vue'
 import { setting } from '@/store/setting'
 
 const list = computed(() => {

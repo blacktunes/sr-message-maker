@@ -64,7 +64,11 @@
                       <div></div>
                       <div></div>
                     </div>
-                    <div class="img" v-else-if="element.img">
+                    <div
+                      class="img"
+                      v-else-if="element.img"
+                      :style="{ width: element.emoticon ? '350px' : '' }"
+                    >
                       <img
                         :src="element.img"
                         alt=""
@@ -87,6 +91,7 @@
         </div>
         <div class="bottom"></div>
       </div>
+      <EmoticonInput @emoticon="addEmoticon" />
     </div>
     <div class="menu">
       <div class="btn" @click="handelSelectClick" title="选择角色">
@@ -114,6 +119,32 @@
           <path
             d="M304 456c48.6 0 88-39.4 88-88s-39.4-88-88-88-88 39.4-88 88 39.4 88 88 88z m0-116c15.5 0 28 12.5 28 28s-12.5 28-28 28-28-12.5-28-28 12.5-28 28-28z"
             fill="#707070"
+          ></path>
+        </svg>
+      </div>
+      <div class="btn" title="发送表情" @click.stop="handelEmoticonClick">
+        <svg
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          width="70"
+          height="70"
+        >
+          <path
+            d="M512 0C229.2 0 0 229.2 0 512s229.2 512 512 512 512-229.2 512-512S794.8 0 512 0z m0 960C265 960 64 759 64 512S265 64 512 64s448 201 448 448-201 448-448 448z"
+            fill="#575B66"
+          ></path>
+          <path
+            d="M320 405.3m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z"
+            fill="#575B66"
+          ></path>
+          <path
+            d="M704 405.3m-64 0a64 64 0 1 0 128 0 64 64 0 1 0-128 0Z"
+            fill="#575B66"
+          ></path>
+          <path
+            d="M512 810.7c117.8 0 213.3-95.5 213.3-213.3H298.7c0 117.8 95.5 213.3 213.3 213.3z"
+            fill="#575B66"
           ></path>
         </svg>
       </div>
@@ -199,7 +230,11 @@
       </div>
       <span>保存对话</span>
     </div>
-    <div class="btn" v-if="setting.index && !autoPlaySetting.flag" @click="handelAutoPlayClick">
+    <div
+      class="btn"
+      v-if="setting.index && !autoPlaySetting.flag"
+      @click="handelAutoPlayClick"
+    >
       <div class="icon">
         <svg
           style="margin-left: 5px"
@@ -246,6 +281,7 @@ import { message } from '@/store/message'
 import { setting } from '@/store/setting'
 import draggable from '@marshallswain/vuedraggable'
 import { computed, nextTick, reactive, ref, watch } from 'vue'
+import EmoticonInput from './Sub/EmoticonInput.vue'
 
 // 要显示的数据
 const dataList = computed({
@@ -407,7 +443,8 @@ const handelImageClick = (key: number) => {
       const file = new FileReader()
       file.readAsDataURL(el.files[0])
       file.onload = e => {
-        message.list[index.value].list[key].text = e.target?.result as string
+        delete message.list[index.value].list[key].emoticon
+        message.list[index.value].list[key].img = e.target?.result as string
         message.list[index.value].time = Date.now()
       }
     }
@@ -429,16 +466,42 @@ const handelImageAddClick = () => {
       const file = new FileReader()
       file.readAsDataURL(el.files[0])
       file.onload = e => {
-        handelAddClick(e.target?.result as string)
+        message.list[index.value].list.push({
+          key: input.character,
+          name: input.character,
+          avatar: getAvatar(input.character),
+          text: '',
+          img: e.target?.result as string
+        })
+        message.list[index.value].time = Date.now()
+        scrollToBottom()
       }
     }
   }
   el.click()
 }
 
+const handelEmoticonClick = () => {
+  input.emoticon = !input.emoticon
+}
+
+const addEmoticon = (url: string, name: string) => {
+  message.list[index.value].list.push({
+    key: input.character,
+    name: input.character,
+    avatar: getAvatar(input.character),
+    text: '',
+    img: url,
+    emoticon: name
+  })
+  message.list[index.value].time = Date.now()
+  input.emoticon = false
+  scrollToBottom()
+}
+
 const handelNoticeClick = () => {
   message.list[index.value].list.push({
-    key: '开拓者',
+    key: '',
     name: '',
     avatar: '',
     text: input.input || '愿此行，终抵群星',
