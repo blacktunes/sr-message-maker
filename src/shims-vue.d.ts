@@ -25,6 +25,8 @@ interface MessageItem {
 interface Character {
   name: string
   avatar: string
+  card: string
   info?: string
-  custom?: boolean
 }
+
+type CustomCharacter = Omit<Character, 'card'> & { custom: true }

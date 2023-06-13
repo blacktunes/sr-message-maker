@@ -1,117 +1,146 @@
 export const gameCharacter: { [name: string]: Character } = {
   开拓者: {
     name: '开拓者',
-    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/9/9d/socqzhovogcaurhikqi8bmppez7xgbn.png/60px-%E5%BC%80%E6%8B%93%E8%80%85-%E6%AF%81%E7%81%AD%E5%A4%B4%E5%83%8F.png',
+    avatar: 'https://patchwiki.biligame.com/images/sr/f/f4/aaeqzyk10vp6orjpunclv060rdre49c.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/1d351a764ae64aeed744296503bc6266_9196637429550074047.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: ''
   },
-  景元: {
-    name: '景元',
-    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/7/76/lpefcuvh9gfjtdzl6wmawud5xttjhmc.png/60px-%E6%99%AF%E5%85%83%E5%A4%B4%E5%83%8F.png',
-    info: ''
-  },
-  素裳: {
-    name: '素裳',
-    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/8/87/n7v209hum345c945ri82chie3eznvgs.png/60px-%E7%B4%A0%E8%A3%B3%E5%A4%B4%E5%83%8F.png',
-    info: ''
-  },
-  虎克: {
-    name: '虎克',
-    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/5/56/36jgn9n5geaymyj8oa6xk2ddr742e6m.png/60px-%E8%99%8E%E5%85%8B%E5%A4%B4%E5%83%8F.png',
-    info: '鼹鼠党！搏击俱乐部集合！'
-  },
-  停云: {
-    name: '停云',
-    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/8/8b/rpzk2d0m6xak2n8zdfrdsfb83j6g6c4.jpg/60px-%E5%81%9C%E4%BA%91%E5%A4%B4%E5%83%8F.jpg.png',
-    info: '有话好好说，不要吵架~'
-  },
-  瓦尔特: {
-    name: '瓦尔特',
-    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/4/45/f50frnxnzqgx3lrnqz2f4hjzrlqcfae.png/60px-%E7%93%A6%E5%B0%94%E7%89%B9%E5%A4%B4%E5%83%8F.png',
-    info: '列车组的各位，随时保持联系'
-  },
-  阿兰: {
-    name: '阿兰',
-    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/1/18/148pd2d35ftfz0rn22iu3pv39vzhd0a.png/60px-%E9%98%BF%E5%85%B0%E5%A4%B4%E5%83%8F.png',
-    info: '佩佩紧急联系人'
-  },
-  佩拉: {
-    name: '佩拉',
-    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/a/a4/rhjc3ytba6ayywljljwmkeps0x0np3y.png/60px-%E4%BD%A9%E6%8B%89%E5%A4%B4%E5%83%8F.png',
-    info: ''
-  },
-  彦卿: {
-    name: '彦卿',
-    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/7/77/cib5dma4hjmw0lld03q1a045pr072ey.png/60px-%E5%BD%A6%E5%8D%BF%E5%A4%B4%E5%83%8F.png',
-    info: ''
-  },
-  艾丝妲: {
-    name: '艾丝妲',
-    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/2/2b/7iarxakbkohbvt7zq75thkko9tb2xyv.png/60px-%E8%89%BE%E4%B8%9D%E5%A6%B2%E5%A4%B4%E5%83%8F.png',
-    info: '不能再买了…'
-  },
-  黑塔: {
-    name: '黑塔',
-    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/1/10/0nxd453fl9jm67heie9vjzbyeu4wzn6.png/60px-%E9%BB%91%E5%A1%94%E5%A4%B4%E5%83%8F.png',
-    info: '此号停用|商务联系：艾丝妲'
-  },
-  布洛妮娅: {
-    name: '布洛妮娅',
-    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/0/02/13zzf7p3j9y25i6vzpfywrreyyigk8k.png/60px-%E5%B8%83%E6%B4%9B%E5%A6%AE%E5%A8%85%E5%A4%B4%E5%83%8F.png',
-    info: '会议中'
-  },
-  桑博: {
-    name: '桑博',
-    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/7/71/ewaef9roe613lgrqz0cwmz7wui75ln9.png/60px-%E6%A1%91%E5%8D%9A%E5%A4%B4%E5%83%8F.png',
-    info: '古代遗物代理，有过验记录'
-  },
-  三月七: {
-    name: '三月七',
-    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/3/37/1onkwhuhwsu88n9hgwma5i7uskfo32x.png/60px-%E4%B8%89%E6%9C%88%E4%B8%83%E5%A4%B4%E5%83%8F.png',
-    info: '今天也是三月七~'
-  },
-  丹恒: {
-    name: '丹恒',
-    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/1/16/r7lbqq30n9x4tc9t84z0a1jru1wl8ho.png/60px-%E4%B8%B9%E6%81%92%E5%A4%B4%E5%83%8F.png',
-    info: '智库相关找我'
-  },
-  希露瓦: {
-    name: '希露瓦',
-    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/6/6f/r7quehglkqmz806zyt5o2zromgkxhet.png/60px-%E5%B8%8C%E9%9C%B2%E7%93%A6%E5%A4%B4%E5%83%8F.png',
-    info: '缺觉，缺灵感'
-  },
-  杰帕德: {
-    name: '杰帕德',
-    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/0/03/7ov0bzo5i63usvzxt5n7087z4lynce3.png/60px-%E6%9D%B0%E5%B8%95%E5%BE%B7%E5%A4%B4%E5%83%8F.png',
-    info: ''
-  },
-  白露: {
-    name: '白露',
-    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/7/71/pehh3rxcf1oxy0iq2srxdrhvpgn67n1.png/60px-%E7%99%BD%E9%9C%B2%E5%A4%B4%E5%83%8F.png',
+  银狼: {
+    name: '银狼',
+    avatar: 'https://patchwiki.biligame.com/images/sr/5/5e/r7w07iajvrc1u9tb50p69vfr9jiwu2x.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/06/06/75216984/f46d36d98046af1f1826281157a2c03a_112340971313076076.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: ''
   },
   希儿: {
     name: '希儿',
-    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/f/f4/gv7aarppc4h0n6dgkr05ufcubr2uqoe.png/60px-%E5%B8%8C%E5%84%BF%E5%A4%B4%E5%83%8F.png',
+    avatar: 'https://patchwiki.biligame.com/images/sr/f/f4/gv7aarppc4h0n6dgkr05ufcubr2uqoe.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/23/288909604/90322bba0235561a0da0c5b22d6edb3d_5700836084211407678.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: '有话直说！！'
   },
-  娜塔莎: {
-    name: '娜塔莎',
-    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/4/4b/1xc2p3473ga5684ij5efwhh3wu2v8rf.png/60px-%E5%A8%9C%E5%A1%94%E8%8E%8E%E5%A4%B4%E5%83%8F.png',
+  白露: {
+    name: '白露',
+    avatar: 'https://patchwiki.biligame.com/images/sr/7/71/pehh3rxcf1oxy0iq2srxdrhvpgn67n1.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/159305577/c684357d96e8098e898e4ee6665fd01c_7826766061944986617.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: ''
   },
   姬子: {
     name: '姬子',
-    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/b/b7/cx1pu6pl7h4z5b5e86fxmb2gfyqewr9.png/60px-%E5%A7%AC%E5%AD%90%E5%A4%B4%E5%83%8F.png',
+    avatar: 'https://patchwiki.biligame.com/images/sr/b/b7/cx1pu6pl7h4z5b5e86fxmb2gfyqewr9.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/4d5ac247ca1460b34b3f73244afbb0f6_8390343856757982675.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: '可以不喝水，但不能没咖啡'
   },
-  青雀: {
-    name: '青雀',
-    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/3/33/pslaj26ydt1fbwo0b6v4vntsx6p277n.png/60px-%E9%9D%92%E9%9B%80%E5%A4%B4%E5%83%8F.png',
-    info: ''
+  布洛妮娅: {
+    name: '布洛妮娅',
+    avatar: 'https://patchwiki.biligame.com/images/sr/0/02/13zzf7p3j9y25i6vzpfywrreyyigk8k.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/b6419ce18c6fbfbbbaffa7dd68d676f5_767729707412690608.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '会议中'
   },
   克拉拉: {
     name: '克拉拉',
-    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/3/30/mtqvfpbwq1i3wean5yafn1uxuc8y1q5.png/60px-%E5%85%8B%E6%8B%89%E6%8B%89%E5%A4%B4%E5%83%8F.png',
+    avatar: 'https://patchwiki.biligame.com/images/sr/3/30/mtqvfpbwq1i3wean5yafn1uxuc8y1q5.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/827cb6eecdd28086ce68a1f39a9a0e09_6530506214724480230.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: '想和大家去野餐(>▽<)'
+  },
+  景元: {
+    name: '景元',
+    avatar: 'https://patchwiki.biligame.com/images/sr/7/76/lpefcuvh9gfjtdzl6wmawud5xttjhmc.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/95a06162f7df44a2b068e66939268b10_2067278512630665501.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: ''
+  },
+  彦卿: {
+    name: '彦卿',
+    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/7/77/cib5dma4hjmw0lld03q1a045pr072ey.png/180px-%E5%BD%A6%E5%8D%BF%E5%A4%B4%E5%83%8F.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/cc600801af1f864cfb32bbfb01d9d867_5952117643253221767.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: ''
+  },
+  瓦尔特: {
+    name: '瓦尔特',
+    avatar: 'https://patchwiki.biligame.com/images/sr/4/45/f50frnxnzqgx3lrnqz2f4hjzrlqcfae.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/d5a01ddc0494595417fee74fa3285b56_8110023215605946848.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '列车组的各位，随时保持联系'
+  },
+  杰帕德: {
+    name: '杰帕德',
+    avatar: 'https://patchwiki.biligame.com/images/sr/0/03/7ov0bzo5i63usvzxt5n7087z4lynce3.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/25/288909604/7d7ebb840d47c8f6cdf121ae0ddf5ada_7197802014505535697.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: ''
+  },
+  三月七: {
+    name: '三月七',
+    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/3/37/1onkwhuhwsu88n9hgwma5i7uskfo32x.png/180px-%E4%B8%89%E6%9C%88%E4%B8%83%E5%A4%B4%E5%83%8F.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/6a4bd3468e9dbd577f26dbf8757f0b03_924968634176225322.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '今天也是三月七~'
+  },
+  丹恒: {
+    name: '丹恒',
+    avatar: 'https://patchwiki.biligame.com/images/sr/1/16/r7lbqq30n9x4tc9t84z0a1jru1wl8ho.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/159305577/e4a8703a06b4c42d692133c17b2cdc27_5408538855331042463.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '智库相关找我'
+  },
+  青雀: {
+    name: '青雀',
+    avatar: 'https://patchwiki.biligame.com/images/sr/3/33/pslaj26ydt1fbwo0b6v4vntsx6p277n.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/25/289862258/2b3abc5a3dbed9d233e61c11f659473c_3453594130231722833.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: ''
+  },
+  停云: {
+    name: '停云',
+    avatar: 'https://patchwiki.biligame.com/images/sr/8/8b/rpzk2d0m6xak2n8zdfrdsfb83j6g6c4.jpg',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/25/289862258/03d149b04918d43c1af097ee73858444_5948029424202771419.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '有话好好说，不要吵架~'
+  },
+  黑塔: {
+    name: '黑塔',
+    avatar: 'https://patchwiki.biligame.com/images/sr/1/10/0nxd453fl9jm67heie9vjzbyeu4wzn6.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/159305577/2f3693ba8a48e4a81832dac8344a2d14_1221820779792422378.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '此号停用|商务联系：艾丝妲'
+  },
+  艾丝妲: {
+    name: '艾丝妲',
+    avatar: 'https://patchwiki.biligame.com/images/sr/2/2b/7iarxakbkohbvt7zq75thkko9tb2xyv.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/159305577/4022a164be9404b271a965ec786cbf26_7272957779066061269.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '不能再买了…'
+  },
+  希露瓦: {
+    name: '希露瓦',
+    avatar: 'https://patchwiki.biligame.com/images/sr/6/6f/r7quehglkqmz806zyt5o2zromgkxhet.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/159305577/e996982958ab237d46fd813099afbada_1034866961853716191.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '缺觉，缺灵感'
+  },
+  娜塔莎: {
+    name: '娜塔莎',
+    avatar: 'https://patchwiki.biligame.com/images/sr/4/4b/1xc2p3473ga5684ij5efwhh3wu2v8rf.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/22/288909604/98045ee394641ca42188a9c6b5ae186e_7769781659310285488.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: ''
+  },
+  桑博: {
+    name: '桑博',
+    avatar: 'https://patchwiki.biligame.com/images/sr/7/71/ewaef9roe613lgrqz0cwmz7wui75ln9.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/159305577/4021500c08db5dd7600373963a8fd7ae_2164524026920543792.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '古代遗物代理，有过验记录'
+  },
+  虎克: {
+    name: '虎克',
+    avatar: 'https://patchwiki.biligame.com/images/sr/5/56/36jgn9n5geaymyj8oa6xk2ddr742e6m.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/159305577/ced28df529eadd5d3a65a74d7cd0f1ee_1327794469495696321.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '鼹鼠党！搏击俱乐部集合！'
+  },
+  阿兰: {
+    name: '阿兰',
+    avatar: 'https://patchwiki.biligame.com/images/sr/1/18/148pd2d35ftfz0rn22iu3pv39vzhd0a.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/159305577/d17025f2f6c52f10ccbcc93a0acd1b70_8940478888129430393.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '佩佩紧急联系人'
+  },
+  佩拉: {
+    name: '佩拉',
+    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/a/a4/rhjc3ytba6ayywljljwmkeps0x0np3y.png/180px-%E4%BD%A9%E6%8B%89%E5%A4%B4%E5%83%8F.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/289862258/7099a63b46954eedc038bffc991a0437_5445770148856337075.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: ''
+  },
+  素裳: {
+    name: '素裳',
+    avatar: 'https://patchwiki.biligame.com/images/sr/8/87/n7v209hum345c945ri82chie3eznvgs.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/289862258/0f662b3c3a7f76bb8bab25dc48f3bef4_6922898942843883883.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: ''
   }
 }

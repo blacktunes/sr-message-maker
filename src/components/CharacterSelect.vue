@@ -1,66 +1,67 @@
 <template>
-  <div class="character-wrapper" @click="hide" v-show="input.select">
-    <div class="character-container" @click.stop="">
-      <div class="character-box">
-        <div class="character-title">游戏角色</div>
-        <div class="character-list">
-          <div
-            class="character"
-            v-for="(item, key) in character.game"
-            :key="`avatar-${key}`"
-            :title="`${item.name}`"
-            @click="handelcharacterClick(String(key))"
-          >
-            <div class="avatar">
-              <img
-                :src="item.avatar"
-                :alt="item.name"
-                draggable="false"
-              />
-            </div>
-            <div class="name">{{ item.name }}</div>
-            <div class="info" :title="item.info">{{ item.info || "" }}</div>
-          </div>
-        </div>
-        <div style="height: 30px"></div>
-        <div class="character-title">自定义角色</div>
-        <div class="character-list">
-          <div
-            class="character"
-            v-for="(item, key) in character.custom"
-            :key="`avatar-${key}`"
-            @click="handelcharacterClick(String(key))"
-          >
-            <div class="avatar">
-              <img
-                :src="item.avatar"
-                :alt="item.name"
-                :title="item.name"
-                draggable="false"
-              />
-            </div>
-            <div class="name">{{ item.name }}</div>
-            <div class="info">{{ item.info || "123" }}</div>
-            <div class="del" @click.stop="handelDelClick(String(key))">×</div>
-          </div>
-          <div class="add" @click="addCustom">
-            <svg
-              viewBox="0 0 1024 1024"
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              width="150"
-              height="150"
+  <Teleport to="body">
+    <div class="mask" @click="hide" v-if="input.select"></div>
+  </Teleport>
+  <transition name="fade">
+    <div class="character-wrapper" @click="hide" v-show="input.select">
+      <div class="character-container" @click.stop="">
+        <div class="character-box">
+          <div class="character-title">游戏角色</div>
+          <div class="character-list">
+            <div
+              class="character"
+              v-for="(item, key) in character.game"
+              :key="`avatar-${key}`"
+              :title="`${item.name}`"
+              @click="handelcharacterClick(String(key))"
             >
-              <path
-                d="M874.666667 469.333333H554.666667V149.333333c0-23.466667-19.2-42.666667-42.666667-42.666666s-42.666667 19.2-42.666667 42.666666v320H149.333333c-23.466667 0-42.666667 19.2-42.666666 42.666667s19.2 42.666667 42.666666 42.666667h320v320c0 23.466667 19.2 42.666667 42.666667 42.666666s42.666667-19.2 42.666667-42.666666V554.666667h320c23.466667 0 42.666667-19.2 42.666666-42.666667s-19.2-42.666667-42.666666-42.666667z"
-                fill="#afafaf"
-              ></path>
-            </svg>
+              <div class="avatar">
+                <img :src="item.card" :alt="item.name" draggable="false" />
+                <div class="name">{{ item.name }}</div>
+              </div>
+              <div class="info" :title="item.info">{{ item.info || "" }}</div>
+            </div>
+          </div>
+          <div style="height: 30px"></div>
+          <div class="character-title">自定义角色</div>
+          <div class="character-list">
+            <div
+              class="character"
+              v-for="(item, key) in character.custom"
+              :key="`avatar-${key}`"
+              @click="handelcharacterClick(String(key))"
+            >
+              <div class="avatar" style="height: 340px">
+                <img
+                  :src="item.avatar"
+                  :alt="item.name"
+                  :title="item.name"
+                  draggable="false"
+                />
+              </div>
+              <div style="font-size: 40px">{{ item.name }}</div>
+              <div class="info">{{ item.info || "123" }}</div>
+              <div class="del" @click.stop="handelDelClick(String(key))">×</div>
+            </div>
+            <div class="add" @click="addCustom">
+              <svg
+                viewBox="0 0 1024 1024"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                width="150"
+                height="150"
+              >
+                <path
+                  d="M874.666667 469.333333H554.666667V149.333333c0-23.466667-19.2-42.666667-42.666667-42.666666s-42.666667 19.2-42.666667 42.666666v320H149.333333c-23.466667 0-42.666667 19.2-42.666666 42.666667s19.2 42.666667 42.666666 42.666667h320v320c0 23.466667 19.2 42.666667 42.666667 42.666666s42.666667-19.2 42.666667-42.666666V554.666667h320c23.466667 0 42.666667-19.2 42.666666-42.666667s-19.2-42.666667-42.666666-42.666667z"
+                  fill="#afafaf"
+                ></path>
+              </svg>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script lang="ts" setup>
@@ -130,7 +131,7 @@ const handelDelClick = (key: string) => {
   left 0
   width 100%
   height 100%
-  background rgba(0, 0, 0, 0.3)
+  padding-bottom 90px
   user-select none
 
   .character-container
@@ -139,17 +140,18 @@ const handelDelClick = (key: string) => {
     justify-content center
     align-items center
     width 90%
-    height 80%
-    padding 20px
+    height 90%
+    padding 20px 50px 20px 40px
     background #d5d5d5
     box-shadow 0 0 20px 5px rgba(0, 0, 0, 0.3)
     cursor default
+    border-top-right-radius 20px
 
     .character-box
       overflow overlay
       width 100%
       height 100%
-      padding 10px
+      padding 10px 30px 10px 20px
 
       .character-title
         font-size 60px
@@ -169,24 +171,30 @@ const handelDelClick = (key: string) => {
           cursor pointer
 
           .avatar
+            position relative
             width 340px
-            height 340px
 
             img
               width 100%
 
           .name, .info
-            width 80%
+            width 100%
             overflow hidden
             white-space nowrap
             text-overflow ellipsis
 
           .name
+            position absolute
+            bottom 80px
+            color rgba(255, 255, 255, 0.85)
+            font-weight bold
             font-size 40px
+            text-align center
 
           .info
             font-size 30px
             color #6a6a6a
+            text-align center
 
           &:hover
             .del
@@ -196,6 +204,7 @@ const handelDelClick = (key: string) => {
           box-sizing border-box
           width 340px
           height 340px
+          margin 10px
           display flex
           justify-content center
           align-items center
@@ -218,4 +227,9 @@ const handelDelClick = (key: string) => {
 
   &:hover
     opacity 1
+
+.mask
+  width 100vw
+  height 100vh
+  background rgba(0, 0, 0, 0.5)
 </style>
