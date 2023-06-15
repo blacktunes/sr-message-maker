@@ -21,7 +21,7 @@ export const gameCharacter: { [name: string]: Character } = {
     name: '白露',
     avatar: 'https://patchwiki.biligame.com/images/sr/7/71/pehh3rxcf1oxy0iq2srxdrhvpgn67n1.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/159305577/c684357d96e8098e898e4ee6665fd01c_7826766061944986617.png?x-oss-process=image/quality,q_75/resize,s_280',
-    info: ''
+    info: '多喝热水少生气'
   },
   姬子: {
     name: '姬子',
@@ -45,13 +45,13 @@ export const gameCharacter: { [name: string]: Character } = {
     name: '景元',
     avatar: 'https://patchwiki.biligame.com/images/sr/7/76/lpefcuvh9gfjtdzl6wmawud5xttjhmc.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/95a06162f7df44a2b068e66939268b10_2067278512630665501.png?x-oss-process=image/quality,q_75/resize,s_280',
-    info: ''
+    info: '人不在神策府'
   },
   彦卿: {
     name: '彦卿',
     avatar: 'https://patchwiki.biligame.com/images/sr/thumb/7/77/cib5dma4hjmw0lld03q1a045pr072ey.png/180px-%E5%BD%A6%E5%8D%BF%E5%A4%B4%E5%83%8F.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/cc600801af1f864cfb32bbfb01d9d867_5952117643253221767.png?x-oss-process=image/quality,q_75/resize,s_280',
-    info: ''
+    info: '今天工造司上新了么？没有'
   },
   瓦尔特: {
     name: '瓦尔特',
@@ -141,165 +141,165 @@ export const gameCharacter: { [name: string]: Character } = {
     name: '素裳',
     avatar: 'https://patchwiki.biligame.com/images/sr/8/87/n7v209hum345c945ri82chie3eznvgs.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/289862258/0f662b3c3a7f76bb8bab25dc48f3bef4_6922898942843883883.png?x-oss-process=image/quality,q_75/resize,s_280',
-    info: ''
+    info: '一读书就困是什么病症？'
   }
 }
 
 export const emoticon = [
   {
-    title: '白露 饿',
+    title: '白露_饿',
     url: 'https://upload-bbs.miyoushe.com/upload/2023/03/09/34a86cbdf30331a9694cb9165188e3b5_6588321211650828715.png'
   },
   {
-    title: '白露 给你',
+    title: '白露_给你',
     url: 'https://upload-bbs.miyoushe.com/upload/2023/03/09/21dca94786b821dc6b448804baa1ff20_5579665276093320337.png'
   },
   {
-    title: '丹恒 惊',
+    title: '丹恒_惊',
     url: 'https://upload-bbs.miyoushe.com/upload/2023/03/09/7cb87b286c3d062300d31224508c0c9e_8768116406867668880.png'
   },
   {
-    title: '景元 困',
+    title: '景元_困',
     url: 'https://upload-bbs.miyoushe.com/upload/2023/03/09/1719edbe458e6ea7147676632ddc0ca2_8989714708965482225.png'
   },
   {
-    title: '景元 吸猫',
+    title: '景元_吸猫',
     url: 'https://upload-bbs.miyoushe.com/upload/2023/03/09/8b9838175cb6312df34c32648a8e6649_1050729359995605746.png'
   },
   {
-    title: '开拓者 吃瓜ing',
+    title: '开拓者_吃瓜ing',
     url: 'https://upload-bbs.miyoushe.com/upload/2023/03/09/3173bc3e69fcfebecfda741340c9ad22_6841250310756275678.png'
   },
   {
-    title: '开拓者 吃瓜脸',
+    title: '开拓者_吃瓜脸',
     url: 'https://upload-bbs.miyoushe.com/upload/2023/03/09/3d389fd2885b008e46d843c552c02bf3_5073438697399152551.png'
   },
   {
-    title: '罗刹 送花',
+    title: '罗刹_送花',
     url: 'https://upload-bbs.miyoushe.com/upload/2023/03/09/3996afc68a13bfc5b5718af31e610f43_6807527097924316704.png'
   },
   {
-    title: '青雀 溜了',
+    title: '青雀_溜了',
     url: 'https://upload-bbs.miyoushe.com/upload/2023/03/09/01c96af07865b0d5215c9bc97ebeca73_8859049719826705182.png'
   },
   {
-    title: '刃 来了',
+    title: '刃_来了',
     url: 'https://upload-bbs.miyoushe.com/upload/2023/03/09/33b49a8bbead2a9e85290a75160d584e_2942391851204099012.png'
   },
   {
-    title: '三月七 无语',
+    title: '三月七_无语',
     url: 'https://upload-bbs.miyoushe.com/upload/2023/03/09/40f465ef5312e4ba0b19c596b9999cef_8760502457253372865.png'
   },
   {
-    title: '素裳 冲鸭',
+    title: '素裳_冲鸭',
     url: 'https://upload-bbs.miyoushe.com/upload/2023/03/09/a785e557e39e100ce93d80508f112615_3814701686582051674.png'
   },
   {
-    title: '停云 暴富',
+    title: '停云_暴富',
     url: 'https://upload-bbs.miyoushe.com/upload/2023/03/09/b6352ebdefa5f62ac25ccc5317fe832a_7207836849676334708.png'
   },
   {
-    title: '彦卿 哼',
+    title: '彦卿_哼',
     url: 'https://upload-bbs.miyoushe.com/upload/2023/03/09/01e64050e1304a68e0234639bbdb7188_855263133676056799.png'
   },
   {
-    title: '彦卿 穷',
+    title: '彦卿_穷',
     url: 'https://upload-bbs.miyoushe.com/upload/2023/03/09/a9dddd4198905b3036b531b53a199188_2510873814852127692.png'
   },
   {
-    title: '驭空 叹气',
+    title: '驭空_叹气',
     url: 'https://upload-bbs.miyoushe.com/upload/2023/03/09/c0ee663156c5bb4dc518341f2fd231dd_2752194756869066332.png'
   },
   {
-    title: '阿兰 别别别',
+    title: '阿兰_别别别',
     url: 'https://img-static.mihoyo.com/communityweb/upload/47ea70b50b95d7424ed84b5dd239f943.png'
   },
   {
-    title: '艾丝妲 OK',
+    title: '艾丝妲_OK',
     url: 'https://img-static.mihoyo.com/communityweb/upload/e678db5bd8a8b2d12c0daeb0d64061a1.png'
   },
   {
-    title: '丹恒 思考',
+    title: '丹恒_思考',
     url: 'https://img-static.mihoyo.com/communityweb/upload/73aabfbe4b49722db27bd5341431f58a.png'
   },
   {
-    title: '黑塔 你说咩啊',
+    title: '黑塔_你说咩啊',
     url: 'https://img-static.mihoyo.com/communityweb/upload/27fb9141bd6d9a72a5ebff8b6ae10a00.png'
   },
   {
-    title: '虎克 哭哭',
+    title: '虎克_哭哭',
     url: 'https://img-static.mihoyo.com/communityweb/upload/bab8ff43277f319e3a77cba8af4cf711.png'
   },
   {
-    title: '姬子 微笑',
+    title: '姬子_微笑',
     url: 'https://img-static.mihoyo.com/communityweb/upload/17f60d2d36be5f75d00d88804df4a0c4.png'
   },
   {
-    title: '杰帕德 叹气',
+    title: '杰帕德_叹气',
     url: 'https://img-static.mihoyo.com/communityweb/upload/22a0b41d9b75365f71f50348ef6c3233.png'
   },
   {
-    title: '卡芙卡 怒',
+    title: '卡芙卡_怒',
     url: 'https://img-static.mihoyo.com/communityweb/upload/677e18698f28c655cd39bfb7f16a86f2.png'
   },
   {
-    title: '克拉拉 给你心心',
+    title: '克拉拉_给你心心',
     url: 'https://img-static.mihoyo.com/communityweb/upload/54f6c5f6a4bf851877158b0000e636c5.png'
   },
   {
-    title: '男主 摇人',
+    title: '男主_摇人',
     url: 'https://img-static.mihoyo.com/communityweb/upload/f60e9a13f20efa46c9b545546d6c2414.png'
   },
   {
-    title: '女主 摇人',
+    title: '女主_摇人',
     url: 'https://img-static.mihoyo.com/communityweb/upload/51b3567dc5fed5d9b25decdb854b6d39.png'
   },
   {
-    title: '佩拉 懵',
+    title: '佩拉_懵',
     url: 'https://img-static.mihoyo.com/communityweb/upload/460a345beb85c449f354a38e2cd8e01c.png'
   },
   {
-    title: '桑博 满是世俗的欲望',
+    title: '桑博_满是世俗的欲望',
     url: 'https://img-static.mihoyo.com/communityweb/upload/856d513772f4f83df68fe7854be750d7.png'
   },
   {
-    title: '瓦杨-🎶',
+    title: '瓦尔特_🎶',
     url: 'https://img-static.mihoyo.com/communityweb/upload/bfbb9401c01ff80ddb2f2c47ece16acd.png'
   },
   {
-    title: '希露瓦 放电',
+    title: '希露瓦_放电',
     url: 'https://img-static.mihoyo.com/communityweb/upload/9f49c04a7aeb5324760df769e1d9acbe.png'
   },
   {
-    title: '银狼 吹泡泡',
+    title: '银狼_吹泡泡',
     url: 'https://img-static.mihoyo.com/communityweb/upload/76cc94063d9c0efb2335e8487299cd0a.png'
   },
   {
-    title: '帕姆 奋斗',
+    title: '帕姆_奋斗',
     url: 'https://img-static.mihoyo.com/communityweb/upload/fe751e28e2c19713409703ff8ede5991.png'
   },
   {
-    title: '帕姆 喝茶',
+    title: '帕姆_喝茶',
     url: 'https://img-static.mihoyo.com/communityweb/upload/5f05cd9b0bad4ad7e3bc979fc8b4ab78.png'
   },
   {
-    title: '帕姆 睡觉',
+    title: '帕姆_睡觉',
     url: 'https://img-static.mihoyo.com/communityweb/upload/b691ded240cc08160f15d7f3993615ef.png'
   },
   {
-    title: '帕姆 瘫倒',
+    title: '帕姆_瘫倒',
     url: 'https://img-static.mihoyo.com/communityweb/upload/a7304904a31329464114b1074218967e.png'
   },
   {
-    title: '帕姆 舞动',
+    title: '帕姆_舞动',
     url: 'https://img-static.mihoyo.com/communityweb/upload/15c1d1f40c290b6f8c3f279d569e218d.png'
   },
   {
-    title: '帕姆 震惊',
+    title: '帕姆_震惊',
     url: 'https://img-static.mihoyo.com/communityweb/upload/2bc65c226456bea0398f59387142d6cf.png'
   },
   {
-    title: '帕姆 自闭',
+    title: '帕姆_自闭',
     url: 'https://img-static.mihoyo.com/communityweb/upload/10cf94c3601c8d5c62ced474653eb01e.png'
   },
   {
