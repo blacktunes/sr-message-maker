@@ -1,7 +1,7 @@
 import { nextTick, reactive, toRaw, watch } from 'vue'
 
 export const message = reactive<{
-  list: MessageItem[]
+  list: MessageListItem[]
 }>({
   list: []
 })

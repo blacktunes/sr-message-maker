@@ -1,5 +1,5 @@
 <template>
-  <div class="item-wrapper">
+  <div class="message-item">
     <div
       class="item"
       :class="{
@@ -65,7 +65,7 @@ import { computed } from '@vue/reactivity'
 
 const props = defineProps<{
   title?: string
-  list: MessageItem[]
+  list: MessageListItem[]
 }>()
 
 const getLastMsg = (index: number) => {
@@ -113,7 +113,7 @@ const avatarUrl = computed(() => {
 </script>
 
 <style lang="stylus" scoped>
-.item-wrapper
+.message-item
   color #bdbec2
   user-select none
   margin-bottom 35px

@@ -1,7 +1,7 @@
 <template>
-  <div class="emoticon-wrapper" v-show="input.emoticon" @click.stop="">
+  <div class="emoticon" v-show="input.emoticon" @click.stop="">
     <div
-      class="emoticon"
+      class="item"
       v-for="(item, index) in emoticon"
       @click="handelEmoticonClick(item.url, item.title)"
       :title="item.title"
@@ -24,7 +24,7 @@ const handelEmoticonClick = (url: string, name: string) => {
 </script>
 
 <style lang="stylus" scoped>
-.emoticon-wrapper
+.emoticon
   overflow auto
   position absolute
   right 60px
@@ -39,7 +39,7 @@ const handelEmoticonClick = (url: string, name: string) => {
   border-radius 5px
   box-shadow 0 0 20px 5px rgba(0, 0, 0, 0.15)
 
-  .emoticon
+  .item
     width 20%
     cursor pointer
 

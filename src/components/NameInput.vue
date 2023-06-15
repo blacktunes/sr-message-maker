@@ -1,7 +1,12 @@
 <template>
-  <div class="name-wrapper">
+  <div class="name">
     <span>ID:</span>
-    <div class="name" contenteditable @input="updateName($event)" title="修改角色名">
+    <div
+      class="text"
+      contenteditable
+      @input="updateName($event)"
+      title="修改角色名"
+    >
       {{ setting.name }}
     </div>
   </div>
@@ -17,7 +22,7 @@ const updateName = (e: Event) => {
 </script>
 
 <style lang="stylus" scoped>
-.name-wrapper
+.name
   display flex
   position absolute
   right 190px
@@ -25,7 +30,7 @@ const updateName = (e: Event) => {
   color #ddd
   font-size 50px
 
-  .name
+  .text
     overflow hidden
     white-space nowrap
     text-overflow ellipsis

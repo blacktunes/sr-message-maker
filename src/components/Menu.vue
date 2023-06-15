@@ -1,28 +1,28 @@
 <template>
-  <div class="list-wrapper">
-    <div class="item-list">
-      <ListItem
+  <div class="message">
+    <div class="list">
+      <MessageItem
         v-for="(item, index) in list"
         :key="index"
         :title="item.title"
         :list="item.list"
       />
     </div>
-    <div class="btn-list"></div>
+    <div class="menu"></div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { message } from '@/store/message'
-import { computed } from 'vue'
-import ListItem from './Sub/ListItem.vue'
 import { setting } from '@/store/setting'
+import { computed } from 'vue'
+import MessageItem from './Menu/MessageItem.vue'
 
 const list = computed(() => {
   const temp: {
     time: number
     title: string
-    list: MessageItem[]
+    list: MessageListItem[]
   }[] = []
   message.list.forEach(item => {
     const name: string[] = []
@@ -68,17 +68,17 @@ const list = computed(() => {
 })
 </script>
 
-<style lang="stylus">
+<style lang="stylus" scoped>
 $pos = 190px
 
-.list-wrapper
+.message
   position absolute
   top $pos
   left $pos
   width 750px
   height 'calc(100% - %s)' % $pos
 
-  .item-list
+  .list
     overflow-y scroll
     overflow-x hidden
     width 100%
@@ -88,7 +88,7 @@ $pos = 190px
       width 0
       height 0
 
-  .btn-list
+  .menu
     display flex
     align-items flex-start
     box-sizing border-box

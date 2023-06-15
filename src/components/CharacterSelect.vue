@@ -1,9 +1,9 @@
 <template>
-  <div class="character-wrapper" v-show="input.select">
-    <div class="character-container" @click.stop="">
-      <div class="character-box">
-        <div class="character-title">游戏角色</div>
-        <div class="character-list">
+  <div class="character-select" v-show="input.select">
+    <div class="box" @click.stop="">
+      <div class="list">
+        <div class="title">游戏角色</div>
+        <div class="item">
           <div
             class="character"
             v-for="(item, key) in character.game"
@@ -15,19 +15,21 @@
               <img :src="item.card" :alt="item.name" draggable="false" />
               <div class="name">{{ item.name }}</div>
             </div>
-            <div class="info" :title="item.info">{{ item.info || "" }}</div>
+            <div class="info" :title="item.info">
+              {{ item.info || "" }}
+            </div>
           </div>
         </div>
         <div style="height: 30px"></div>
-        <div class="character-title">自定义角色</div>
-        <div class="character-list">
+        <div class="title">自定义角色</div>
+        <div class="item">
           <div
             class="character"
             v-for="(item, key) in character.custom"
             :key="`avatar-${key}`"
             @click="handelcharacterClick(String(key))"
           >
-            <div class="avatar" style="height: 340px">
+            <div class="avatar" style="height: 'var(--character-item-width)'">
               <img
                 :src="item.avatar"
                 :alt="item.name"
@@ -36,7 +38,7 @@
               />
             </div>
             <div style="font-size: 40px">{{ item.name }}</div>
-            <div class="info">{{ item.info || "123" }}</div>
+            <div class="info">{{ item.info || "" }}</div>
             <div class="del" @click.stop="handelDelClick(String(key))">×</div>
           </div>
           <div class="add" @click="addCustom">
@@ -116,7 +118,8 @@ const handelDelClick = (key: string) => {
 </script>
 
 <style lang="stylus" scoped>
-.character-wrapper
+.character-select
+  --character-item-width 387px
   z-index 99
   display flex
   justify-content center
@@ -128,7 +131,7 @@ const handelDelClick = (key: string) => {
   height 100%
   user-select none
 
-  .character-container
+  .box
     display flex
     flex-direction column
     justify-content center
@@ -141,32 +144,31 @@ const handelDelClick = (key: string) => {
     cursor default
     border-top-right-radius 20px
 
-    .character-box
+    .list
       overflow overlay
       width 100%
       height 100%
       padding 10px 30px 10px 20px
 
-      .character-title
+      .title
         font-size 60px
         font-weight bold
         margin-bottom 25px
         padding-bottom 20px
         border-bottom 1px solid
 
-      .character-list
+      .item
         display flex
         flex-wrap wrap
 
         .character
           position relative
           margin 10px
-          width 340px
+          width var(--character-item-width)
           cursor pointer
 
           .avatar
             position relative
-            width 340px
 
             img
               width 100%
@@ -196,8 +198,8 @@ const handelDelClick = (key: string) => {
 
         .add
           box-sizing border-box
-          width 340px
-          height 340px
+          width var(--character-item-width)
+          height var(--character-item-width)
           margin 10px
           display flex
           justify-content center

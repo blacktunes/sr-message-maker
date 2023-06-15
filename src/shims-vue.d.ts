@@ -16,7 +16,7 @@ interface Message {
   loading?: boolean
 }
 
-interface MessageItem {
+interface MessageListItem {
   time: number
   id: number
   title?: string

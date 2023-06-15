@@ -7,8 +7,8 @@
         @click="handelMaskClick"
       ></div>
     </Teleport>
-    <div class="message-wrapper">
-      <div class="message-box" ref="messageDom">
+    <div class="message-editor">
+      <div class="box" ref="boxDom">
         <div class="circle">
           <div></div>
         </div>
@@ -47,7 +47,7 @@
                     <img :src="element.avatar" alt="" />
                   </div>
                 </transition>
-                <div class="message-content">
+                <div class="message-item">
                   <transition name="message" appear>
                     <div class="name">
                       <span>
@@ -91,7 +91,7 @@
         </div>
         <div class="bottom"></div>
       </div>
-      <EmoticonInput @emoticon="addEmoticon" />
+      <Emoticon @emoticon="addEmoticon" />
     </div>
     <div class="menu">
       <div class="btn" @click.stop="handelSelectClick" title="选择角色">
@@ -274,14 +274,14 @@
 
 <script lang="ts" setup>
 import { getAvatar } from '@/assets/scripts/avatar'
-import _screenshot from '@/assets/scripts/screenshot'
+import domtoimage from '@/assets/scripts/screenshot'
 import { character } from '@/store/character'
 import { input } from '@/store/input'
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
 import draggable from '@marshallswain/vuedraggable'
 import { computed, nextTick, reactive, ref, watch } from 'vue'
-import EmoticonInput from './Sub/EmoticonInput.vue'
+import Emoticon from './MessageEditor/Emoticon.vue'
 
 // 要显示的数据
 const dataList = computed({
@@ -350,7 +350,7 @@ const handelMaskClick = () => {
   scrollToBottom()
 }
 
-const messageDom = ref<HTMLElement | null>(null)
+const boxDom = ref<HTMLElement | null>(null)
 const messageListDom = ref<HTMLElement | null>(null)
 
 const index = computed(() => {
@@ -540,8 +540,8 @@ const scrollToBottom = (flag?: boolean) => {
 }
 
 const screenshot = () => {
-  if (messageDom.value && messageListDom.value) {
-    _screenshot(messageDom.value, undefined, messageListDom.value.scrollHeight + 185 + 230)
+  if (boxDom.value && messageListDom.value) {
+    domtoimage(boxDom.value, undefined, messageListDom.value.scrollHeight + 185 + 230)
   }
 }
 </script>
@@ -578,7 +578,7 @@ $width = 2000px
     user-select none
     font-size 50px
 
-.message-wrapper
+.message-editor
   position absolute
   top 180px
   left 1000px
@@ -600,7 +600,7 @@ $width = 2000px
     border-right none
     pointer-events none
 
-  .message-box
+  .box
     display flex
     flex-direction column
     width 100%
@@ -757,7 +757,7 @@ $width = 2000px
           img
             width 100%
 
-        .message-content
+        .message-item
           flex 1
           display flex
           flex-direction column
@@ -834,7 +834,7 @@ $width = 2000px
   .avatar
     margin 0 0 0 35px !important
 
-  .message-content
+  .message-item
     align-items flex-end
 
     .text

@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div
-      class="wrapper"
+      class="home"
       :style="{
         transform: `scale(${scale})`,
         width: `${width}px`,
@@ -29,12 +29,12 @@
   </div>
   <transition name="fade">
     <div
-      class="horizontal"
+      class="horizontal-tip"
       v-if="horizontalTip && shouldHorizontal"
       @click="horizontalTip = false"
     >
       <div class="bg"></div>
-      <div class="item">
+      <div class="content">
         <div class="img">
           <img src="@/assets/images/horizontal.png" />
         </div>
@@ -48,8 +48,8 @@
 <script lang="ts" setup>
 import { computed, onMounted, ref } from 'vue'
 import CharacterSelect from './components/CharacterSelect.vue'
+import MessageList from './components/Menu.vue'
 import MessageContent from './components/MessageContent.vue'
-import MessageList from './components/MessageList.vue'
 import NameInput from './components/NameInput.vue'
 import { input } from './store/input'
 
@@ -107,7 +107,7 @@ onMounted(() => {
   width v-bind(realWidth)
   height v-bind(realHeight)
 
-  .wrapper
+  .home
     position relative
     height 100%
     width 100%
@@ -154,7 +154,7 @@ onMounted(() => {
         font-size 46px
         color #ddd
 
-.horizontal
+.horizontal-tip
   position fixed
   top 0
   left 0
@@ -173,8 +173,8 @@ onMounted(() => {
     height 100%
     background rgba(255, 255, 255, 0.8)
 
-  .item
-    z-index 9
+  .content
+    z-index 999
     display flex
     flex-direction column
     justify-content center
