@@ -12,6 +12,7 @@
     "@vercel/analytics": "^1.0.1",
     "core-js": "^3.8.3",
     "dom-to-image": "^2.6.0",
+    "mitt": "^3.0.0",
     "vue": "^3.2.13"
   },
   "devDependencies": {

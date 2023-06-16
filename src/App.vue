@@ -13,7 +13,8 @@
         <span>短信</span>
       </div>
       <MessageList />
-      <MessageContent />
+      <MessageEditor />
+      <MessagePreview />
       <CharacterSelect />
       <NameInput />
       <div class="link">
@@ -46,13 +47,14 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, ref } from 'vue'
 import CharacterSelect from './components/CharacterSelect.vue'
 import MessageList from './components/Menu.vue'
-import MessageContent from './components/MessageContent.vue'
+import MessageEditor from './components/MessageEditor.vue'
 import NameInput from './components/NameInput.vue'
-import { input } from './store/input'
+import MessagePreview from './components/MessagePreview.vue'
 
+// 计算窗口尺寸
 const width = 3200
 const height = 1440
 const scale = ref(1)
@@ -77,22 +79,6 @@ const shouldHorizontal = computed(() => windowWidth.value <= 550 && v.value > h.
 window.onresize = () => {
   setSize()
 }
-
-document.addEventListener('click', e => {
-  if ((e.target as HTMLElement).tagName.toLowerCase() === 'a') return
-  if (input.emoticon) {
-    input.emoticon = false
-  }
-  if (input.select) {
-    input.select = false
-  }
-})
-
-const ready = ref(false)
-onMounted(() => {
-  ready.value = true
-})
-
 </script>
 
 <style lang="stylus" scoped>

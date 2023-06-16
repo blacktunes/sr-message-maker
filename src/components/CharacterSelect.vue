@@ -8,12 +8,12 @@
             class="character"
             v-for="(item, key) in character.game"
             :key="`avatar-${key}`"
-            :title="`${item.name}`"
+            :title="`${getName(item.name)}`"
             @click="handelcharacterClick(String(key))"
           >
             <div class="avatar">
-              <img :src="item.card" :alt="item.name" draggable="false" />
-              <div class="name">{{ item.name }}</div>
+              <img :src="item.card" :alt="getName(item.name)" draggable="false" />
+              <div class="name">{{ getName(item.name) }}</div>
             </div>
             <div class="info" :title="item.info">
               {{ item.info || "" }}
@@ -66,6 +66,12 @@ import { getAvatar } from '@/assets/scripts/avatar'
 import { character } from '@/store/character'
 import { input } from '@/store/input'
 import { message } from '@/store/message'
+import { setting } from '@/store/setting'
+
+const getName = (name: string) => {
+  if (name === '开拓者') return setting.name
+  return name
+}
 
 const hide = () => {
   input.select = false

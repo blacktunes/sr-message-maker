@@ -31,6 +31,7 @@ const updateName = (e: Event) => {
   font-size 50px
 
   .text
+    box-sizing border-box
     overflow hidden
     white-space nowrap
     text-overflow ellipsis
