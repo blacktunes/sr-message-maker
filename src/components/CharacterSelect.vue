@@ -12,7 +12,11 @@
             @click="handelcharacterClick(String(key))"
           >
             <div class="avatar">
-              <img :src="item.card" :alt="getName(item.name)" draggable="false" />
+              <img
+                :src="item.card"
+                :alt="getName(item.name)"
+                draggable="false"
+              />
               <div class="name">{{ getName(item.name) }}</div>
             </div>
             <div class="info" :title="item.info">
@@ -37,7 +41,7 @@
                 draggable="false"
               />
             </div>
-            <div style="font-size: 40px">{{ item.name }}</div>
+            <div class="custom-name">{{ item.name }}</div>
             <div class="info">{{ item.info || "" }}</div>
             <div class="del" @click.stop="handelDelClick(String(key))">×</div>
           </div>
@@ -184,12 +188,17 @@ const handelDelClick = (key: string) => {
             overflow hidden
             white-space nowrap
             text-overflow ellipsis
+            text-align center
 
           .name
             position absolute
             bottom 80px
             color rgba(255, 255, 255, 0.85)
             font-weight bold
+            font-size 40px
+            text-align center
+
+          .custom-name
             font-size 40px
             text-align center
 
@@ -220,11 +229,12 @@ const handelDelClick = (key: string) => {
   justify-content center
   position absolute
   right 0
-  bottom 25px
+  bottom 30px
   width 80px
   height 80px
   font-size 50px
   opacity 0
+  color #6b6b6b
   cursor pointer
 
   &:hover
