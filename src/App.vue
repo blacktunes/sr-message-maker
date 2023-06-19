@@ -105,7 +105,7 @@ window.onresize = () => {
       position absolute
       width 100%
       height 100%
-      background url('https://patchwiki.biligame.com/images/sr/8/8e/2ywvn145o3txkmqwhhtt884nb5mjfh2.jpg')
+      background url(https://patchwiki.biligame.com/images/sr/8/8e/2ywvn145o3txkmqwhhtt884nb5mjfh2.jpg), radial-gradient(black, #555)
       background-size 100%
       filter blur(30px)
 

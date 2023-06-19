@@ -12,3 +12,8 @@
 - [x] 表情包
 - [ ] 自定义表情包
 - [ ] 任务消息
+
+### 数据来源
+
+- 米游社 <https://www.miyoushe.com/sr/>
+- 星穹铁道BWiki <https://wiki.biligame.com/sr/>
