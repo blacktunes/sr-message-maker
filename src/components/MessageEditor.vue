@@ -37,7 +37,10 @@
               >
                 <transition name="avatar" appear>
                   <div class="avatar" @click.stop="handelAvatarClick(index)">
-                    <img :src="element.avatar" alt="" />
+                    <img
+                      :src="getUserAvatar(element.key, element.avatar)"
+                      alt=""
+                    />
                   </div>
                 </transition>
                 <div class="message-item">
@@ -79,7 +82,10 @@
         </div>
         <div class="bottom">
           <div class="btn" @click.stop="handelSelectClick" title="选择角色">
-            <img :src="getAvatar(input.character)" alt="" />
+            <img
+              :src="getUserAvatar(input.character, getAvatar(input.character))"
+              alt=""
+            />
           </div>
           <input
             type="text"
@@ -173,7 +179,7 @@
   <template v-else>
     <div class="defalut-wrapper">
       <img src="@/assets/images/列车.png" alt="" draggable="false" />
-      <span>请选择联系人</span>
+      <span>{{ message.list.length > 0 ? "请选择联系人" : "暂无短信" }}</span>
     </div>
   </template>
 </template>
@@ -207,7 +213,7 @@ watch(messageIndex, () => {
   scrollToBottom(messageListDom, true)
 })
 
-const { title, info } = useMessage(messageIndex)
+const { title, info, getUserAvatar } = useMessage(messageIndex)
 
 const updateTitle = (e: Event) => {
   message.list[messageIndex.value].title = (e.target as HTMLInputElement).innerText

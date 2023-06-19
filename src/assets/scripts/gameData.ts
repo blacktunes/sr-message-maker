@@ -1,10 +1,19 @@
-export const gameCharacter: { [name: string]: Character } = {
-  开拓者: {
+export const user: { [name: string]: Character } = {
+  星: {
     name: '开拓者',
     avatar: 'https://patchwiki.biligame.com/images/sr/f/f4/aaeqzyk10vp6orjpunclv060rdre49c.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/1d351a764ae64aeed744296503bc6266_9196637429550074047.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: ''
   },
+  穹: {
+    name: '开拓者',
+    avatar: require('@/assets/images/穹.jpg'),
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/26/288909604/bb5959b4a67a0637f6862b2c8ba163ed_3921856926987798793.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: ''
+  }
+}
+
+export const gameCharacter: { [name: string]: Character } = {
   银狼: {
     name: '银狼',
     avatar: 'https://patchwiki.biligame.com/images/sr/5/5e/r7w07iajvrc1u9tb50p69vfr9jiwu2x.png',

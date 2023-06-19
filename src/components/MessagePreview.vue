@@ -118,7 +118,10 @@
             >
               <transition name="avatar" :appear="!setting.preview">
                 <div class="avatar">
-                  <img :src="element.avatar" alt="" />
+                  <img
+                    :src="getUserAvatar(element.key, element.avatar)"
+                    alt=""
+                  />
                 </div>
               </transition>
               <div class="message-item">
@@ -178,7 +181,7 @@ const messageIndex = computed(() => {
   }
 })
 
-const { title, info } = useMessage(messageIndex)
+const { title, info, getUserAvatar } = useMessage(messageIndex)
 
 // 要显示的数据
 const dataList = computed({

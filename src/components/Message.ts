@@ -1,3 +1,4 @@
+import { user } from '@/assets/scripts/gameData'
 import { character } from '@/store/character'
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
@@ -46,10 +47,18 @@ export const useMessage = (index: ComputedRef<number>) => {
     }
   })
 
+  const getUserAvatar = (key: string, url: string) => {
+    if (key === '开拓者') {
+      return user[setting.type].avatar || ''
+    } else {
+      return url
+    }
+  }
+
   return {
-    names,
     title,
-    info
+    info,
+    getUserAvatar
   }
 }
 

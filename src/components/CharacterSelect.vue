@@ -6,6 +6,21 @@
         <div class="item">
           <div
             class="character"
+            title="开拓者"
+            @click="handelcharacterClick('开拓者')"
+          >
+            <div class="avatar">
+              <img
+                :src="user[setting.type].card"
+                :alt="getName('开拓者')"
+                draggable="false"
+              />
+              <div class="name">{{ getName('开拓者') }}</div>
+            </div>
+            <div class="info"></div>
+          </div>
+          <div
+            class="character"
             v-for="(item, key) in character.game"
             :key="`avatar-${key}`"
             :title="`${getName(item.name)}`"
@@ -67,6 +82,7 @@
 
 <script lang="ts" setup>
 import { getAvatar } from '@/assets/scripts/avatar'
+import { user } from '@/assets/scripts/gameData'
 import { character } from '@/store/character'
 import { input } from '@/store/input'
 import { message } from '@/store/message'
