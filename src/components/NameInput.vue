@@ -2,7 +2,9 @@
   <div class="name">
     <div
       class="text"
+      v-once
       contenteditable
+      @keydown.enter.prevent
       @input="updateName($event)"
       title="修改角色名"
     >

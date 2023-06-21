@@ -6,7 +6,13 @@
           <div></div>
         </div>
         <div class="header">
-          <div class="title" contenteditable @input="updateTitle($event)">
+          <div
+            class="title"
+            v-once
+            contenteditable
+            @keydown.enter.prevent
+            @input="updateTitle($event)"
+          >
             {{ title }}
           </div>
           <div class="info">{{ info }}</div>
@@ -21,7 +27,11 @@
             >
               <div v-if="element.notice" class="notice">
                 <img src="@/assets/images/通知.png" alt="" />
-                <span contenteditable @input="updateText($event, index)">
+                <span
+                  contenteditable
+                  @keydown.enter.prevent
+                  @input="updateText($event, index)"
+                >
                   {{ element.text }}
                 </span>
                 <div>
@@ -67,9 +77,10 @@
                       />
                     </div>
                     <div
-                      class="text"
                       v-else
+                      class="text"
                       contenteditable
+                      @keydown.enter.prevent
                       @input="updateText($event, index)"
                     >
                       {{ element.text }}
