@@ -48,7 +48,7 @@
                 x2="90.00004"
                 y1="120.76915"
                 x1="-9.99996"
-                stroke-width="15"
+                stroke-width="18"
                 stroke="#222"
                 fill="none"
               />
@@ -57,7 +57,7 @@
                 x2="259.99996"
                 y1="120.76915"
                 x1="159.99996"
-                stroke-width="15"
+                stroke-width="18"
                 stroke="#222"
                 fill="none"
               />
@@ -66,7 +66,7 @@
                 x2="125"
                 y1="-13.8461"
                 x1="125"
-                stroke-width="15"
+                stroke-width="18"
                 stroke="#222"
                 fill="none"
               />
@@ -75,7 +75,7 @@
                 x2="125"
                 y1="156.15382"
                 x1="125"
-                stroke-width="15"
+                stroke-width="18"
                 stroke="#222"
                 fill="none"
               />
@@ -84,7 +84,7 @@
                 rx="5"
                 cy="121.15386"
                 cx="124.6134"
-                stroke-width="15"
+                stroke-width="18"
                 stroke="#222"
                 fill="none"
               />
@@ -155,7 +155,6 @@
             </div>
           </template>
         </div>
-        <div class="bottom"></div>
       </div>
     </div>
   </template>
@@ -253,7 +252,7 @@ emitter.on('screenshot', () => {
   setting.preview = true
   nextTick(() => {
     if (boxDom.value && messageListDom.value && setting.preview) {
-      domtoimage(boxDom.value, undefined, messageListDom.value.scrollHeight + 185 + 150)
+      domtoimage(boxDom.value, undefined, messageListDom.value.scrollHeight + 185)
     }
   })
 })
@@ -290,7 +289,7 @@ const isGreenScreen = ref(false)
   .close
     z-index 9
     position absolute
-    right 50px
+    right 70px
     top 65px
     cursor pointer
 

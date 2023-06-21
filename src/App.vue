@@ -105,7 +105,7 @@ window.onresize = () => {
       position absolute
       width 100%
       height 100%
-      background url(https://patchwiki.biligame.com/images/sr/8/8e/2ywvn145o3txkmqwhhtt884nb5mjfh2.jpg), radial-gradient(black, #555)
+      background url('https://patchwiki.biligame.com/images/sr/8/8e/2ywvn145o3txkmqwhhtt884nb5mjfh2.jpg'), radial-gradient(black, #555) // patchwiki.biligame.com/images/sr/8/8e/2ywvn145o3txkmqwhhtt884nb5mjfh2.jpg), radial-gradient(black, #555)
       background-size 100%
       filter blur(30px)
 
@@ -177,20 +177,28 @@ window.onresize = () => {
 </style>
 
 <style lang="stylus">
+html
+  scrollbar-width none
+
+  &::-webkit-scrollbar
+    width 0
+    height 0
+
 body
   margin 0
+  font-family Microsoft Yahei
 
 .del
   transition opacity 0.2s
 
-&::-webkit-scrollbar
+::-webkit-scrollbar
   width 10px
   height 10px
 
-&::-webkit-scrollbar-track
+::-webkit-scrollbar-track
   background #c6c6c6
 
-&::-webkit-scrollbar-thumb
+::-webkit-scrollbar-thumb
   background #545454
 
 .fade-enter-active, .fade-leave-active

@@ -155,6 +155,7 @@ $pos = 190px
     overflow-x hidden
     width 100%
     height calc(100% - 225px)
+    scrollbar-width none
 
     &::-webkit-scrollbar
       width 0
