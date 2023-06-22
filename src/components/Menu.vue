@@ -76,12 +76,33 @@ import { computed } from 'vue'
 import MessageItem from './Menu/MessageItem.vue'
 import { emitter } from '@/assets/scripts/event'
 
+interface MenuItem {
+  time: number
+  title?: string
+  list: MessageListItem[]
+}
+
+const setListItem = (
+  list: MenuItem[],
+  messageList: MessageListItem,
+  title?: string
+) => {
+  const index = list.findIndex(item => item.title === (messageList.title || title))
+  if (index !== -1) {
+    list[index].list.unshift(messageList)
+    list[index].time = Math.max(list[index].time, messageList.time)
+    list[index].list.sort((a, b) => b.time - a.time)
+  } else {
+    list.unshift({
+      title: messageList.title || title,
+      time: messageList.time,
+      list: [messageList]
+    })
+  }
+}
+
 const list = computed(() => {
-  const temp: {
-    time: number
-    title: string
-    list: MessageListItem[]
-  }[] = []
+  const temp: MenuItem[] = []
   message.list.forEach(item => {
     const name: string[] = []
     for (const _message of item.list) {
@@ -90,33 +111,15 @@ const list = computed(() => {
       }
     }
 
-    if (name.length > 1) {
-      const title = item.title || `${name.join('、')}、${setting.name}的群聊`
-      const index = temp.findIndex(item2 => item2.title === title)
-      if (index !== -1) {
-        temp[index].list.unshift(item)
-        temp[index].time = Math.max(temp[index].time, item.time)
-        temp[index].list.sort((a, b) => b.time - a.time)
-      } else {
-        temp.unshift({
-          title,
-          time: item.time,
-          list: [item]
-        })
-      }
-    } else {
-      const index = temp.findIndex(item2 => item2.title === name[0])
-      if (index !== -1) {
-        temp[index].list.unshift(item)
-        temp[index].time = Math.max(temp[index].time, item.time)
-        temp[index].list.sort((a, b) => b.time - a.time)
-      } else {
-        temp.unshift({
-          title: item.title || name[0],
-          time: item.time,
-          list: [item]
-        })
-      }
+    switch (name.length) {
+      case 0:
+        setListItem(temp, item)
+        break
+      case 1:
+        setListItem(temp, item, name[0])
+        break
+      default:
+        setListItem(temp, item, `${name.join('、')}、${setting.name}的群聊`)
     }
   })
 
