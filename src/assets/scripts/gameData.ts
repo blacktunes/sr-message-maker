@@ -1,4 +1,13 @@
-export const user: { [name: string]: Character } = {
+import { setUserType } from '@/store/setting'
+import { reactive } from 'vue'
+
+export const user: { [name: string]: Character } = reactive({
+  custom: {
+    name: '开拓者',
+    avatar: '',
+    card: '',
+    info: ''
+  },
   星: {
     name: '开拓者',
     avatar: 'https://patchwiki.biligame.com/images/sr/f/f4/aaeqzyk10vp6orjpunclv060rdre49c.png',
@@ -11,6 +20,13 @@ export const user: { [name: string]: Character } = {
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/26/288909604/bb5959b4a67a0637f6862b2c8ba163ed_3921856926987798793.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: ''
   }
+})
+
+const avatar = localStorage.getItem('sr-message-avatar') || ''
+user.custom.avatar = avatar
+user.custom.card = avatar
+if (avatar === '') {
+  setUserType('星')
 }
 
 export const gameCharacter: { [name: string]: Character } = {

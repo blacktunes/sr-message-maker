@@ -6,7 +6,8 @@
         <div class="item">
           <div
             class="character"
-            title="开拓者"
+            :class="{ 'custom-user': setting.type === 'custom' }"
+            :title="setting.name"
             @click="handelcharacterClick('开拓者')"
           >
             <div class="avatar">
@@ -15,7 +16,7 @@
                 :alt="getName('开拓者')"
                 draggable="false"
               />
-              <div class="name">{{ getName('开拓者') }}</div>
+              <div class="name">{{ getName("开拓者") }}</div>
             </div>
             <div class="info"></div>
           </div>
@@ -164,7 +165,7 @@ const handelDelClick = (key: string) => {
     align-items center
     width 90%
     height 90%
-    padding 20px 50px 20px 40px
+    padding 20px 65px
     background #d5d5d5
     box-shadow 0 0 20px 5px rgba(0, 0, 0, 0.3)
     cursor default
@@ -186,6 +187,22 @@ const handelDelClick = (key: string) => {
       .item
         display flex
         flex-wrap wrap
+
+        .custom-user
+          .avatar
+            overflow hidden
+            height 645px
+            background #aaa
+            border-top-right-radius 50px
+
+            img
+              box-sizing border-box
+              margin-top 75px
+              padding 0 20px
+              border-radius 50%
+
+          .name
+            color #555
 
         .character
           position relative

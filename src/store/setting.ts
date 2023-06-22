@@ -14,6 +14,11 @@ export const setting = reactive<{
   select: ''
 })
 
+export const setUserType = (key: string) => {
+  setting.type = key
+  localStorage.setItem('sr-message-type', setting.type)
+}
+
 setting.name = localStorage.getItem('sr-message-name') || '开拓者'
 setting.type = localStorage.getItem('sr-message-type') || '星'
 
