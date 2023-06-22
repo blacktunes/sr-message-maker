@@ -30,6 +30,7 @@
         <a href="https://space.bilibili.com/1384118" target="_blank"
           >BiliBili</a
         >
+        <a class="font-btn" @click="setFont">修改字体[测试功能]</a>
       </div>
     </div>
   </div>
@@ -85,6 +86,27 @@ const shouldHorizontal = computed(() => windowWidth.value <= 550 && v.value > h.
 
 window.onresize = () => {
   setSize()
+}
+
+const setFont = () => {
+  const el = document.createElement('input')
+  el.type = 'file'
+  el.onchange = () => {
+    if (el.files?.[0]) {
+      const file = new FileReader()
+      file.readAsDataURL(el.files[0])
+      file.onload = e => {
+        const css = `@font-face{font-family:'TempFont'; src: url(${(e.target?.result as string).replace('data:application/octet-stream;', 'data:application/font-ttf;')})}`
+        const head = document.getElementsByTagName('head')[0]
+        const style = document.createElement('style')
+        style.appendChild(document.createTextNode(css))
+        head.appendChild(style)
+
+        document.body.style.fontFamily = 'TempFont'
+      }
+    }
+  }
+  el.click()
 }
 </script>
 
@@ -158,6 +180,11 @@ window.onresize = () => {
         margin 0 0 15px 20px
         font-size 46px
         color #ddd
+
+.font-btn
+  position absolute
+  right 100px
+  cursor pointer
 
 .horizontal-tip
   position fixed
