@@ -6,15 +6,12 @@
           <div></div>
         </div>
         <div class="header">
-          <div
+          <input
             class="title"
-            v-once
-            contenteditable
             @keydown.enter.prevent
-            @input="updateTitle($event)"
-          >
-            {{ title }}
-          </div>
+            :value="title"
+            @input="updateTitle"
+          />
           <div class="info">{{ info }}</div>
         </div>
         <div class="message-list" ref="messageListDom">
@@ -29,8 +26,8 @@
                 <img src="@/assets/images/通知.png" alt="" />
                 <span
                   contenteditable
-                  @keydown.enter.prevent
-                  @input="updateText($event, index)"
+                  @keydown.enter.prevent="e => (e.target as HTMLInputElement).blur()"
+                  @blur="updateText($event, index)"
                 >
                   {{ element.text }}
                 </span>
@@ -80,8 +77,8 @@
                       v-else
                       class="text"
                       contenteditable
-                      @keydown.enter.prevent
-                      @input="updateText($event, index)"
+                      @keydown.enter.prevent="e => (e.target as HTMLInputElement).blur()"
+                      @blur="updateText($event, index)"
                     >
                       {{ element.text }}
                     </div>
@@ -227,7 +224,7 @@ watch(messageIndex, () => {
 const { title, info, getUserAvatar } = useMessage(messageIndex)
 
 const updateTitle = (e: Event) => {
-  message.list[messageIndex.value].title = (e.target as HTMLInputElement).innerText
+  message.list[messageIndex.value].title = (e.target as HTMLInputElement).value
 }
 
 const updateText = (e: Event, key: number) => {
