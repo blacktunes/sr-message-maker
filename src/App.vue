@@ -8,6 +8,11 @@
         height: `${height}px`,
       }"
     >
+      <transition name="fade">
+        <div class="loading" v-if="messageLoading">
+          <Loading />
+        </div>
+      </transition>
       <div class="icon">
         <img src="@/assets/images/icon.png" alt="" :draggable="false" />
         <span>短信</span>
@@ -49,10 +54,12 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 import CharacterSelect from './components/CharacterSelect.vue'
+import Loading from './components/Loading.vue'
 import MessageList from './components/Menu.vue'
 import MessageEditor from './components/MessageEditor.vue'
-import NameInput from './components/NameInput.vue'
 import MessagePreview from './components/MessagePreview.vue'
+import NameInput from './components/NameInput.vue'
+import { messageLoading } from './store/message'
 
 // 计算窗口尺寸
 const width = 3200
@@ -108,6 +115,18 @@ window.onresize = () => {
       background url('https://patchwiki.biligame.com/images/sr/8/8e/2ywvn145o3txkmqwhhtt884nb5mjfh2.jpg'), radial-gradient(black, #555) // patchwiki.biligame.com/images/sr/8/8e/2ywvn145o3txkmqwhhtt884nb5mjfh2.jpg), radial-gradient(black, #555)
       background-size 100%
       filter blur(30px)
+
+    .loading
+      z-index 999
+      display flex
+      justify-content center
+      align-items center
+      position fixed
+      top 0
+      left 0
+      width 100%
+      height 100%
+      background rgba(0, 0, 0, 0.6)
 
     .link
       position absolute
