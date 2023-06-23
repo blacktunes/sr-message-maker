@@ -136,11 +136,18 @@ const handelMessageAddClick = () => {
     list: []
   })
   setting.index = time
+  setting.select = undefined
 }
 
-const handelScreenshotClick = () => emitter.emit('screenshot')
+const handelScreenshotClick = () => {
+  if (setting.preview) return
+  emitter.emit('screenshot')
+}
 
-const handelAutoPlayClick = () => emitter.emit('autoplay')
+const handelAutoPlayClick = () => {
+  if (setting.preview) return
+  emitter.emit('autoplay')
+}
 </script>
 
 <style lang="stylus" scoped>

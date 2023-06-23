@@ -1,84 +1,86 @@
 <template>
-  <div class="character-select" v-show="input.select">
-    <div class="box" @click.stop="">
-      <div class="list">
-        <div class="title">游戏角色</div>
-        <div class="item">
-          <div
-            class="character"
-            :class="{ 'custom-user': setting.type === 'custom' }"
-            :title="setting.name"
-            @click="handelcharacterClick('开拓者')"
-          >
-            <div class="avatar">
-              <img
-                :src="user[setting.type].card"
-                :alt="getName('开拓者')"
-                draggable="false"
-              />
-              <div class="name">{{ getName("开拓者") }}</div>
-            </div>
-            <div class="info"></div>
-          </div>
-          <div
-            class="character"
-            v-for="(item, key) in character.game"
-            :key="`avatar-${key}`"
-            :title="`${getName(item.name)}`"
-            @click="handelcharacterClick(String(key))"
-          >
-            <div class="avatar">
-              <img
-                :src="item.card"
-                :alt="getName(item.name)"
-                draggable="false"
-              />
-              <div class="name">{{ getName(item.name) }}</div>
-            </div>
-            <div class="info" :title="item.info">
-              {{ item.info || "" }}
-            </div>
-          </div>
-        </div>
-        <div style="height: 30px"></div>
-        <div class="title">自定义角色</div>
-        <div class="item">
-          <div
-            class="character"
-            v-for="(item, key) in character.custom"
-            :key="`avatar-${key}`"
-            @click="handelcharacterClick(String(key))"
-          >
-            <div class="avatar" style="height: 'var(--character-item-width)'">
-              <img
-                :src="item.avatar"
-                :alt="item.name"
-                :title="item.name"
-                draggable="false"
-              />
-            </div>
-            <div class="custom-name">{{ item.name }}</div>
-            <div class="info">{{ item.info || "" }}</div>
-            <div class="del" @click.stop="handelDelClick(String(key))">×</div>
-          </div>
-          <div class="add" @click="addCustom">
-            <svg
-              viewBox="0 0 1024 1024"
-              version="1.1"
-              xmlns="http://www.w3.org/2000/svg"
-              width="150"
-              height="150"
+  <transition name="fade">
+    <div class="character-select" v-show="input.select">
+      <div class="box" @click.stop="">
+        <div class="list">
+          <div class="title">游戏角色</div>
+          <div class="item">
+            <div
+              class="character"
+              :class="{ 'custom-user': setting.type === 'custom' }"
+              :title="setting.name"
+              @click="handelcharacterClick('开拓者')"
             >
-              <path
-                d="M874.666667 469.333333H554.666667V149.333333c0-23.466667-19.2-42.666667-42.666667-42.666666s-42.666667 19.2-42.666667 42.666666v320H149.333333c-23.466667 0-42.666667 19.2-42.666666 42.666667s19.2 42.666667 42.666666 42.666667h320v320c0 23.466667 19.2 42.666667 42.666667 42.666666s42.666667-19.2 42.666667-42.666666V554.666667h320c23.466667 0 42.666667-19.2 42.666666-42.666667s-19.2-42.666667-42.666666-42.666667z"
-                fill="#afafaf"
-              ></path>
-            </svg>
+              <div class="avatar">
+                <img
+                  :src="user[setting.type].card"
+                  :alt="getName('开拓者')"
+                  draggable="false"
+                />
+                <div class="name">{{ getName("开拓者") }}</div>
+              </div>
+              <div class="info"></div>
+            </div>
+            <div
+              class="character"
+              v-for="(item, key) in character.game"
+              :key="`avatar-${key}`"
+              :title="`${getName(item.name)}`"
+              @click="handelcharacterClick(String(key))"
+            >
+              <div class="avatar">
+                <img
+                  :src="item.card"
+                  :alt="getName(item.name)"
+                  draggable="false"
+                />
+                <div class="name">{{ getName(item.name) }}</div>
+              </div>
+              <div class="info" :title="item.info">
+                {{ item.info || "" }}
+              </div>
+            </div>
+          </div>
+          <div style="height: 30px"></div>
+          <div class="title">自定义角色</div>
+          <div class="item">
+            <div
+              class="character"
+              v-for="(item, key) in character.custom"
+              :key="`avatar-${key}`"
+              @click="handelcharacterClick(String(key))"
+            >
+              <div class="avatar" style="height: 'var(--character-item-width)'">
+                <img
+                  :src="item.avatar"
+                  :alt="item.name"
+                  :title="item.name"
+                  draggable="false"
+                />
+              </div>
+              <div class="custom-name">{{ item.name }}</div>
+              <div class="info">{{ item.info || "" }}</div>
+              <div class="del" @click.stop="handelDelClick(String(key))">×</div>
+            </div>
+            <div class="add" @click="addCustom">
+              <svg
+                viewBox="0 0 1024 1024"
+                version="1.1"
+                xmlns="http://www.w3.org/2000/svg"
+                width="150"
+                height="150"
+              >
+                <path
+                  d="M874.666667 469.333333H554.666667V149.333333c0-23.466667-19.2-42.666667-42.666667-42.666666s-42.666667 19.2-42.666667 42.666666v320H149.333333c-23.466667 0-42.666667 19.2-42.666666 42.666667s19.2 42.666667 42.666666 42.666667h320v320c0 23.466667 19.2 42.666667 42.666667 42.666666s42.666667-19.2 42.666667-42.666666V554.666667h320c23.466667 0 42.666667-19.2 42.666666-42.666667s-19.2-42.666667-42.666666-42.666667z"
+                  fill="#afafaf"
+                ></path>
+              </svg>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script lang="ts" setup>

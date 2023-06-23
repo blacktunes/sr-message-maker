@@ -27,7 +27,12 @@
         ></path>
       </svg>
     </div>
-    <div class="message-list" v-show="setting.select === title">
+    <div
+      class="message-list"
+      :class="{
+        'message-list-highlight': setting.select === title,
+      }"
+    >
       <div
         class="message"
         :class="{
@@ -51,7 +56,13 @@
           ></path>
         </svg>
         <div class="text">{{ getLastMsg(index) }}</div>
-        <div class="del" @click.stop="handelDelClick(item.id)">×</div>
+        <div
+          class="del"
+          v-if="item.list.length === 0"
+          @click.stop="handelDelClick(item.id)"
+        >
+          ×
+        </div>
       </div>
     </div>
   </div>
@@ -80,6 +91,8 @@ const getLastMsg = (index: number) => {
   }
   return props.list[index].list[props.list[index].list.length - 1].text || '暂无消息'
 }
+
+const height = computed(() => `${props.list.length * 165}px`)
 
 const handelItemClick = () => {
   if (setting.select === props.title) {
@@ -149,50 +162,61 @@ const avatarUrl = computed(() => {
       white-space nowrap
       text-overflow ellipsis
 
-  .message
-    position relative
-    box-sizing border-box
-    display flex
-    align-items center
-    height 115px
-    padding 30px 35px 30px 50px
-    margin 25px 10px
-    border 5px solid #595556
-    cursor pointer
+    svg
+      transition transform 0.2s
 
-    &:hover
-      border 5px solid #f6f6f6
+  .message-list
+    overflow hidden
+    max-height 0
+    transition max-height 0.2s
 
-      .del
-        opacity 1
-
-    .text
-      color #4b4b53
-      margin-left 35px
-      font-size 40px
-      overflow hidden
-      white-space nowrap
-      text-overflow ellipsis
-      word-break break-word
-
-    .del
+    .message
+      position relative
+      box-sizing border-box
       display flex
       align-items center
-      justify-content center
-      position absolute
-      right 10px
-      margin-bottom 10px
-      width 80px
-      height 80px
-      font-size 50px
-      opacity 0
+      height 115px
+      padding 30px 35px 30px 50px
+      margin 25px 10px 0 10px
+      border 5px solid #595556
       cursor pointer
 
       &:hover
-        opacity 1
+        border 5px solid #f6f6f6
+
+        .del
+          opacity 1
+
+      .text
+        color #4b4b53
+        margin-left 35px
+        font-size 40px
+        overflow hidden
+        white-space nowrap
+        text-overflow ellipsis
+        word-break break-word
+
+      .del
+        display flex
+        align-items center
+        justify-content center
+        position absolute
+        right 10px
+        margin-bottom 10px
+        width 80px
+        height 80px
+        font-size 50px
+        opacity 0
+        cursor pointer
+
+        &:hover
+          opacity 1
 
 .highlight
   border 5px solid #b5b5b5 !important
+
+.message-list-highlight
+  max-height v-bind(height) !important
 
 .message-highlight
   border 5px solid #ababab !important

@@ -98,6 +98,8 @@ const handelChangeClick = () => {
 
   .avatar
     user-select none
+    box-sizing border-box
+    border 5px solid #3a3a3a
     overflow hidden
     border-radius 50%
     width 110px

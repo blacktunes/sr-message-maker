@@ -69,20 +69,21 @@ const scale = ref(1)
 const realWidth = computed(() => `${width * scale.value}px`)
 const realHeight = computed(() => `${(height + 75) * scale.value}px`)
 
-const h = ref(1)
-const v = ref(1)
 const windowWidth = ref(width)
+const windowHeight = ref(height)
 
 const setSize = () => {
   windowWidth.value = window.innerWidth
-  h.value = window.innerWidth / width
-  v.value = window.innerHeight / height
-  scale.value = Math.min(h.value, v.value)
+  windowHeight.value = window.innerHeight
+  scale.value = Math.min(
+    window.innerWidth / width,
+    window.innerHeight / (height + 75)
+  )
 }
 setSize()
 
 const horizontalTip = ref(true)
-const shouldHorizontal = computed(() => windowWidth.value <= 550 && v.value > h.value)
+const shouldHorizontal = computed(() => windowWidth.value <= 550 && windowWidth.value < windowHeight.value)
 
 window.onresize = () => {
   setSize()
@@ -248,7 +249,7 @@ body
   background #545454
 
 .fade-enter-active, .fade-leave-active
-  transition all 0.3s
+  transition all 0.2s
 
 .fade-enter-from, .fade-leave-to
   opacity 0

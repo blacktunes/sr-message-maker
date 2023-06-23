@@ -1,15 +1,17 @@
 <template>
-  <div class="emoticon" v-show="input.emoticon" @click.stop="">
-    <div
-      class="item"
-      v-for="(item, index) in emoticon"
-      @click="handelEmoticonClick(item.url, item.title)"
-      :title="item.title"
-      :key="index"
-    >
-      <img :src="item.url" :alt="item.title" />
+  <transition name="fade">
+    <div class="emoticon" v-show="input.emoticon" @click.stop="">
+      <div
+        class="item"
+        v-for="(item, index) in emoticon"
+        @click="handelEmoticonClick(item.url, item.title)"
+        :title="item.title"
+        :key="index"
+      >
+        <img :src="item.url" :alt="item.title" />
+      </div>
     </div>
-  </div>
+  </transition>
 </template>
 
 <script lang="ts" setup>
