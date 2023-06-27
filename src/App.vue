@@ -45,8 +45,8 @@
         <div class="img">
           <img src="@/assets/images/horizontal.png" />
         </div>
-        <div>推荐横屏使用</div>
-        <div style="font-size: 10px">(点击屏幕关闭提示)</div>
+        <div>建议解除方向锁定后横屏使用</div>
+        <div style="font-size: 10px;margin: 5px 0;">(点击屏幕关闭提示)</div>
       </div>
     </div>
   </transition>
@@ -69,21 +69,17 @@ const scale = ref(1)
 const realWidth = computed(() => `${width * scale.value}px`)
 const realHeight = computed(() => `${(height + 75) * scale.value}px`)
 
-const windowWidth = ref(width)
-const windowHeight = ref(height)
+const horizontalTip = ref(true)
+const shouldHorizontal = ref(false)
 
 const setSize = () => {
-  windowWidth.value = window.innerWidth
-  windowHeight.value = window.innerHeight
+  shouldHorizontal.value = window.innerWidth <= 550 && window.innerWidth < window.innerHeight
   scale.value = Math.min(
     window.innerWidth / width,
     window.innerHeight / (height + 75)
   )
 }
 setSize()
-
-const horizontalTip = ref(true)
-const shouldHorizontal = computed(() => windowWidth.value <= 550 && windowWidth.value < windowHeight.value)
 
 window.onresize = () => {
   setSize()
@@ -113,13 +109,6 @@ const setFont = () => {
 
 <style lang="stylus" scoped>
 .main
-  overflow hidden
-  position absolute
-  top 0
-  right 0
-  bottom 0
-  left 0
-  margin auto
   width v-bind(realWidth)
   height v-bind(realHeight)
 
@@ -221,39 +210,4 @@ const setFont = () => {
 
       img
         width 100%
-</style>
-
-<style lang="stylus">
-html
-  scrollbar-width none
-
-  &::-webkit-scrollbar
-    width 0
-    height 0
-
-body
-  margin 0
-  font-family Microsoft Yahei
-
-.del
-  transition opacity 0.2s
-
-::-webkit-scrollbar
-  width 10px
-  height 10px
-
-::-webkit-scrollbar-track
-  background #c6c6c6
-
-::-webkit-scrollbar-thumb
-  background #545454
-
-.fade-enter-active, .fade-leave-active
-  transition all 0.2s
-
-.fade-enter-from, .fade-leave-to
-  opacity 0
-
-.fade-enter-to, .fade-leave-from
-  opacity 1
 </style>

@@ -34,7 +34,7 @@
                     {{ element.text }}
                   </span>
                   <div>
-                    <div @click="handelDelClick(index)">×</div>
+                    <div @click="handelDelClick(index)" class="del">×</div>
                   </div>
                 </div>
                 <div
@@ -363,6 +363,7 @@ $width = 2100px
   background rgba(255, 255, 255, 0.1)
   message()
   box-shadow unset
+  user-select none
 
   span
     color #b0aba5
