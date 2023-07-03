@@ -33,7 +33,7 @@
       </div>
     </div>
     <div class="message-preview" @click.stop v-show="setting.preview">
-      <div class="close">
+      <div class="close" v-show="!autoPlaySetting.flag">
         <svg
           width="90"
           height="90"
@@ -296,6 +296,8 @@ const isGreenScreen = ref(false)
 .mask
   z-index 999
   position fixed
+  top 0
+  left 0
   width 100vw
   height 100vh
   cursor pointer
@@ -303,11 +305,11 @@ const isGreenScreen = ref(false)
 .green
   position absolute
   right 115px
-  top 45px
+  top 60px
   background #e3e3e3
   border-radius 50%
-  width 80px
-  height 80px
+  width 90px
+  height 90px
   display flex
   justify-content center
   align-items center

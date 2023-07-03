@@ -85,7 +85,7 @@ const getLastMsg = (index: number) => {
   }
   if (props.list[index].list[props.list[index].list.length - 1].img) {
     if (props.list[index].list[props.list[index].list.length - 1].emoticon) {
-      return `[${props.list[index].list[props.list[index].list.length - 1].emoticon}]`
+      return `[${props.list[index].list[props.list[index].list.length - 1].emoticon?.replace(' ', '_')}]`
     }
     return '[图片]'
   }
