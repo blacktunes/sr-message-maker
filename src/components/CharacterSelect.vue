@@ -4,64 +4,40 @@
       <div class="box" @click.stop="">
         <div class="list">
           <div class="title">游戏角色</div>
-          <div class="item">
-            <div
+          <div class="character-list">
+            <CharacterCard
               class="character"
-              :class="{ 'custom-user': setting.type === 'custom' }"
-              :title="setting.name"
+              :custom="setting.type === 'custom'"
+              :name="setting.name"
+              :avatar="user[setting.type].card"
+              :level="5"
               @click="handelcharacterClick('开拓者')"
-            >
-              <div class="avatar">
-                <img
-                  :src="user[setting.type].card"
-                  :alt="getName('开拓者')"
-                  draggable="false"
-                />
-                <div class="name">{{ getName("开拓者") }}</div>
-              </div>
-              <div class="info"></div>
-            </div>
-            <div
-              class="character"
+            />
+            <CharacterCard
               v-for="(item, key) in character.game"
-              :key="`avatar-${key}`"
-              :title="`${getName(item.name)}`"
+              :key="`character-${key}`"
+              class="character"
+              :name="item.name"
+              :info="item.info"
+              :avatar="item.card"
               @click="handelcharacterClick(String(key))"
-            >
-              <div class="avatar">
-                <img
-                  :src="item.card"
-                  :alt="getName(item.name)"
-                  draggable="false"
-                />
-                <div class="name">{{ getName(item.name) }}</div>
-              </div>
-              <div class="info" :title="item.info">
-                {{ item.info || "" }}
-              </div>
-            </div>
+            />
           </div>
           <div style="height: 30px"></div>
           <div class="title">自定义角色</div>
-          <div class="item">
-            <div
-              class="character"
+          <div class="character-list">
+            <CharacterCard
               v-for="(item, key) in character.custom"
-              :key="`avatar-${key}`"
+              :key="`custom-character-${key}`"
+              class="character"
+              :custom="true"
+              :name="item.name"
+              :info="item.info"
+              :avatar="item.avatar"
               @click="handelcharacterClick(String(key))"
             >
-              <div class="avatar" style="height: 'var(--character-item-width)'">
-                <img
-                  :src="item.avatar"
-                  :alt="item.name"
-                  :title="item.name"
-                  draggable="false"
-                />
-              </div>
-              <div class="custom-name">{{ item.name }}</div>
-              <div class="info">{{ item.info || "" }}</div>
               <div class="del" @click.stop="handelDelClick(String(key))">×</div>
-            </div>
+            </CharacterCard>
             <div class="add" @click="addCustom">
               <svg
                 viewBox="0 0 1024 1024"
@@ -90,11 +66,7 @@ import { character } from '@/store/character'
 import { input } from '@/store/input'
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
-
-const getName = (name: string) => {
-  if (name === '开拓者') return setting.name
-  return name
-}
+import CharacterCard from './Character/CharacterCard.vue'
 
 const hide = () => {
   input.select = false
@@ -123,7 +95,7 @@ const addCustom = () => {
       file.onload = e => {
         const avatar = e.target?.result as string || ''
         const name = prompt('请输入角色名')
-        if (name === null) return
+        if (!name) return
         if (character.custom[name]) {
           alert('角色已存在')
           return
@@ -186,61 +158,12 @@ const handelDelClick = (key: string) => {
         padding-bottom 20px
         border-bottom 1px solid
 
-      .item
+      .character-list
         display flex
         flex-wrap wrap
 
-        .custom-user
-          .avatar
-            overflow hidden
-            height 645px
-            background #aaa
-            border-top-right-radius 50px
-
-            img
-              box-sizing border-box
-              margin-top 75px
-              padding 0 20px
-              border-radius 50%
-
-          .name
-            color #555
-
         .character
-          position relative
-          margin 10px
           width var(--character-item-width)
-          cursor pointer
-
-          .avatar
-            position relative
-
-            img
-              width 100%
-
-          .name, .info
-            width 100%
-            overflow hidden
-            white-space nowrap
-            text-overflow ellipsis
-            text-align center
-
-          .name
-            position absolute
-            bottom 80px
-            color rgba(255, 255, 255, 0.85)
-            font-weight bold
-            font-size 40px
-            text-align center
-
-          .custom-name
-            font-size 40px
-            text-align center
-
-          .info
-            font-size 30px
-            color #6a6a6a
-            text-align center
 
           &:hover
             .del
@@ -249,7 +172,7 @@ const handelDelClick = (key: string) => {
         .add
           box-sizing border-box
           width var(--character-item-width)
-          height var(--character-item-width)
+          height 645px
           margin 10px
           display flex
           justify-content center
@@ -264,12 +187,12 @@ const handelDelClick = (key: string) => {
   justify-content center
   position absolute
   right 0
-  bottom 30px
+  top 0
   width 80px
   height 80px
   font-size 50px
   opacity 0
-  color #6b6b6b
+  color #fff
   cursor pointer
 
   &:hover
