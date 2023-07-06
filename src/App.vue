@@ -121,6 +121,18 @@ const setFont = () => {
     width 100%
     transform-origin left top
 
+    &:before
+      content ''
+      z-index -1
+      position absolute
+      top 0px
+      right 0px
+      bottom 0px
+      left 0px
+      background url('~@/assets/images/方块背景.png')
+      opacity 0.15
+      box-shadow inset 0 0 50px 0px #ffffff
+
     &:after
       content ''
       z-index -2
@@ -182,7 +194,7 @@ const setFont = () => {
       left 30px
       width 650px
       height 470px
-      opacity 0.2
+      opacity 0.4
       pointer-events none
 
       img
