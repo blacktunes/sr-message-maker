@@ -155,7 +155,7 @@ const avatarUrl = computed(() => {
         height 100%
         border-radius 50%
         object-fit contain
-        background #fff
+        background rgba(0, 0, 0, 0.1)
 
     .name
       width 480px

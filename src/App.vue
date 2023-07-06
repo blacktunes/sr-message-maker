@@ -17,6 +17,9 @@
         <img src="@/assets/images/icon.png" alt="" :draggable="false" />
         <span>短信</span>
       </div>
+      <div class="logo-img">
+        <img src="@/assets/images/背景.png" alt="" />
+      </div>
       <MessageList />
       <MessageEditor />
       <MessagePreview />
@@ -46,7 +49,7 @@
           <img src="@/assets/images/horizontal.png" />
         </div>
         <div>建议解除方向锁定后横屏使用</div>
-        <div style="font-size: 10px;margin: 5px 0;">(点击屏幕关闭提示)</div>
+        <div style="font-size: 10px; margin: 5px 0">(点击屏幕关闭提示)</div>
       </div>
     </div>
   </transition>
@@ -120,11 +123,11 @@ const setFont = () => {
 
     &:after
       content ''
-      z-index -1
+      z-index -2
       position absolute
       width 100%
       height 100%
-      background url('https://patchwiki.biligame.com/images/sr/8/8e/2ywvn145o3txkmqwhhtt884nb5mjfh2.jpg'), radial-gradient(black, #555) // patchwiki.biligame.com/images/sr/8/8e/2ywvn145o3txkmqwhhtt884nb5mjfh2.jpg), radial-gradient(black, #555)
+      background url('https://patchwiki.biligame.com/images/sr/8/8e/2ywvn145o3txkmqwhhtt884nb5mjfh2.jpg'), radial-gradient(black, #555)
       background-size 100%
       filter blur(30px)
 
@@ -170,6 +173,23 @@ const setFont = () => {
         margin 0 0 15px 20px
         font-size 46px
         color #ddd
+
+    .logo-img
+      z-index -1
+      overflow hidden
+      position absolute
+      top 30px
+      left 30px
+      width 650px
+      height 470px
+      opacity 0.2
+      pointer-events none
+
+      img
+        position absolute
+        bottom 0
+        right 0
+        animation rotate 60s linear infinite
 
 .font-btn
   position absolute

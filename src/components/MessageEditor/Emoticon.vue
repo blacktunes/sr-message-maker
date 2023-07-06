@@ -37,7 +37,6 @@ const handelEmoticonClick = (url: string, name: string) => {
   background #fff
   display flex
   flex-wrap wrap
-  background-color #fff
   border-radius 5px
   box-shadow 0 0 20px 5px rgba(0, 0, 0, 0.15)
   user-select none
