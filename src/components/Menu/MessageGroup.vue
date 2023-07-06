@@ -127,11 +127,12 @@ const avatarUrl = computed(() => {
 
 <style lang="stylus" scoped>
 .message-item
-  color #bdbec2
+  color #b7b8ba
   user-select none
   margin-bottom 35px
 
   .item
+    position relative
     display flex
     align-items center
     box-sizing border-box
@@ -139,6 +140,28 @@ const avatarUrl = computed(() => {
     height 165px
     border 5px solid #595556
     cursor pointer
+
+    &::before
+      content ''
+      position absolute
+      top 0
+      right 0
+      bottom 0
+      left 0
+      background url('~@/assets/images/对话背景.png')
+      background-repeat no-repeat
+      background-position right
+      opacity 0.15
+
+    &::after
+      content ''
+      position absolute
+      top 0
+      right 0
+      bottom 0
+      left 0
+      background linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) 60%, rgba(255, 255, 255, 0.1))
+      opacity 0.5
 
     &:hover
       border 5px solid #b5b5b5
@@ -155,7 +178,7 @@ const avatarUrl = computed(() => {
         height 100%
         border-radius 50%
         object-fit contain
-        background rgba(0, 0, 0, 0.1)
+        background #3f3f3f
 
     .name
       width 480px
@@ -183,6 +206,7 @@ const avatarUrl = computed(() => {
       padding 30px 35px 30px 50px
       margin 25px 10px 0 10px
       border 5px solid #595556
+      background rgba(0, 0, 0, 0.4)
       cursor pointer
 
       &:hover
@@ -192,7 +216,6 @@ const avatarUrl = computed(() => {
           opacity 1
 
       .text
-        color #4b4b53
         margin-left 35px
         font-size 40px
         overflow hidden
@@ -227,6 +250,6 @@ const avatarUrl = computed(() => {
   background #eaeaea !important
   color #050505 !important
 
-  svg
+  path
     fill #050505 !important
 </style>

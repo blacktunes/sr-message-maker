@@ -1,7 +1,7 @@
 <template>
   <div class="message">
     <div class="list">
-      <MessageItem
+      <MessageGroup
         v-for="(item, index) in list"
         :key="index"
         :title="item.title"
@@ -73,7 +73,7 @@
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
 import { computed } from 'vue'
-import MessageItem from './Menu/MessageItem.vue'
+import MessageGroup from './Menu/MessageGroup.vue'
 import { emitter } from '@/assets/scripts/event'
 
 interface MenuItem {
