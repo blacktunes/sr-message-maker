@@ -141,7 +141,8 @@ const avatarUrl = computed(() => {
     border 5px solid #595556
     cursor pointer
 
-    &::before
+    &:before
+      z-index -1
       content ''
       position absolute
       top 0
@@ -153,7 +154,8 @@ const avatarUrl = computed(() => {
       background-position right
       opacity 0.15
 
-    &::after
+    &:after
+      z-index -2
       content ''
       position absolute
       top 0

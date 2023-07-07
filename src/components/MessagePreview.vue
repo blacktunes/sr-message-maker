@@ -92,7 +92,7 @@
           </g>
         </svg>
       </div>
-      <div class="box cursor" ref="boxDom">
+      <div class="box" ref="boxDom">
         <div class="circle">
           <div></div>
         </div>
@@ -105,54 +105,7 @@
         <div class="message-list" ref="messageListDom">
           <div></div>
           <template v-for="element in dataList" :key="'message' + element.key">
-            <div v-if="element.notice" class="notice">
-              <img src="@/assets/images/通知.png" alt="" />
-              <span>{{ element.text }} </span>
-            </div>
-            <div
-              v-else
-              class="message"
-              :class="{
-                right: element.key === '开拓者',
-              }"
-            >
-              <transition name="avatar" :appear="!setting.preview">
-                <div class="avatar">
-                  <img
-                    :src="getUserAvatar(element.key, element.avatar)"
-                    alt=""
-                  />
-                </div>
-              </transition>
-              <div class="message-item">
-                <transition name="message" :appear="!setting.preview">
-                  <div class="name">
-                    <span>
-                      {{
-                        element.key === "开拓者" ? setting.name : element.name
-                      }}
-                    </span>
-                  </div>
-                </transition>
-                <transition name="message" :appear="!setting.preview">
-                  <div v-if="element.loading" class="loading">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                  </div>
-                  <div
-                    class="img"
-                    v-else-if="element.img"
-                    :style="{ width: element.emoticon ? '320px' : '' }"
-                  >
-                    <img :src="element.img" alt="" />
-                  </div>
-                  <div class="text" v-else>
-                    {{ element.text }}
-                  </div>
-                </transition>
-              </div>
-            </div>
+            <MessageItem :item="element" :index="0" preview />
           </template>
         </div>
       </div>
@@ -167,6 +120,7 @@ import { message } from '@/store/message'
 import { autoPlaySetting, setting } from '@/store/setting'
 import { computed, nextTick, ref } from 'vue'
 import { scrollToBottom, useMessage } from './Message'
+import MessageItem from './MessageEditor/MessageItem.vue'
 
 const messageListDom = ref<HTMLElement | null>(null)
 
@@ -180,7 +134,7 @@ const messageIndex = computed(() => {
   }
 })
 
-const { title, info, getUserAvatar } = useMessage(messageIndex)
+const { title, info } = useMessage(messageIndex)
 
 // 要显示的数据
 const dataList = computed({
@@ -279,9 +233,8 @@ const isGreenScreen = ref(false)
   height 1350px
   message()
 
-  .cursor
-    *
-      cursor auto !important
+  :deep(*)
+    cursor auto !important
 
   .notice:hover, .message:hover
     background unset !important
@@ -317,17 +270,4 @@ const isGreenScreen = ref(false)
 
   path
     fill #707070
-
-@keyframes circle
-  0%
-    opacity 0
-
-  33%
-    opacity 1
-
-  66%
-    opacity 0
-
-  100%
-    opacity 0
 </style>

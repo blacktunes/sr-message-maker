@@ -24,71 +24,14 @@
               <template
                 #item="{ element, index }: { element: Message, index: number }"
               >
-                <div v-if="element.notice" class="notice">
-                  <img src="@/assets/images/通知.png" alt="" />
-                  <span
-                    contenteditable
-                    @keydown.enter.prevent="e => (e.target as HTMLInputElement).blur()"
-                    @blur="updateText($event, index)"
-                  >
-                    {{ element.text }}
-                  </span>
-                  <div>
-                    <div @click="handelDelClick(index)" class="del">×</div>
-                  </div>
-                </div>
-                <div
-                  v-else
-                  class="message"
-                  :class="{
-                    right: element.key === '开拓者',
-                  }"
-                >
-                  <transition name="avatar" appear>
-                    <div class="avatar" @click.stop="handelAvatarClick(index)">
-                      <img
-                        :src="getUserAvatar(element.key, element.avatar)"
-                        alt=""
-                      />
-                    </div>
-                  </transition>
-                  <div class="message-item">
-                    <transition name="message" appear>
-                      <div class="name">
-                        <span>
-                          {{
-                            element.key === "开拓者"
-                              ? setting.name
-                              : element.name
-                          }}
-                        </span>
-                        <div class="del" @click="handelDelClick(index)">×</div>
-                      </div>
-                    </transition>
-                    <transition name="message" appear>
-                      <div
-                        class="img"
-                        v-if="element.img"
-                        :style="{ width: element.emoticon ? '320px' : '' }"
-                      >
-                        <img
-                          :src="element.img"
-                          alt=""
-                          @click.stop="handelImageClick(index)"
-                        />
-                      </div>
-                      <div
-                        v-else
-                        class="text"
-                        contenteditable
-                        @keydown.enter.prevent="e => (e.target as HTMLInputElement).blur()"
-                        @blur="updateText($event, index)"
-                      >
-                        {{ element.text }}
-                      </div>
-                    </transition>
-                  </div>
-                </div>
+                <MessageItem
+                  :item="element"
+                  :index="index"
+                  @text="updateText"
+                  @avatar="handelAvatarClick"
+                  @image="handelImageClick"
+                  @delete="handelDelClick"
+                />
               </template>
             </draggable>
           </div>
@@ -208,6 +151,7 @@ import draggable from '@marshallswain/vuedraggable'
 import { computed, ref, watch } from 'vue'
 import { scrollToBottom, useMessage } from './Message'
 import Emoticon from './MessageEditor/Emoticon.vue'
+import MessageItem from './MessageEditor/MessageItem.vue'
 
 const messageListDom = ref<HTMLElement | null>(null)
 
@@ -239,17 +183,13 @@ const updateTitle = (e: Event) => {
   message.list[messageIndex.value].title = (e.target as HTMLInputElement).value
 }
 
-const updateText = (e: Event, key: number) => {
-  message.list[messageIndex.value].list[key].text = (e.target as HTMLInputElement).innerText
+const updateText = (key: number, data: string) => {
+  message.list[messageIndex.value].list[key].text = data
   message.list[messageIndex.value].time = Date.now()
 }
 
-const handelDelClick = (key: number) => {
-  message.list[messageIndex.value].list.splice(key, 1)
-  message.list[messageIndex.value].time = Date.now()
-}
-
-const handelSelectClick = () => {
+const handelAvatarClick = (key: number) => {
+  input.index = [messageIndex.value, key]
   input.select = true
 }
 
@@ -270,9 +210,12 @@ const handelImageClick = (key: number) => {
   }
   el.click()
 }
+const handelDelClick = (key: number) => {
+  message.list[messageIndex.value].list.splice(key, 1)
+  message.list[messageIndex.value].time = Date.now()
+}
 
-const handelAvatarClick = (key: number) => {
-  input.index = [messageIndex.value, key]
+const handelSelectClick = () => {
   input.select = true
 }
 
