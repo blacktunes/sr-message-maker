@@ -9,7 +9,7 @@
       }"
     >
       <transition name="fade">
-        <div class="loading" v-if="messageLoading">
+        <div class="loading" v-if="setting.loading">
           <Loading />
         </div>
       </transition>
@@ -63,7 +63,7 @@ import MessageList from './components/Menu.vue'
 import MessageEditor from './components/MessageEditor.vue'
 import MessagePreview from './components/MessagePreview.vue'
 import NameInput from './components/NameInput.vue'
-import { messageLoading } from './store/message'
+import { setting } from './store/setting'
 
 // 计算窗口尺寸
 const width = 3200

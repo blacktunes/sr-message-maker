@@ -190,10 +190,12 @@ emitter.on('screenshot', () => {
   if (setting.preview) return
 
   setting.preview = true
+  setting.loading = true
   nextTick(() => {
     if (boxRef.value?.boxDom && boxRef.value?.listDom && setting.preview) {
       domtoimage(boxRef.value.boxDom, undefined, boxRef.value.listDom.scrollHeight + 185)
     }
+    setting.loading = false
   })
 })
 

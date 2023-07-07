@@ -1,12 +1,14 @@
 import { reactive } from 'vue'
 
 export const setting = reactive<{
+  loading: boolean
   name: string
   type: string
   index?: number
   preview?: boolean
   select?: string
 }>({
+  loading: true,
   name: '开拓者',
   type: '星',
   index: undefined,

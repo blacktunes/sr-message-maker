@@ -1,6 +1,5 @@
-import { nextTick, reactive, ref, toRaw, watch } from 'vue'
-
-export const messageLoading = ref(true)
+import { nextTick, reactive, toRaw, watch } from 'vue'
+import { setting } from './setting'
 
 export const message = reactive<{
   list: MessageListItem[]
@@ -9,7 +8,7 @@ export const message = reactive<{
 })
 
 const setWatch = () => {
-  messageLoading.value = false
+  setting.loading = false
   watch(message.list, () => {
     nextTick(() => {
       updateDB()
