@@ -3,12 +3,21 @@ import { character } from '@/store/character'
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
 import { computed, nextTick } from 'vue'
-import type { ComputedRef, Ref } from 'vue'
 
-export const useMessage = (index: ComputedRef<number>) => {
+export const useMessage = () => {
+  const messageIndex = computed(() => {
+    if (setting.index) {
+      return message.list.findIndex(item => {
+        return item.id === setting.index
+      })
+    } else {
+      return -1
+    }
+  })
+
   const names = computed(() => {
     const name: string[] = []
-    for (const _message of message.list[index.value].list) {
+    for (const _message of message.list[messageIndex.value].list) {
       if (_message.key !== '开拓者' && !name.includes(_message.key)) {
         name.push(_message.key)
       }
@@ -17,12 +26,12 @@ export const useMessage = (index: ComputedRef<number>) => {
   })
 
   const customTitle = computed(() => {
-    if (message.list[index.value].title) return message.list[index.value].title
+    if (message.list[messageIndex.value].title) return message.list[messageIndex.value].title
     return undefined
   })
 
   const title = computed(() => {
-    if (index.value === -1) return ''
+    if (messageIndex.value === -1) return ''
 
     if (customTitle.value) return customTitle.value
     if (names.value.length === 1) return names.value[0]
@@ -31,7 +40,7 @@ export const useMessage = (index: ComputedRef<number>) => {
   })
 
   const info = computed(() => {
-    if (index.value === -1) return
+    if (messageIndex.value === -1) return
     if (customTitle.value) return
 
     if (names.value.length === 1) {
@@ -56,17 +65,19 @@ export const useMessage = (index: ComputedRef<number>) => {
   }
 
   return {
+    messageIndex,
     title,
     info,
     getUserAvatar
   }
 }
 
-export const scrollToBottom = (dom: Ref<HTMLElement | null>, flag?: boolean) => {
+export const scrollToBottom = (dom?: HTMLElement | null, smooth?: boolean) => {
   nextTick(() => {
-    dom.value?.scrollTo({
-      top: dom.value?.scrollHeight,
-      behavior: flag ? undefined : 'smooth'
+    if (!dom) return
+    dom.scrollTo({
+      top: dom.scrollHeight,
+      behavior: smooth ? undefined : 'smooth'
     })
   })
 }

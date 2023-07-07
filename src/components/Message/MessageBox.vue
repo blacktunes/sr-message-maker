@@ -1,19 +1,56 @@
-message()
-  box-shadow 0 0 20px 5px rgba(0, 0, 0, 0.3)
-  border-radius 0 50px 0 0
+<template>
+  <div>
+    <slot name="top"></slot>
+    <div class="box" ref="boxDom">
+      <div class="circle">
+        <div></div>
+      </div>
+      <div class="header">
+        <div v-if="preview" class="title">
+          {{ title }}
+        </div>
+        <input
+          v-else
+          class="title"
+          @keydown.enter.prevent
+          :value="title"
+          @input="updateTitle"
+        />
+        <div class="info">{{ info }}</div>
+      </div>
+      <div class="message-list" ref="listDom">
+        <slot></slot>
+      </div>
+      <slot name="bottom"></slot>
+    </div>
+  </div>
+</template>
 
-  &:after
-    content ''
-    position absolute
-    box-sizing border-box
-    left -15px
-    bottom -15px
-    width 100%
-    height 100%
-    border 5px solid rgba(180, 180, 180, 0.5)
-    clip-path polygon(0 0, 10px 0, 100% calc(100% - 10px), 100% 100%, 0 100%)
-    pointer-events none
+<script lang="ts" setup>
+import { ref } from 'vue'
 
+defineProps<{
+  title: string
+  info?: string
+  preview?: boolean
+}>()
+
+// eslint-disable-next-line func-call-spacing
+const emit = defineEmits<{
+  (event: 'title', data: string): void
+}>()
+
+const boxDom = ref<HTMLElement | null>(null)
+const listDom = ref<HTMLElement | null>(null)
+
+const updateTitle = (e: Event) => {
+  emit('title', (e.target as HTMLInputElement).value)
+}
+
+defineExpose({ boxDom, listDom })
+</script>
+
+<style lang="stylus" scoped>
 .box
   display flex
   flex-direction column
@@ -108,3 +145,4 @@ message()
       position absolute
       top 10px
       margin 30px 0
+</style>

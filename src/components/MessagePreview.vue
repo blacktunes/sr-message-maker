@@ -32,84 +32,81 @@
         </svg>
       </div>
     </div>
-    <div class="message-preview" @click.stop v-show="setting.preview">
-      <div class="close" v-show="!autoPlaySetting.flag">
-        <svg
-          width="90"
-          height="90"
-          viewBox="0 0 250 250"
-          xmlns="http://www.w3.org/2000/svg"
-          @click.stop="setting.preview = false"
-        >
-          <g>
-            <g transform="rotate(45 125 121.154)">
-              <line
-                y2="120.76915"
-                x2="90.00004"
-                y1="120.76915"
-                x1="-9.99996"
-                stroke-width="18"
-                stroke="#222"
-                fill="none"
-              />
-              <line
-                y2="120.76915"
-                x2="259.99996"
-                y1="120.76915"
-                x1="159.99996"
-                stroke-width="18"
-                stroke="#222"
-                fill="none"
-              />
-              <line
-                y2="86.1539"
-                x2="125"
-                y1="-13.8461"
-                x1="125"
-                stroke-width="18"
-                stroke="#222"
-                fill="none"
-              />
-              <line
-                y2="256.15382"
-                x2="125"
-                y1="156.15382"
-                x1="125"
-                stroke-width="18"
-                stroke="#222"
-                fill="none"
-              />
-              <ellipse
-                ry="5"
-                rx="5"
-                cy="121.15386"
-                cx="124.6134"
-                stroke-width="18"
-                stroke="#222"
-                fill="none"
-              />
+    <MessageBox
+      v-show="setting.preview"
+      class="message-preview"
+      :title="title"
+      :info="info"
+      preview
+      @click.stop
+      ref="boxRef"
+    >
+      <template #top>
+        <div class="close" v-show="!autoPlaySetting.flag">
+          <svg
+            style="cursor: pointer !important"
+            width="90"
+            height="90"
+            viewBox="0 0 250 250"
+            xmlns="http://www.w3.org/2000/svg"
+            @click.stop="setting.preview = false"
+          >
+            <g>
+              <g transform="rotate(45 125 121.154)">
+                <line
+                  y2="120.76915"
+                  x2="90.00004"
+                  y1="120.76915"
+                  x1="-9.99996"
+                  stroke-width="18"
+                  stroke="#222"
+                  fill="none"
+                />
+                <line
+                  y2="120.76915"
+                  x2="259.99996"
+                  y1="120.76915"
+                  x1="159.99996"
+                  stroke-width="18"
+                  stroke="#222"
+                  fill="none"
+                />
+                <line
+                  y2="86.1539"
+                  x2="125"
+                  y1="-13.8461"
+                  x1="125"
+                  stroke-width="18"
+                  stroke="#222"
+                  fill="none"
+                />
+                <line
+                  y2="256.15382"
+                  x2="125"
+                  y1="156.15382"
+                  x1="125"
+                  stroke-width="18"
+                  stroke="#222"
+                  fill="none"
+                />
+                <ellipse
+                  ry="5"
+                  rx="5"
+                  cy="121.15386"
+                  cx="124.6134"
+                  stroke-width="18"
+                  stroke="#222"
+                  fill="none"
+                />
+              </g>
             </g>
-          </g>
-        </svg>
-      </div>
-      <div class="box" ref="boxDom">
-        <div class="circle">
-          <div></div>
+          </svg>
         </div>
-        <div class="header">
-          <div class="title">
-            {{ title }}
-          </div>
-          <div class="info">{{ info }}</div>
-        </div>
-        <div class="message-list" ref="messageListDom">
-          <div></div>
-          <template v-for="element in dataList" :key="'message' + element.key">
-            <MessageItem :item="element" :index="0" preview />
-          </template>
-        </div>
-      </div>
-    </div>
+      </template>
+      <template v-for="element in dataList" :key="'message' + element.key">
+        <MessageItem :item="element" :index="0" preview />
+      </template>
+    </MessageBox>
   </template>
 </template>
 
@@ -119,22 +116,13 @@ import domtoimage from '@/assets/scripts/screenshot'
 import { message } from '@/store/message'
 import { autoPlaySetting, setting } from '@/store/setting'
 import { computed, nextTick, ref } from 'vue'
-import { scrollToBottom, useMessage } from './Message'
-import MessageItem from './MessageEditor/MessageItem.vue'
+import { scrollToBottom, useMessage } from './Message/Message'
+import MessageItem from './Message/MessageItem.vue'
+import MessageBox from './Message/MessageBox.vue'
 
-const messageListDom = ref<HTMLElement | null>(null)
+const boxRef = ref<InstanceType<typeof MessageBox>>()
 
-const messageIndex = computed(() => {
-  if (setting.index) {
-    return message.list.findIndex(item => {
-      return item.id === setting.index
-    })
-  } else {
-    return -1
-  }
-})
-
-const { title, info } = useMessage(messageIndex)
+const { messageIndex, title, info } = useMessage()
 
 // 要显示的数据
 const dataList = computed({
@@ -173,7 +161,7 @@ const autoPlay = (i: number, loading: boolean) => {
   }
 
   nextTick(() => {
-    scrollToBottom(messageListDom)
+    scrollToBottom(boxRef.value?.listDom)
 
     if (loading) {
       setTimeout(() => {
@@ -195,18 +183,16 @@ const autoPlay = (i: number, loading: boolean) => {
 const handelMaskClick = () => {
   autoPlaySetting.flag = false
   autoPlaySetting.list = []
-  scrollToBottom(messageListDom)
+  scrollToBottom(boxRef.value?.listDom)
 }
-
-const boxDom = ref<HTMLElement | null>(null)
 
 emitter.on('screenshot', () => {
   if (setting.preview) return
 
   setting.preview = true
   nextTick(() => {
-    if (boxDom.value && messageListDom.value && setting.preview) {
-      domtoimage(boxDom.value, undefined, messageListDom.value.scrollHeight + 185)
+    if (boxRef.value?.boxDom && boxRef.value?.listDom && setting.preview) {
+      domtoimage(boxRef.value.boxDom, undefined, boxRef.value.listDom.scrollHeight + 185)
     }
   })
 })
@@ -215,7 +201,7 @@ const isGreenScreen = ref(false)
 </script>
 
 <style lang="stylus" scoped>
-@import './Message.styl'
+@import './Message/Message.styl'
 
 .bg
   z-index 9
@@ -244,7 +230,6 @@ const isGreenScreen = ref(false)
     position absolute
     right 70px
     top 65px
-    cursor pointer
 
 .mask
   z-index 999
@@ -253,7 +238,7 @@ const isGreenScreen = ref(false)
   left 0
   width 100vw
   height 100vh
-  cursor pointer
+  cursor wait
 
 .green
   position absolute

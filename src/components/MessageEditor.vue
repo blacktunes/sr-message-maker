@@ -1,40 +1,32 @@
 <template>
   <transition-group name="fade">
     <template v-if="setting.index">
-      <div class="message-editor">
-        <div class="box">
-          <div class="circle">
-            <div></div>
-          </div>
-          <div class="header">
-            <input
-              class="title"
-              @keydown.enter.prevent
-              :value="title"
-              @input="updateTitle"
+      <MessageBox
+        class="message-editor"
+        :title="title"
+        :info="info"
+        @title="updateTitle"
+        ref="boxRef"
+      >
+        <draggable
+          v-model="message.list[messageIndex].list"
+          :item-key="(item: Message) => getKey(item)"
+          delay="100"
+        >
+          <template
+            #item="{ element, index }: { element: Message, index: number }"
+          >
+            <MessageItem
+              :item="element"
+              :index="index"
+              @text="updateText"
+              @avatar="handelAvatarClick"
+              @image="handelImageClick"
+              @delete="handelDelClick"
             />
-            <div class="info">{{ info }}</div>
-          </div>
-          <div class="message-list" ref="messageListDom">
-            <draggable
-              v-model="message.list[messageIndex].list"
-              :item-key="(item: Message) => getKey(item)"
-              delay="100"
-            >
-              <template
-                #item="{ element, index }: { element: Message, index: number }"
-              >
-                <MessageItem
-                  :item="element"
-                  :index="index"
-                  @text="updateText"
-                  @avatar="handelAvatarClick"
-                  @image="handelImageClick"
-                  @delete="handelDelClick"
-                />
-              </template>
-            </draggable>
-          </div>
+          </template>
+        </draggable>
+        <template #bottom>
           <div class="bottom">
             <div class="btn" @click.stop="handelSelectClick" title="选择角色">
               <img
@@ -128,10 +120,9 @@
               </svg>
             </div>
           </div>
-        </div>
+        </template>
         <Emoticon @emoticon="addEmoticon" />
-      </div>
-      <div class="menu"></div>
+      </MessageBox>
     </template>
     <template v-else>
       <div class="defalut-wrapper">
@@ -148,22 +139,15 @@ import { input } from '@/store/input'
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
 import draggable from '@marshallswain/vuedraggable'
-import { computed, ref, watch } from 'vue'
-import { scrollToBottom, useMessage } from './Message'
-import Emoticon from './MessageEditor/Emoticon.vue'
-import MessageItem from './MessageEditor/MessageItem.vue'
+import { nextTick, ref, watch } from 'vue'
+import { scrollToBottom, useMessage } from './Message/Message'
+import Emoticon from './Message/Emoticon.vue'
+import MessageBox from './Message/MessageBox.vue'
+import MessageItem from './Message/MessageItem.vue'
 
-const messageListDom = ref<HTMLElement | null>(null)
+const boxRef = ref<InstanceType<typeof MessageBox>>()
 
-const messageIndex = computed(() => {
-  if (setting.index) {
-    return message.list.findIndex(item => {
-      return item.id === setting.index
-    })
-  } else {
-    return -1
-  }
-})
+const { messageIndex, title, info, getUserAvatar } = useMessage()
 
 const getKey = (item: Message) => {
   const index = message.list[messageIndex.value].list.indexOf(item)
@@ -174,13 +158,13 @@ watch(messageIndex, () => {
   if (messageIndex.value === -1) {
     setting.index = undefined
   }
-  scrollToBottom(messageListDom, true)
+  nextTick(() => {
+    scrollToBottom(boxRef.value?.listDom, true)
+  })
 })
 
-const { title, info, getUserAvatar } = useMessage(messageIndex)
-
-const updateTitle = (e: Event) => {
-  message.list[messageIndex.value].title = (e.target as HTMLInputElement).value
+const updateTitle = (data: string) => {
+  message.list[messageIndex.value].title = data
 }
 
 const updateText = (key: number, data: string) => {
@@ -236,7 +220,7 @@ const handelImageAddClick = () => {
           img: e.target?.result as string
         })
         message.list[messageIndex.value].time = Date.now()
-        scrollToBottom(messageListDom)
+        scrollToBottom(boxRef.value?.listDom)
       }
     }
   }
@@ -258,7 +242,7 @@ const addEmoticon = (url: string, name: string) => {
   })
   message.list[messageIndex.value].time = Date.now()
   input.emoticon = false
-  scrollToBottom(messageListDom)
+  scrollToBottom(boxRef.value?.listDom)
 }
 
 const handelNoticeClick = () => {
@@ -271,7 +255,7 @@ const handelNoticeClick = () => {
   })
   message.list[messageIndex.value].time = Date.now()
   input.input = ''
-  scrollToBottom(messageListDom)
+  scrollToBottom(boxRef.value?.listDom)
 }
 
 const handelAddClick = (img?: string) => {
@@ -284,26 +268,29 @@ const handelAddClick = (img?: string) => {
   })
   message.list[messageIndex.value].time = Date.now()
   input.input = ''
-  scrollToBottom(messageListDom)
+  scrollToBottom(boxRef.value?.listDom)
 }
 </script>
 
 <style lang="stylus" scoped>
-@import './Message.styl'
+@import './Message/Message.styl'
 
 $width = 2100px
+
+box()
+  position absolute
+  top 180px
+  left 1000px
+  width $width
+  height 1200px
 
 .defalut-wrapper
   display flex
   flex-direction column
   align-items center
   justify-content center
-  position absolute
-  top 180px
-  left 1000px
-  width $width
-  height 1200px
   background rgba(255, 255, 255, 0.1)
+  box()
   message()
   box-shadow unset
   user-select none
@@ -315,11 +302,7 @@ $width = 2100px
     margin 100px 0 200px 0
 
 .message-editor
-  position absolute
-  top 180px
-  left 1000px
-  width $width
-  height 1200px
+  box()
   message()
 
   .bottom
