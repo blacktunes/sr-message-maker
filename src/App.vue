@@ -14,7 +14,7 @@
         </div>
       </transition>
       <div class="icon">
-        <img src="@/assets/images/icon.png" alt="" :draggable="false" />
+        <img src="@/assets/images/icon.png" alt="" />
         <span>短信</span>
       </div>
       <div class="logo-img">
