@@ -126,7 +126,7 @@
     </template>
     <template v-else>
       <div class="defalut-wrapper">
-        <img src="@/assets/images/列车.png" alt="" draggable="false" />
+        <img src="@/assets/images/列车.svg" alt="" draggable="false" />
         <span>{{ message.list.length > 0 ? "请选择联系人" : "暂无短信" }}</span>
       </div>
     </template>
@@ -275,14 +275,12 @@ const handelAddClick = (img?: string) => {
 <style lang="stylus" scoped>
 @import './Message/Message.styl'
 
-$width = 2100px
-
 box()
   position absolute
   top 180px
   left 1000px
-  width $width
-  height 1200px
+  width 2100px
+  height 85%
 
 .defalut-wrapper
   display flex
@@ -309,7 +307,7 @@ box()
     display flex
     align-items center
     box-sizing border-box
-    width $width
+    width 100%
     height 150px
     border-top 5px solid #b3b3b3
     background #c7c8ca

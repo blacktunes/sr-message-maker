@@ -65,7 +65,7 @@
         animation-delay 0.75s
 
   .circle-group-2
-    animation spin 6s infinite
+    animation spin 6s infinite ease-in-out
 
     .circle
       width 15px

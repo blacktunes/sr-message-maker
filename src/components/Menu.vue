@@ -1,5 +1,5 @@
 <template>
-  <div class="message">
+  <div class="menu">
     <div class="list">
       <MessageGroup
         v-for="(item, index) in list"
@@ -8,7 +8,7 @@
         :list="item.list"
       />
     </div>
-    <div class="menu">
+    <div class="message">
       <div class="btn" @click="handelMessageAddClick">
         <div class="icon">
           <svg
@@ -153,7 +153,7 @@ const handelAutoPlayClick = () => {
 <style lang="stylus" scoped>
 $pos = 190px
 
-.message
+.menu
   position absolute
   top $pos
   left $pos
@@ -171,7 +171,7 @@ $pos = 190px
       width 0
       height 0
 
-  .menu
+  .message
     display flex
     align-items flex-start
     box-sizing border-box

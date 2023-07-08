@@ -14,7 +14,7 @@
         </div>
       </transition>
       <div class="icon">
-        <img src="@/assets/images/icon.png" alt="" />
+        <img src="@/assets/images/短信.svg" alt="" />
         <span>短信</span>
       </div>
       <div class="logo-img">
@@ -67,7 +67,7 @@ import { setting } from './store/setting'
 
 // 计算窗口尺寸
 const width = 3200
-const height = 1440
+const height = width / 16 * 9
 const scale = ref(1)
 const realWidth = computed(() => `${width * scale.value}px`)
 const realHeight = computed(() => `${(height + 75) * scale.value}px`)

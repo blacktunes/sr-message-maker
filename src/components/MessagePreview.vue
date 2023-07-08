@@ -103,7 +103,7 @@
           </svg>
         </div>
       </template>
-      <template v-for="element in dataList" :key="'message' + element.key">
+      <template v-for="(element, index) in dataList" :key="'preview-' + index">
         <MessageItem :item="element" :index="0" preview />
       </template>
     </MessageBox>
@@ -215,10 +215,10 @@ const isGreenScreen = ref(false)
 .message-preview
   z-index 10
   position absolute
-  top 50px
+  top 5%
   left 900px
   width 1400px
-  height 1350px
+  height 90%
   message()
 
   :deep(*)
