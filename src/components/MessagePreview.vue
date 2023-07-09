@@ -145,6 +145,10 @@ emitter.on('autoplay', () => {
 
 const autoPlay = (i: number, loading: boolean) => {
   if (!autoPlaySetting.flag) return
+  if (!message.list[messageIndex.value].list?.[i]) {
+    autoPlaySetting.flag = false
+    return
+  }
 
   if (message.list[messageIndex.value].list[i].key === '开拓者' || message.list[messageIndex.value].list[i].notice) {
     loading = false
