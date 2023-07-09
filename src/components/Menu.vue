@@ -11,18 +11,21 @@
     <div class="message">
       <div class="btn" @click="handelMessageAddClick">
         <div class="icon">
+          <Icon name="ring" class="ring" />
           <Icon name="message" />
         </div>
         <span>发短信</span>
       </div>
       <div class="btn" v-if="setting.index" @click.stop="handelScreenshotClick">
         <div class="icon">
+          <Icon name="ring" class="ring" />
           <Icon name="save" />
         </div>
         <span>保存对话</span>
       </div>
       <div class="btn" v-if="setting.index" @click.stop="handelAutoPlayClick">
         <div class="icon">
+          <Icon name="ring" class="ring" />
           <Icon name="play" />
         </div>
         <span>自动播放</span>
@@ -156,9 +159,10 @@ $pos = 190px
         color #e4d89b
 
         .icon
-          outline 3px solid #f8fdff
+          outline 2px solid #f8fdff
 
       .icon
+        position relative
         background #e3e3e3
         border-radius 50%
         width 80px
@@ -167,8 +171,8 @@ $pos = 190px
         justify-content center
         align-items center
 
-        :deep(path)
-          fill #1a1b18
+        .ring
+          position absolute
 
       span
         margin-left 20px
