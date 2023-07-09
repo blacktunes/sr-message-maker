@@ -189,6 +189,12 @@ $pos = 190px
       user-select none
       cursor pointer
 
+      &:hover
+        color #e4d89b
+
+        .icon
+          outline 2px solid #f8fdff
+
       .icon
         background #e3e3e3
         border-radius 50%

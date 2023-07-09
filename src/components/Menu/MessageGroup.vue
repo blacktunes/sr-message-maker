@@ -127,7 +127,7 @@ const avatarUrl = computed(() => {
 
 <style lang="stylus" scoped>
 .message-item
-  color #b7b8ba
+  color #afaeb3
   user-select none
   margin-bottom 35px
 
@@ -140,6 +140,7 @@ const avatarUrl = computed(() => {
     height 165px
     border 5px solid #595556
     cursor pointer
+    transition all 0.2s
 
     &:before
       z-index -1
@@ -168,6 +169,9 @@ const avatarUrl = computed(() => {
     &:hover
       border 5px solid #b5b5b5
 
+      svg
+        margin-left 20px
+
     .avatar
       overflow hidden
       width 115px
@@ -192,10 +196,13 @@ const avatarUrl = computed(() => {
       text-overflow ellipsis
 
     svg
-      transition transform 0.2s
+      transition all 0.2s
 
   .message-list
     overflow hidden
+    display flex
+    flex-direction column
+    align-items center
     max-height 0
     transition max-height 0.2s
 
@@ -205,6 +212,7 @@ const avatarUrl = computed(() => {
       display flex
       align-items center
       height 115px
+      width 95%
       padding 30px 35px 30px 50px
       margin 25px 10px 0 10px
       border 5px solid #595556
@@ -212,7 +220,11 @@ const avatarUrl = computed(() => {
       cursor pointer
 
       &:hover
-        border 5px solid #f6f6f6
+        color #040406
+        background #bab9be
+
+        path
+          fill #050505
 
         .del
           opacity 1
@@ -248,9 +260,10 @@ const avatarUrl = computed(() => {
   max-height v-bind(height) !important
 
 .message-highlight
-  border 5px solid #ababab !important
+  color #040406 !important
   background #eaeaea !important
-  color #050505 !important
+  border 5px solid #f3f4f6 !important
+  outline 5px solid #f3f4f6
 
   path
     fill #050505 !important

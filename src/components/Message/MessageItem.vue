@@ -19,7 +19,7 @@
       right: item.key === '开拓者',
     }"
   >
-    <transition name="avatar" appear>
+    <transition :name="!preview ? 'fade' : 'avatar'" appear>
       <div
         class="avatar"
         @click.stop="preview ? undefined : handelAvatarClick(index)"
@@ -28,7 +28,7 @@
       </div>
     </transition>
     <div class="message-item">
-      <transition name="message" appear>
+      <transition :name="!preview ? 'fade' : 'message'" appear>
         <div class="name">
           <span>
             {{ item.key === "开拓者" ? setting.name : item.name }}
@@ -38,7 +38,7 @@
           </div>
         </div>
       </transition>
-      <transition name="message" appear>
+      <transition :name="!preview ? 'fade' : 'message'" appear>
         <div v-if="item.loading" class="loading">
           <div></div>
           <div></div>

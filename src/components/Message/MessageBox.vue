@@ -6,17 +6,21 @@
         <div></div>
       </div>
       <div class="header">
-        <div v-if="preview" class="title">
-          {{ title }}
-        </div>
-        <input
-          v-else
-          class="title"
-          @keydown.enter.prevent
-          :value="title"
-          @input="updateTitle"
-        />
-        <div class="info">{{ info }}</div>
+        <transition :name="preview ? '' : 'slide-left'" appear>
+          <div :key="title">
+            <div v-if="preview" class="title">
+              {{ title }}
+            </div>
+            <input
+              v-else
+              class="title"
+              @keydown.enter.prevent
+              :value="title"
+              @input="updateTitle"
+            />
+            <div class="info">{{ info }}</div>
+          </div>
+        </transition>
       </div>
       <div class="message-list" ref="listDom">
         <slot></slot>
@@ -145,4 +149,15 @@ defineExpose({ boxDom, listDom })
       position absolute
       top 10px
       margin 30px 0
+
+.slide-left-enter-active
+  transition all 0.25s ease-out
+
+.slide-left-leave-active
+  opacity 0
+  position absolute
+
+.slide-left-enter-from
+  opacity 0
+  transform translateX(100px)
 </style>
