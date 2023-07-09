@@ -18,18 +18,7 @@
         @click.stop="isGreenScreen = !isGreenScreen"
         v-if="setting.preview"
       >
-        <svg
-          viewBox="0 0 1024 1024"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-          width="45"
-          height="45"
-        >
-          <path
-            d="M0 153.6a153.6 153.6 0 0 1 153.6-153.6h716.8a153.6 153.6 0 0 1 153.6 153.6v716.8a153.6 153.6 0 0 1-153.6 153.6H153.6a153.6 153.6 0 0 1-153.6-153.6V153.6z m102.4 0v716.8a51.2 51.2 0 0 0 51.2 51.2h716.8a51.2 51.2 0 0 0 51.2-51.2V153.6a51.2 51.2 0 0 0-51.2-51.2H153.6a51.2 51.2 0 0 0-51.2 51.2z m76.8 768L921.6 179.2v-25.0112s0-21.9136-15.104-36.9664C891.392 102.144 870.4768 102.4 870.4768 102.4H844.8L102.4 844.8v25.6s-0.128 18.7904 13.312 34.9952C129.1008 921.6 153.6 921.6 153.6 921.6h25.6zM102.4 563.2L563.2 102.4h-128L102.4 435.2v128z m819.2-102.4L460.8 921.6h128l332.8-332.8v-128z"
-            fill="#9099B0"
-          ></path>
-        </svg>
+        <Icon name="green" />
       </div>
     </div>
     <MessageBox
@@ -42,65 +31,12 @@
       ref="boxRef"
     >
       <template #top>
-        <div class="close" v-show="!autoPlaySetting.flag">
-          <svg
-            style="cursor: pointer !important"
-            width="90"
-            height="90"
-            viewBox="0 0 250 250"
-            xmlns="http://www.w3.org/2000/svg"
-            @click.stop="setting.preview = false"
-          >
-            <g>
-              <g transform="rotate(45 125 121.154)">
-                <line
-                  y2="120.76915"
-                  x2="90.00004"
-                  y1="120.76915"
-                  x1="-9.99996"
-                  stroke-width="18"
-                  stroke="#222"
-                  fill="none"
-                />
-                <line
-                  y2="120.76915"
-                  x2="259.99996"
-                  y1="120.76915"
-                  x1="159.99996"
-                  stroke-width="18"
-                  stroke="#222"
-                  fill="none"
-                />
-                <line
-                  y2="86.1539"
-                  x2="125"
-                  y1="-13.8461"
-                  x1="125"
-                  stroke-width="18"
-                  stroke="#222"
-                  fill="none"
-                />
-                <line
-                  y2="256.15382"
-                  x2="125"
-                  y1="156.15382"
-                  x1="125"
-                  stroke-width="18"
-                  stroke="#222"
-                  fill="none"
-                />
-                <ellipse
-                  ry="5"
-                  rx="5"
-                  cy="121.15386"
-                  cx="124.6134"
-                  stroke-width="18"
-                  stroke="#222"
-                  fill="none"
-                />
-              </g>
-            </g>
-          </svg>
+        <div
+          class="close"
+          style="cursor: pointer !important"
+          v-show="!autoPlaySetting.flag"
+        >
+          <Icon name="close" @click.stop="setting.preview = false" />
         </div>
       </template>
       <template v-for="(element, index) in dataList" :key="'preview-' + index">
@@ -119,6 +55,7 @@ import { computed, nextTick, ref } from 'vue'
 import { scrollToBottom, useMessage } from './Message/Message'
 import MessageItem from './Message/MessageItem.vue'
 import MessageBox from './Message/MessageBox.vue'
+import Icon from './Common/Icon.vue'
 
 const boxRef = ref<InstanceType<typeof MessageBox>>()
 
@@ -140,7 +77,9 @@ emitter.on('autoplay', () => {
   setting.preview = true
   autoPlaySetting.list = []
   autoPlaySetting.flag = true
-  autoPlay(0, true)
+  nextTick(() => {
+    autoPlay(0, true)
+  })
 })
 
 const autoPlay = (i: number, loading: boolean) => {
@@ -225,7 +164,7 @@ const isGreenScreen = ref(false)
   height 90%
   message()
 
-  :deep(*)
+  :deep(div)
     cursor auto !important
 
   .notice:hover, .message:hover
@@ -236,6 +175,19 @@ const isGreenScreen = ref(false)
     position absolute
     right 70px
     top 65px
+    display flex
+    justify-content center
+    align-items center
+    width 100px
+    height 100px
+
+    svg
+      transition all 0.2s
+
+    &:hover
+      svg
+        width 100px
+        height 100px
 
 .mask
   z-index 999

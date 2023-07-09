@@ -276,7 +276,7 @@ const handelDelClick = (key: number) => {
 
     .text
       background #d3bb8b !important
-      border-radius 20px 0 20px 20px !important
+      border-radius 25px 0 25px 25px !important
 
   .del
     left -100px

@@ -39,18 +39,7 @@
               <div class="del" @click.stop="handelDelClick(String(key))">×</div>
             </CharacterCard>
             <div class="add" @click="addCustom">
-              <svg
-                viewBox="0 0 1024 1024"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                width="150"
-                height="150"
-              >
-                <path
-                  d="M874.666667 469.333333H554.666667V149.333333c0-23.466667-19.2-42.666667-42.666667-42.666666s-42.666667 19.2-42.666667 42.666666v320H149.333333c-23.466667 0-42.666667 19.2-42.666666 42.666667s19.2 42.666667 42.666666 42.666667h320v320c0 23.466667 19.2 42.666667 42.666667 42.666666s42.666667-19.2 42.666667-42.666666V554.666667h320c23.466667 0 42.666667-19.2 42.666666-42.666667s-19.2-42.666667-42.666666-42.666667z"
-                  fill="#afafaf"
-                ></path>
-              </svg>
+              <Icon name="add" />
             </div>
           </div>
         </div>
@@ -67,6 +56,7 @@ import { input } from '@/store/input'
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
 import CharacterCard from './Character/CharacterCard.vue'
+import Icon from './Common/Icon.vue'
 
 const hide = () => {
   input.select = false

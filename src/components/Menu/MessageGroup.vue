@@ -11,21 +11,12 @@
         <img :src="avatarUrl" alt="" />
       </div>
       <div class="name">{{ title || "未命名短信" }}</div>
-      <svg
-        viewBox="0 0 1024 1024"
-        version="1.1"
-        xmlns="http://www.w3.org/2000/svg"
-        width="40"
-        height="40"
+      <Icon
+        name="arrow"
         :style="{
           transform: setting.select === title ? 'rotate(90deg)' : '',
         }"
-      >
-        <path
-          d="M636.416 522.24l-397.824 387.072c-23.552 23.04-23.552 59.904 0 82.432 23.552 23.04 61.44 23.04 84.992 0l440.32-428.032c23.552-23.04 23.552-59.904 0-82.432l-440.32-428.032C311.808 41.472 296.448 35.84 281.088 35.84c-15.36 0-30.72 5.632-42.496 16.896-23.552 23.04-23.552 59.904 0 82.432l397.824 387.072z"
-          fill="#595556"
-        ></path>
-      </svg>
+      />
     </div>
     <div
       class="message-list"
@@ -42,19 +33,7 @@
         :key="`title-${index}`"
         @click="handelMessageClick(item.id)"
       >
-        <svg
-          style="flex-shrink: 0"
-          viewBox="0 0 1024 1024"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-          width="50"
-          height="50"
-        >
-          <path
-            d="M392.533333 806.4L85.333333 503.466667l59.733334-59.733334 247.466666 247.466667L866.133333 213.333333l59.733334 59.733334L392.533333 806.4z"
-            fill="#595556"
-          ></path>
-        </svg>
+        <Icon name="check" style="flex-shrink: 0" />
         <div class="text">{{ getLastMsg(index) }}</div>
         <div
           class="del"
@@ -73,6 +52,7 @@ import { getAvatar } from '@/assets/scripts/avatar'
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
 import { computed } from '@vue/reactivity'
+import Icon from '../Common/Icon.vue'
 
 const props = defineProps<{
   title?: string
