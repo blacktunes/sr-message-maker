@@ -9,7 +9,7 @@
         <div
           class="item"
           v-for="(item, index_2) in group"
-          @click="handelEmoticonClick(item.url, item.title)"
+          @click="handelEmoticonClick(item)"
           :title="item.title"
           :key="index_2"
         >
@@ -29,8 +29,23 @@ const emit = defineEmits<{
   (event: 'emoticon', url: string, name: string): void
 }>()
 
-const handelEmoticonClick = (url: string, name: string) => {
-  emit('emoticon', url, name)
+const handelEmoticonClick = (item: Emoticon) => {
+  if (item.base64) {
+    const img = new Image()
+    img.onload = function () {
+      const canvas = document.createElement('canvas')
+      canvas.width = img.width
+      canvas.height = img.height
+      const ctx = canvas.getContext('2d')
+      ctx?.drawImage(img, 0, 0)
+      const baseData = canvas.toDataURL('image/png')
+
+      emit('emoticon', baseData, item.title)
+    }
+    img.src = item.url
+  } else {
+    emit('emoticon', item.url, item.title)
+  }
 }
 </script>
 

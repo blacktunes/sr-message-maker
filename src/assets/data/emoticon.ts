@@ -1,5 +1,5 @@
 
-export const emoticon = [
+export const emoticon: Emoticon[][] = [
   [
     {
       title: '开拓者 吃瓜ing',
@@ -391,11 +391,13 @@ export const emoticon = [
   [
     {
       title: '中年人_早上好',
-      url: 'https://i.postimg.cc/k5MCqv51/image.jpg'
+      url: require('@/assets/images/老年人_早上好.jpg'),
+      base64: true
     },
     {
       title: '中年人_干杯',
-      url: 'https://i.postimg.cc/6QHX3429/image.jpg'
+      url: require('@/assets/images/老年人_干杯.jpg'),
+      base64: true
     }
   ]
 ]
