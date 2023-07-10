@@ -8,7 +8,7 @@
         :list="item.list"
       />
     </div>
-    <div class="message">
+    <div class="footer">
       <div class="btn" @click="handelMessageAddClick">
         <div class="icon">
           <Icon name="ring" class="ring" />
@@ -103,27 +103,34 @@ const handelAutoPlayClick = () => {
 
 <style lang="stylus" scoped>
 $pos = 190px
-$btn-height = 240px
+$btn-height = 255px
 
 .menu
   position absolute
   top $pos
   left $pos
-  width 750px
+  width 765px
   height 'calc(100% - %s)' % $pos
 
   .list
-    overflow-y scroll
+    overflow-y auto
+    overflow-y overlay
     overflow-x hidden
+    scrollbar-gutter stable
+    box-sizing border-box
     width 100%
     height 'calc(100% - %s)' % $btn-height
+    padding-right 25px
     scrollbar-width none
 
-    &::-webkit-scrollbar
-      width 0
-      height 0
+    &::-webkit-scrollbar-track
+      background #3c3f46
+      margin 15px 0 5px 0
 
-  .message
+    &::-webkit-scrollbar-thumb
+      background #9ea0a4
+
+  .footer
     display flex
     align-items flex-start
     box-sizing border-box
@@ -131,6 +138,7 @@ $btn-height = 240px
     height $btn-height
     border-top var(--menu-border)
     padding-top 35px
+    margin-top 15px
 
     .btn
       flex 0 0 30%

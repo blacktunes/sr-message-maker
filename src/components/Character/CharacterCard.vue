@@ -51,7 +51,7 @@ defineProps<{
         height 100%
         border-radius 50%
         object-fit contain
-        background #fff
+        background rgba(255,255,255,0.1)
 
   .name
     color #555
