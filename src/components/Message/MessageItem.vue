@@ -9,7 +9,9 @@
       {{ item.text }}
     </span>
     <div v-if="!preview">
-      <div @click="handelDelClick(index)" class="del">×</div>
+      <div @click="handelDelClick(index)" class="del">
+        <Icon name="delete" width="30" height="30" />
+      </div>
     </div>
   </div>
   <div
@@ -34,7 +36,7 @@
             {{ item.key === "开拓者" ? setting.name : item.name }}
           </span>
           <div v-if="!preview" class="del" @click="handelDelClick(index)">
-            ×
+            <Icon name="delete" width="30" height="30" />
           </div>
         </div>
       </transition>
@@ -74,6 +76,7 @@
 <script lang="ts" setup>
 import { user } from '@/assets/data/characterData'
 import { setting } from '@/store/setting'
+import Icon from '../Common/Icon.vue'
 
 defineProps<{
   item: Message
@@ -133,7 +136,7 @@ const handelDelClick = (key: number) => {
     background var(--message-item-background-color)
 
     div
-      div
+      .del
         opacity 1
 
   img
@@ -150,7 +153,7 @@ const handelDelClick = (key: number) => {
     position relative
     height 100%
 
-    div
+    .del
       display flex
       align-items center
       justify-content center
@@ -162,6 +165,9 @@ const handelDelClick = (key: number) => {
       font-size 60px
       opacity 0
       cursor pointer
+
+      :deep(path)
+        fill var(--notice-color)
 
       &:hover
         opacity 1
@@ -213,11 +219,14 @@ const handelDelClick = (key: number) => {
         position absolute
         right -100px
         top 0
-        width 80px
+        width 100px
         height 100%
         font-size 50px
         opacity 0
         cursor pointer
+
+        :deep(path)
+          fill var(--message-item-name-color)
 
         &:hover
           opacity 1

@@ -116,4 +116,7 @@ const handelChangeClick = () => {
     align-items center
     margin-right 20px
     cursor pointer
+
+    &:hover
+      outline 2px solid #f8fdff
 </style>

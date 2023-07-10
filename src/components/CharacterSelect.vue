@@ -36,7 +36,9 @@
               :avatar="item.avatar"
               @click="handelcharacterClick(String(key), item.name)"
             >
-              <div class="del" @click.stop="handelDelClick(String(key))">×</div>
+              <div class="del" @click.stop="handelDelClick(String(key))">
+                <Icon name="delete" width="25" height="25" />
+              </div>
             </CharacterCard>
             <div class="add" @click="addCustom">
               <Icon name="add" />
@@ -107,8 +109,9 @@ const handelDelClick = (key: string) => {
 </script>
 
 <style lang="stylus" scoped>
+$character-item-width = 387px
+
 .character-select
-  --character-item-width 387px
   z-index 99
   display flex
   justify-content center
@@ -128,7 +131,7 @@ const handelDelClick = (key: string) => {
     width 90%
     height 90%
     padding 20px 65px
-    background #d5d5d5
+    background var(--box-background-color)
     box-shadow 0 0 20px 5px rgba(0, 0, 0, 0.3)
     cursor default
     border-top-right-radius 20px
@@ -151,7 +154,7 @@ const handelDelClick = (key: string) => {
         flex-wrap wrap
 
         .character
-          width var(--character-item-width)
+          width $character-item-width
 
           &:hover
             .del
@@ -159,7 +162,7 @@ const handelDelClick = (key: string) => {
 
         .add
           box-sizing border-box
-          width var(--character-item-width)
+          width $character-item-width
           height 645px
           margin 10px
           display flex
@@ -180,8 +183,10 @@ const handelDelClick = (key: string) => {
   height 80px
   font-size 50px
   opacity 0
-  color #fff
   cursor pointer
+
+  :deep(path)
+    fill #fff
 
   &:hover
     opacity 1

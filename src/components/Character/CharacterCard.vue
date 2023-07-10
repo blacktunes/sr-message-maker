@@ -85,6 +85,6 @@ defineProps<{
 
   .info
     font-size 30px
-    color #6a6a6a
+    color var(--info-color)
     text-align center
 </style>

@@ -40,7 +40,7 @@
           v-if="item.list.length === 0"
           @click.stop="handelDelClick(item.id)"
         >
-          ×
+          <Icon name="delete" />
         </div>
       </div>
     </div>
@@ -206,7 +206,7 @@ const avatarUrl = computed(() => {
         color var(--message-text-hover-color)
         background #bab9be
 
-        path
+        :deep(path)
           fill var(--message-icon-hover-color)
 
         .del
@@ -248,6 +248,6 @@ const avatarUrl = computed(() => {
   border var(--menu-border-highlight) !important
   outline var(--menu-border-highlight)
 
-  path
+  :deep(path)
     fill var(--message-icon-hover-color) !important
 </style>
