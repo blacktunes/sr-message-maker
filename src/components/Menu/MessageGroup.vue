@@ -10,7 +10,7 @@
       <div class="avatar">
         <img :src="avatarUrl" alt="" />
       </div>
-      <div class="name">{{ title || "未命名短信" }}</div>
+      <div class="name">{{ title }}</div>
       <Icon
         name="arrow"
         :style="{

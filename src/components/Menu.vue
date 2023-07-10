@@ -87,7 +87,7 @@ const handelMessageAddClick = () => {
     list: []
   })
   setting.index = time
-  setting.select = undefined
+  setting.select = '未命名短信'
 }
 
 const handelScreenshotClick = () => {

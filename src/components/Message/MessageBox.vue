@@ -121,6 +121,7 @@ defineExpose({ boxDom, listDom })
     box-shadow 0px 40px 20px -20px rgba(210, 210, 210, 0.5)
 
     .title
+      width 100%
       color var(--title-color)
       font-size 50px
       font-weight bold
