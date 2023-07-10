@@ -41,6 +41,7 @@ import { setting } from '@/store/setting'
 import { computed } from 'vue'
 import Icon from './Common/Icon.vue'
 import MessageGroup from './Menu/MessageGroup.vue'
+import { getNames, getTitle } from '@/assets/scripts/header'
 
 interface MenuItem {
   time: number
@@ -70,23 +71,7 @@ const setListItem = (
 const list = computed(() => {
   const temp: MenuItem[] = []
   message.list.forEach(item => {
-    const name: string[] = []
-    for (const _message of item.list) {
-      if (_message.key !== '开拓者' && !name.includes(_message.name)) {
-        name.push(_message.name)
-      }
-    }
-
-    switch (name.length) {
-      case 0:
-        setListItem(temp, item)
-        break
-      case 1:
-        setListItem(temp, item, name[0])
-        break
-      default:
-        setListItem(temp, item, `${name.join('、')}、${setting.name}的群聊`)
-    }
+    setListItem(temp, item, getTitle(getNames(item.list)[0]))
   })
 
   temp.sort((a, b) => b.time - a.time)

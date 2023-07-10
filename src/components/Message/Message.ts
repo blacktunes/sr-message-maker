@@ -1,4 +1,5 @@
 import { user } from '@/assets/scripts/gameData'
+import { getNames, getTitle } from '@/assets/scripts/header'
 import { character } from '@/store/character'
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
@@ -16,13 +17,7 @@ export const useMessage = () => {
   })
 
   const names = computed(() => {
-    const name: string[] = []
-    for (const _message of message.list[messageIndex.value].list) {
-      if (_message.key !== '开拓者' && !name.includes(_message.name)) {
-        name.push(_message.name)
-      }
-    }
-    return name
+    return getNames(message.list[messageIndex.value].list)
   })
 
   const customTitle = computed(() => {
@@ -33,22 +28,20 @@ export const useMessage = () => {
   const title = computed(() => {
     if (messageIndex.value === -1) return ''
 
-    if (customTitle.value) return customTitle.value
-    if (names.value.length === 1) return names.value[0]
-    if (names.value.length > 1) return `${names.value.join('、')}、${setting.name}的群聊`
-    return '未命名短信'
+    return customTitle.value || getTitle(names.value[0])
   })
 
   const info = computed(() => {
     if (messageIndex.value === -1) return
     if (customTitle.value) return
 
-    if (names.value.length === 1) {
+    if (names.value[0].length === 1) {
+      const key = names.value[1]
       let info
-      if (character.game[names.value[0]]) {
-        info = character.game[names.value[0]].info
-      } else if (character.custom[names.value[0]]) {
-        info = character.custom[names.value[0]].info
+      if (character.game[key]) {
+        info = character.game[key].info
+      } else if (character.custom[key]) {
+        info = character.custom[key].info
       }
       return info
     } else {

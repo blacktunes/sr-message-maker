@@ -87,12 +87,9 @@ const addCustom = () => {
         const avatar = e.target?.result as string || ''
         const name = prompt('请输入角色名')
         if (!name) return
-        if (character.custom[`custom-${name}`]) {
-          alert('角色已存在')
-          return
-        }
+        const key = Date.now()
         const info = prompt('请输入角色签名') || ''
-        character.custom[`custom-${name}`] = {
+        character.custom[key] = {
           name,
           avatar,
           info,
