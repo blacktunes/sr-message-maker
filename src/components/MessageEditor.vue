@@ -113,6 +113,7 @@ const getCharacter = () => {
 
 const updateTitle = (data: string) => {
   message.list[messageIndex.value].title = data
+  setting.select = title.value
 }
 
 const updateText = (key: number, data: string) => {
@@ -251,7 +252,7 @@ box()
     box-sizing border-box
     width 100%
     height 150px
-    border-top var(--menu-border)
+    border-top var(--menu-border-hover)
     background #c7c8ca
     padding 0 10px
 

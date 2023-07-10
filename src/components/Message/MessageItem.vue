@@ -1,6 +1,6 @@
 <template>
   <div v-if="item.notice" class="notice">
-    <img src="@/assets/images/通知.png" alt="" />
+    <Icon name="warn" />
     <span
       :contenteditable="!preview"
       @keydown.enter.prevent="preview ? undefined : blur($event)"

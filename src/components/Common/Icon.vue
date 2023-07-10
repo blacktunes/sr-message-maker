@@ -229,6 +229,14 @@ switch (props.name) {
       </svg>
     )
     break
+  case 'warn':
+    Icon = (
+      <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 200 200" style="margin-top: 5px;">
+        <path d="M96.374,14h11.657l38.858,73.928Q127.46,121,108.031,154.073c-0.974,3.017,0,7.782,0,7.782h73.83q-9.714-21.4-19.429-42.8H170.2l27.2,54.473H7l27.2-54.473h7.772l-19.429,42.8h73.83v-7.782L57.515,87.928Z" fill="var(--notice-color)" />
+        <path d="M95.852,122.194V109.173h12.494v13.021H95.852Zm0-82.464h12.494V91.812H95.852V39.73Z" fill="#cbcbcd" />
+      </svg>
+    )
+    break
   default:
     Icon = (<></>)
 }
