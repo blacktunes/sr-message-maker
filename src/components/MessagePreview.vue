@@ -108,14 +108,17 @@ const autoPlay = (i: number, loading: boolean) => {
     scrollToBottom(boxRef.value?.listDom)
 
     if (loading) {
+      const time = Math.min(Math.max(message.list[messageIndex.value].list[i].text.length * 50, 1000), 2000)
+
       setTimeout(() => {
         autoPlay(i, false)
-      }, 1000)
+      }, time)
     } else {
       if (message.list[messageIndex.value].list[i + 1]) {
+        const time = message.list[messageIndex.value].list[i + 1].key === '开拓者' ? 1500 : 1000
         setTimeout(() => {
           autoPlay(i + 1, true)
-        }, 1000)
+        }, time)
       } else {
         autoPlaySetting.flag = false
       }

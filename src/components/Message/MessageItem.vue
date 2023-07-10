@@ -231,6 +231,8 @@ $del-pos = -100px
           opacity 1
 
     .loading
+      box-sizing border-box
+      height 145px
       display inline-flex
       padding 35px 0 35px 10px
 
@@ -316,9 +318,11 @@ $del-pos = -100px
 .message-enter-active
   transition all 0.5s
 
+.message-leave-active
+  transition all 0s
+  opacity 0
+  position absolute
+
 .message-enter-from
   opacity 0
-
-.message-enter-to
-  opacity 1
 </style>
