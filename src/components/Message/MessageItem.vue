@@ -122,6 +122,8 @@ const handelDelClick = (key: number) => {
 </script>
 
 <style lang="stylus" scoped>
+$del-pos = -100px
+
 .notice
   display flex
   justify-content center
@@ -158,11 +160,9 @@ const handelDelClick = (key: number) => {
       align-items center
       justify-content center
       position absolute
-      right -80px
-      top -5px
+      right $del-pos
       width 60px
       height 60px
-      font-size 60px
       opacity 0
       cursor pointer
 
@@ -217,11 +217,10 @@ const handelDelClick = (key: number) => {
         align-items center
         justify-content center
         position absolute
-        right -100px
+        right $del-pos
         top 0
-        width 100px
-        height 100%
-        font-size 50px
+        width 60px
+        height 60px
         opacity 0
         cursor pointer
 
@@ -283,7 +282,7 @@ const handelDelClick = (key: number) => {
       border-radius 25px 0 25px 25px !important
 
   .del
-    left -100px
+    left $del-pos
     right unset !important
 
 .avatar-enter-active

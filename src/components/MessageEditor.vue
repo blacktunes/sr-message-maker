@@ -256,6 +256,7 @@ box()
     padding 0 10px
 
     .btn
+      overflow hidden
       display flex
       align-items center
       justify-content center
@@ -272,6 +273,8 @@ box()
 
       img
         width 100%
+        height 100%
+        object-fit contain
 
     .input
       flex 1

@@ -226,10 +226,8 @@ const avatarUrl = computed(() => {
         justify-content center
         position absolute
         right 10px
-        margin-bottom 10px
         width 80px
         height 80px
-        font-size 50px
         opacity 0
         cursor pointer
 
