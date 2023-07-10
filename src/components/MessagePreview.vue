@@ -24,6 +24,7 @@
     <MessageBox
       v-show="setting.preview"
       class="message-preview"
+      :index="messageIndex"
       :title="title"
       :info="info"
       preview
@@ -186,8 +187,8 @@ const isGreenScreen = ref(false)
 
     &:hover
       svg
-        width 100px
-        height 100px
+        width 80px
+        height 80px
 
 .mask
   z-index 999

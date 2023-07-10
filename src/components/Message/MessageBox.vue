@@ -2,12 +2,14 @@
   <div>
     <slot name="top"></slot>
     <div class="box" ref="boxDom">
-      <div class="circle">
-        <div></div>
-      </div>
+      <transition name="header-fade" appear>
+        <div class="circle" :key="index">
+          <div></div>
+        </div>
+      </transition>
       <div class="header">
         <transition :name="preview ? '' : 'slide-left'" appear>
-          <div :key="title">
+          <div :key="index">
             <div v-if="preview" class="title">
               {{ title }}
             </div>
@@ -34,6 +36,7 @@
 import { ref } from 'vue'
 
 defineProps<{
+  index: number
   title: string
   info?: string
   preview?: boolean
@@ -149,6 +152,16 @@ defineExpose({ boxDom, listDom })
       position absolute
       top 10px
       margin 30px 0
+
+.header-fade-enter-active
+  transition all 0.5s ease-out
+
+.header-fade-leave-active
+  opacity 0
+  position absolute
+
+.header-fade-enter-from
+  opacity 0
 
 .slide-left-enter-active
   transition all 0.25s ease-out

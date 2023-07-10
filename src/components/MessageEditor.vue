@@ -3,6 +3,7 @@
     <template v-if="setting.index">
       <MessageBox
         class="message-editor"
+        :index="messageIndex"
         :title="title"
         :info="info"
         @title="updateTitle"
