@@ -125,10 +125,10 @@ const handelDelClick = (key: number) => {
   height 60px
   padding 80px 0 20px 0
   font-size 30px
-  color #949595
+  color var(--notice-color)
 
   &:hover
-    background #ddd
+    background var(--message-item-background-color)
 
     div
       div
@@ -171,7 +171,7 @@ const handelDelClick = (key: number) => {
   padding 15px 0
 
   &:hover
-    background #ddd
+    background var(--message-item-background-color)
 
     .del
       opacity 1 !important
@@ -200,7 +200,7 @@ const handelDelClick = (key: number) => {
 
     .name
       position relative
-      color #6b6b6b
+      color var(--message-item-name-color)
       font-size 45px
       width fit-content
 
@@ -254,16 +254,9 @@ const handelDelClick = (key: number) => {
       margin-top 15px
       width fit-content
       font-size 45px
-      color #121212
+      color var(--text-color)
       border-radius 0 20px
       word-break break-word
-
-  .bottom
-    align-self center
-    box-sizing border-box
-    height 150px
-    width 90%
-    border-top 5px solid #b3b3b3
 
 .right
   flex-direction row-reverse

@@ -203,7 +203,7 @@ const isGreenScreen = ref(false)
   position absolute
   right 115px
   top 60px
-  background #e3e3e3
+  background var(--menu-icon-background-color)
   border-radius 50%
   width 90px
   height 90px
@@ -211,7 +211,4 @@ const isGreenScreen = ref(false)
   justify-content center
   align-items center
   cursor pointer
-
-  path
-    fill #707070
 </style>

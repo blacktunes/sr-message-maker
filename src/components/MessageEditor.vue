@@ -251,7 +251,7 @@ box()
     box-sizing border-box
     width 100%
     height 150px
-    border-top 5px solid #b3b3b3
+    border-top var(--menu-border)
     background #c7c8ca
     padding 0 10px
 

@@ -103,6 +103,7 @@ const handelAutoPlayClick = () => {
 
 <style lang="stylus" scoped>
 $pos = 190px
+$btn-height = 240px
 
 .menu
   position absolute
@@ -115,7 +116,7 @@ $pos = 190px
     overflow-y scroll
     overflow-x hidden
     width 100%
-    height calc(100% - 225px)
+    height 'calc(100% - %s)' % $btn-height
     scrollbar-width none
 
     &::-webkit-scrollbar
@@ -127,28 +128,28 @@ $pos = 190px
     align-items flex-start
     box-sizing border-box
     width 100%
-    height 225px
-    border-top 5px solid #595556
+    height $btn-height
+    border-top var(--menu-border)
     padding-top 35px
 
     .btn
       flex 0 0 30%
       display flex
       align-items center
-      color #ccc
+      color var(--menu-text-color)
       margin-right 20px
       user-select none
       cursor pointer
 
       &:hover
-        color #e4d89b
+        color var(--menu-btn-hover)
 
         .icon
           outline 2px solid #f8fdff
 
       .icon
         position relative
-        background #e3e3e3
+        background var(--menu-icon-background-color)
         border-radius 50%
         width 80px
         height 80px

@@ -107,7 +107,7 @@ const avatarUrl = computed(() => {
 
 <style lang="stylus" scoped>
 .message-item
-  color #afaeb3
+  color var(--menu-text-color)
   user-select none
   margin-bottom 35px
 
@@ -118,7 +118,7 @@ const avatarUrl = computed(() => {
     box-sizing border-box
     width 100%
     height 165px
-    border 5px solid #595556
+    border var(--menu-border)
     cursor pointer
     transition all 0.2s
 
@@ -147,7 +147,7 @@ const avatarUrl = computed(() => {
       opacity 0.5
 
     &:hover
-      border 5px solid #b5b5b5
+      border var(--menu-border-hover)
 
       svg
         margin-left 20px
@@ -195,16 +195,16 @@ const avatarUrl = computed(() => {
       width 95%
       padding 30px 35px 30px 50px
       margin 25px 10px 0 10px
-      border 5px solid #595556
+      border var(--menu-border)
       background rgba(0, 0, 0, 0.4)
       cursor pointer
 
       &:hover
-        color #040406
+        color var(--message-text-hover-color)
         background #bab9be
 
         path
-          fill #050505
+          fill var(--message-icon-hover-color)
 
         .del
           opacity 1
@@ -234,17 +234,17 @@ const avatarUrl = computed(() => {
           opacity 1
 
 .highlight
-  border 5px solid #b5b5b5 !important
+  border var(--menu-border-hover) !important
 
 .message-list-highlight
   max-height v-bind(height) !important
 
 .message-highlight
-  color #040406 !important
+  color var(--message-text-hover-color) !important
   background #eaeaea !important
-  border 5px solid #f3f4f6 !important
-  outline 5px solid #f3f4f6
+  border var(--menu-border-highlight) !important
+  outline var(--menu-border-highlight)
 
   path
-    fill #050505 !important
+    fill var(--message-icon-hover-color) !important
 </style>

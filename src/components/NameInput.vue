@@ -13,7 +13,7 @@
     >
       {{ setting.name }}
     </div>
-    <div class="avatar" @click="handelAvatarClick">
+    <div class="avatar" @click="handelAvatarClick" title="修改头像">
       <img :src="user[setting.type].avatar || ''" alt="" />
     </div>
   </div>
@@ -87,6 +87,9 @@ const handelChangeClick = () => {
     max-width 500px
     line-height 70px
 
+    &:hover
+      color var(--menu-btn-hover)
+
   .avatar
     user-select none
     box-sizing border-box
@@ -104,7 +107,7 @@ const handelChangeClick = () => {
 
   .change
     user-select none
-    background #e3e3e3
+    background var(--menu-icon-background-color)
     border-radius 50%
     width 50px
     height 50px

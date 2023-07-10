@@ -63,7 +63,7 @@ defineExpose({ boxDom, listDom })
   flex-direction column
   width 100%
   height 100%
-  background #d8d8d8
+  background var(--box-background-color)
   box-shadow 0 0 20px 5px rgba(0, 0, 0, 0.3)
   border-radius 0 50px 0 0
 
@@ -121,7 +121,7 @@ defineExpose({ boxDom, listDom })
     box-shadow 0px 40px 20px -20px rgba(210, 210, 210, 0.5)
 
     .title
-      color #121212
+      color var(--title-color)
       font-size 50px
       font-weight bold
       overflow hidden
@@ -131,7 +131,7 @@ defineExpose({ boxDom, listDom })
       border none
 
     .info
-      color #6a6a6a
+      color var(--info-color)
       font-size 40px
       overflow hidden
       white-space nowrap
