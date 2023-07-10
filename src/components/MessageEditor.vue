@@ -56,7 +56,7 @@
               <Icon name="notice" />
             </div>
             <div class="btn" @click="handelAddClick()" title="发送消息">
-              <Icon name="message" width="70" height="70" />
+              <Icon name="message" width="60" height="60" />
             </div>
           </div>
         </template>

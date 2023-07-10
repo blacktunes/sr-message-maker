@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts" setup>
-import { user } from '@/assets/scripts/gameData'
+import { user } from '@/assets/data/characterData'
 import { setUserType, setting } from '@/store/setting'
 import Icon from './Common/Icon.vue'
 

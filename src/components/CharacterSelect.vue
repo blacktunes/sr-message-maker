@@ -50,7 +50,7 @@
 
 <script lang="ts" setup>
 import { getAvatar } from '@/assets/scripts/avatar'
-import { user } from '@/assets/scripts/gameData'
+import { user } from '@/assets/data/characterData'
 import { character } from '@/store/character'
 import { input } from '@/store/input'
 import { message } from '@/store/message'

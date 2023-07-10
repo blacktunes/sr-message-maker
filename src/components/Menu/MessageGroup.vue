@@ -65,6 +65,9 @@ const getLastMsg = (index: number) => {
   }
   if (props.list[index].list[props.list[index].list.length - 1].img) {
     if (props.list[index].list[props.list[index].list.length - 1].emoticon) {
+      if (props.list[index].list[props.list[index].list.length - 1].emoticon?.startsWith('中年人')) {
+        return '(发了一个中年人土味表情包)'
+      }
       return `[${props.list[index].list[props.list[index].list.length - 1].emoticon?.replace(' ', '_')}]`
     }
     return '[图片]'

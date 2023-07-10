@@ -1,4 +1,4 @@
-import { gameCharacter } from '@/assets/scripts/gameData'
+import { gameCharacter } from '@/assets/data/characterData'
 import { nextTick, reactive, toRaw, watch } from 'vue'
 
 const character = reactive<{

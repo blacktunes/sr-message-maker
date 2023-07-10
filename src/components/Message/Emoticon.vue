@@ -2,23 +2,32 @@
   <transition name="fade">
     <div class="emoticon" v-show="input.emoticon" @click.stop="">
       <div
-        class="item"
-        v-for="(item, index) in emoticon"
-        @click="handelEmoticonClick(item.url, item.title)"
-        :title="item.title"
-        :key="index"
+        class="group"
+        v-for="(group, index_1) in emoticon"
+        :key="`group-${index_1}`"
       >
-        <img :src="item.url" :alt="item.title" />
+        <div
+          class="item"
+          v-for="(item, index_2) in group"
+          @click="handelEmoticonClick(item.url, item.title)"
+          :title="item.title"
+          :key="index_2"
+        >
+          <img :src="item.url" :alt="item.title" />
+        </div>
       </div>
     </div>
   </transition>
 </template>
 
 <script lang="ts" setup>
-import { emoticon } from '@/assets/scripts/gameData'
+import { emoticon } from '@/assets/data/emoticon'
 import { input } from '@/store/input'
 
-const emit = defineEmits<{(event: 'emoticon', url: string, name: string): void }>()
+// eslint-disable-next-line func-call-spacing
+const emit = defineEmits<{
+  (event: 'emoticon', url: string, name: string): void
+}>()
 
 const handelEmoticonClick = (url: string, name: string) => {
   emit('emoticon', url, name)
@@ -33,18 +42,22 @@ const handelEmoticonClick = (url: string, name: string) => {
   bottom 180px
   width 1200px
   height 650px
-  padding 50px
   background #fff
-  display flex
-  flex-wrap wrap
+  padding 20px
   border-radius 5px
   box-shadow 0 0 20px 5px rgba(0, 0, 0, 0.15)
   user-select none
 
-  .item
-    width 20%
-    cursor pointer
+  .group
+    display flex
+    flex-wrap wrap
+    padding 20px
 
-    img
-      width 100%
+    .item
+      width calc(20% - 10px)
+      margin 5px
+      cursor pointer
+
+      img
+        width 100%
 </style>

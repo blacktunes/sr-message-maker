@@ -1,4 +1,4 @@
-import { user } from '@/assets/scripts/gameData'
+import { user } from '@/assets/data/characterData'
 import { getNames, getTitle } from '@/assets/scripts/header'
 import { character } from '@/store/character'
 import { message } from '@/store/message'

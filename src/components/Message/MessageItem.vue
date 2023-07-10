@@ -47,7 +47,9 @@
         <div
           class="img"
           v-else-if="item.img"
-          :style="{ width: item.emoticon ? '320px' : '' }"
+          :style="{
+            width: item.emoticon ? 'var(--message-item-img-width)' : '',
+          }"
         >
           <img
             :src="item.img"
@@ -70,7 +72,7 @@
 </template>
 
 <script lang="ts" setup>
-import { user } from '@/assets/scripts/gameData'
+import { user } from '@/assets/data/characterData'
 import { setting } from '@/store/setting'
 
 defineProps<{
@@ -240,9 +242,9 @@ const handelDelClick = (key: number) => {
         animation-delay 0.4s
 
     .img
-      margin-top 15px
       max-width 600px
-      min-width 350px
+      min-width var(--message-item-img-width)
+      margin 40px 40px 0 40px
 
       img
         width 100%
