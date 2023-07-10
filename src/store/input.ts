@@ -5,11 +5,17 @@ export const input = reactive<{
   select: boolean
   emoticon: boolean
   index?: [number, number]
-  character: string
+  character: {
+    key: string
+    name: string
+  }
 }>({
   input: '',
   select: false,
   emoticon: false,
   index: undefined,
-  character: '开拓者'
+  character: {
+    key: '开拓者',
+    name: ''
+  }
 })

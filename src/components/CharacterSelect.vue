@@ -11,7 +11,7 @@
               :name="setting.name"
               :avatar="user[setting.type].card"
               :level="5"
-              @click="handelcharacterClick('开拓者')"
+              @click="handelcharacterClick('开拓者', '')"
             />
             <CharacterCard
               v-for="(item, key) in character.game"
@@ -20,7 +20,7 @@
               :name="item.name"
               :info="item.info"
               :avatar="item.card"
-              @click="handelcharacterClick(String(key))"
+              @click="handelcharacterClick(String(key), item.name)"
             />
           </div>
           <div style="height: 30px"></div>
@@ -34,7 +34,7 @@
               :name="item.name"
               :info="item.info"
               :avatar="item.avatar"
-              @click="handelcharacterClick(String(key))"
+              @click="handelcharacterClick(String(key), item.name)"
             >
               <div class="del" @click.stop="handelDelClick(String(key))">×</div>
             </CharacterCard>
@@ -62,14 +62,15 @@ const hide = () => {
   input.select = false
 }
 
-const handelcharacterClick = (key: string) => {
+const handelcharacterClick = (key: string, name: string) => {
   if (input.index) {
     message.list[input.index[0]].list[input.index[1]].key = key
-    message.list[input.index[0]].list[input.index[1]].name = key
+    message.list[input.index[0]].list[input.index[1]].name = name
     message.list[input.index[0]].list[input.index[1]].avatar = getAvatar(key)
     input.index = undefined
   } else {
-    input.character = key
+    input.character.key = key
+    input.character.name = name
   }
   hide()
 }
@@ -86,12 +87,12 @@ const addCustom = () => {
         const avatar = e.target?.result as string || ''
         const name = prompt('请输入角色名')
         if (!name) return
-        if (character.custom[name]) {
+        if (character.custom[`custom-${name}`]) {
           alert('角色已存在')
           return
         }
         const info = prompt('请输入角色签名') || ''
-        character.custom[name] = {
+        character.custom[`custom-${name}`] = {
           name,
           avatar,
           info,

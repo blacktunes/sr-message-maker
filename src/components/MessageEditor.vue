@@ -31,7 +31,10 @@
             <div class="btn" @click.stop="handelSelectClick" title="选择角色">
               <img
                 :src="
-                  getUserAvatar(input.character, getAvatar(input.character))
+                  getUserAvatar(
+                    input.character.key,
+                    getAvatar(input.character.key)
+                  )
                 "
                 alt=""
               />
@@ -99,6 +102,14 @@ watch(messageIndex, () => {
   })
 })
 
+const getCharacter = () => {
+  return {
+    key: input.character.key,
+    name: input.character.name,
+    avatar: getAvatar(input.character.key)
+  }
+}
+
 const updateTitle = (data: string) => {
   message.list[messageIndex.value].title = data
 }
@@ -149,9 +160,7 @@ const handelImageAddClick = () => {
       file.readAsDataURL(el.files[0])
       file.onload = e => {
         message.list[messageIndex.value].list.push({
-          key: input.character,
-          name: input.character,
-          avatar: getAvatar(input.character),
+          ...getCharacter(),
           text: '',
           img: e.target?.result as string
         })
@@ -169,9 +178,7 @@ const handelEmoticonClick = () => {
 
 const addEmoticon = (url: string, name: string) => {
   message.list[messageIndex.value].list.push({
-    key: input.character,
-    name: input.character,
-    avatar: getAvatar(input.character),
+    ...getCharacter(),
     text: '',
     img: url,
     emoticon: name
@@ -196,9 +203,7 @@ const handelNoticeClick = () => {
 
 const handelAddClick = (img?: string) => {
   message.list[messageIndex.value].list.push({
-    key: input.character,
-    name: input.character,
-    avatar: getAvatar(input.character),
+    ...getCharacter(),
     text: input.input || '愿此行，终抵群星',
     img
   })

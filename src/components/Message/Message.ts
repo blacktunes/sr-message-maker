@@ -18,8 +18,8 @@ export const useMessage = () => {
   const names = computed(() => {
     const name: string[] = []
     for (const _message of message.list[messageIndex.value].list) {
-      if (_message.key !== '开拓者' && !name.includes(_message.key)) {
-        name.push(_message.key)
+      if (_message.key !== '开拓者' && !name.includes(_message.name)) {
+        name.push(_message.name)
       }
     }
     return name

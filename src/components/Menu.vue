@@ -72,8 +72,8 @@ const list = computed(() => {
   message.list.forEach(item => {
     const name: string[] = []
     for (const _message of item.list) {
-      if (_message.key !== '开拓者' && !name.includes(_message.key)) {
-        name.push(_message.key)
+      if (_message.key !== '开拓者' && !name.includes(_message.name)) {
+        name.push(_message.name)
       }
     }
 
