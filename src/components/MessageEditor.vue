@@ -59,8 +59,8 @@
               <Icon name="message" width="60" height="60" />
             </div>
           </div>
+          <Emoticon @emoticon="addEmoticon" />
         </template>
-        <Emoticon @emoticon="addEmoticon" />
       </MessageBox>
     </template>
     <template v-else>
@@ -119,6 +119,7 @@ const updateTitle = (data: string) => {
 const updateText = (key: number, data: string) => {
   message.list[messageIndex.value].list[key].text = data
   message.list[messageIndex.value].time = Date.now()
+  boxRef.value?.updateArrow()
 }
 
 const handelAvatarClick = (key: number) => {
@@ -146,6 +147,7 @@ const handelImageClick = (key: number) => {
 const handelDelClick = (key: number) => {
   message.list[messageIndex.value].list.splice(key, 1)
   message.list[messageIndex.value].time = Date.now()
+  boxRef.value?.updateArrow()
 }
 
 const handelSelectClick = () => {

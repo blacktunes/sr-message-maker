@@ -171,6 +171,9 @@ const isGreenScreen = ref(false)
   :deep(div)
     cursor auto !important
 
+  :deep(img)
+    cursor auto !important
+
   .notice:hover, .message:hover
     background unset !important
 

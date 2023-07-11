@@ -56,7 +56,7 @@ const handelEmoticonClick = (item: Emoticon) => {
   right 50px
   bottom 180px
   width 1200px
-  height 650px
+  height 800px
   background #fff
   padding 20px
   border-radius 5px

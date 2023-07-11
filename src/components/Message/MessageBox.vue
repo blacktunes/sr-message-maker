@@ -24,8 +24,19 @@
           </div>
         </transition>
       </div>
-      <div class="message-list" ref="listDom">
+      <div
+        class="message-list"
+        ref="listDom"
+        @scroll="handelScroll($event.target as HTMLElement)"
+      >
         <slot></slot>
+      </div>
+      <div class="middle">
+        <transition name="arrow-fade">
+          <div class="arrow" v-show="!autoPlaySetting.flag && scrollTip">
+            <icon name="bottom" />
+          </div>
+        </transition>
       </div>
       <slot name="bottom"></slot>
     </div>
@@ -33,7 +44,9 @@
 </template>
 
 <script lang="ts" setup>
+import { autoPlaySetting } from '@/store/setting'
 import { ref } from 'vue'
+import Icon from '../Common/Icon.vue'
 
 defineProps<{
   index: number
@@ -50,11 +63,23 @@ const emit = defineEmits<{
 const boxDom = ref<HTMLElement | null>(null)
 const listDom = ref<HTMLElement | null>(null)
 
+const scrollTip = ref(false)
+
+const handelScroll = (el: HTMLElement) => {
+  scrollTip.value = (el.scrollHeight - (el.scrollTop + el.clientHeight) > 250)
+}
+
+const updateArrow = () => {
+  if (listDom.value) {
+    handelScroll(listDom.value)
+  }
+}
+
 const updateTitle = (e: Event) => {
   emit('title', (e.target as HTMLInputElement).value)
 }
 
-defineExpose({ boxDom, listDom })
+defineExpose({ boxDom, listDom, updateArrow })
 </script>
 
 <style lang="stylus" scoped>
@@ -154,6 +179,16 @@ defineExpose({ boxDom, listDom })
       top 10px
       margin 30px 0
 
+  .middle
+    position relative
+
+    .arrow
+      position absolute
+      bottom 0
+      left 50%
+      transform translateX(-50%)
+      pointer-events none
+
 .header-fade-enter-active
   transition all 0.5s ease-out
 
@@ -174,4 +209,13 @@ defineExpose({ boxDom, listDom })
 .slide-left-enter-from
   opacity 0
   transform translateX(100px)
+
+.arrow-fade-enter-active, .arrow-fade-leave-active
+  transition all 0.2s ease-out
+
+.arrow-fade-enter-from
+  opacity 0
+
+.arrow-fade-leave-to
+  opacity 0
 </style>
