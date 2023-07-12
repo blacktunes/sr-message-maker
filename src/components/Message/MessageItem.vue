@@ -78,6 +78,7 @@ import { user } from '@/assets/data/characterData'
 import { setting } from '@/store/setting'
 import Icon from '../Common/Icon.vue'
 
+// TODO 移除index参数
 defineProps<{
   item: Message
   index: number
@@ -123,6 +124,8 @@ const handelDelClick = (key: number) => {
 
 <style lang="stylus" scoped>
 $del-pos = -100px
+$avatar-width = 140px
+$avatar-margin = 35px
 
 .notice
   display flex
@@ -188,9 +191,9 @@ $del-pos = -100px
     flex-shrink 0
     overflow hidden
     border-radius 50%
-    width 140px
-    height 140px
-    margin 0 35px 0 0
+    width var(--message-item-avatar-width)
+    height var(--message-item-avatar-width)
+    margin 0 var(--message-item-avatar-margin) 0 0
     cursor pointer
 
     img
@@ -205,12 +208,20 @@ $del-pos = -100px
     flex 1
     display flex
     flex-direction column
+    max-width calc(100% - var(--message-item-avatar-width) - var(--message-item-avatar-margin))
 
     .name
       position relative
       color var(--message-item-name-color)
       font-size 45px
       width fit-content
+      max-width calc(100% - var(--message-item-avatar-width) - var(--message-item-avatar-margin) - 160px)
+
+      span
+        display block
+        overflow hidden
+        white-space nowrap
+        text-overflow ellipsis
 
       .del
         display flex
@@ -267,14 +278,14 @@ $del-pos = -100px
       width fit-content
       font-size 45px
       color var(--text-color)
-      border-radius 0 20px
+      border-radius 0 25px 25px 25px
       word-break break-word
 
 .right
   flex-direction row-reverse
 
   .avatar
-    margin 0 0 0 35px !important
+    margin 0 0 0 var(--message-item-avatar-margin) !important
 
   .message-item
     align-items flex-end

@@ -27,6 +27,8 @@
       :index="messageIndex"
       :title="title"
       :info="info"
+      :mission="message.list[messageIndex].mission"
+      :playing="autoPlaySetting.flag"
       preview
       @click.stop
       ref="boxRef"
@@ -53,14 +55,12 @@ import domtoimage from '@/assets/scripts/screenshot'
 import { message } from '@/store/message'
 import { autoPlaySetting, setting } from '@/store/setting'
 import { computed, nextTick, ref } from 'vue'
-import { scrollToBottom, useMessage } from './Message/Message'
-import MessageItem from './Message/MessageItem.vue'
-import MessageBox from './Message/MessageBox.vue'
 import Icon from './Common/Icon.vue'
+import { info, messageIndex, scrollToBottom, title } from './Message/Message'
+import MessageBox from './Message/MessageBox.vue'
+import MessageItem from './Message/MessageItem.vue'
 
 const boxRef = ref<InstanceType<typeof MessageBox>>()
-
-const { messageIndex, title, info } = useMessage()
 
 // 要显示的数据
 const dataList = computed({

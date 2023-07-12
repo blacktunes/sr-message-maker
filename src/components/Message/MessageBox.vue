@@ -30,10 +30,39 @@
         @scroll="handelScroll($event.target as HTMLElement)"
       >
         <slot></slot>
+        <div class="mission" v-if="mission">
+          <div
+            class="bg"
+            :style="{
+              backgroundImage: backgroundUrl,
+              width: preview
+                ? 'calc(100% - var(--message-item-avatar-margin) * 2)'
+                : 'calc(100% - var(--message-item-avatar-width) * 2)',
+            }"
+          >
+            <div class="tip">{{ missionState }}</div>
+            <div v-if="preview" class="text">
+              {{ mission.text }}
+            </div>
+            <input
+              v-else
+              class="text"
+              @keydown.enter.prevent
+              :value="mission.text"
+              @input="preview ? undefined : updateText($event)"
+            />
+            <div class="state">
+              {{ mission.state }}
+            </div>
+            <div v-if="!preview" @click="handelDelClick" class="del">
+              <Icon name="delete" width="35" height="35" />
+            </div>
+          </div>
+        </div>
       </div>
       <div class="middle">
         <transition name="arrow-fade">
-          <div class="arrow" v-show="!autoPlaySetting.flag && scrollTip">
+          <div class="arrow" v-show="!playing && scrollTip">
             <icon name="bottom" />
           </div>
         </transition>
@@ -44,20 +73,22 @@
 </template>
 
 <script lang="ts" setup>
-import { autoPlaySetting } from '@/store/setting'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import Icon from '../Common/Icon.vue'
 
-defineProps<{
+const props = defineProps<{
   index: number
   title: string
   info?: string
   preview?: boolean
+  playing?: boolean
+  mission?: Mission
 }>()
 
 // eslint-disable-next-line func-call-spacing
 const emit = defineEmits<{
   (event: 'title', data: string): void
+  (event: 'mission', data?: Mission): void
 }>()
 
 const boxDom = ref<HTMLElement | null>(null)
@@ -77,6 +108,33 @@ const updateArrow = () => {
 
 const updateTitle = (e: Event) => {
   emit('title', (e.target as HTMLInputElement).value)
+}
+
+const missionState = computed(() => {
+  if (props.mission?.state === 2) {
+    return '任务失败'
+  }
+  if (props.mission?.state === 1) {
+    return '已完成任务'
+  }
+  return '已接取任务'
+})
+
+const backgroundUrl = computed(() => {
+  return props.mission?.type === 1
+    ? `url('${require('@/assets/images/冒险任务.png')}')`
+    : `url('${require('@/assets/images/同行任务.png')}')`
+})
+
+const updateText = (e: Event) => {
+  emit('mission', {
+    ...props.mission,
+    text: (e.target as HTMLInputElement).innerText
+  } as Mission)
+}
+
+const handelDelClick = () => {
+  emit('mission')
 }
 
 defineExpose({ boxDom, listDom, updateArrow })
@@ -178,6 +236,75 @@ defineExpose({ boxDom, listDom, updateArrow })
       position absolute
       top 10px
       margin 30px 0
+
+    .mission
+      display flex
+      justify-content center
+      align-items center
+      width 100%
+      margin 100px 0
+
+      .bg
+        position relative
+        height 180px
+        background-repeat no-repeat
+        background-position top left
+        background-size cover
+        border-top-right-radius 50px
+        box-shadow 10px 5px 20px 0px rgba(0, 0, 0, 0.1)
+
+        &:hover
+          .del
+            opacity 1
+
+        .tip
+          position absolute
+          top 10px
+          left 180px
+          color #fff
+          font-size 30px
+          height 45px
+          line-height 45px
+          user-select none
+
+        .text
+          position absolute
+          top 55px
+          left 180px
+          color #000
+          font-size 45px
+          line-height 100px
+          height 100px
+          width 80%
+          overflow hidden
+          white-space nowrap
+          text-overflow ellipsis
+          background transparent
+          border none
+
+        .state
+          position absolute
+          right 20px
+          top 50%
+          font-size 30px
+
+        .del
+          display flex
+          align-items center
+          justify-content center
+          position absolute
+          right -100px
+          top 70px
+          width 60px
+          height 60px
+          opacity 0
+          cursor pointer
+
+          :deep(path)
+            fill var(--message-item-name-color)
+
+          &:hover
+            opacity 1
 
   .middle
     position relative

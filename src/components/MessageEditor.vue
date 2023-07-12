@@ -6,7 +6,9 @@
         :index="messageIndex"
         :title="title"
         :info="info"
+        :mission="message.list[messageIndex].mission"
         @title="updateTitle"
+        @mission="updateMission"
         ref="boxRef"
       >
         <draggable
@@ -46,17 +48,20 @@
               v-model="input.input"
               @keydown.enter="handelAddClick()"
             />
+            <div class="btn" @click="handelMessageClick" title="创建任务">
+              <Icon name="mission" />
+            </div>
             <div class="btn" @click="handelImageAddClick" title="发送图片">
               <Icon name="image" />
             </div>
-            <div class="btn" title="发送表情" @click.stop="handelEmoticonClick">
+            <div class="btn" @click.stop="handelEmoticonClick" title="发送表情">
               <Icon name="emoticon" />
             </div>
             <div class="btn" @click="handelNoticeClick" title="发送通知">
               <Icon name="notice" />
             </div>
             <div class="btn" @click="handelAddClick()" title="发送消息">
-              <Icon name="message" width="60" height="60" />
+              <Icon name="message" width="65" height="65" />
             </div>
           </div>
           <Emoticon @emoticon="addEmoticon" />
@@ -79,15 +84,13 @@ import { message } from '@/store/message'
 import { setting } from '@/store/setting'
 import draggable from '@marshallswain/vuedraggable'
 import { nextTick, ref, watch } from 'vue'
-import { scrollToBottom, useMessage } from './Message/Message'
+import Icon from './Common/Icon.vue'
 import Emoticon from './Message/Emoticon.vue'
+import { getUserAvatar, info, messageIndex, scrollToBottom, title } from './Message/Message'
 import MessageBox from './Message/MessageBox.vue'
 import MessageItem from './Message/MessageItem.vue'
-import Icon from './Common/Icon.vue'
 
 const boxRef = ref<InstanceType<typeof MessageBox>>()
-
-const { messageIndex, title, info, getUserAvatar } = useMessage()
 
 const getKey = (item: Message) => {
   const index = message.list[messageIndex.value].list.indexOf(item)
@@ -114,6 +117,10 @@ const getCharacter = () => {
 const updateTitle = (data: string) => {
   message.list[messageIndex.value].title = data
   setting.select = title.value
+}
+
+const updateMission = (data?: Mission) => {
+  message.list[messageIndex.value].mission = data
 }
 
 const updateText = (key: number, data: string) => {
@@ -152,6 +159,28 @@ const handelDelClick = (key: number) => {
 
 const handelSelectClick = () => {
   input.select = true
+}
+
+const handelMessageClick = () => {
+  if (message.list[messageIndex.value].mission) {
+    if (input.input) {
+      message.list[messageIndex.value].mission!.text = input.input
+      input.input = ''
+      return
+    }
+    if (message.list[messageIndex.value].mission?.type === 0) {
+      message.list[messageIndex.value].mission!.type = 1
+    } else if (message.list[messageIndex.value].mission?.type === 1) {
+      message.list[messageIndex.value].mission!.type = 0
+    }
+  } else {
+    message.list[messageIndex.value].mission = {
+      text: input.input || '愿此行，终抵群星',
+      type: 0,
+      state: 0
+    }
+    input.input = ''
+  }
 }
 
 const handelImageAddClick = () => {

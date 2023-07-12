@@ -16,11 +16,18 @@ interface Message {
   loading?: boolean
 }
 
+interface Mission {
+  text: string
+  type: 0 | 1
+  state: 0 | 1 | 2
+}
+
 interface MessageListItem {
   time: number
   id: number
   title?: string
   list: Message[]
+  mission?: Mission
 }
 
 interface Character {
