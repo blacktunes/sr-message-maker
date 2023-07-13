@@ -116,7 +116,7 @@ const handelChangeClick = () => {
     cursor pointer
 
     &:hover
-      outline 5px solid rgba(255, 255, 255, 0.3)
+      box-shadow 0 0 0px 5px rgba(255, 255, 255, 0.3)
 
     img
       width 100%
@@ -136,5 +136,5 @@ const handelChangeClick = () => {
     cursor pointer
 
     &:hover
-      outline 2px solid #f8fdff
+      box-shadow var(--meni-icon-shadow)
 </style>

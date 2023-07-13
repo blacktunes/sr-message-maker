@@ -169,7 +169,7 @@ $btn-height = 255px
         color var(--menu-btn-hover)
 
         .icon
-          outline 2px solid #f8fdff
+          box-shadow var(--meni-icon-shadow)
 
       .icon
         position relative

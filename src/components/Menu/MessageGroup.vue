@@ -257,7 +257,7 @@ const avatarUrl = computed(() => {
   color var(--message-text-hover-color) !important
   background #eaeaea !important
   border var(--menu-border-highlight) !important
-  outline var(--menu-border-highlight)
+  box-shadow var(--meni-icon-shadow)
 
   :deep(path)
     fill var(--message-icon-hover-color) !important

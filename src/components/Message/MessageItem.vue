@@ -209,6 +209,7 @@ $avatar-margin = 35px
 
 .message
   display flex
+  height -moz-fit-content
   height fit-content
   width 100%
   padding 15px 0
@@ -246,6 +247,7 @@ $avatar-margin = 35px
       position relative
       color var(--message-item-name-color)
       font-size 45px
+      width -moz-fit-content
       width fit-content
       max-width calc(100% - var(--message-item-avatar-width) - var(--message-item-avatar-margin) - 160px)
 
@@ -307,6 +309,7 @@ $avatar-margin = 35px
       background #ebebeb
       padding 35px
       margin-top 15px
+      width -moz-fit-content
       width fit-content
       font-size 45px
       color var(--text-color)
