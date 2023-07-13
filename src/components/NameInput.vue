@@ -7,15 +7,16 @@
     >
       <Icon name="change" />
     </div>
-    <div
-      class="text"
-      v-once
-      contenteditable
-      @keydown.enter.prevent
-      @input="updateName($event)"
-      title="修改角色名"
-    >
-      {{ setting.name }}
+    <div class="text-wrapper">
+      <div
+        class="text"
+        contenteditable
+        @keydown.enter.prevent="updateName($event)"
+        @blur="updateName($event)"
+        title="修改角色名"
+      >
+        {{ setting.name }}
+      </div>
     </div>
     <div
       class="avatar"
@@ -90,12 +91,14 @@ const handelChangeClick = () => {
   color #ddd
   font-size 50px
 
+  .text-wrapper
+    overflow hidden
+    max-width 500px
+
   .text
     box-sizing border-box
-    overflow hidden
     white-space nowrap
     text-overflow ellipsis
-    max-width 500px
     line-height 70px
 
     &:hover
