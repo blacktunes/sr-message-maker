@@ -1,5 +1,5 @@
-// import emoticon_1 from '@/assets/images/老年人_早上好.jpg'
-// import emoticon_1 from '@/assets/images/老年人_早上好.jpg'
+import emoticon_1 from '@/assets/images/老年人_早上好.jpg'
+import emoticon_2 from '@/assets/images/老年人_干杯.jpg'
 
 export const emoticon: Emoticon[][] = [
   [
@@ -393,12 +393,12 @@ export const emoticon: Emoticon[][] = [
   [
     {
       title: '中年人_早上好',
-      url: (await import('@/assets/images/老年人_早上好.jpg')).default,
+      url: emoticon_1,
       base64: true
     },
     {
       title: '中年人_干杯',
-      url: (await import('@/assets/images/老年人_干杯.jpg')).default,
+      url: emoticon_2,
       base64: true
     }
   ]
