@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json.schemastore.org/prettierrc",
+  // JS
+  "semi": false,
+  "tabWidth": 2,
+  "singleQuote": true,
+  "printWidth": 100,
+  "trailingComma": "none",
+  "singleAttributePerLine": true,
+  "endOfLine": "auto",
+  // stylus
+  "plugins": [
+    "prettier-plugin-stylus-supremacy"
+  ],
+  "stylusSupremacy.insertColons": false,
+  "stylusSupremacy.insertSemicolons": false,
+  "stylusSupremacy.insertBraces": false,
+  "stylusSupremacy.tabStopChar": "  "
+}

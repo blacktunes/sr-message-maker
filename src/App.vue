@@ -5,20 +5,29 @@
       :style="{
         transform: `scale(${scale})`,
         width: `${width}px`,
-        height: `${height}px`,
+        height: `${height}px`
       }"
     >
       <transition name="fade">
-        <div class="loading" v-if="setting.loading">
+        <div
+          class="loading"
+          v-if="setting.loading"
+        >
           <Loading />
         </div>
       </transition>
       <div class="icon">
-        <img src="@/assets/images/短信.svg" alt="" />
+        <img
+          src="@/assets/images/短信.svg"
+          alt=""
+        />
         <span>短信</span>
       </div>
       <div class="logo-img">
-        <img src="@/assets/images/背景.png" alt="" />
+        <img
+          src="@/assets/images/背景.png"
+          alt=""
+        />
       </div>
       <MessageList />
       <MessageEditor />
@@ -26,14 +35,22 @@
       <CharacterSelect />
       <NameInput />
       <div class="link">
-        <a href="https://github.com/blacktunes/sr-message-maker" target="_blank"
+        <a
+          href="https://github.com/blacktunes/sr-message-maker"
+          target="_blank"
           >Github</a
         >
         <span>·</span>
-        <a href="https://space.bilibili.com/1384118" target="_blank"
+        <a
+          href="https://space.bilibili.com/1384118"
+          target="_blank"
           >BiliBili</a
         >
-        <a class="font-btn" @click="setFont">修改字体[测试功能]</a>
+        <a
+          class="font-btn"
+          @click="setFont"
+          >修改字体[测试功能]</a
+        >
       </div>
     </div>
   </div>
@@ -67,7 +84,7 @@ import { setting } from './store/setting'
 
 // 计算窗口尺寸
 const width = 3200
-const height = width / 16 * 9
+const height = (width / 16) * 9
 const scale = ref(1)
 const realWidth = computed(() => `${width * scale.value}px`)
 const realHeight = computed(() => `${(height + 75) * scale.value}px`)
@@ -77,10 +94,7 @@ const shouldHorizontal = ref(false)
 
 const setSize = () => {
   shouldHorizontal.value = window.innerWidth <= 550 && window.innerWidth < window.innerHeight
-  scale.value = Math.min(
-    window.innerWidth / width,
-    window.innerHeight / (height + 75)
-  )
+  scale.value = Math.min(window.innerWidth / width, window.innerHeight / (height + 75))
 }
 setSize()
 
@@ -95,8 +109,10 @@ const setFont = () => {
     if (el.files?.[0]) {
       const file = new FileReader()
       file.readAsDataURL(el.files[0])
-      file.onload = e => {
-        const css = `@font-face{font-family:'TempFont'; src: url(${(e.target?.result as string).replace('data:application/octet-stream;', 'data:application/font-ttf;')})}`
+      file.onload = (e) => {
+        const css = `@font-face{font-family:'TempFont'; src: url(${(
+          e.target?.result as string
+        ).replace('data:application/octet-stream;', 'data:application/font-ttf;')})}`
         const head = document.getElementsByTagName('head')[0]
         const style = document.createElement('style')
         style.appendChild(document.createTextNode(css))
@@ -129,7 +145,7 @@ const setFont = () => {
       right 0px
       bottom 0px
       left 0px
-      background url('~@/assets/images/方块背景.png')
+      background url('@/assets/images/方块背景.png')
       opacity 0.15
       box-shadow inset 0 0 50px 0px #ffffff
 

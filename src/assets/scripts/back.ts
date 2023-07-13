@@ -13,12 +13,12 @@ const handelBack = () => {
   }
 }
 
-document.addEventListener('click', e => {
+document.addEventListener('click', (e) => {
   if ((e.target as HTMLElement).tagName.toLowerCase() === 'a') return
   handelBack()
 })
 
-document.addEventListener('keydown', e => {
+document.addEventListener('keydown', (e) => {
   if (e.key !== 'Escape') return
   handelBack()
 })

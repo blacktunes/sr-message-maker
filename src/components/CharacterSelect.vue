@@ -1,7 +1,13 @@
 <template>
   <transition name="fade">
-    <div class="character-select" v-show="input.select">
-      <div class="box" @click.stop="">
+    <div
+      class="character-select"
+      v-show="input.select"
+    >
+      <div
+        class="box"
+        @click.stop=""
+      >
         <div class="list">
           <div class="title">游戏角色</div>
           <div class="character-list">
@@ -36,11 +42,21 @@
               :avatar="item.avatar"
               @click="handelcharacterClick(String(key), item.name)"
             >
-              <div class="del" @click.stop="handelDelClick(String(key))">
-                <Icon name="delete" width="25" height="25" />
+              <div
+                class="del"
+                @click.stop="handelDelClick(String(key))"
+              >
+                <Icon
+                  name="delete"
+                  width="25"
+                  height="25"
+                />
               </div>
             </CharacterCard>
-            <div class="add" @click="addCustom">
+            <div
+              class="add"
+              @click="addCustom"
+            >
               <Icon name="add" />
             </div>
           </div>
@@ -85,8 +101,8 @@ const addCustom = () => {
     if (input.files?.[0]) {
       const file = new FileReader()
       file.readAsDataURL(input.files[0])
-      file.onload = e => {
-        const avatar = e.target?.result as string || ''
+      file.onload = (e) => {
+        const avatar = (e.target?.result as string) || ''
         const name = prompt('请输入角色名')
         if (!name) return
         const key = Date.now()

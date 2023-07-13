@@ -9,23 +9,43 @@
       />
     </div>
     <div class="footer">
-      <div class="btn" @click="handelMessageAddClick">
+      <div
+        class="btn"
+        @click="handelMessageAddClick"
+      >
         <div class="icon">
-          <Icon name="ring" class="ring" />
+          <Icon
+            name="ring"
+            class="ring"
+          />
           <Icon name="message" />
         </div>
         <span>发短信</span>
       </div>
-      <div class="btn" v-if="setting.index" @click.stop="handelScreenshotClick">
+      <div
+        class="btn"
+        v-if="setting.index"
+        @click.stop="handelScreenshotClick"
+      >
         <div class="icon">
-          <Icon name="ring" class="ring" />
+          <Icon
+            name="ring"
+            class="ring"
+          />
           <Icon name="save" />
         </div>
         <span>保存对话</span>
       </div>
-      <div class="btn" v-if="setting.index" @click.stop="handelAutoPlayClick">
+      <div
+        class="btn"
+        v-if="setting.index"
+        @click.stop="handelAutoPlayClick"
+      >
         <div class="icon">
-          <Icon name="ring" class="ring" />
+          <Icon
+            name="ring"
+            class="ring"
+          />
           <Icon name="play" />
         </div>
         <span>自动播放</span>
@@ -49,12 +69,8 @@ interface MenuItem {
   list: MessageListItem[]
 }
 
-const setListItem = (
-  list: MenuItem[],
-  messageList: MessageListItem,
-  title?: string
-) => {
-  const index = list.findIndex(item => item.title === (messageList.title || title))
+const setListItem = (list: MenuItem[], messageList: MessageListItem, title?: string) => {
+  const index = list.findIndex((item) => item.title === (messageList.title || title))
   if (index !== -1) {
     list[index].list.unshift(messageList)
     list[index].time = Math.max(list[index].time, messageList.time)
@@ -70,7 +86,7 @@ const setListItem = (
 
 const list = computed(() => {
   const temp: MenuItem[] = []
-  message.list.forEach(item => {
+  message.list.forEach((item) => {
     setListItem(temp, item, getTitle(getNames(item.list)[0]))
   })
 

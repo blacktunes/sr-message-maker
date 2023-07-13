@@ -1,16 +1,31 @@
 <template>
   <div>
     <slot name="top"></slot>
-    <div class="box" ref="boxDom">
-      <transition name="header-fade" appear>
-        <div class="circle" :key="index">
+    <div
+      class="box"
+      ref="boxDom"
+    >
+      <transition
+        name="header-fade"
+        appear
+      >
+        <div
+          class="circle"
+          :key="index"
+        >
           <div></div>
         </div>
       </transition>
       <div class="header">
-        <transition :name="preview ? '' : 'slide-left'" appear>
+        <transition
+          :name="preview ? '' : 'slide-left'"
+          appear
+        >
           <div :key="index">
-            <div v-if="preview" class="title">
+            <div
+              v-if="preview"
+              class="title"
+            >
               {{ title }}
             </div>
             <input
@@ -30,18 +45,24 @@
         @scroll="handelScroll($event.target as HTMLElement)"
       >
         <slot></slot>
-        <div class="mission" v-if="mission">
+        <div
+          class="mission"
+          v-if="mission"
+        >
           <div
             class="bg"
             :style="{
               backgroundImage: backgroundUrl,
               width: preview
                 ? 'calc(100% - var(--message-item-avatar-margin) * 2)'
-                : 'calc(100% - var(--message-item-avatar-width) * 2)',
+                : 'calc(100% - var(--message-item-avatar-width) * 2)'
             }"
           >
             <div class="tip">{{ missionState }}</div>
-            <div v-if="preview" class="text">
+            <div
+              v-if="preview"
+              class="text"
+            >
               {{ mission.text }}
             </div>
             <input
@@ -54,15 +75,26 @@
             <div class="state">
               {{ mission.state }}
             </div>
-            <div v-if="!preview" @click="handelDelClick" class="del">
-              <Icon name="delete" width="35" height="35" />
+            <div
+              v-if="!preview"
+              @click="handelDelClick"
+              class="del"
+            >
+              <Icon
+                name="delete"
+                width="35"
+                height="35"
+              />
             </div>
           </div>
         </div>
       </div>
       <div class="middle">
         <transition name="arrow-fade">
-          <div class="arrow" v-show="!playing && scrollTip">
+          <div
+            class="arrow"
+            v-show="!playing && scrollTip"
+          >
             <icon name="bottom" />
           </div>
         </transition>
@@ -75,6 +107,8 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
 import Icon from '../Common/Icon.vue'
+import image_1 from '@/assets/images/冒险任务.png'
+import image_2 from '@/assets/images/同行任务.png'
 
 const props = defineProps<{
   index: number
@@ -97,7 +131,7 @@ const listDom = ref<HTMLElement | null>(null)
 const scrollTip = ref(false)
 
 const handelScroll = (el: HTMLElement) => {
-  scrollTip.value = (el.scrollHeight - (el.scrollTop + el.clientHeight) > 250)
+  scrollTip.value = el.scrollHeight - (el.scrollTop + el.clientHeight) > 250
 }
 
 const updateArrow = () => {
@@ -121,9 +155,7 @@ const missionState = computed(() => {
 })
 
 const backgroundUrl = computed(() => {
-  return props.mission?.type === 1
-    ? `url('${require('@/assets/images/冒险任务.png')}')`
-    : `url('${require('@/assets/images/同行任务.png')}')`
+  return props.mission?.type === 1 ? `url(${image_1})` : `url(${image_2})`
 })
 
 const updateText = (e: Event) => {

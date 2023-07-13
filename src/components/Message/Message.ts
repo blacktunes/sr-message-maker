@@ -7,7 +7,7 @@ import { computed, nextTick } from 'vue'
 
 export const messageIndex = computed(() => {
   if (setting.index) {
-    return message.list.findIndex(item => {
+    return message.list.findIndex((item) => {
       return item.id === setting.index
     })
   } else {

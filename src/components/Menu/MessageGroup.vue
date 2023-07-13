@@ -3,37 +3,43 @@
     <div
       class="item"
       :class="{
-        highlight: setting.select === title,
+        highlight: setting.select === title
       }"
       @click="handelItemClick"
     >
       <div class="avatar">
-        <img :src="avatarUrl" alt="" />
+        <img
+          :src="avatarUrl"
+          alt=""
+        />
       </div>
       <div class="name">{{ title }}</div>
       <Icon
         name="arrow"
         :style="{
-          transform: setting.select === title ? 'rotate(90deg)' : '',
+          transform: setting.select === title ? 'rotate(90deg)' : ''
         }"
       />
     </div>
     <div
       class="message-list"
       :class="{
-        'message-list-highlight': setting.select === title,
+        'message-list-highlight': setting.select === title
       }"
     >
       <div
         class="message"
         :class="{
-          'message-highlight': setting.index === item.id,
+          'message-highlight': setting.index === item.id
         }"
         v-for="(item, index) in list"
         :key="`title-${index}`"
         @click="handelMessageClick(item.id)"
       >
-        <Icon name="check" style="flex-shrink: 0" />
+        <Icon
+          name="check"
+          style="flex-shrink: 0"
+        />
         <div class="text">{{ getLastMsg(index) }}</div>
         <div
           class="del"
@@ -51,8 +57,10 @@
 import { getAvatar } from '@/assets/scripts/avatar'
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
-import { computed } from '@vue/reactivity'
+import { computed } from 'vue'
 import Icon from '../Common/Icon.vue'
+import image_1 from '@/assets/images/一家人.jpg'
+import image_2 from '@/assets/images/群聊.jpg'
 
 const props = defineProps<{
   title?: string
@@ -65,10 +73,15 @@ const getLastMsg = (index: number) => {
   }
   if (props.list[index].list[props.list[index].list.length - 1].img) {
     if (props.list[index].list[props.list[index].list.length - 1].emoticon) {
-      if (props.list[index].list[props.list[index].list.length - 1].emoticon?.startsWith('中年人')) {
+      if (
+        props.list[index].list[props.list[index].list.length - 1].emoticon?.startsWith('中年人')
+      ) {
         return '(发了一个中年人土味表情包)'
       }
-      return `[${props.list[index].list[props.list[index].list.length - 1].emoticon?.replace(' ', '_')}]`
+      return `[${props.list[index].list[props.list[index].list.length - 1].emoticon?.replace(
+        ' ',
+        '_'
+      )}]`
     }
     return '[图片]'
   }
@@ -90,7 +103,7 @@ const handelMessageClick = (index: number) => {
 }
 
 const handelDelClick = (index: number) => {
-  const id = message.list.findIndex(item => {
+  const id = message.list.findIndex((item) => {
     return item.id === index
   })
   if (id !== -1) {
@@ -99,11 +112,11 @@ const handelDelClick = (index: number) => {
 }
 
 const avatarUrl = computed(() => {
-  if (props.title === '星穹列车一家人') return require('@/assets/images/一家人.jpg')
+  if (props.title === '星穹列车一家人') return image_1
   if (props.title) {
-    return getAvatar(props.title) || require('@/assets/images/群聊.jpg')
+    return getAvatar(props.title) || image_2
   } else {
-    return require('@/assets/images/群聊.jpg')
+    return image_2
   }
 })
 </script>
@@ -133,7 +146,7 @@ const avatarUrl = computed(() => {
       right 0
       bottom 0
       left 0
-      background url('~@/assets/images/对话背景.png')
+      background url('@/assets/images/对话背景.png')
       background-repeat no-repeat
       background-position right
       opacity 0.15

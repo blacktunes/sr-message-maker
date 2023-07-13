@@ -6,11 +6,15 @@
   >
     <div class="card">
       <div class="avatar">
-        <img :src="avatar" :alt="name" draggable="false" />
+        <img
+          :src="avatar"
+          :alt="name"
+          draggable="false"
+        />
       </div>
       <div class="name">{{ name }}</div>
     </div>
-    <div class="info">{{ info || "" }}</div>
+    <div class="info">{{ info || '' }}</div>
     <slot></slot>
   </div>
 </template>
@@ -51,7 +55,7 @@ defineProps<{
         height 100%
         border-radius 50%
         object-fit contain
-        background rgba(255,255,255,0.1)
+        background rgba(255, 255, 255, 0.1)
 
   .name
     color #555

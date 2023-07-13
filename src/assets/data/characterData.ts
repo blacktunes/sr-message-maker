@@ -1,5 +1,6 @@
 import { setUserType } from '@/store/setting'
 import { reactive } from 'vue'
+import avatar_2 from '@/assets/images/穹.jpg'
 
 export const user: { [name: string]: Character } = reactive({
   custom: {
@@ -16,7 +17,7 @@ export const user: { [name: string]: Character } = reactive({
   },
   穹: {
     name: '开拓者',
-    avatar: require('@/assets/images/穹.jpg'),
+    avatar: avatar_2,
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/26/288909604/bb5959b4a67a0637f6862b2c8ba163ed_3921856926987798793.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: ''
   }
@@ -80,7 +81,8 @@ export const gameCharacter: { [name: string]: Character } = {
   },
   彦卿: {
     name: '彦卿',
-    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/7/77/cib5dma4hjmw0lld03q1a045pr072ey.png/180px-%E5%BD%A6%E5%8D%BF%E5%A4%B4%E5%83%8F.png',
+    avatar:
+      'https://patchwiki.biligame.com/images/sr/thumb/7/77/cib5dma4hjmw0lld03q1a045pr072ey.png/180px-%E5%BD%A6%E5%8D%BF%E5%A4%B4%E5%83%8F.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/cc600801af1f864cfb32bbfb01d9d867_5952117643253221767.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: '今天工造司上新了么？没有'
   },
@@ -140,7 +142,8 @@ export const gameCharacter: { [name: string]: Character } = {
   },
   佩拉: {
     name: '佩拉',
-    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/a/a4/rhjc3ytba6ayywljljwmkeps0x0np3y.png/180px-%E4%BD%A9%E6%8B%89%E5%A4%B4%E5%83%8F.png',
+    avatar:
+      'https://patchwiki.biligame.com/images/sr/thumb/a/a4/rhjc3ytba6ayywljljwmkeps0x0np3y.png/180px-%E4%BD%A9%E6%8B%89%E5%A4%B4%E5%83%8F.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/289862258/7099a63b46954eedc038bffc991a0437_5445770148856337075.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: '情报提供请备注姓名'
   },
@@ -158,7 +161,8 @@ export const gameCharacter: { [name: string]: Character } = {
   },
   三月七: {
     name: '三月七',
-    avatar: 'https://patchwiki.biligame.com/images/sr/thumb/3/37/1onkwhuhwsu88n9hgwma5i7uskfo32x.png/180px-%E4%B8%89%E6%9C%88%E4%B8%83%E5%A4%B4%E5%83%8F.png',
+    avatar:
+      'https://patchwiki.biligame.com/images/sr/thumb/3/37/1onkwhuhwsu88n9hgwma5i7uskfo32x.png/180px-%E4%B8%89%E6%9C%88%E4%B8%83%E5%A4%B4%E5%83%8F.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/6a4bd3468e9dbd577f26dbf8757f0b03_924968634176225322.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: '今天也是三月七~'
   },

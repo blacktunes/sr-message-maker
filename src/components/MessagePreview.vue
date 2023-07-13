@@ -39,11 +39,21 @@
           style="cursor: pointer !important"
           v-show="!autoPlaySetting.flag"
         >
-          <Icon name="close" @click.stop="setting.preview = false" />
+          <Icon
+            name="close"
+            @click.stop="setting.preview = false"
+          />
         </div>
       </template>
-      <template v-for="(element, index) in dataList" :key="'preview-' + index">
-        <MessageItem :item="element" :index="0" preview />
+      <template
+        v-for="(element, index) in dataList"
+        :key="`preview-${index}`"
+      >
+        <MessageItem
+          :item="element"
+          :index="0"
+          preview
+        />
       </template>
     </MessageBox>
   </template>
@@ -64,7 +74,7 @@ const boxRef = ref<InstanceType<typeof MessageBox>>()
 
 // 要显示的数据
 const dataList = computed({
-  get: () => autoPlaySetting.flag ? autoPlaySetting.list : message.list[messageIndex.value].list,
+  get: () => (autoPlaySetting.flag ? autoPlaySetting.list : message.list[messageIndex.value].list),
   set: (val) => {
     if (!autoPlaySetting.flag) {
       message.list[messageIndex.value].list = val
@@ -90,7 +100,10 @@ const autoPlay = (i: number, loading: boolean) => {
     return
   }
 
-  if (message.list[messageIndex.value].list[i].key === '开拓者' || message.list[messageIndex.value].list[i].notice) {
+  if (
+    message.list[messageIndex.value].list[i].key === '开拓者' ||
+    message.list[messageIndex.value].list[i].notice
+  ) {
     loading = false
     autoPlaySetting.list.push(message.list[messageIndex.value].list[i])
   } else {
@@ -108,7 +121,10 @@ const autoPlay = (i: number, loading: boolean) => {
     scrollToBottom(boxRef.value?.listDom)
 
     if (loading) {
-      const time = Math.min(Math.max(message.list[messageIndex.value].list[i].text.length * 50, 1000), 2000)
+      const time = Math.min(
+        Math.max(message.list[messageIndex.value].list[i].text.length * 50, 1000),
+        2000
+      )
 
       setTimeout(() => {
         autoPlay(i, false)

@@ -31,26 +31,23 @@ export const updateDB = () => {
 export const getDB = () => {
   console.log('GET - SR Message indexDB...')
   const _db = window.indexedDB.open('sr-message')
-  _db.onsuccess = event => {
+  _db.onsuccess = (event) => {
     db = (event.target as IDBOpenDBRequest).result
     if (hasDB) {
-      db.transaction('data', 'readonly')
-        .objectStore('data')
-        .get(0)
-        .onsuccess = (e) => {
-          try {
-            message.list = JSON.parse((e.target as IDBRequest).result?.data || '[]')
-          } finally {
-            setWatch()
-          }
+      db.transaction('data', 'readonly').objectStore('data').get(0).onsuccess = (e) => {
+        try {
+          message.list = JSON.parse((e.target as IDBRequest).result?.data || '[]')
+        } finally {
+          setWatch()
         }
+      }
     } else {
       updateDB()
       setWatch()
     }
   }
 
-  _db.onupgradeneeded = event => {
+  _db.onupgradeneeded = (event) => {
     db = (event.target as IDBOpenDBRequest).result
     if (!db.objectStoreNames.contains('data')) {
       hasDB = false

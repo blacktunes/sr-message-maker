@@ -1,6 +1,10 @@
 <template>
   <div class="name">
-    <div class="change" title="更换主角" @click="handelChangeClick">
+    <div
+      class="change"
+      title="更换主角"
+      @click="handelChangeClick"
+    >
       <Icon name="change" />
     </div>
     <div
@@ -13,8 +17,15 @@
     >
       {{ setting.name }}
     </div>
-    <div class="avatar" @click="handelAvatarClick" title="修改头像">
-      <img :src="user[setting.type].avatar || ''" alt="" />
+    <div
+      class="avatar"
+      @click="handelAvatarClick"
+      title="修改头像"
+    >
+      <img
+        :src="user[setting.type].avatar || ''"
+        alt=""
+      />
     </div>
   </div>
 </template>
@@ -38,7 +49,7 @@ const handelAvatarClick = () => {
     if (el.files?.[0]) {
       const file = new FileReader()
       file.readAsDataURL(el.files[0])
-      file.onload = e => {
+      file.onload = (e) => {
         const avatar = e.target?.result as string
         user.custom.avatar = avatar
         user.custom.card = avatar

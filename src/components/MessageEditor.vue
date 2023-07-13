@@ -16,9 +16,7 @@
           :item-key="(item: Message) => getKey(item)"
           delay="100"
         >
-          <template
-            #item="{ element, index }: { element: Message, index: number }"
-          >
+          <template #item="{ element, index }: { element: Message, index: number }">
             <MessageItem
               :item="element"
               :index="index"
@@ -31,14 +29,13 @@
         </draggable>
         <template #bottom>
           <div class="bottom">
-            <div class="btn" @click.stop="handelSelectClick" title="选择角色">
+            <div
+              class="btn"
+              @click.stop="handelSelectClick"
+              title="选择角色"
+            >
               <img
-                :src="
-                  getUserAvatar(
-                    input.character.key,
-                    getAvatar(input.character.key)
-                  )
-                "
+                :src="getUserAvatar(input.character.key, getAvatar(input.character.key))"
                 alt=""
               />
             </div>
@@ -48,20 +45,44 @@
               v-model="input.input"
               @keydown.enter="handelAddClick()"
             />
-            <div class="btn" @click="handelMessageClick" title="创建任务">
+            <div
+              class="btn"
+              @click="handelMessageClick"
+              title="创建任务"
+            >
               <Icon name="mission" />
             </div>
-            <div class="btn" @click="handelImageAddClick" title="发送图片">
+            <div
+              class="btn"
+              @click="handelImageAddClick"
+              title="发送图片"
+            >
               <Icon name="image" />
             </div>
-            <div class="btn" @click.stop="handelEmoticonClick" title="发送表情">
+            <div
+              class="btn"
+              @click.stop="handelEmoticonClick"
+              title="发送表情"
+            >
               <Icon name="emoticon" />
             </div>
-            <div class="btn" @click="handelNoticeClick" title="发送通知">
+            <div
+              class="btn"
+              @click="handelNoticeClick"
+              title="发送通知"
+            >
               <Icon name="notice" />
             </div>
-            <div class="btn" @click="handelAddClick()" title="发送消息">
-              <Icon name="message" width="65" height="65" />
+            <div
+              class="btn"
+              @click="handelAddClick()"
+              title="发送消息"
+            >
+              <Icon
+                name="message"
+                width="65"
+                height="65"
+              />
             </div>
           </div>
           <Emoticon @emoticon="addEmoticon" />
@@ -70,8 +91,12 @@
     </template>
     <template v-else>
       <div class="defalut-wrapper">
-        <img src="@/assets/images/列车.svg" alt="" draggable="false" />
-        <span>{{ message.list.length > 0 ? "请选择联系人" : "暂无短信" }}</span>
+        <img
+          src="@/assets/images/列车.svg"
+          alt=""
+          draggable="false"
+        />
+        <span>{{ message.list.length > 0 ? '请选择联系人' : '暂无短信' }}</span>
       </div>
     </template>
   </transition-group>
@@ -142,7 +167,7 @@ const handelImageClick = (key: number) => {
     if (el.files?.[0]) {
       const file = new FileReader()
       file.readAsDataURL(el.files[0])
-      file.onload = e => {
+      file.onload = (e) => {
         delete message.list[messageIndex.value].list[key].emoticon
         message.list[messageIndex.value].list[key].img = e.target?.result as string
         message.list[messageIndex.value].time = Date.now()
@@ -191,7 +216,7 @@ const handelImageAddClick = () => {
     if (el.files?.[0]) {
       const file = new FileReader()
       file.readAsDataURL(el.files[0])
-      file.onload = e => {
+      file.onload = (e) => {
         message.list[messageIndex.value].list.push({
           ...getCharacter(),
           text: '',

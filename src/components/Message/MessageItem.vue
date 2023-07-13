@@ -1,5 +1,8 @@
 <template>
-  <div v-if="item.notice" class="notice">
+  <div
+    v-if="item.notice"
+    class="notice"
+  >
     <Icon name="warn" />
     <span
       :contenteditable="!preview"
@@ -9,8 +12,15 @@
       {{ item.text }}
     </span>
     <div v-if="!preview">
-      <div @click="handelDelClick(index)" class="del">
-        <Icon name="delete" width="30" height="30" />
+      <div
+        @click="handelDelClick(index)"
+        class="del"
+      >
+        <Icon
+          name="delete"
+          width="30"
+          height="30"
+        />
       </div>
     </div>
   </div>
@@ -18,30 +28,53 @@
     v-else
     class="message"
     :class="{
-      right: item.key === '开拓者',
+      right: item.key === '开拓者'
     }"
   >
-    <transition :name="!preview ? 'fade' : 'avatar'" appear>
+    <transition
+      :name="!preview ? 'fade' : 'avatar'"
+      appear
+    >
       <div
         class="avatar"
         @click.stop="preview ? undefined : handelAvatarClick(index)"
       >
-        <img :src="getUserAvatar(item.key, item.avatar)" alt="" />
+        <img
+          :src="getUserAvatar(item.key, item.avatar)"
+          alt=""
+        />
       </div>
     </transition>
     <div class="message-item">
-      <transition :name="!preview ? 'fade' : 'message'" appear>
+      <transition
+        :name="!preview ? 'fade' : 'message'"
+        appear
+      >
         <div class="name">
           <span>
-            {{ item.key === "开拓者" ? setting.name : item.name }}
+            {{ item.key === '开拓者' ? setting.name : item.name }}
           </span>
-          <div v-if="!preview" class="del" @click="handelDelClick(index)">
-            <Icon name="delete" width="30" height="30" />
+          <div
+            v-if="!preview"
+            class="del"
+            @click="handelDelClick(index)"
+          >
+            <Icon
+              name="delete"
+              width="30"
+              height="30"
+            />
           </div>
         </div>
       </transition>
-      <transition :name="!preview ? 'fade' : 'message'" appear>
-        <div v-if="item.loading" class="loading">
+      <transition
+        :name="!preview ? 'fade' : 'message'"
+        appear
+      >
+        <div
+          v-if="item.loading"
+          class="loading"
+        >
           <div></div>
           <div></div>
           <div></div>
@@ -50,7 +83,7 @@
           class="img"
           v-else-if="item.img"
           :style="{
-            width: item.emoticon ? 'var(--message-item-img-width)' : '',
+            width: item.emoticon ? 'var(--message-item-img-width)' : ''
           }"
         >
           <img
@@ -102,7 +135,7 @@ const emit = defineEmits<{
 }>()
 
 const blur = (e: KeyboardEvent) => {
-  (e.target as HTMLInputElement).blur()
+  ;(e.target as HTMLInputElement).blur()
 }
 
 const updateText = (e: Event, key: number) => {

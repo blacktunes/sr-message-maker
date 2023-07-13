@@ -1,6 +1,10 @@
 <template>
   <transition name="fade">
-    <div class="emoticon" v-show="input.emoticon" @click.stop="">
+    <div
+      class="emoticon"
+      v-show="input.emoticon"
+      @click.stop=""
+    >
       <div
         class="group"
         v-for="(group, index_1) in emoticon"
@@ -13,7 +17,10 @@
           :title="item.title"
           :key="index_2"
         >
-          <img :src="item.url" :alt="item.title" />
+          <img
+            :src="item.url"
+            :alt="item.title"
+          />
         </div>
       </div>
     </div>
