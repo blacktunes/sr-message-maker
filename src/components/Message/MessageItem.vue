@@ -7,13 +7,13 @@
     <span
       :contenteditable="!preview"
       @keydown.enter.prevent="preview ? undefined : blur($event)"
-      @blur="preview ? undefined : updateText($event, index)"
+      @blur="preview ? undefined : updateText($event)"
     >
       {{ item.text }}
     </span>
     <div v-if="!preview">
       <div
-        @click="handelDelClick(index)"
+        @click="handelDelClick()"
         class="del"
       >
         <Icon
@@ -37,7 +37,7 @@
     >
       <div
         class="avatar"
-        @click.stop="preview ? undefined : handelAvatarClick(index)"
+        @click.stop="preview ? undefined : handelAvatarClick()"
       >
         <img
           :src="getUserAvatar(item.key, item.avatar)"
@@ -57,7 +57,7 @@
           <div
             v-if="!preview"
             class="del"
-            @click="handelDelClick(index)"
+            @click="handelDelClick()"
           >
             <Icon
               name="delete"
@@ -89,7 +89,7 @@
           <img
             :src="item.img"
             alt=""
-            @click.stop="preview ? undefined : handelImageClick(index)"
+            @click.stop="preview ? undefined : handelImageClick()"
           />
         </div>
         <div
@@ -97,7 +97,7 @@
           class="text"
           :contenteditable="!preview"
           @keydown.enter.prevent="preview ? undefined : blur($event)"
-          @blur="preview ? undefined : updateText($event, index)"
+          @blur="preview ? undefined : updateText($event)"
         >
           {{ item.text }}
         </div>
@@ -114,7 +114,6 @@ import Icon from '../Common/Icon.vue'
 // TODO 移除index参数
 defineProps<{
   item: Message
-  index: number
   preview?: boolean
 }>()
 
@@ -128,30 +127,30 @@ const getUserAvatar = (key: string, url: string) => {
 
 // eslint-disable-next-line func-call-spacing
 const emit = defineEmits<{
-  (event: 'text', index: number, data: string): void
-  (event: 'avatar', index: number): void
-  (event: 'image', index: number): void
-  (event: 'delete', index: number): void
+  (event: 'text', data: string): void
+  (event: 'avatar'): void
+  (event: 'image'): void
+  (event: 'delete'): void
 }>()
 
 const blur = (e: KeyboardEvent) => {
   ;(e.target as HTMLInputElement).blur()
 }
 
-const updateText = (e: Event, key: number) => {
-  emit('text', key, (e.target as HTMLInputElement).innerText)
+const updateText = (e: Event) => {
+  emit('text', (e.target as HTMLInputElement).innerText)
 }
 
-const handelAvatarClick = (key: number) => {
-  emit('avatar', key)
+const handelAvatarClick = () => {
+  emit('avatar')
 }
 
-const handelImageClick = (key: number) => {
-  emit('image', key)
+const handelImageClick = () => {
+  emit('image')
 }
 
-const handelDelClick = (key: number) => {
-  emit('delete', key)
+const handelDelClick = () => {
+  emit('delete')
 }
 </script>
 

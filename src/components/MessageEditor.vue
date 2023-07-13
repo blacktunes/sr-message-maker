@@ -20,10 +20,10 @@
             <MessageItem
               :item="element"
               :index="index"
-              @text="updateText"
-              @avatar="handelAvatarClick"
-              @image="handelImageClick"
-              @delete="handelDelClick"
+              @text="(data) => updateText(index, data)"
+              @avatar="handelAvatarClick(index)"
+              @image="handelImageClick(index)"
+              @delete="handelDelClick(index)"
             />
           </template>
         </draggable>
