@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "vite --port 8080",
+    "dev": "vite --port 8080 --host",
     "build": "run-p type-check build-only",
     "preview": "vite preview",
     "build-only": "vite build",
@@ -14,7 +14,7 @@
   "dependencies": {
     "@marshallswain/vuedraggable": "^4.2.0",
     "dom-to-image": "^2.6.0",
-    "mitt": "^3.0.0",
+    "mitt": "^3.0.1",
     "vue": "^3.3.4"
   },
   "devDependencies": {

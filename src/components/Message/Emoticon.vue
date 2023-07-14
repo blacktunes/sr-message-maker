@@ -31,7 +31,6 @@
 import { emoticon } from '@/assets/data/emoticon'
 import { input } from '@/store/input'
 
-// eslint-disable-next-line func-call-spacing
 const emit = defineEmits<{
   (event: 'emoticon', url: string, name: string): void
 }>()

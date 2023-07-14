@@ -27,13 +27,15 @@
       :index="messageIndex"
       :title="title"
       :info="info"
-      :mission="message.list[messageIndex].mission"
       :playing="autoPlaySetting.flag"
       preview
       @click.stop
       ref="boxRef"
     >
-      <template #top>
+      <template
+        #top
+        v-if="false"
+      >
         <div
           class="close"
           style="cursor: pointer !important"

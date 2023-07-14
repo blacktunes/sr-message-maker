@@ -1,13 +1,87 @@
 <template>
   <div
-    v-if="item.notice"
+    class="mission"
+    v-if="item.mission"
+  >
+    <transition
+      name="fade"
+      appear
+    >
+      <div
+        class="bg"
+        :style="{
+          backgroundImage: backgroundUrl,
+          width: preview
+            ? 'calc(100% - var(--message-item-avatar-margin) * 2)'
+            : 'calc(100% - var(--message-item-avatar-width) * 2)'
+        }"
+      >
+        <div
+          v-if="!preview"
+          @click.stop="handelTypeClick(item.mission.type)"
+          class="icon"
+        ></div>
+        <div
+          class="tip"
+          @click.stop="preview ? undefined : handeStateClick(item.mission.state)"
+        >
+          {{ missionState }}
+        </div>
+        <div
+          v-if="preview"
+          class="text"
+        >
+          {{ item.text }}
+        </div>
+        <input
+          v-else
+          class="text"
+          :value="item.text"
+          @keydown.enter.prevent
+          @input="updateText(($event.target as HTMLInputElement).value)"
+        />
+        <div
+          class="state"
+          @click.stop="preview ? undefined : handeStateClick(item.mission.state)"
+        >
+          <Icon
+            v-if="item.mission.state === 1"
+            :class="item.mission.type === 1 ? 'mission-2' : 'mission-1'"
+            name="success"
+          />
+          <Icon
+            v-else-if="item.mission.state === 2"
+            :class="item.mission.type === 1 ? 'mission-2' : 'mission-1'"
+            name="fail"
+          />
+          <Icon
+            v-else
+            name="arrow"
+          />
+        </div>
+        <div
+          v-if="!preview"
+          @click="handelDelClick"
+          class="del"
+        >
+          <Icon
+            name="delete"
+            width="35"
+            height="35"
+          />
+        </div>
+      </div>
+    </transition>
+  </div>
+  <div
+    v-else-if="item.notice"
     class="notice"
   >
     <Icon name="warn" />
     <span
       :contenteditable="!preview"
       @keydown.enter.prevent="preview ? undefined : blur($event)"
-      @blur="preview ? undefined : updateText($event)"
+      @blur="preview ? undefined : updateText(($event.target as HTMLElement).innerText)"
     >
       {{ item.text }}
     </span>
@@ -97,7 +171,7 @@
           class="text"
           :contenteditable="!preview"
           @keydown.enter.prevent="preview ? undefined : blur($event)"
-          @blur="preview ? undefined : updateText($event)"
+          @blur="preview ? undefined : updateText(($event.target as HTMLElement).innerText)"
         >
           {{ item.text }}
         </div>
@@ -110,9 +184,11 @@
 import { user } from '@/assets/data/characterData'
 import { setting } from '@/store/setting'
 import Icon from '../Common/Icon.vue'
+import { computed } from 'vue'
+import image_1 from '@/assets/images/冒险任务.png'
+import image_2 from '@/assets/images/同行任务.png'
 
-// TODO 移除index参数
-defineProps<{
+const props = defineProps<{
   item: Message
   preview?: boolean
 }>()
@@ -125,20 +201,51 @@ const getUserAvatar = (key: string, url: string) => {
   }
 }
 
-// eslint-disable-next-line func-call-spacing
 const emit = defineEmits<{
+  (event: 'mission', data: Mission): void
   (event: 'text', data: string): void
   (event: 'avatar'): void
   (event: 'image'): void
   (event: 'delete'): void
 }>()
 
+const missionState = computed(() => {
+  if (props.item.mission?.state === 2) {
+    return '任务失败'
+  }
+  if (props.item.mission?.state === 1) {
+    return '任务已完成'
+  }
+  return '已接取任务'
+})
+
+const backgroundUrl = computed(() => {
+  return props.item.mission?.type === 1 ? `url(${image_1})` : `url(${image_2})`
+})
+
 const blur = (e: KeyboardEvent) => {
   ;(e.target as HTMLInputElement).blur()
 }
 
-const updateText = (e: Event) => {
-  emit('text', (e.target as HTMLInputElement).innerText)
+const handelTypeClick = (type: number) => {
+  const data: Mission = {
+    type: type === 1 ? 0 : 1,
+    state: props.item.mission?.state ?? 0
+  }
+  emit('mission', data)
+}
+
+const handeStateClick = (state: number) => {
+  const data: Mission = {
+    type: props.item.mission?.type ?? 0,
+    state: state === 0 ? 1 : state === 1 ? 2 : 0
+  }
+  emit('mission', data)
+}
+
+const updateText = (text: string) => {
+  console.log(text)
+  emit('text', text)
 }
 
 const handelAvatarClick = () => {
@@ -158,6 +265,92 @@ const handelDelClick = () => {
 $del-pos = -100px
 $avatar-width = 140px
 $avatar-margin = 35px
+
+.mission
+  display flex
+  justify-content center
+  align-items center
+  width 100%
+  margin 100px 0
+
+  &:hover
+    .bg
+      .del
+        opacity 1
+
+  .bg
+    position relative
+    height 180px
+    background-repeat no-repeat
+    background-position top left
+    background-size cover
+    border-top-right-radius 50px
+    box-shadow 10px 5px 20px 0px rgba(0, 0, 0, 0.1)
+
+    .icon
+      position absolute
+      top 0
+      left 35px
+      width 120px
+      height 175px
+      user-select none
+      cursor pointer
+
+    .tip
+      position absolute
+      top 10px
+      left 180px
+      color #fff
+      font-size 30px
+      height 45px
+      line-height 45px
+      user-select none
+      cursor pointer
+
+    .text
+      position absolute
+      top 55px
+      left 180px
+      color #000
+      font-size 45px
+      line-height 100px
+      height 100px
+      width 80%
+      overflow hidden
+      white-space nowrap
+      text-overflow ellipsis
+      background transparent
+      border none
+
+    .state
+      display flex
+      justify-content center
+      align-items center
+      position absolute
+      right 0
+      bottom 15px
+      width 120px
+      height 120px
+      user-select none
+      cursor pointer
+
+    .del
+      display flex
+      align-items center
+      justify-content center
+      position absolute
+      right -100px
+      top 70px
+      width 60px
+      height 60px
+      opacity 0
+      cursor pointer
+
+      :deep(path)
+        fill var(--message-item-name-color)
+
+      &:hover
+        opacity 1
 
 .notice
   display flex
@@ -332,6 +525,14 @@ $avatar-margin = 35px
   .del
     left $del-pos
     right unset !important
+
+.mission-1
+  :deep(path)
+    fill #b886ed
+
+.mission-2
+  :deep(path)
+    fill #54a9be
 
 .avatar-enter-active
   animation avatar 0.5s ease

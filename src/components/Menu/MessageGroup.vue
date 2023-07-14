@@ -32,18 +32,31 @@
         :class="{
           'message-highlight': setting.index === item.id
         }"
-        v-for="(item, index) in list"
+        v-for="(item, index) in showList"
         :key="`title-${index}`"
         @click="handelMessageClick(item.id)"
       >
-        <Icon
-          name="check"
-          style="flex-shrink: 0"
-        />
-        <div class="text">{{ getLastMsg(index) }}</div>
+        <div class="icon">
+          <Icon
+            v-if="item.state === 2"
+            name="delete"
+            style="flex-shrink: 0"
+          />
+          <Icon
+            v-else-if="item.state === 0"
+            name="star"
+            style="flex-shrink: 0"
+          />
+          <Icon
+            v-else
+            name="check"
+            style="flex-shrink: 0"
+          />
+        </div>
+        <div class="text">{{ item.msg }}</div>
         <div
           class="del"
-          v-if="item.list.length === 0"
+          v-if="item.length === 0"
           @click.stop="handelDelClick(item.id)"
         >
           <Icon name="delete" />
@@ -67,25 +80,58 @@ const props = defineProps<{
   list: MessageListItem[]
 }>()
 
+const showList = computed(() => {
+  const list = []
+  for (let i = 0; i < props.list.length; i++) {
+    list.push(getLastMsg(i))
+  }
+  return list
+})
+
 const getLastMsg = (index: number) => {
-  if (props.list[index].list.length === 0) {
-    return '暂无消息'
-  }
-  if (props.list[index].list[props.list[index].list.length - 1].img) {
-    if (props.list[index].list[props.list[index].list.length - 1].emoticon) {
-      if (
-        props.list[index].list[props.list[index].list.length - 1].emoticon?.startsWith('中年人')
-      ) {
-        return '(发了一个中年人土味表情包)'
+  const list = props.list[index].list
+
+  let msg: string | undefined
+  let state: 0 | 1 | 2 | undefined
+
+  if (list.length === 0) {
+    msg = '暂无消息'
+  } else {
+    for (let i = list.length; i--; i > 0) {
+      if (msg === undefined) {
+        if (list[i].img) {
+          if (list[i].emoticon) {
+            if (list[i].emoticon?.startsWith('中年人')) {
+              msg = '(发了一个中年人土味表情包)'
+            } else {
+              msg = `[${list[i].emoticon?.replace(' ', '_')}]`
+            }
+          } else {
+            msg = '[图片]'
+          }
+        } else if (!list[i].mission) {
+          msg = list[i].text
+        }
       }
-      return `[${props.list[index].list[props.list[index].list.length - 1].emoticon?.replace(
-        ' ',
-        '_'
-      )}]`
+      if (state === undefined) {
+        if (list[i].mission) {
+          state = list[i].mission?.state ?? 0
+        }
+      }
+      if (msg !== undefined && state !== undefined) {
+        break
+      }
     }
-    return '[图片]'
   }
-  return props.list[index].list[props.list[index].list.length - 1].text || '暂无消息'
+
+  msg ??= '任务消息'
+
+  return {
+    id: props.list[index].id,
+    length: list.length,
+    msg,
+    state
+  }
 }
 
 const height = computed(() => `${props.list.length * 165}px`)
@@ -224,6 +270,13 @@ const avatarUrl = computed(() => {
 
         .del
           opacity 1
+
+      .icon
+        display flex
+        align-items center
+        justify-content center
+        width 50px
+        height 100%
 
       .text
         margin-left 35px

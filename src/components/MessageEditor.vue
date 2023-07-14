@@ -6,9 +6,7 @@
         :index="messageIndex"
         :title="title"
         :info="info"
-        :mission="message.list[messageIndex].mission"
         @title="updateTitle"
-        @mission="updateMission"
         ref="boxRef"
       >
         <draggable
@@ -20,6 +18,7 @@
             <MessageItem
               :item="element"
               :index="index"
+              @mission="(data) => updateMission(index, data)"
               @text="(data) => updateText(index, data)"
               @avatar="handelAvatarClick(index)"
               @image="handelImageClick(index)"
@@ -144,8 +143,8 @@ const updateTitle = (data: string) => {
   setting.select = title.value
 }
 
-const updateMission = (data?: Mission) => {
-  message.list[messageIndex.value].mission = data
+const updateMission = (key: number, data: Mission) => {
+  message.list[messageIndex.value].list[key].mission = data
 }
 
 const updateText = (key: number, data: string) => {
@@ -187,25 +186,19 @@ const handelSelectClick = () => {
 }
 
 const handelMessageClick = () => {
-  if (message.list[messageIndex.value].mission) {
-    if (input.input) {
-      message.list[messageIndex.value].mission!.text = input.input
-      input.input = ''
-      return
-    }
-    if (message.list[messageIndex.value].mission?.type === 0) {
-      message.list[messageIndex.value].mission!.type = 1
-    } else if (message.list[messageIndex.value].mission?.type === 1) {
-      message.list[messageIndex.value].mission!.type = 0
-    }
-  } else {
-    message.list[messageIndex.value].mission = {
-      text: input.input || '愿此行，终抵群星',
+  message.list[messageIndex.value].list.push({
+    key: '开拓者',
+    name: '',
+    avatar: '',
+    text: input.input || '愿此行，终抵群星',
+    mission: {
       type: 0,
       state: 0
     }
-    input.input = ''
-  }
+  })
+  message.list[messageIndex.value].time = Date.now()
+  input.input = ''
+  scrollToBottom(boxRef.value?.listDom)
 }
 
 const handelImageAddClick = () => {
