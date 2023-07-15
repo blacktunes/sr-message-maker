@@ -13,6 +13,7 @@ interface Message {
   emoticon?: string
   loading?: boolean
   mission?: Mission
+  option?: [boolean]
 }
 
 interface MessageListItem {

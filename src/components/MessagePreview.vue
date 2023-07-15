@@ -75,13 +75,29 @@ import MessageItem from './Message/MessageItem.vue'
 const boxRef = ref<InstanceType<typeof MessageBox>>()
 
 // 要显示的数据
-const dataList = computed({
-  get: () => (autoPlaySetting.flag ? autoPlaySetting.list : message.list[messageIndex.value].list),
-  set: (val) => {
-    if (!autoPlaySetting.flag) {
-      message.list[messageIndex.value].list = val
+const dataList = computed(() => {
+  if (autoPlaySetting.flag) return autoPlaySetting.list
+
+  const list: (Message & { default?: [boolean] })[] = []
+  message.list[messageIndex.value].list.forEach((item) => {
+    if (item.option) {
+      if (!list[list.length - 1] || !list[list.length - 1].default) {
+        list.push({
+          ...item,
+          default: [item.option[0]],
+          option: undefined
+        })
+      } else {
+        if (!list[list.length - 1].default?.[0] && item.option[0]) {
+          list[list.length - 1].text = item.text
+          list[list.length - 1].default = [item.option[0]]
+        }
+      }
+    } else {
+      list.push(item)
     }
-  }
+  })
+  return list
 })
 
 emitter.on('autoplay', () => {

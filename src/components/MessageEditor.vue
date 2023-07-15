@@ -16,8 +16,10 @@
         >
           <template #item="{ element, index }: { element: Message, index: number }">
             <MessageItem
+              :style="setMessageStyle(index)"
               :item="element"
               :index="index"
+              @option="handelOptionChange(index)"
               @mission="(data) => updateMission(index, data)"
               @text="(data) => updateText(index, data)"
               @avatar="handelAvatarClick(index)"
@@ -43,7 +45,15 @@
               class="input"
               v-model="input.input"
               @keydown.enter="handelAddClick()"
+              title="选择角色"
             />
+            <div
+              class="btn"
+              @click="handelOptionClick"
+              title="创建选项"
+            >
+              <Icon name="mission" />
+            </div>
             <div
               class="btn"
               @click="handelMessageClick"
@@ -107,7 +117,7 @@ import { input } from '@/store/input'
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
 import draggable from '@marshallswain/vuedraggable'
-import { nextTick, ref, watch } from 'vue'
+import { computed, nextTick, ref, watch } from 'vue'
 import Icon from './Common/Icon.vue'
 import Emoticon from './Message/Emoticon.vue'
 import { getUserAvatar, info, messageIndex, scrollToBottom, title } from './Message/Message'
@@ -130,6 +140,19 @@ watch(messageIndex, () => {
   })
 })
 
+const messageList = computed(() => message.list[messageIndex.value]?.list || [])
+watch(
+  messageList,
+  () => {
+    for (const i in message.list[messageIndex.value]?.list) {
+      console.log(message.list[messageIndex.value].list[Number(i)])
+    }
+  },
+  {
+    deep: true
+  }
+)
+
 const getCharacter = () => {
   return {
     key: input.character.key,
@@ -138,9 +161,44 @@ const getCharacter = () => {
   }
 }
 
+const setMessageStyle = (key: number) => {
+  return {
+    marginTop:
+      message.list[messageIndex.value].list?.[key]?.option &&
+      !message.list[messageIndex.value].list?.[key - 1]?.option
+        ? '100px'
+        : '',
+    marginBottom:
+      message.list[messageIndex.value].list?.[key]?.option &&
+      message.list[messageIndex.value].list?.[key + 1] &&
+      !message.list[messageIndex.value].list?.[key + 1]?.option
+        ? '100px'
+        : ''
+  }
+}
+
 const updateTitle = (data: string) => {
   message.list[messageIndex.value].title = data
   setting.select = title.value
+}
+
+const updateOption = (key: number, next: boolean) => {
+  if (message.list[messageIndex.value].list?.[key]?.option) {
+    message.list[messageIndex.value].list[key].option = [false]
+    updateOption(next ? key + 1 : key - 1, next)
+  }
+}
+
+const handelOptionChange = (key: number) => {
+  if (!message.list[messageIndex.value].list[key].option) return
+
+  if (message.list[messageIndex.value].list[key].option?.[0]) {
+    message.list[messageIndex.value].list[key].option = [false]
+  } else {
+    message.list[messageIndex.value].list[key].option = [true]
+    updateOption(key + 1, true)
+    updateOption(key - 1, false)
+  }
 }
 
 const updateMission = (key: number, data: Mission) => {
@@ -183,6 +241,17 @@ const handelDelClick = (key: number) => {
 
 const handelSelectClick = () => {
   input.select = true
+}
+
+const handelOptionClick = () => {
+  message.list[messageIndex.value].list.push({
+    ...getCharacter(),
+    text: input.input || '愿此行，终抵群星',
+    option: [false]
+  })
+  message.list[messageIndex.value].time = Date.now()
+  input.input = ''
+  scrollToBottom(boxRef.value?.listDom)
 }
 
 const handelMessageClick = () => {

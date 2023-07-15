@@ -1,7 +1,46 @@
 <template>
   <div
+    class="option"
+    v-if="item.option"
+  >
+    <div
+      @click="handelOptionClick"
+      class="change"
+    >
+      <Icon
+        v-if="!item.option[0]"
+        name="success"
+        width="50"
+        height="50"
+      />
+      <Icon
+        v-else
+        name="fail"
+        width="50"
+        height="50"
+      />
+    </div>
+    <input
+      :value="item.text"
+      :style="{
+        background: item.option[0] ? '#ccc' : ''
+      }"
+      @input="updateText(($event.target as HTMLInputElement).value)"
+    />
+    <div
+      @click="handelDelClick"
+      class="del"
+    >
+      <Icon
+        name="delete"
+        width="35"
+        height="35"
+      />
+    </div>
+  </div>
+  <div
     class="mission"
-    v-if="item.mission"
+    v-else-if="item.mission"
   >
     <transition
       name="fade"
@@ -20,10 +59,12 @@
           v-if="!preview"
           @click.stop="handelTypeClick(item.mission.type)"
           class="icon"
+          title="修改任务类型"
         ></div>
         <div
           class="tip"
           @click.stop="preview ? undefined : handeStateClick(item.mission.state)"
+          title="修改任状态"
         >
           {{ missionState }}
         </div>
@@ -43,6 +84,7 @@
         <div
           class="state"
           @click.stop="preview ? undefined : handeStateClick(item.mission.state)"
+          title="修改任状态"
         >
           <Icon
             v-if="item.mission.state === 1"
@@ -202,12 +244,17 @@ const getUserAvatar = (key: string, url: string) => {
 }
 
 const emit = defineEmits<{
+  (event: 'option'): void
   (event: 'mission', data: Mission): void
   (event: 'text', data: string): void
   (event: 'avatar'): void
   (event: 'image'): void
   (event: 'delete'): void
 }>()
+
+const handelOptionClick = () => {
+  emit('option')
+}
 
 const missionState = computed(() => {
   if (props.item.mission?.state === 2) {
@@ -244,7 +291,6 @@ const handeStateClick = (state: number) => {
 }
 
 const updateText = (text: string) => {
-  console.log(text)
   emit('text', text)
 }
 
@@ -266,14 +312,74 @@ $del-pos = -100px
 $avatar-width = 140px
 $avatar-margin = 35px
 
+.option
+  position relative
+  display flex
+  justify-content center
+  align-items center
+  width 100%
+  padding 15px 0
+
+  &:hover
+    background var(--message-item-background-color)
+
+    .change, .del
+      opacity 1
+
+  .change, .del
+    display flex
+    align-items center
+    justify-content center
+    position absolute
+    top 50%
+    width 60px
+    height 60px
+    transform translateY(-50%)
+    opacity 0
+    cursor pointer
+
+    :deep(path)
+      fill var(--message-item-name-color)
+
+    &:hover
+      opacity 1
+
+  .change
+    left 20px
+
+  .del
+    right 20px
+
+  input
+    overflow hidden
+    white-space nowrap
+    text-overflow ellipsis
+    background transparent
+    width -moz-fit-content
+    width fit-content
+    box-sizing border-box
+    padding 5px 30px
+    font-size 40px
+    font-weight bold
+    text-align center
+    color var(--text-color)
+    width calc(100% - var(--message-item-avatar-width) * 2)
+    height 90px
+    background var(--box-background-color)
+    border 2px solid var(--border-hover-color)
+    box-shadow 2px 2px 10px var(--border-hover-color)
+
 .mission
   display flex
   justify-content center
   align-items center
   width 100%
-  margin 100px 0
+  margin 80px 0
+  padding 20px 0
 
   &:hover
+    background var(--message-item-background-color)
+
     .bg
       .del
         opacity 1
@@ -285,7 +391,6 @@ $avatar-margin = 35px
     background-position top left
     background-size cover
     border-top-right-radius 50px
-    box-shadow 10px 5px 20px 0px rgba(0, 0, 0, 0.1)
 
     .icon
       position absolute
@@ -340,9 +445,10 @@ $avatar-margin = 35px
       justify-content center
       position absolute
       right -100px
-      top 70px
+      top 50%
       width 60px
       height 60px
+      transform translateY(-50%)
       opacity 0
       cursor pointer
 
@@ -493,6 +599,7 @@ $avatar-margin = 35px
       max-width 600px
       min-width var(--message-item-img-width)
       margin 40px 40px 0 40px
+      user-select none
 
       img
         width 100%
