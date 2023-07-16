@@ -176,6 +176,7 @@ const setMessageStyle = (key: number) => {
   return {
     marginTop:
       message.list[messageIndex.value].list?.[key]?.option &&
+      message.list[messageIndex.value].list?.[key - 1] &&
       !message.list[messageIndex.value].list?.[key - 1]?.option
         ? '100px'
         : '',
