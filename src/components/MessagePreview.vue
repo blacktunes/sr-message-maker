@@ -316,8 +316,7 @@ const isGreenScreen = ref(false)
         height 80px
 
   .option-box
-    min-height 90px * 3 + 20px * 6
-    max-height 500px
+    height 90px * 3 + 20px * 4
     border-top var(--menu-border-hover)
     background var(--message-menu-background-color)
     padding 10px 50px
@@ -363,6 +362,5 @@ const isGreenScreen = ref(false)
   transition all 0.25s
 
 .option-enter-from
-  min-height 0 !important
-  max-height 0 !important
+  height 0 !important
 </style>
