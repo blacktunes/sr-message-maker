@@ -2,8 +2,8 @@
   <div class="menu">
     <div class="list">
       <MessageGroup
-        v-for="(item, index) in list"
-        :key="index"
+        v-for="item in list"
+        :key="item.title"
         :title="item.title"
         :list="item.list"
       />

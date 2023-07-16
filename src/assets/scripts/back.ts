@@ -1,5 +1,6 @@
 import { input } from '@/store/input'
 import { autoPlaySetting, setting } from '@/store/setting'
+import { emitter } from './event'
 
 const handelBack = () => {
   if (input.emoticon) {
@@ -9,7 +10,7 @@ const handelBack = () => {
     input.select = false
   }
   if (autoPlaySetting.flag) {
-    autoPlaySetting.flag = false
+    emitter.emit('stopplay')
     return
   }
   if (setting.preview) {

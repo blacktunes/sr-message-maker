@@ -29,7 +29,7 @@
       :info="info"
       :playing="autoPlaySetting.flag"
       preview
-      @click.stop="autoPlaySetting.flag ? handelMaskClick() : undefined"
+      @click.stop="autoPlaySetting.flag ? stopPlay() : undefined"
       ref="boxRef"
     >
       <template
@@ -94,7 +94,7 @@ const boxRef = ref<InstanceType<typeof MessageBox>>()
 
 // 要显示的数据
 const dataList = computed(() => {
-  if (autoPlaySetting.flag) return autoPlaySetting.list
+  if (autoPlaySetting.flag || autoPlaySetting.list.length > 0) return autoPlaySetting.list
 
   const list: (Message & { default?: [boolean] })[] = []
   message.list[messageIndex.value].list.forEach((item) => {
@@ -119,14 +119,20 @@ const dataList = computed(() => {
 })
 
 let optionIndex = 0
+let autoPlayIndex = 0
+
+const reset = () => {
+  optionIndex = 0
+  autoPlayIndex = 0
+  autoPlaySetting.list = []
+  autoPlaySetting.option = []
+}
 
 emitter.on('autoplay', () => {
   if (autoPlaySetting.flag) return
 
   setting.preview = true
-  optionIndex = 0
-  autoPlaySetting.list = []
-  autoPlaySetting.option = []
+  reset()
   autoPlaySetting.flag = true
   nextTick(() => {
     autoPlay(0, true)
@@ -151,6 +157,7 @@ const autoPlay = (i: number, loading: boolean) => {
     autoPlaySetting.flag = false
     return
   }
+  autoPlayIndex = i
 
   if (message.list[messageIndex.value].list[i].option) {
     optionIndex = i + 1
@@ -206,15 +213,47 @@ const autoPlay = (i: number, loading: boolean) => {
   })
 }
 
+emitter.on('stopplay', () => stopPlay())
+
 // 取消播放
-const handelMaskClick = () => {
+const stopPlay = () => {
   autoPlaySetting.flag = false
-  autoPlaySetting.list = []
+  const list: (Message & { default?: [boolean] })[] = []
+  let option = true
+  for (let j = autoPlayIndex; j < message.list[messageIndex.value].list.length; j++) {
+    if (message.list[messageIndex.value].list[j].option) {
+      if (option) continue
+
+      if (!list[list.length - 1] || !list[list.length - 1].default) {
+        list.push({
+          ...message.list[messageIndex.value].list[j],
+          default: [!!message.list[messageIndex.value].list[j].option?.[0]],
+          option: undefined
+        })
+      } else {
+        if (
+          !list[list.length - 1].default?.[0] &&
+          message.list[messageIndex.value].list[j].option?.[0]
+        ) {
+          list[list.length - 1].text = message.list[messageIndex.value].list[j].text
+          list[list.length - 1].default = [!!message.list[messageIndex.value].list[j].option?.[0]]
+        }
+      }
+    } else {
+      list.push(message.list[messageIndex.value].list[j])
+      if (option) {
+        option = false
+        continue
+      }
+    }
+  }
+  autoPlaySetting.list = [...autoPlaySetting.list, ...list]
   scrollToBottom(boxRef.value?.listDom)
 }
 
 emitter.on('screenshot', () => {
   if (setting.preview) return
+  reset()
 
   setting.preview = true
   setting.loading = true
