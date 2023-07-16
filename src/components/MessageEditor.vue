@@ -259,7 +259,9 @@ const handelSelectClick = () => {
 
 const handelOptionClick = () => {
   message.list[messageIndex.value].list.push({
-    ...getCharacter(),
+    key: '开拓者',
+    name: '',
+    avatar: '',
     text: input.input || '愿此行，终抵群星',
     option: [false]
   })
