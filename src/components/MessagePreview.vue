@@ -157,7 +157,6 @@ const autoPlay = (i: number, loading: boolean) => {
     autoPlaySetting.flag = false
     return
   }
-  autoPlayIndex = i
 
   if (message.list[messageIndex.value].list[i].option) {
     optionIndex = i + 1
@@ -170,6 +169,7 @@ const autoPlay = (i: number, loading: boolean) => {
     }
     return
   }
+  autoPlayIndex = i
 
   if (
     message.list[messageIndex.value].list[i].key === '开拓者' ||
@@ -219,11 +219,8 @@ emitter.on('stopplay', () => stopPlay())
 const stopPlay = () => {
   autoPlaySetting.flag = false
   const list: (Message & { default?: [boolean] })[] = []
-  let option = true
   for (let j = autoPlayIndex + 1; j < message.list[messageIndex.value].list.length; j++) {
     if (message.list[messageIndex.value].list[j].option) {
-      if (option) continue
-
       if (!list[list.length - 1] || !list[list.length - 1].default) {
         list.push({
           ...message.list[messageIndex.value].list[j],
@@ -241,10 +238,6 @@ const stopPlay = () => {
       }
     } else {
       list.push(message.list[messageIndex.value].list[j])
-      if (option) {
-        option = false
-        continue
-      }
     }
   }
   autoPlaySetting.list = [...autoPlaySetting.list, ...list]
@@ -358,9 +351,9 @@ const isGreenScreen = ref(false)
   align-items center
   cursor pointer
 
-.option-enter-active
+.option-enter-active, .option-leave-active
   transition all 0.25s
 
-.option-enter-from
+.option-enter-from, .option-leave-to
   height 0 !important
 </style>
