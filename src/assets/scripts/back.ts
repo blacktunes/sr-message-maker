@@ -1,5 +1,6 @@
 import { input } from '@/store/input'
-import { setting } from '@/store/setting'
+import { autoPlaySetting, setting } from '@/store/setting'
+import { emitter } from './event'
 
 const handelBack = () => {
   if (input.emoticon) {
@@ -8,17 +9,21 @@ const handelBack = () => {
   if (input.select) {
     input.select = false
   }
+  if (autoPlaySetting.flag) {
+    emitter.emit('stopplay')
+    return
+  }
   if (setting.preview) {
     setting.preview = false
   }
 }
 
-document.addEventListener('click', e => {
+document.addEventListener('click', (e) => {
   if ((e.target as HTMLElement).tagName.toLowerCase() === 'a') return
   handelBack()
 })
 
-document.addEventListener('keydown', e => {
+document.addEventListener('keydown', (e) => {
   if (e.key !== 'Escape') return
   handelBack()
 })

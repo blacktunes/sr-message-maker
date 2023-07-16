@@ -1,7 +1,13 @@
 <template>
   <transition name="fade">
-    <div class="character-select" v-show="input.select">
-      <div class="box" @click.stop="">
+    <div
+      class="character-select"
+      v-show="input.select"
+    >
+      <div
+        class="box"
+        @click.stop=""
+      >
         <div class="list">
           <div class="title">游戏角色</div>
           <div class="character-list">
@@ -11,7 +17,7 @@
               :name="setting.name"
               :avatar="user[setting.type].card"
               :level="5"
-              @click="handelcharacterClick('开拓者')"
+              @click="handelcharacterClick('开拓者', '')"
             />
             <CharacterCard
               v-for="(item, key) in character.game"
@@ -20,7 +26,7 @@
               :name="item.name"
               :info="item.info"
               :avatar="item.card"
-              @click="handelcharacterClick(String(key))"
+              @click="handelcharacterClick(String(key), item.name)"
             />
           </div>
           <div style="height: 30px"></div>
@@ -34,23 +40,24 @@
               :name="item.name"
               :info="item.info"
               :avatar="item.avatar"
-              @click="handelcharacterClick(String(key))"
+              @click="handelcharacterClick(String(key), item.name)"
             >
-              <div class="del" @click.stop="handelDelClick(String(key))">×</div>
-            </CharacterCard>
-            <div class="add" @click="addCustom">
-              <svg
-                viewBox="0 0 1024 1024"
-                version="1.1"
-                xmlns="http://www.w3.org/2000/svg"
-                width="150"
-                height="150"
+              <div
+                class="del"
+                @click.stop="handelDelClick(String(key))"
               >
-                <path
-                  d="M874.666667 469.333333H554.666667V149.333333c0-23.466667-19.2-42.666667-42.666667-42.666666s-42.666667 19.2-42.666667 42.666666v320H149.333333c-23.466667 0-42.666667 19.2-42.666666 42.666667s19.2 42.666667 42.666666 42.666667h320v320c0 23.466667 19.2 42.666667 42.666667 42.666666s42.666667-19.2 42.666667-42.666666V554.666667h320c23.466667 0 42.666667-19.2 42.666666-42.666667s-19.2-42.666667-42.666666-42.666667z"
-                  fill="#afafaf"
-                ></path>
-              </svg>
+                <Icon
+                  name="delete"
+                  width="25"
+                  height="25"
+                />
+              </div>
+            </CharacterCard>
+            <div
+              class="add"
+              @click="addCustom"
+            >
+              <Icon name="add" />
             </div>
           </div>
         </div>
@@ -61,25 +68,27 @@
 
 <script lang="ts" setup>
 import { getAvatar } from '@/assets/scripts/avatar'
-import { user } from '@/assets/scripts/gameData'
+import { user } from '@/assets/data/characterData'
 import { character } from '@/store/character'
 import { input } from '@/store/input'
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
 import CharacterCard from './Character/CharacterCard.vue'
+import Icon from './Common/Icon.vue'
 
 const hide = () => {
   input.select = false
 }
 
-const handelcharacterClick = (key: string) => {
+const handelcharacterClick = (key: string, name: string) => {
   if (input.index) {
     message.list[input.index[0]].list[input.index[1]].key = key
-    message.list[input.index[0]].list[input.index[1]].name = key
+    message.list[input.index[0]].list[input.index[1]].name = name
     message.list[input.index[0]].list[input.index[1]].avatar = getAvatar(key)
     input.index = undefined
   } else {
-    input.character = key
+    input.character.key = key
+    input.character.name = name
   }
   hide()
 }
@@ -92,16 +101,13 @@ const addCustom = () => {
     if (input.files?.[0]) {
       const file = new FileReader()
       file.readAsDataURL(input.files[0])
-      file.onload = e => {
-        const avatar = e.target?.result as string || ''
+      file.onload = (e) => {
+        const avatar = (e.target?.result as string) || ''
         const name = prompt('请输入角色名')
         if (!name) return
-        if (character.custom[name]) {
-          alert('角色已存在')
-          return
-        }
+        const key = Date.now()
         const info = prompt('请输入角色签名') || ''
-        character.custom[name] = {
+        character.custom[key] = {
           name,
           avatar,
           info,
@@ -119,8 +125,9 @@ const handelDelClick = (key: string) => {
 </script>
 
 <style lang="stylus" scoped>
+$character-item-width = 387px
+
 .character-select
-  --character-item-width 387px
   z-index 99
   display flex
   justify-content center
@@ -140,7 +147,7 @@ const handelDelClick = (key: string) => {
     width 90%
     height 90%
     padding 20px 65px
-    background #d5d5d5
+    background var(--box-background-color)
     box-shadow 0 0 20px 5px rgba(0, 0, 0, 0.3)
     cursor default
     border-top-right-radius 20px
@@ -163,7 +170,7 @@ const handelDelClick = (key: string) => {
         flex-wrap wrap
 
         .character
-          width var(--character-item-width)
+          width $character-item-width
 
           &:hover
             .del
@@ -171,7 +178,7 @@ const handelDelClick = (key: string) => {
 
         .add
           box-sizing border-box
-          width var(--character-item-width)
+          width $character-item-width
           height 645px
           margin 10px
           display flex
@@ -192,8 +199,10 @@ const handelDelClick = (key: string) => {
   height 80px
   font-size 50px
   opacity 0
-  color #fff
   cursor pointer
+
+  :deep(path)
+    fill #fff
 
   &:hover
     opacity 1

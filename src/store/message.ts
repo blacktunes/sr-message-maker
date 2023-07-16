@@ -1,6 +1,5 @@
-import { nextTick, reactive, ref, toRaw, watch } from 'vue'
-
-export const messageLoading = ref(true)
+import { nextTick, reactive, toRaw, watch } from 'vue'
+import { setting } from './setting'
 
 export const message = reactive<{
   list: MessageListItem[]
@@ -9,7 +8,7 @@ export const message = reactive<{
 })
 
 const setWatch = () => {
-  messageLoading.value = false
+  setting.loading = false
   watch(message.list, () => {
     nextTick(() => {
       updateDB()
@@ -32,26 +31,23 @@ export const updateDB = () => {
 export const getDB = () => {
   console.log('GET - SR Message indexDB...')
   const _db = window.indexedDB.open('sr-message')
-  _db.onsuccess = event => {
+  _db.onsuccess = (event) => {
     db = (event.target as IDBOpenDBRequest).result
     if (hasDB) {
-      db.transaction('data', 'readonly')
-        .objectStore('data')
-        .get(0)
-        .onsuccess = (e) => {
-          try {
-            message.list = JSON.parse((e.target as IDBRequest).result?.data || '[]')
-          } finally {
-            setWatch()
-          }
+      db.transaction('data', 'readonly').objectStore('data').get(0).onsuccess = (e) => {
+        try {
+          message.list = JSON.parse((e.target as IDBRequest).result?.data || '[]')
+        } finally {
+          setWatch()
         }
+      }
     } else {
       updateDB()
       setWatch()
     }
   }
 
-  _db.onupgradeneeded = event => {
+  _db.onupgradeneeded = (event) => {
     db = (event.target as IDBOpenDBRequest).result
     if (!db.objectStoreNames.contains('data')) {
       hasDB = false

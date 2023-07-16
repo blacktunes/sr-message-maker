@@ -1,14 +1,15 @@
 import domtoimage from 'dom-to-image'
+import empty from '@/assets/images/empty.png'
 
 export default function (dom: Node, width?: number, height?: number) {
   domtoimage
     .toPng(dom, {
       width,
       height,
-      imagePlaceholder: require('@/assets/images/empty.png')
+      imagePlaceholder: empty
     })
-    .then(dataUrl => {
-      if (process.env.NODE_ENV === 'development') {
+    .then((dataUrl) => {
+      if (import.meta.env.MODE === 'development') {
         const img = new Image()
         img.src = dataUrl
         const win = window.open('')
@@ -20,7 +21,7 @@ export default function (dom: Node, width?: number, height?: number) {
         link.click()
       }
     })
-    .catch(error => {
+    .catch((error) => {
       console.error('截图保存错误', error)
     })
 }
