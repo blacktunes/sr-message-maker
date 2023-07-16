@@ -220,7 +220,7 @@ const stopPlay = () => {
   autoPlaySetting.flag = false
   const list: (Message & { default?: [boolean] })[] = []
   let option = true
-  for (let j = autoPlayIndex; j < message.list[messageIndex.value].list.length; j++) {
+  for (let j = autoPlayIndex + 1; j < message.list[messageIndex.value].list.length; j++) {
     if (message.list[messageIndex.value].list[j].option) {
       if (option) continue
 

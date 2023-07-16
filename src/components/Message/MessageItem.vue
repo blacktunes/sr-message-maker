@@ -188,7 +188,7 @@
         appear
       >
         <div
-          v-if="item.loading"
+          v-if="autoPlaySetting.flag && item.loading"
           class="loading"
         >
           <div></div>
@@ -224,7 +224,7 @@
 
 <script lang="ts" setup>
 import { user } from '@/assets/data/characterData'
-import { setting } from '@/store/setting'
+import { autoPlaySetting, setting } from '@/store/setting'
 import Icon from '../Common/Icon.vue'
 import { computed } from 'vue'
 import image_1 from '@/assets/images/冒险任务.png'
