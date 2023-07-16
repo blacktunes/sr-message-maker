@@ -188,9 +188,12 @@ const setMessageStyle = (key: number) => {
   }
 }
 
+watch(title, () => {
+  setting.select = title.value
+})
+
 const updateTitle = (data: string) => {
   message.list[messageIndex.value].title = data
-  setting.select = title.value
 }
 
 const updateOption = (key: number, next: boolean) => {
