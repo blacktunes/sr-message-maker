@@ -27,7 +27,9 @@ setting.type = localStorage.getItem('sr-message-type') || '星'
 export const autoPlaySetting = reactive<{
   flag: boolean
   list: Message[]
+  option: Message[]
 }>({
   flag: false,
-  list: []
+  list: [],
+  option: []
 })

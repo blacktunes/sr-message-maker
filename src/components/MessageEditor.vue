@@ -45,22 +45,7 @@
               class="input"
               v-model="input.input"
               @keydown.enter="handelAddClick()"
-              title="选择角色"
             />
-            <div
-              class="btn"
-              @click="handelOptionClick"
-              title="创建选项"
-            >
-              <Icon name="mission" />
-            </div>
-            <div
-              class="btn"
-              @click="handelMessageClick"
-              title="创建任务"
-            >
-              <Icon name="mission" />
-            </div>
             <div
               class="btn"
               @click="handelImageAddClick"
@@ -75,6 +60,21 @@
             >
               <Icon name="emoticon" />
             </div>
+            <div
+              class="btn"
+              @click="handelOptionClick"
+              title="创建选项"
+            >
+              <Icon name="option" />
+            </div>
+            <div
+              class="btn"
+              @click="handelMessageClick"
+              title="创建任务"
+            >
+              <Icon name="mission" />
+            </div>
+
             <div
               class="btn"
               @click="handelNoticeClick"
@@ -144,8 +144,19 @@ const messageList = computed(() => message.list[messageIndex.value]?.list || [])
 watch(
   messageList,
   () => {
+    let index = message.list[messageIndex.value]?.list.length || 0
     for (const i in message.list[messageIndex.value]?.list) {
-      console.log(message.list[messageIndex.value].list[Number(i)])
+      if (message.list[messageIndex.value].list[Number(i)].option) {
+        if (message.list[messageIndex.value].list[Number(i)].option?.[0]) {
+          if (Number(i) > index) {
+            message.list[messageIndex.value].list[Number(i)].option = [false]
+          } else {
+            index = Number(i)
+          }
+        }
+      } else {
+        index = message.list[messageIndex.value].list.length
+      }
     }
   },
   {
@@ -371,7 +382,7 @@ box()
     width 100%
     height 150px
     border-top var(--menu-border-hover)
-    background #c7c8ca
+    background var(--message-menu-background-color)
     padding 0 10px
 
     .btn

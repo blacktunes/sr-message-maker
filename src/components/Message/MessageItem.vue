@@ -23,7 +23,7 @@
     <input
       :value="item.text"
       :style="{
-        background: item.option[0] ? '#ccc' : ''
+        background: item.option[0] ? 'var(--option-background-hover-color)' : ''
       }"
       @input="updateText(($event.target as HTMLInputElement).value)"
     />
@@ -308,6 +308,8 @@ const handelDelClick = () => {
 </script>
 
 <style lang="stylus" scoped>
+@import './Message.styl'
+
 $del-pos = -100px
 $avatar-width = 140px
 $avatar-margin = 35px
@@ -351,23 +353,8 @@ $avatar-margin = 35px
     right 20px
 
   input
-    overflow hidden
-    white-space nowrap
-    text-overflow ellipsis
-    background transparent
-    width -moz-fit-content
-    width fit-content
-    box-sizing border-box
-    padding 5px 30px
-    font-size 40px
-    font-weight bold
-    text-align center
-    color var(--text-color)
+    option()
     width calc(100% - var(--message-item-avatar-width) * 2)
-    height 90px
-    background var(--box-background-color)
-    border 2px solid var(--border-hover-color)
-    box-shadow 2px 2px 10px var(--border-hover-color)
 
 .mission
   display flex

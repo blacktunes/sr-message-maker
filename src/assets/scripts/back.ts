@@ -1,5 +1,5 @@
 import { input } from '@/store/input'
-import { setting } from '@/store/setting'
+import { autoPlaySetting, setting } from '@/store/setting'
 
 const handelBack = () => {
   if (input.emoticon) {
@@ -7,6 +7,10 @@ const handelBack = () => {
   }
   if (input.select) {
     input.select = false
+  }
+  if (autoPlaySetting.flag) {
+    autoPlaySetting.flag = false
+    return
   }
   if (setting.preview) {
     setting.preview = false

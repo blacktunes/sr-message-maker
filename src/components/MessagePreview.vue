@@ -1,11 +1,11 @@
 <template>
-  <Teleport to="body">
+  <!-- <Teleport to="body">
     <div
       class="mask"
       v-if="autoPlaySetting.flag"
       @click.stop="handelMaskClick"
     ></div>
-  </Teleport>
+  </Teleport> -->
   <template v-if="setting.index">
     <div
       class="bg"
@@ -29,7 +29,7 @@
       :info="info"
       :playing="autoPlaySetting.flag"
       preview
-      @click.stop
+      @click.stop="autoPlaySetting.flag ? handelMaskClick() : undefined"
       ref="boxRef"
     >
       <template
@@ -47,15 +47,33 @@
           />
         </div>
       </template>
-      <template
+      <MessageItem
         v-for="(element, index) in dataList"
         :key="`preview-${index}`"
-      >
-        <MessageItem
-          :item="element"
-          :index="0"
-          preview
-        />
+        :item="element"
+        :index="0"
+        preview
+      />
+      <template #bottom>
+        <Transition
+          name="option"
+          @after-enter="onOptionShow"
+        >
+          <div
+            class="option-box"
+            @click.stop
+            v-if="autoPlaySetting.flag && autoPlaySetting.option.length > 0"
+          >
+            <div
+              class="option"
+              v-for="(item, key) in autoPlaySetting.option"
+              :key="key"
+              @click.stop="handelOptionClick(item)"
+            >
+              {{ item.text }}
+            </div>
+          </div>
+        </Transition>
       </template>
     </MessageBox>
   </template>
@@ -100,21 +118,49 @@ const dataList = computed(() => {
   return list
 })
 
+let optionIndex = 0
+
 emitter.on('autoplay', () => {
   if (autoPlaySetting.flag) return
 
   setting.preview = true
+  optionIndex = 0
   autoPlaySetting.list = []
+  autoPlaySetting.option = []
   autoPlaySetting.flag = true
   nextTick(() => {
     autoPlay(0, true)
   })
 })
 
+const onOptionShow = () => {
+  scrollToBottom(boxRef.value?.listDom, true)
+}
+
+const handelOptionClick = (item: Message) => {
+  autoPlaySetting.option = []
+  autoPlaySetting.list.push({ ...item, option: undefined })
+  setTimeout(() => {
+    autoPlay(optionIndex, true)
+  }, 1500)
+}
+
 const autoPlay = (i: number, loading: boolean) => {
   if (!autoPlaySetting.flag) return
   if (!message.list[messageIndex.value].list?.[i]) {
     autoPlaySetting.flag = false
+    return
+  }
+
+  if (message.list[messageIndex.value].list[i].option) {
+    optionIndex = i + 1
+    autoPlaySetting.option.push(message.list[messageIndex.value].list[i])
+    if (
+      message.list[messageIndex.value].list?.[optionIndex] &&
+      message.list[messageIndex.value].list[optionIndex].option
+    ) {
+      autoPlay(optionIndex, true)
+    }
     return
   }
 
@@ -230,6 +276,28 @@ const isGreenScreen = ref(false)
         width 80px
         height 80px
 
+  .option-box
+    min-height 90px * 3 + 20px * 6
+    max-height 500px
+    border-top var(--menu-border-hover)
+    background var(--message-menu-background-color)
+    padding 10px 50px
+    overflow-y auto
+    scrollbar-width none
+
+    &::-webkit-scrollbar
+      width 0
+      height 0
+
+    .option
+      display flex
+      justify-content center
+      align-items center
+      option()
+      margin 20px 0
+      user-select none
+      cursor pointer !important
+
 .mask
   z-index 999
   position fixed
@@ -251,4 +319,11 @@ const isGreenScreen = ref(false)
   justify-content center
   align-items center
   cursor pointer
+
+.option-enter-active
+  transition all 0.25s
+
+.option-enter-from
+  min-height 0 !important
+  max-height 0 !important
 </style>
