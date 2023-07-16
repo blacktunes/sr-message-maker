@@ -212,6 +212,7 @@ const setFont = () => {
       height 470px
       opacity 0.4
       pointer-events none
+      user-select none
 
       img
         position absolute

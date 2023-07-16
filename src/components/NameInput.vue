@@ -99,7 +99,7 @@ const handelChangeClick = () => {
     box-sizing border-box
     white-space nowrap
     text-overflow ellipsis
-    line-height 70px
+    height 70px
 
     &:hover
       color var(--menu-btn-hover)
@@ -125,8 +125,8 @@ const handelChangeClick = () => {
 
   .change
     user-select none
-    background var(--menu-icon-background-color)
-    border-radius 50%
+    background rgba(255, 255, 255, 0.2)
+    border-radius 5px
     width 50px
     height 50px
     display flex
@@ -136,5 +136,6 @@ const handelChangeClick = () => {
     cursor pointer
 
     &:hover
+      background rgba(255, 255, 255, 0.8)
       box-shadow var(--meni-icon-shadow)
 </style>
