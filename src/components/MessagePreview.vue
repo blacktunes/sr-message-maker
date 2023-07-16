@@ -184,7 +184,7 @@ const autoPlay = (i: number, loading: boolean) => {
         loading: true
       })
     } else {
-      autoPlaySetting.list[i].loading = false
+      autoPlaySetting.list[autoPlaySetting.list.length - 1].loading = false
     }
   }
 
