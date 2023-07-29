@@ -45,6 +45,7 @@
               class="input"
               v-model="input.input"
               @keydown.enter="handelAddClick()"
+              placeholder="愿此行，终抵群星"
             />
             <div
               class="btn"
