@@ -227,6 +227,7 @@ const avatarUrl = computed(() => {
         border-radius 50%
         object-fit contain
         background #3f3f3f
+        clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
 
     .name
       width 480px
