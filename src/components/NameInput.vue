@@ -122,6 +122,7 @@ const handelChangeClick = () => {
       width 100%
       height 100%
       object-fit contain
+      clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
 
   .change
     user-select none

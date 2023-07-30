@@ -404,6 +404,7 @@ box()
       border-radius 5px
       background #e8e8e8
       user-select none
+      transition box-shadow 0.2s
 
       :deep(path)
         fill #575B66
@@ -413,16 +414,22 @@ box()
         height 100%
         object-fit contain
 
+      &:hover
+        box-shadow 5px 5px 15px #aaa
+
     .input
       flex 1
       height 100px
       margin 0 10px
       background #e8e8e8
-      font-size 50px
+      font-size 48px
       text-align center
       color #121212
       border none
       outline none
-      box-shadow 5px 5px 15px #aaa
       border-radius 5px
+      transition box-shadow 0.2s
+
+      &:focus, &:hover
+        box-shadow 5px 5px 15px #aaa
 </style>

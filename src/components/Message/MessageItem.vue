@@ -51,8 +51,8 @@
         :style="{
           backgroundImage: backgroundUrl,
           width: preview
-            ? 'calc(100% - var(--message-item-avatar-margin) * 2)'
-            : 'calc(100% - var(--message-item-avatar-width) * 2)'
+            ? 'calc(100% - var(--message-item-avatar-margin) * 2 + 40px)'
+            : 'calc(100% - var(--message-item-avatar-width) * 2 - 60px)'
         }"
       >
         <div
