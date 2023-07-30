@@ -323,23 +323,16 @@ const isGreenScreen = ref(false)
       cursor pointer !important
 
 .green
-  position absolute
-  right 115px
-  top 80px
+  position fixed
+  right 85px
+  bottom -80px
   user-select none
-  background rgba(255, 255, 255, 0.5)
   border-radius 5px
-  width 50px
-  height 50px
   display flex
   justify-content center
   align-items center
   margin-right 20px
   cursor pointer
-
-  &:hover
-    background rgba(255, 255, 255, 0.8)
-    box-shadow var(--meni-icon-shadow)
 
 .option-enter-active
   transition all 0.25s

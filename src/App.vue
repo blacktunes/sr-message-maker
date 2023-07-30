@@ -46,11 +46,14 @@
           target="_blank"
           >BiliBili</a
         >
-        <a
+        <div
           class="font-btn"
+          title="修改字体(测试功能)"
           @click="setFont"
-          >修改字体[测试功能]</a
+          v-show="!setting.preview"
         >
+          <Icon name="font" />
+        </div>
       </div>
     </div>
   </div>
@@ -81,6 +84,7 @@ import MessageEditor from './components/MessageEditor.vue'
 import MessagePreview from './components/MessagePreview.vue'
 import NameInput from './components/NameInput.vue'
 import { setting } from './store/setting'
+import Icon from './components/Common/Icon.vue'
 
 // 计算窗口尺寸
 const width = 3200
@@ -113,13 +117,16 @@ const setFont = () => {
         const css = `@font-face{font-family:'TempFont'; src: url(${(
           e.target?.result as string
         ).replace('data:application/octet-stream;', 'data:application/font-ttf;')})}`
-        const head = document.getElementsByTagName('head')[0]
-        const style = document.createElement('style')
-        style.appendChild(document.createTextNode(css))
-        head.appendChild(style)
+        const font = document.createElement('style')
+        font.appendChild(document.createTextNode(css))
 
-        document.body.style.fontFamily = 'TempFont'
+        const style = document.createElement('style')
+        style.appendChild(document.createTextNode(`* { font-family: 'TempFont'}`))
+
+        document.head.appendChild(font)
+        document.head.appendChild(style)
       }
+      
     }
   }
   el.click()
