@@ -131,10 +131,12 @@ const getKey = (item: Message) => {
 watch(messageIndex, () => {
   if (messageIndex.value === -1) {
     setting.index = undefined
+  } else {
+    nextTick(() => {
+      scrollToBottom(boxRef.value?.listDom, true)
+      boxRef.value?.updateArrow()
+    })
   }
-  nextTick(() => {
-    scrollToBottom(boxRef.value?.listDom, true)
-  })
 })
 
 const messageList = computed(() => message.list[messageIndex.value]?.list || [])
@@ -220,7 +222,9 @@ const updateMission = (key: number, data: Mission) => {
 const updateText = (key: number, data: string) => {
   message.list[messageIndex.value].list[key].text = data
   message.list[messageIndex.value].time = Date.now()
-  boxRef.value?.updateArrow()
+  nextTick(() => {
+    boxRef.value?.updateArrow()
+  })
 }
 
 const handelAvatarClick = (key: number) => {
@@ -248,7 +252,9 @@ const handelImageClick = (key: number) => {
 const handelDelClick = (key: number) => {
   message.list[messageIndex.value].list.splice(key, 1)
   message.list[messageIndex.value].time = Date.now()
-  boxRef.value?.updateArrow()
+  nextTick(() => {
+    boxRef.value?.updateArrow()
+  })
 }
 
 const handelSelectClick = () => {

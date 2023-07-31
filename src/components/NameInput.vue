@@ -99,7 +99,7 @@ const handelChangeClick = () => {
     box-sizing border-box
     white-space nowrap
     text-overflow ellipsis
-    height 70px
+    height 85px
 
     &:hover
       color var(--menu-btn-hover)
