@@ -21,7 +21,8 @@
 
 ### TODO
 
-- [ ] 素材使用SVG重绘
+- [ ] 素材使用 SVG 重绘
+- [ ] 图标风格不协调需要重新绘制
 - [x] 对话页面没滚动到最底的时候滚动提示
 - [x] 板鸭土味表情包
 - [x] 消息加载动画时间跟长度正相关
@@ -34,7 +35,13 @@
 - 自动播放偶尔出现消息重复
 - ~~自定义角色跟游戏角色同名时会失效~~
 
-### 数据来源
+### 素材来源
 
-- 米游社 <https://www.miyoushe.com/sr/>
-- 星穹铁道BWiki <https://wiki.biligame.com/sr/>
+- **米游社 <https://www.miyoushe.com/sr/>**
+  - 角色卡片
+  - 表情
+- **星穹铁道BWiki <https://wiki.biligame.com/sr/>**
+  - 角色头像
+- **iconfont <https://www.iconfont.cn/>**
+  - SVG图标
+  - 字体

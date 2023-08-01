@@ -31,9 +31,14 @@
             <input
               v-else
               class="title"
-              @keydown.enter.prevent
               :value="title"
-              @input="updateTitle"
+              @keydown.enter.prevent="
+                (e) => {
+                  updateTitle(e);
+                  (e.target as HTMLInputElement).blur()
+                }
+              "
+              @blur="updateTitle"
             />
             <div class="info">{{ info }}</div>
           </div>

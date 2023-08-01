@@ -31,7 +31,7 @@
         <template #bottom>
           <div class="bottom">
             <div
-              class="btn"
+              class="avatar"
               @click.stop="handelSelectClick"
               title="选择角色"
             >
@@ -45,6 +45,7 @@
               class="input"
               v-model="input.input"
               @keydown.enter="handelAddClick()"
+              placeholder="愿此行，终抵群星"
             />
             <div
               class="btn"
@@ -83,15 +84,11 @@
               <Icon name="notice" />
             </div>
             <div
-              class="btn"
+              class="btn right"
               @click="handelAddClick()"
               title="发送消息"
             >
-              <Icon
-                name="message"
-                width="65"
-                height="65"
-              />
+              <Icon name="send" />
             </div>
           </div>
           <Emoticon @emoticon="addEmoticon" />
@@ -134,10 +131,12 @@ const getKey = (item: Message) => {
 watch(messageIndex, () => {
   if (messageIndex.value === -1) {
     setting.index = undefined
+  } else {
+    nextTick(() => {
+      scrollToBottom(boxRef.value?.listDom, true)
+      boxRef.value?.updateArrow()
+    })
   }
-  nextTick(() => {
-    scrollToBottom(boxRef.value?.listDom, true)
-  })
 })
 
 const messageList = computed(() => message.list[messageIndex.value]?.list || [])
@@ -223,7 +222,9 @@ const updateMission = (key: number, data: Mission) => {
 const updateText = (key: number, data: string) => {
   message.list[messageIndex.value].list[key].text = data
   message.list[messageIndex.value].time = Date.now()
-  boxRef.value?.updateArrow()
+  nextTick(() => {
+    boxRef.value?.updateArrow()
+  })
 }
 
 const handelAvatarClick = (key: number) => {
@@ -251,7 +252,9 @@ const handelImageClick = (key: number) => {
 const handelDelClick = (key: number) => {
   message.list[messageIndex.value].list.splice(key, 1)
   message.list[messageIndex.value].time = Date.now()
-  boxRef.value?.updateArrow()
+  nextTick(() => {
+    boxRef.value?.updateArrow()
+  })
 }
 
 const handelSelectClick = () => {
@@ -382,6 +385,7 @@ box()
   message()
 
   .bottom
+    position relative
     display flex
     align-items center
     box-sizing border-box
@@ -391,6 +395,35 @@ box()
     background var(--message-menu-background-color)
     padding 0 10px
 
+    .avatar
+      position absolute
+      left 0
+      top 50%
+      transform translateY(-50%)
+      user-select none
+      box-sizing border-box
+      overflow hidden
+      border-radius 50%
+      width 105px
+      height 105px
+      margin-left 20px
+      background rgba(255, 255, 255, 0.1)
+      cursor pointer
+
+      &:hover
+        box-shadow 5px 5px 15px #aaa
+
+      img
+        width 100%
+        height 100%
+        object-fit contain
+        clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
+
+    .right
+      padding-right 10px
+      border-radius 0 50px 50px 0
+      margin-right 20px
+
     .btn
       overflow hidden
       display flex
@@ -398,11 +431,10 @@ box()
       justify-content center
       width 100px
       height 100px
-      margin 0 10px
       cursor pointer
-      border-radius 5px
       background #e8e8e8
       user-select none
+      transition box-shadow 0.2s
 
       :deep(path)
         fill #575B66
@@ -412,16 +444,22 @@ box()
         height 100%
         object-fit contain
 
+      &:hover
+        box-shadow 5px 5px 15px #aaa
+
     .input
       flex 1
       height 100px
-      margin 0 10px
       background #e8e8e8
-      font-size 50px
+      font-size 48px
+      margin-left 60px
+      padding 0 50px 0 90px
       text-align center
       color #121212
       border none
       outline none
-      box-shadow 5px 5px 15px #aaa
-      border-radius 5px
+      transition box-shadow 0.2s
+
+      &:focus, &:hover
+        box-shadow 5px 5px 15px #aaa
 </style>

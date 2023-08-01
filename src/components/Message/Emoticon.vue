@@ -59,7 +59,7 @@ const handelEmoticonClick = (item: Emoticon) => {
 .emoticon
   overflow auto
   position absolute
-  right 50px
+  right 70px
   bottom 180px
   width 1200px
   height 800px

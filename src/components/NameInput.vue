@@ -99,7 +99,7 @@ const handelChangeClick = () => {
     box-sizing border-box
     white-space nowrap
     text-overflow ellipsis
-    height 70px
+    height 85px
 
     &:hover
       color var(--menu-btn-hover)
@@ -122,6 +122,7 @@ const handelChangeClick = () => {
       width 100%
       height 100%
       object-fit contain
+      clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
 
   .change
     user-select none

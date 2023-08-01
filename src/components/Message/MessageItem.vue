@@ -51,8 +51,8 @@
         :style="{
           backgroundImage: backgroundUrl,
           width: preview
-            ? 'calc(100% - var(--message-item-avatar-margin) * 2)'
-            : 'calc(100% - var(--message-item-avatar-width) * 2)'
+            ? 'calc(100% - var(--message-item-avatar-margin) * 2 + 40px)'
+            : 'calc(100% - var(--message-item-avatar-width) * 2 - 60px)'
         }"
       >
         <div
@@ -509,7 +509,6 @@ $avatar-margin = 35px
   .avatar
     flex-shrink 0
     overflow hidden
-    border-radius 50%
     width var(--message-item-avatar-width)
     height var(--message-item-avatar-width)
     margin 0 var(--message-item-avatar-margin) 0 0
@@ -518,10 +517,10 @@ $avatar-margin = 35px
     img
       width 100%
       height 100%
-      border-radius 50%
       object-fit contain
       background rgba(0, 0, 0, 0.1)
       user-select none
+      clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
 
   .message-item
     flex 1

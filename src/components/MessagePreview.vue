@@ -1,11 +1,4 @@
 <template>
-  <!-- <Teleport to="body">
-    <div
-      class="mask"
-      v-if="autoPlaySetting.flag"
-      @click.stop="handelMaskClick"
-    ></div>
-  </Teleport> -->
   <template v-if="setting.index">
     <div
       class="bg"
@@ -269,15 +262,15 @@ const isGreenScreen = ref(false)
   position absolute
   width 100%
   height 100%
-  background rgba(0, 0, 0, 0.5)
+  background rgba(0, 0, 0, 0.6)
 
 .message-preview
   z-index 10
   position absolute
-  top 5%
+  top 10%
   left 900px
   width 1400px
-  height 90%
+  height 79%
   message()
 
   :deep(div)
@@ -329,31 +322,27 @@ const isGreenScreen = ref(false)
       user-select none
       cursor pointer !important
 
-.mask
-  z-index 999
-  position fixed
-  top 0
-  left 0
-  width 100vw
-  height 100vh
-  cursor wait
-
 .green
-  position absolute
-  right 115px
-  top 60px
-  background var(--menu-icon-background-color)
-  border-radius 50%
-  width 90px
-  height 90px
+  position fixed
+  right 85px
+  bottom -80px
+  user-select none
+  border-radius 5px
   display flex
   justify-content center
   align-items center
+  margin-right 20px
   cursor pointer
 
-.option-enter-active, .option-leave-active
+.option-enter-active
   transition all 0.25s
 
-.option-enter-from, .option-leave-to
+.option-leave-active
+  transition all 0.15s
+
+.option-enter-from
   height 0 !important
+
+.option-leave-to
+  opacity 0
 </style>

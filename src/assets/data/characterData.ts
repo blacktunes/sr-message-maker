@@ -67,6 +67,12 @@ export const gameCharacter: { [name: string]: Character } = {
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/4d5ac247ca1460b34b3f73244afbb0f6_8390343856757982675.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: '可以不喝水，但不能没咖啡'
   },
+  刃: {
+    name: '刃',
+    avatar: 'https://patchwiki.biligame.com/images/sr/e/e1/7onmk24fqdgau93wsjx8qr8th1ahgds.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/07/19/75216984/7a2bbf147653d45cf77c1533e4e2ab6d_8453365043186544213.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: ''
+  },
   罗刹: {
     name: '罗刹',
     avatar: 'https://patchwiki.biligame.com/images/sr/2/25/n99awhmntcqvogdvksf0kl4x78dv77t.png',
