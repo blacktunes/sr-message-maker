@@ -1,27 +1,37 @@
-import domtoimage from 'dom-to-image'
-import empty from '@/assets/images/empty.png'
+import { getFontEmbedCSS, toBlob, toPng } from 'html-to-image'
 
-export default function (dom: Node, width?: number, height?: number) {
-  domtoimage
-    .toPng(dom, {
-      width,
-      height,
-      imagePlaceholder: empty
-    })
-    .then((dataUrl) => {
-      if (import.meta.env.MODE === 'development') {
-        const img = new Image()
-        img.src = dataUrl
-        const win = window.open('')
-        if (win) win.document.body.appendChild(img)
-      } else {
+export const screenshot = async (dom: HTMLElement, width?: number, height?: number) => {
+  try {
+    const fontEmbedCSS = await getFontEmbedCSS(dom)
+    const title = `SR-${Date.now()}`
+    if (import.meta.env.MODE !== 'development') {
+      const dataUrl = await toPng(dom, {
+        width,
+        height,
+        fontEmbedCSS
+      })
+      const img = new Image()
+      img.src = dataUrl
+      img.alt = title
+      const win = window.open('')
+      if (win) {
+        win.document.title = title
+        win.document.body.appendChild(img)
+      }
+    } else {
+      const blob = await toBlob(dom, {
+        width,
+        height,
+        fontEmbedCSS
+      })
+      if (blob) {
         const link = document.createElement('a')
-        link.download = `sr-${Date.now()}.png`
-        link.href = dataUrl
+        link.setAttribute('download', `${title}.png`)
+        link.setAttribute('href', URL.createObjectURL(blob))
         link.click()
       }
-    })
-    .catch((error) => {
-      console.error('截图保存错误', error)
-    })
+    }
+  } catch (error) {
+    console.error('截图保存错误', error)
+  }
 }

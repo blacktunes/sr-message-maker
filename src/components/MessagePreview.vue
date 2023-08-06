@@ -74,7 +74,7 @@
 
 <script lang="ts" setup>
 import { emitter } from '@/assets/scripts/event'
-import domtoimage from '@/assets/scripts/screenshot'
+import { screenshot } from '@/assets/scripts/screenshot'
 import { message } from '@/store/message'
 import { autoPlaySetting, setting } from '@/store/setting'
 import { computed, nextTick, ref } from 'vue'
@@ -243,9 +243,9 @@ emitter.on('screenshot', () => {
 
   setting.preview = true
   setting.loading = true
-  nextTick(() => {
+  nextTick(async () => {
     if (boxRef.value?.boxDom && boxRef.value?.listDom && setting.preview) {
-      domtoimage(boxRef.value.boxDom, undefined, boxRef.value.listDom.scrollHeight + 185)
+      await screenshot(boxRef.value.boxDom, undefined, boxRef.value.listDom.scrollHeight + 185)
     }
     setting.loading = false
   })

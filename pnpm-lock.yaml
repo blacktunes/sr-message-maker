@@ -8,9 +8,9 @@ dependencies:
   '@marshallswain/vuedraggable':
     specifier: ^4.2.0
     version: registry.npmmirror.com/@marshallswain/vuedraggable@4.2.0(vue@3.3.4)
-  dom-to-image:
-    specifier: ^2.6.0
-    version: registry.npmmirror.com/dom-to-image@2.6.0
+  html-to-image:
+    specifier: ^1.11.11
+    version: 1.11.11
   mitt:
     specifier: ^3.0.1
     version: 3.0.1
@@ -25,9 +25,6 @@ devDependencies:
   '@tsconfig/node18':
     specifier: ^2.0.1
     version: registry.npmmirror.com/@tsconfig/node18@2.0.1
-  '@types/dom-to-image':
-    specifier: ^2.6.4
-    version: registry.npmmirror.com/@types/dom-to-image@2.6.4
   '@types/node':
     specifier: ^18.16.17
     version: registry.npmmirror.com/@types/node@18.16.17
@@ -281,6 +278,10 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /html-to-image@1.11.11:
+    resolution: {integrity: sha512-9gux8QhvjRO/erSnDPv28noDZcPZmYE7e1vFsBLKLlRlKDSqNJYebj6Qz1TGd5lsRV+X+xYyjCKjuZdABinWjA==}
+    dev: false
 
   /mitt@3.0.1:
     resolution: {integrity: sha512-vKivATfr97l2/QBCYAkXYDbrIWPM2IIKEl7YPhjCvKlG3kE2gm+uBo6nEXK3M5/Ffh/FLpKExzOQ3JJoJGFKBw==}
@@ -837,12 +838,6 @@ packages:
     resolution: {integrity: sha512-UqdfvuJK0SArA2CxhKWwwAWfnVSXiYe63bVpMutc27vpngCntGUZQETO24pEJ46zU6XM+7SpqYoMgcO3bM11Ew==, registry: https://registry.npmjs.org/, tarball: https://registry.npmmirror.com/@tsconfig/node18/-/node18-2.0.1.tgz}
     name: '@tsconfig/node18'
     version: 2.0.1
-    dev: true
-
-  registry.npmmirror.com/@types/dom-to-image@2.6.4:
-    resolution: {integrity: sha512-UddUdGF1qulrSDulkz3K2Ypq527MR6ixlgAzqLbxSiQ0icx0XDlIV+h4+edmjq/1dqn0KgN0xGSe1kI9t+vGuw==, registry: https://registry.npmjs.org/, tarball: https://registry.npmmirror.com/@types/dom-to-image/-/dom-to-image-2.6.4.tgz}
-    name: '@types/dom-to-image'
-    version: 2.6.4
     dev: true
 
   registry.npmmirror.com/@types/json-schema@7.0.12:
@@ -1747,12 +1742,6 @@ packages:
     dependencies:
       esutils: registry.npmmirror.com/esutils@2.0.3
     dev: true
-
-  registry.npmmirror.com/dom-to-image@2.6.0:
-    resolution: {integrity: sha512-Dt0QdaHmLpjURjU7Tnu3AgYSF2LuOmksSGsUcE6ItvJoCWTBEmiMXcqBdNSAm9+QbbwD7JMoVsuuKX6ZVQv1qA==, registry: https://registry.npmjs.org/, tarball: https://registry.npmmirror.com/dom-to-image/-/dom-to-image-2.6.0.tgz}
-    name: dom-to-image
-    version: 2.6.0
-    dev: false
 
   registry.npmmirror.com/electron-to-chromium@1.4.454:
     resolution: {integrity: sha512-pmf1rbAStw8UEQ0sr2cdJtWl48ZMuPD9Sto8HVQOq9vx9j2WgDEN6lYoaqFvqEHYOmGA9oRGn7LqWI9ta0YugQ==, registry: https://registry.npmjs.org/, tarball: https://registry.npmmirror.com/electron-to-chromium/-/electron-to-chromium-1.4.454.tgz}

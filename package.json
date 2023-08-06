@@ -13,14 +13,13 @@
   },
   "dependencies": {
     "@marshallswain/vuedraggable": "^4.2.0",
-    "dom-to-image": "^2.6.0",
+    "html-to-image": "^1.11.11",
     "mitt": "^3.0.1",
     "vue": "^3.3.4"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.2.0",
     "@tsconfig/node18": "^2.0.1",
-    "@types/dom-to-image": "^2.6.4",
     "@types/node": "^18.16.17",
     "@vitejs/plugin-vue": "^4.2.3",
     "@vitejs/plugin-vue-jsx": "^3.0.1",
