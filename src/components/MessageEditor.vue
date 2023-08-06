@@ -189,7 +189,7 @@ const setMessageStyle = (key: number) => {
 }
 
 watch(title, () => {
-  setting.select = title.value
+  if (title.value) setting.select = title.value
 })
 
 const updateTitle = (data: string) => {

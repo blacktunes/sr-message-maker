@@ -27,6 +27,7 @@
               :info="item.info"
               :avatar="item.card"
               @click="handelcharacterClick(String(key), item.name)"
+              @contextmenu.prevent.stop
             />
           </div>
           <div style="height: 30px"></div>
@@ -41,10 +42,11 @@
               :info="item.info"
               :avatar="item.avatar"
               @click="handelcharacterClick(String(key), item.name)"
+              @contextmenu.prevent.stop="handelDelClick(String(key), item.name)"
             >
               <div
                 class="del"
-                @click.stop="handelDelClick(String(key))"
+                @click.stop="handelDelClick(String(key), item.name)"
               >
                 <Icon
                   name="delete"
@@ -119,8 +121,9 @@ const addCustom = () => {
   input.click()
 }
 
-const handelDelClick = (key: string) => {
-  delete character.custom[key]
+const handelDelClick = (key: string, name: string) => {
+  const flag = confirm(`是否删除该角色 - ${name}`)
+  if (flag) delete character.custom[key]
 }
 </script>
 
