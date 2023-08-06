@@ -4,7 +4,7 @@ export const screenshot = async (dom: HTMLElement, width?: number, height?: numb
   try {
     const fontEmbedCSS = await getFontEmbedCSS(dom)
     const title = `SR-${Date.now()}`
-    if (import.meta.env.MODE !== 'development') {
+    if (import.meta.env.MODE === 'development') {
       const dataUrl = await toPng(dom, {
         width,
         height,
@@ -25,10 +25,14 @@ export const screenshot = async (dom: HTMLElement, width?: number, height?: numb
         fontEmbedCSS
       })
       if (blob) {
+        const url = URL.createObjectURL(blob)
         const link = document.createElement('a')
         link.setAttribute('download', `${title}.png`)
-        link.setAttribute('href', URL.createObjectURL(blob))
+        link.setAttribute('href', url)
         link.click()
+
+        link.remove()
+        URL.revokeObjectURL(url)
       }
     }
   } catch (error) {
