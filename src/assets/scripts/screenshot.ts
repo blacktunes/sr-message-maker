@@ -1,27 +1,23 @@
-import domtoimage from 'dom-to-image'
-import empty from '@/assets/images/empty.png'
+import { getFontEmbedCSS, toPng } from 'html-to-image'
 
-export default function (dom: Node, width?: number, height?: number) {
-  domtoimage
-    .toPng(dom, {
+export const screenshot = async (dom: HTMLElement, width?: number, height?: number) => {
+  try {
+    const fontEmbedCSS = await getFontEmbedCSS(dom)
+    const title = `SR-${Date.now()}`
+    const dataUrl = await toPng(dom, {
       width,
       height,
-      imagePlaceholder: empty
+      fontEmbedCSS
     })
-    .then((dataUrl) => {
-      if (import.meta.env.MODE === 'development') {
-        const img = new Image()
-        img.src = dataUrl
-        const win = window.open('')
-        if (win) win.document.body.appendChild(img)
-      } else {
-        const link = document.createElement('a')
-        link.download = `sr-${Date.now()}.png`
-        link.href = dataUrl
-        link.click()
-      }
-    })
-    .catch((error) => {
-      console.error('截图保存错误', error)
-    })
+    const img = new Image()
+    img.src = dataUrl
+    img.alt = title
+    const win = window.open('')
+    if (win) {
+      win.document.title = title
+      win.document.body.appendChild(img)
+    }
+  } catch (error) {
+    console.error('截图保存错误', error)
+  }
 }

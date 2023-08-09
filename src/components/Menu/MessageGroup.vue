@@ -35,6 +35,7 @@
         v-for="(item, index) in showList"
         :key="`title-${index}`"
         @click="handelMessageClick(item.id)"
+        @contextmenu.prevent.stop="handelDelClick(item.id, item.length)"
       >
         <div class="icon">
           <Icon
@@ -56,8 +57,7 @@
         <div class="text">{{ item.msg }}</div>
         <div
           class="del"
-          v-if="item.length === 0"
-          @click.stop="handelDelClick(item.id)"
+          @click.stop="handelDelClick(item.id, item.length)"
         >
           <Icon name="delete" />
         </div>
@@ -72,8 +72,8 @@ import { message } from '@/store/message'
 import { setting } from '@/store/setting'
 import { computed } from 'vue'
 import Icon from '../Common/Icon.vue'
-import image_1 from '@/assets/images/一家人.jpg'
-import image_2 from '@/assets/images/群聊.jpg'
+import image_1 from '@/assets/images/avatar/一家人.jpg'
+import image_2 from '@/assets/images/avatar/群聊.jpg'
 
 const props = defineProps<{
   title?: string
@@ -148,12 +148,18 @@ const handelMessageClick = (index: number) => {
   setting.index = index
 }
 
-const handelDelClick = (index: number) => {
-  const id = message.list.findIndex((item) => {
-    return item.id === index
-  })
-  if (id !== -1) {
-    message.list.splice(id, 1)
+const handelDelClick = (index: number, length: number) => {
+  let flag = true
+  if (length > 0) {
+    flag = confirm('是否删除短信')
+  }
+  if (flag) {
+    const id = message.list.findIndex((item) => {
+      return item.id === index
+    })
+    if (id !== -1) {
+      message.list.splice(id, 1)
+    }
   }
 }
 
