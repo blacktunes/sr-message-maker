@@ -89,16 +89,17 @@ import Icon from './components/Common/Icon.vue'
 // 计算窗口尺寸
 const width = 3200
 const height = (width / 16) * 9
+const bottom = 100
 const scale = ref(1)
 const realWidth = computed(() => `${width * scale.value}px`)
-const realHeight = computed(() => `${(height + 75) * scale.value}px`)
+const realHeight = computed(() => `${(height + bottom) * scale.value}px`)
 
 const horizontalTip = ref(true)
 const shouldHorizontal = ref(false)
 
 const setSize = () => {
   shouldHorizontal.value = window.innerWidth <= 550 && window.innerWidth < window.innerHeight
-  scale.value = Math.min(window.innerWidth / width, window.innerHeight / (height + 75))
+  scale.value = Math.min(window.innerWidth / width, window.innerHeight / (height + bottom))
 }
 setSize()
 
@@ -126,7 +127,6 @@ const setFont = () => {
         document.head.appendChild(font)
         document.head.appendChild(style)
       }
-      
     }
   }
   el.click()
@@ -229,8 +229,12 @@ const setFont = () => {
 
 .font-btn
   position absolute
-  right 100px
+  right 5px
   cursor pointer
+  opacity 0.1
+
+  &:hover
+    opacity 0.9
 
 .horizontal-tip
   position fixed

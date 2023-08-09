@@ -1,74 +1,78 @@
 <template>
   <template v-if="setting.index">
-    <div
-      class="bg"
-      :style="{ background: isGreenScreen ? 'green' : '' }"
-      v-show="setting.preview"
-    >
+    <Transition name="fade">
       <div
-        class="green"
-        title="切换绿幕"
-        @click.stop="isGreenScreen = !isGreenScreen"
-        v-if="setting.preview"
-      >
-        <Icon name="green" />
-      </div>
-    </div>
-    <MessageBox
-      v-show="setting.preview"
-      class="message-preview"
-      :index="messageIndex"
-      :title="title"
-      :info="info"
-      :playing="autoPlaySetting.flag"
-      preview
-      @click.stop="autoPlaySetting.flag ? stopPlay() : undefined"
-      ref="boxRef"
-    >
-      <template
-        #top
-        v-if="false"
+        class="bg"
+        :style="{ background: isGreenScreen ? 'green' : '' }"
+        v-show="setting.preview"
       >
         <div
-          class="close"
-          style="cursor: pointer !important"
-          v-show="!autoPlaySetting.flag"
+          class="green"
+          title="切换背景"
+          @click.stop="toggleGreenScreen"
+          :class="{ highlight: isGreenScreen }"
         >
-          <Icon
-            name="close"
-            @click.stop="setting.preview = false"
-          />
+          <Icon name="green" />
         </div>
-      </template>
-      <MessageItem
-        v-for="(element, index) in dataList"
-        :key="`preview-${index}`"
-        :item="element"
-        :index="0"
+      </div>
+    </Transition>
+    <Transition name="fade">
+      <MessageBox
+        v-show="setting.preview"
+        class="message-preview"
+        :index="messageIndex"
+        :title="title"
+        :info="info"
+        :playing="autoPlaySetting.flag"
         preview
-      />
-      <template #bottom>
-        <Transition
-          name="option"
-          @after-enter="onOptionShow"
+        @click.stop="autoPlaySetting.flag ? stopPlay() : undefined"
+        ref="boxRef"
+      >
+        <template
+          #top
+          v-if="false"
         >
           <div
-            class="option-box"
-            @click.stop
-            v-if="autoPlaySetting.flag && autoPlaySetting.option.length > 0"
+            class="close"
+            style="cursor: pointer !important"
+            v-show="!autoPlaySetting.flag"
+          >
+            <Icon
+              name="close"
+              @click.stop="setting.preview = false"
+            />
+          </div>
+        </template>
+        <MessageItem
+          v-for="(element, index) in dataList"
+          :key="`preview-${index}`"
+          :item="element"
+          :index="0"
+          preview
+        />
+        <template #bottom>
+          <Transition
+            name="option"
+            @after-enter="onOptionShow"
           >
             <div
-              class="option"
-              v-for="(item, key) in autoPlaySetting.option"
-              :key="key"
-              @click.stop="handelOptionClick(item)"
+              class="option-box"
+              @click.stop
+              v-if="autoPlaySetting.flag && autoPlaySetting.option.length > 0"
             >
-              {{ item.text }}
+              <div
+                class="option"
+                v-for="(item, key) in autoPlaySetting.option"
+                :key="key"
+                @click.stop="handelOptionClick(item)"
+              >
+                {{ item.text }}
+              </div>
             </div>
-          </div>
-        </Transition>
-      </template>
-    </MessageBox>
+          </Transition>
+        </template>
+      </MessageBox>
+    </Transition>
   </template>
 </template>
 
@@ -121,15 +125,19 @@ const reset = () => {
   autoPlaySetting.option = []
 }
 
+let timer: number
 emitter.on('autoplay', () => {
   if (autoPlaySetting.flag) return
 
   setting.preview = true
   reset()
   autoPlaySetting.flag = true
-  nextTick(() => {
-    autoPlay(0, true)
-  })
+
+  timer = setTimeout(() => {
+    nextTick(() => {
+      autoPlay(0, true)
+    })
+  }, 1000)
 })
 
 const onOptionShow = () => {
@@ -190,13 +198,15 @@ const autoPlay = (i: number, loading: boolean) => {
         2000
       )
 
-      setTimeout(() => {
+      clearTimeout(timer)
+      timer = setTimeout(() => {
         autoPlay(i, false)
       }, time)
     } else {
       if (message.list[messageIndex.value].list[i + 1]) {
         const time = message.list[messageIndex.value].list[i + 1].key === '开拓者' ? 1500 : 1000
-        setTimeout(() => {
+        clearTimeout(timer)
+        timer = setTimeout(() => {
           autoPlay(i + 1, true)
         }, time)
       } else {
@@ -210,6 +220,8 @@ emitter.on('stopplay', () => stopPlay())
 
 // 取消播放
 const stopPlay = () => {
+  clearTimeout(timer)
+
   autoPlaySetting.flag = false
   const list: (Message & { default?: [boolean] })[] = []
   for (let j = autoPlayIndex + 1; j < message.list[messageIndex.value].list.length; j++) {
@@ -252,6 +264,11 @@ emitter.on('screenshot', () => {
 })
 
 const isGreenScreen = ref(false)
+isGreenScreen.value = JSON.parse(localStorage.getItem('sr-message-screen') || 'false')
+const toggleGreenScreen = () => {
+  isGreenScreen.value = !isGreenScreen.value
+  localStorage.setItem('sr-message-screen', JSON.stringify(isGreenScreen.value))
+}
 </script>
 
 <style lang="stylus" scoped>
@@ -263,6 +280,24 @@ const isGreenScreen = ref(false)
   width 100%
   height 100%
   background rgba(0, 0, 0, 0.6)
+  backdrop-filter blur(20px)
+  box-shadow 0 0 20px 0px rgba(0, 0, 0, 0.5)
+
+  .green
+    position absolute
+    right 10px
+    bottom -75px
+    border-radius 15px
+    display flex
+    justify-content center
+    align-items center
+    cursor pointer
+    user-select none
+    background #666
+    transition background 0.2s
+
+  .highlight
+    background none
 
 .message-preview
   z-index 10
@@ -321,18 +356,6 @@ const isGreenScreen = ref(false)
       margin 20px 0
       user-select none
       cursor pointer !important
-
-.green
-  position fixed
-  right 85px
-  bottom -80px
-  user-select none
-  border-radius 5px
-  display flex
-  justify-content center
-  align-items center
-  margin-right 20px
-  cursor pointer
 
 .option-enter-active
   transition all 0.25s
