@@ -1,5 +1,5 @@
 interface Mission {
-  type: 0 | 1
+  type: 0 | 1 | 2 | 3
   state: 0 | 1 | 2
 }
 

@@ -88,12 +88,12 @@
         >
           <Icon
             v-if="item.mission.state === 1"
-            :class="item.mission.type === 1 ? 'mission-2' : 'mission-1'"
+            :class="[`mission-${item.mission.type ?? 0}`]"
             name="success"
           />
           <Icon
             v-else-if="item.mission.state === 2"
-            :class="item.mission.type === 1 ? 'mission-2' : 'mission-1'"
+            :class="[`mission-${item.mission.type ?? 0}`]"
             name="fail"
           />
           <Icon
@@ -227,8 +227,10 @@ import { user } from '@/assets/data/characterData'
 import { autoPlaySetting, setting } from '@/store/setting'
 import Icon from '../Common/Icon.vue'
 import { computed } from 'vue'
+import image_0 from '@/assets/images/同行任务.png'
 import image_1 from '@/assets/images/冒险任务.png'
-import image_2 from '@/assets/images/同行任务.png'
+import image_2 from '@/assets/images/开拓任务.png'
+import image_3 from '@/assets/images/日常任务.png'
 
 const props = defineProps<{
   item: Message
@@ -267,7 +269,10 @@ const missionState = computed(() => {
 })
 
 const backgroundUrl = computed(() => {
-  return props.item.mission?.type === 1 ? `url(${image_1})` : `url(${image_2})`
+  if (props.item.mission?.type === 1) return `url(${image_1})`
+  if (props.item.mission?.type === 2) return `url(${image_2})`
+  if (props.item.mission?.type === 3) return `url(${image_3})`
+  return `url(${image_0})`
 })
 
 const blur = (e: KeyboardEvent) => {
@@ -275,8 +280,11 @@ const blur = (e: KeyboardEvent) => {
 }
 
 const handelTypeClick = (type: number) => {
+  type += 1
+  if (type > 3) type = 0
+
   const data: Mission = {
-    type: type === 1 ? 0 : 1,
+    type: type as 0,
     state: props.item.mission?.state ?? 0
   }
   emit('mission', data)
@@ -619,13 +627,21 @@ $avatar-margin = 35px
     left $del-pos
     right unset !important
 
-.mission-1
+.mission-0
   :deep(path)
     fill #b886ed
 
-.mission-2
+.mission-1
   :deep(path)
     fill #54a9be
+
+.mission-2
+  :deep(path)
+    fill #f4b334
+
+.mission-3
+  :deep(path)
+    fill #b6d671
 
 .avatar-enter-active
   animation avatar 0.5s ease
