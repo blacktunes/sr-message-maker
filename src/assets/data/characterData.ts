@@ -1,6 +1,6 @@
 import { setUserType } from '@/store/setting'
 import { reactive } from 'vue'
-import avatar_2 from '@/assets/images/穹.jpg'
+import avatar_2 from '@/assets/images/avatar/穹.jpg'
 
 export const user: { [name: string]: Character } = reactive({
   custom: {

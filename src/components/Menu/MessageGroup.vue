@@ -72,8 +72,8 @@ import { message } from '@/store/message'
 import { setting } from '@/store/setting'
 import { computed } from 'vue'
 import Icon from '../Common/Icon.vue'
-import image_1 from '@/assets/images/一家人.jpg'
-import image_2 from '@/assets/images/群聊.jpg'
+import image_1 from '@/assets/images/avatar/一家人.jpg'
+import image_2 from '@/assets/images/avatar/群聊.jpg'
 
 const props = defineProps<{
   title?: string

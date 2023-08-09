@@ -1,5 +1,5 @@
-import emoticon_1 from '@/assets/images/老年人_早上好.jpg'
-import emoticon_2 from '@/assets/images/老年人_干杯.jpg'
+import emoticon_1 from '@/assets/images/emoticon/中年人_早上好.jpg'
+import emoticon_2 from '@/assets/images/emoticon/中年人_干杯.jpg'
 
 export const emoticon: Emoticon[][] = [
   [
