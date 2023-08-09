@@ -116,11 +116,11 @@ const dataList = computed(() => {
 })
 
 let optionIndex = 0
-let autoPlayIndex = 0
+let autoPlayIndex = -1
 
 const reset = () => {
   optionIndex = 0
-  autoPlayIndex = 0
+  autoPlayIndex = -1
   autoPlaySetting.list = []
   autoPlaySetting.option = []
 }
@@ -166,6 +166,7 @@ const autoPlay = (i: number, loading: boolean) => {
       message.list[messageIndex.value].list?.[optionIndex] &&
       message.list[messageIndex.value].list[optionIndex].option
     ) {
+      autoPlayIndex = optionIndex
       autoPlay(optionIndex, true)
     }
     return
