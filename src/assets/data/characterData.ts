@@ -31,6 +31,12 @@ if (avatar === '') {
 }
 
 export const gameCharacter: { [name: string]: Character } = {
+  卡芙卡: {
+    name: '卡芙卡',
+    avatar: 'https://patchwiki.biligame.com/images/sr/b/bc/swjc15h5lekheoa1g15hi2kcm3mi7u6.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/08/02/279865110/40c0e4d56f9f19b1ee63716ed9fe7780_275097678214055588.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: ''
+  },
   银狼: {
     name: '银狼',
     avatar: 'https://patchwiki.biligame.com/images/sr/5/5e/r7w07iajvrc1u9tb50p69vfr9jiwu2x.png',
@@ -171,6 +177,12 @@ export const gameCharacter: { [name: string]: Character } = {
       'https://patchwiki.biligame.com/images/sr/thumb/3/37/1onkwhuhwsu88n9hgwma5i7uskfo32x.png/180px-%E4%B8%89%E6%9C%88%E4%B8%83%E5%A4%B4%E5%83%8F.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/6a4bd3468e9dbd577f26dbf8757f0b03_924968634176225322.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: '今天也是三月七~'
+  },
+  卢卡: {
+    name: '卢卡',
+    avatar: 'https://patchwiki.biligame.com/images/sr/3/34/p12qkd10ugjkhchm4f34q3j2imxh323.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/07/17/75216984/0d7f1c9f746e1d4ad98b2a3360d9a27b_2137170666945226982.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: ''
   },
   桑博: {
     name: '桑博',
