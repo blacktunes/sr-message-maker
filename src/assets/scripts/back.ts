@@ -9,6 +9,9 @@ const handelBack = () => {
   if (input.select) {
     input.select = false
   }
+  if (setting.log) {
+    setting.log = false
+  }
   if (autoPlaySetting.flag) {
     emitter.emit('stopplay')
     return

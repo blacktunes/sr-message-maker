@@ -7,13 +7,15 @@ export const setting = reactive<{
   index?: number
   preview?: boolean
   select?: string
+  log: boolean
 }>({
   loading: true,
   name: '开拓者',
   type: '星',
   index: undefined,
   preview: false,
-  select: ''
+  select: '',
+  log: false
 })
 
 export const setUserType = (key: string) => {

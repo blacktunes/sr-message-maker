@@ -16,7 +16,7 @@
           <Loading />
         </div>
       </transition>
-      <div class="icon">
+      <div class="icon" title="更新记录" @click.stop="setting.log = true">
         <img
           src="@/assets/images/短信.svg"
           alt=""
@@ -34,18 +34,21 @@
       <MessagePreview />
       <CharacterSelect />
       <NameInput />
+      <ChangeLog />
       <div class="link">
         <a
           href="https://github.com/blacktunes/sr-message-maker"
           target="_blank"
-          >Github</a
         >
+          Github
+        </a>
         <span>·</span>
         <a
           href="https://space.bilibili.com/1384118"
           target="_blank"
-          >BiliBili</a
         >
+          BiliBili
+        </a>
         <div
           class="font-btn"
           title="修改字体(测试功能)"
@@ -83,6 +86,7 @@ import MessageList from './components/Menu.vue'
 import MessageEditor from './components/MessageEditor.vue'
 import MessagePreview from './components/MessagePreview.vue'
 import NameInput from './components/NameInput.vue'
+import ChangeLog from './components/ChangeLog.vue'
 import { setting } from './store/setting'
 import Icon from './components/Common/Icon.vue'
 
@@ -203,6 +207,7 @@ const setFont = () => {
       display flex
       align-items center
       user-select none
+      cursor pointer
 
       span
         margin 0 0 15px 20px
