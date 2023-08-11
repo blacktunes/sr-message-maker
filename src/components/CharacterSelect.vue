@@ -128,6 +128,8 @@ const handelDelClick = (key: string, name: string) => {
 </script>
 
 <style lang="stylus" scoped>
+@import './Common/Window.styl'
+
 $character-item-width = 387px
 
 .character-select
@@ -143,6 +145,7 @@ $character-item-width = 387px
   user-select none
 
   .box
+    position relative
     display flex
     flex-direction column
     justify-content center
@@ -151,9 +154,8 @@ $character-item-width = 387px
     height 90%
     padding 20px 65px
     background var(--box-background-color)
-    box-shadow 0 0 20px 5px rgba(0, 0, 0, 0.3)
     cursor default
-    border-top-right-radius 20px
+    message()
 
     .list
       overflow overlay

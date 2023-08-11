@@ -57,6 +57,7 @@ const close = () => {
   width 100%
   height 100%
   backdrop-filter blur(10px)
+  -webkit-backdrop-filter blur(10px)
   background rgba(0, 0, 0, 0.2)
   box-shadow 0 0 50px 0px rgba(255, 255, 255, 0.5)
   border-radius 20px
@@ -66,8 +67,10 @@ const close = () => {
     flex-direction column
     position relative
     width fit-content
+    width -moz-fit-content
     max-width 90%
     height fit-content
+    height -moz-fit-content
     max-height 85%
     background var(--box-background-color)
     message()
