@@ -12,6 +12,9 @@ const handelBack = () => {
   if (setting.log) {
     setting.log = false
   }
+  if (setting.font) {
+    setting.font = false
+  }
   if (autoPlaySetting.flag) {
     emitter.emit('stopplay')
     return

@@ -8,6 +8,7 @@ export const setting = reactive<{
   preview?: boolean
   select?: string
   log: boolean
+  font: boolean
 }>({
   loading: true,
   name: '开拓者',
@@ -15,7 +16,8 @@ export const setting = reactive<{
   index: undefined,
   preview: false,
   select: '',
-  log: false
+  log: false,
+  font: false
 })
 
 export const setUserType = (key: string) => {

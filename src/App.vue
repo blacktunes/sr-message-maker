@@ -39,6 +39,7 @@
       <CharacterSelect />
       <NameInput />
       <ChangeLog />
+      <FontSetting />
       <div class="link">
         <a
           href="https://github.com/blacktunes/sr-message-maker"
@@ -55,8 +56,8 @@
         </a>
         <div
           class="font-btn"
-          title="修改字体(测试功能)"
-          @click="setFont"
+          title="修改字体"
+          @click.stop="setting.font = !setting.font"
           v-show="!setting.preview"
         >
           <Icon name="font" />
@@ -93,6 +94,7 @@ import NameInput from './components/NameInput.vue'
 import ChangeLog from './components/ChangeLog.vue'
 import { setting } from './store/setting'
 import Icon from './components/Common/Icon.vue'
+import FontSetting from './components/FontSetting.vue'
 
 // 计算窗口尺寸
 const width = 3200
@@ -113,31 +115,6 @@ setSize()
 
 window.onresize = () => {
   setSize()
-}
-
-const setFont = () => {
-  const el = document.createElement('input')
-  el.type = 'file'
-  el.onchange = () => {
-    if (el.files?.[0]) {
-      const file = new FileReader()
-      file.readAsDataURL(el.files[0])
-      file.onload = (e) => {
-        const css = `@font-face{font-family:'TempFont'; src: url(${(
-          e.target?.result as string
-        ).replace('data:application/octet-stream;', 'data:application/font-ttf;')})}`
-        const font = document.createElement('style')
-        font.appendChild(document.createTextNode(css))
-
-        const style = document.createElement('style')
-        style.appendChild(document.createTextNode(`* { font-family: 'TempFont'}`))
-
-        document.head.appendChild(font)
-        document.head.appendChild(style)
-      }
-    }
-  }
-  el.click()
 }
 </script>
 
@@ -240,7 +217,7 @@ const setFont = () => {
   position absolute
   right 5px
   cursor pointer
-  opacity 0.1
+  opacity 0.5
 
   &:hover
     opacity 0.9
