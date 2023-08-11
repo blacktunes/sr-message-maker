@@ -274,6 +274,7 @@ const toggleGreenScreen = () => {
 
 <style lang="stylus" scoped>
 @import './Message/Message.styl'
+@import './Common/Window.styl'
 
 .bg
   z-index 9
@@ -282,6 +283,7 @@ const toggleGreenScreen = () => {
   height 100%
   background rgba(0, 0, 0, 0.6)
   backdrop-filter blur(20px)
+  -webkit-backdrop-filter blur(20px)
   box-shadow 0 0 20px 0px rgba(0, 0, 0, 0.5)
 
   .green
