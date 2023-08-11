@@ -2,6 +2,7 @@
   <transition name="fade">
     <window
       title="更新记录"
+      width="40%"
       v-if="setting.log"
       @close="setting.log = false"
     >
@@ -42,6 +43,10 @@ const changeLog: {
     url?: string
   }[]
 }[] = [
+  {
+    time: '2023-08-11',
+    text: [{ text: '完善字体修改功能' }, { text: '优化界面' }]
+  },
   {
     time: '2023-08-06',
     text: [{ text: '增加新角色(卡芙卡、卢卡)' }, { text: '增加开拓任务和日常任务消息' }]
