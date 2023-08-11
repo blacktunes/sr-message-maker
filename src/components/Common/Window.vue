@@ -13,7 +13,12 @@
         class="close"
         @click="close"
       />
-      <slot></slot>
+      <div class="item">
+        <slot></slot>
+      </div>
+      <div class="footer" v-if="slot.footer">
+        <slot name="footer"></slot>
+      </div>
     </div>
   </div>
 </template>
@@ -26,6 +31,8 @@ defineProps<{
   width?: string
   height?: string
 }>()
+
+const slot = defineSlots()
 
 const emit = defineEmits<{
   (event: 'close'): void
@@ -58,23 +65,31 @@ const close = () => {
     display flex
     flex-direction column
     position relative
-    width 40%
-    height 85%
-    padding 50px 80px
+    width fit-content
+    max-width 90%
+    height fit-content
+    max-height 85%
     background var(--box-background-color)
     message()
 
     .title
       font-size 70px
       font-weight bold
-      padding-bottom 30px
       border-bottom 5px solid rgba(150, 150, 150, 0.5)
+      margin 0 80px
+      padding 50px 0 30px 0
       user-select none
 
     .close
       position absolute
       top 60px
       right 80px
-      width 100px
-      height 100px
+    
+    .item
+      margin 40px 80px
+      overflow auto
+    
+    .footer
+      background #262626
+      padding 60px 80px
 </style>

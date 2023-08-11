@@ -5,27 +5,25 @@
       v-if="setting.log"
       @close="setting.log = false"
     >
-      <div class="item-list">
+      <div
+        class="item"
+        :class="{
+          highlight: index === 0
+        }"
+        v-for="(item, index) in changeLog"
+        :key="`time-${index}`"
+      >
+        <div class="time">{{ item.time }}</div>
         <div
-          class="item"
-          :class="{
-            highlight: index === 0
-          }"
-          v-for="(item, index) in changeLog"
-          :key="`time-${index}`"
+          class="text"
+          v-for="(text, key) in item.text"
+          :key="`text-${index}-${key}`"
         >
-          <div class="time">{{ item.time }}</div>
-          <div
-            class="text"
-            v-for="(text, key) in item.text"
-            :key="`text-${index}-${key}`"
-          >
-            {{ text.text }}
-            <template v-if="text.author">
-              (<a :href="text.url">{{ text.author }}</a
-              >)
-            </template>
-          </div>
+          {{ text.text }}
+          <template v-if="text.author">
+            (<a :href="text.url">{{ text.author }}</a
+            >)
+          </template>
         </div>
       </div>
     </window>
@@ -154,20 +152,17 @@ checkUpdate()
 </script>
 
 <style lang="stylus" scoped>
-.item-list
-  overflow auto
+.item
+  margin 30px 20px 30px 0
+  padding 10px
 
-  .item
-    margin 30px 20px 30px 0
-    padding 10px
+  .time
+    font-size 46px
+    font-weight bold
+    margin-bottom 10px
 
-    .time
-      font-size 46px
-      font-weight bold
-      margin-bottom 10px
-
-    .text
-      font-size 36px
+  .text
+    font-size 36px
 
 .highlight
   background #bbb
