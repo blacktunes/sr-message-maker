@@ -355,6 +355,7 @@ const handelAddClick = (img?: string) => {
 
 <style lang="stylus" scoped>
 @import './Message/Message.styl'
+@import './Common/Window.styl'
 
 box()
   position absolute

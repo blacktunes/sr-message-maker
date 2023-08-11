@@ -16,7 +16,11 @@
           <Loading />
         </div>
       </transition>
-      <div class="icon" title="更新记录" @click.stop="setting.log = true">
+      <div
+        class="icon"
+        title="更新记录"
+        @click.stop="setting.log = true"
+      >
         <img
           src="@/assets/images/短信.svg"
           alt=""

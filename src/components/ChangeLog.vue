@@ -1,44 +1,40 @@
 <template>
   <transition name="fade">
-    <div
-      class="info"
+    <window
+      title="更新记录"
       v-if="setting.log"
+      @close="setting.log = false"
     >
-      <div
-        class="box"
-        @click.stop
-      >
-        <div class="title">更新记录</div>
-        <div class="item-list">
+      <div class="item-list">
+        <div
+          class="item"
+          :class="{
+            highlight: index === 0
+          }"
+          v-for="(item, index) in changeLog"
+          :key="`time-${index}`"
+        >
+          <div class="time">{{ item.time }}</div>
           <div
-            class="item"
-            :class="{
-              highlight: index === 0
-            }"
-            v-for="(item, index) in changeLog"
-            :key="`time-${index}`"
+            class="text"
+            v-for="(text, key) in item.text"
+            :key="`text-${index}-${key}`"
           >
-            <div class="time">{{ item.time }}</div>
-            <div
-              class="text"
-              v-for="(text, key) in item.text"
-              :key="`text-${index}-${key}`"
-            >
-              {{ text.text }}
-              <template v-if="text.author">
-                (<a :href="text.url">{{ text.author }}</a
-                >)
-              </template>
-            </div>
+            {{ text.text }}
+            <template v-if="text.author">
+              (<a :href="text.url">{{ text.author }}</a
+              >)
+            </template>
           </div>
         </div>
       </div>
-    </div>
+    </window>
   </transition>
 </template>
 
 <script lang="ts" setup>
 import { setting } from '@/store/setting'
+import Window from './Common/Window.vue'
 
 const changeLog: {
   time: string
@@ -158,50 +154,20 @@ checkUpdate()
 </script>
 
 <style lang="stylus" scoped>
-.info
-  z-index 99
-  display flex
-  justify-content center
-  align-items center
-  position absolute
-  top 0
-  left 0
-  width 100%
-  height 100%
-  backdrop-filter blur(10px)
-  background rgba(0, 0, 0, 0.2)
-  box-shadow 0 0 50px 0px rgba(255, 255, 255, 0.5)
-  border-radius 20px
+.item-list
+  overflow auto
 
-  .box
-    display flex
-    flex-direction column
-    position relative
-    width 40%
-    height 85%
-    padding 20px 50px
-    background var(--box-background-color)
-    box-shadow 0 0 20px 5px rgba(0, 0, 0, 0.3)
-    border-radius 5px 20px 5px 5px
+  .item
+    margin 30px 20px 30px 0
+    padding 10px
 
-    .title
-      font-size 70px
+    .time
+      font-size 46px
       font-weight bold
+      margin-bottom 10px
 
-    .item-list
-      overflow auto
-
-      .item
-        margin 30px 20px 30px 0
-        padding 10px
-
-        .time
-          font-size 46px
-          font-weight bold
-          margin-bottom 10px
-
-        .text
-          font-size 36px
+    .text
+      font-size 36px
 
 .highlight
   background #bbb

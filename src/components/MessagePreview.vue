@@ -274,6 +274,7 @@ const toggleGreenScreen = () => {
 
 <style lang="stylus" scoped>
 @import './Message/Message.styl'
+@import './Common/Window.styl'
 
 .bg
   z-index 9
