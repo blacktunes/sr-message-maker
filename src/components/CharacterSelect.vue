@@ -3,6 +3,7 @@
     <div
       class="character-select"
       v-show="input.select"
+      @contextmenu.prevent.stop="hide"
     >
       <div
         class="box"
@@ -174,14 +175,22 @@ $character-item-width = 387px
       overflow overlay
       width 100%
       height 100%
-      padding 10px 30px 10px 20px
+      padding 0 30px 0 20px
+      margin 15px 0
+
+      &::-webkit-scrollbar-track
+        margin-top 120px
 
       .title
+        z-index 9
+        position sticky
+        top 0
         font-size 60px
         font-weight bold
-        margin-bottom 25px
+        margin 0 20px 25px 5px
         padding-bottom 20px
-        border-bottom 1px solid
+        background var(--box-background-color)
+        box-shadow 0 -2px var(--box-background-color), 0 20px 10px -10px rgba(183, 183, 183, 0.8)
 
       .character-list
         display flex

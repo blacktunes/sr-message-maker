@@ -1,7 +1,7 @@
 <template>
   <div
     class="character"
-    :class="{ 'custom-user': custom, 'glod-border': level === 5 }"
+    :class="{ 'custom-user': custom, 'glod-border': custom && level === 5 }"
     :title="name"
   >
     <div class="card">
@@ -14,7 +14,12 @@
       </div>
       <div class="name">{{ name }}</div>
     </div>
-    <div class="info">{{ info || '' }}</div>
+    <div
+      class="info"
+      :title="info"
+    >
+      {{ info || '' }}
+    </div>
     <slot></slot>
   </div>
 </template>
@@ -51,8 +56,8 @@ defineProps<{
       height 340px
 
       img
-        width 100%
-        height 100%
+        width 100% !important
+        height 100% !important
         border-radius 50%
         object-fit contain
         background rgba(255, 255, 255, 0.1)
@@ -65,6 +70,7 @@ defineProps<{
   position relative
   margin 10px
   cursor pointer
+  height 700px
 
   .card
     position relative
@@ -72,6 +78,7 @@ defineProps<{
     .avatar
       img
         width 100%
+        height calc(700px - 50px)
 
   .name, .info
     width 100%

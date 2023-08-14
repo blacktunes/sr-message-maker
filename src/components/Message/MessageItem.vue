@@ -610,6 +610,7 @@ $avatar-margin = 35px
       color var(--text-color)
       border-radius 0 25px 25px 25px
       word-break break-word
+      box-shadow 2px 4px #9d9f9f
 
 .right
   flex-direction row-reverse

@@ -28,21 +28,6 @@
         @click.stop="autoPlaySetting.flag ? stopPlay() : undefined"
         ref="boxRef"
       >
-        <template
-          #top
-          v-if="false"
-        >
-          <div
-            class="close"
-            style="cursor: pointer !important"
-            v-show="!autoPlaySetting.flag"
-          >
-            <Icon
-              name="close"
-              @click.stop="setting.preview = false"
-            />
-          </div>
-        </template>
         <MessageItem
           v-for="(element, index) in dataList"
           :key="`preview-${index}`"
