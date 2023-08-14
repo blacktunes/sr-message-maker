@@ -201,11 +201,12 @@ export const gameCharacter: { [name: string]: Character } = {
   }
 }
 
-export const otherCharacter: { [name: string]: Omit<Character, 'card'> } = {
+export const otherCharacter: { [name: string]: OtherCharacter } = {
   帕姆: {
     name: '帕姆',
     avatar: 'https://patchwiki.biligame.com/images/sr/9/9f/qxry2ls9bic9b7lmf74ouim4ls2vmy2.png',
-    info: '开拓奖励找我！以后会优化'
+    info: '开拓奖励找我！以后会优化',
+    gold: true
   },
   匿名: {
     name: '匿名',

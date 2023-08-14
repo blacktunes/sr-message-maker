@@ -1,10 +1,13 @@
 <template>
   <div
     class="character"
-    :class="{ 'custom-user': custom, 'glod-border': custom && level === 5 }"
+    :class="{ 'custom-user': custom }"
     :title="name"
   >
-    <div class="card">
+    <div
+      class="card"
+      :class="{ 'gold-border': level === 5 }"
+    >
       <div class="avatar">
         <img
           :src="avatar"
@@ -35,10 +38,9 @@ defineProps<{
 </script>
 
 <style lang="stylus" scoped>
-.glod-border
-  height 635px
-  background linear-gradient(to bottom, #373737, #7b715b)
-  border-bottom 12px solid #ffce6f
+.gold-border
+  background linear-gradient(to bottom, #373737, #7b715b) !important
+  border-bottom 12px solid #ffce6f !important
 
 .custom-user
   .card

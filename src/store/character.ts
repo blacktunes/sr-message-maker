@@ -3,7 +3,7 @@ import { nextTick, reactive, toRaw, watch } from 'vue'
 
 const character = reactive<{
   game: { [name: string]: Character }
-  other: { [name: string]: Omit<Character, 'card'> }
+  other: { [name: string]: OtherCharacter }
   custom: { [name: string]: CustomCharacter }
 }>({
   game: gameCharacter,

@@ -17,7 +17,7 @@
               :custom="setting.type === 'custom'"
               :name="setting.name"
               :avatar="user[setting.type].card"
-              :level="5"
+              :level="setting.type === 'custom' ? 5 : undefined"
               @click="handelcharacterClick('开拓者', '')"
             />
             <CharacterCard
@@ -41,6 +41,7 @@
               :name="item.name"
               :info="item.info"
               :avatar="item.avatar"
+              :level="item.gold ? 5 : undefined"
               @click="handelcharacterClick(String(key), item.name)"
             />
           </div>
