@@ -6,17 +6,17 @@ export const user: { [name: string]: Character } = reactive({
   custom: {
     name: '开拓者',
     avatar: '',
-    card: '',
+    card: ''
   },
   星: {
     name: '开拓者',
     avatar: 'https://patchwiki.biligame.com/images/sr/f/f4/aaeqzyk10vp6orjpunclv060rdre49c.png',
-    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/1d351a764ae64aeed744296503bc6266_9196637429550074047.png?x-oss-process=image/quality,q_75/resize,s_280',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/1d351a764ae64aeed744296503bc6266_9196637429550074047.png?x-oss-process=image/quality,q_75/resize,s_280'
   },
   穹: {
     name: '开拓者',
     avatar: avatar_2,
-    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/26/288909604/bb5959b4a67a0637f6862b2c8ba163ed_3921856926987798793.png?x-oss-process=image/quality,q_75/resize,s_280',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/26/288909604/bb5959b4a67a0637f6862b2c8ba163ed_3921856926987798793.png?x-oss-process=image/quality,q_75/resize,s_280'
   }
 })
 
@@ -206,5 +206,92 @@ export const otherCharacter: { [name: string]: Omit<Character, 'card'> } = {
     name: '帕姆',
     avatar: 'https://patchwiki.biligame.com/images/sr/9/9f/qxry2ls9bic9b7lmf74ouim4ls2vmy2.png',
     info: '开拓奖励找我！以后会优化'
+  },
+  匿名: {
+    name: '匿名',
+    avatar: 'https://patchwiki.biligame.com/images/sr/a/a8/1qtsu8eokug9uhap13026hk2yvdk8zb.png'
+  },
+  雷金: {
+    name: '雷金',
+    avatar: 'https://patchwiki.biligame.com/images/sr/b/b7/o4fhy25quy9kmqvbe9gj9fyal5oj51n.png',
+    info: '非研究资助事宜勿扰'
+  },
+  青镞: {
+    name: '青镞',
+    avatar: 'https://patchwiki.biligame.com/images/sr/4/43/fhn4ww08kk1qe5s7uccxm4o44kx3k90.png'
+  },
+  掘掘博士: {
+    name: '掘掘博士',
+    avatar: 'https://patchwiki.biligame.com/images/sr/d/d5/mzphn2b2i42c9scbk8kzge3yj378ohv.png',
+    info: '史考特商业，为冠军服务！'
+  },
+  尤利安: {
+    name: '尤利安',
+    avatar: 'https://patchwiki.biligame.com/images/sr/b/b7/o4fhy25quy9kmqvbe9gj9fyal5oj51n.png',
+    info: '点此编辑个性签名这是啥'
+  },
+  维修工程师: {
+    name: '维修工程师',
+    avatar: 'https://patchwiki.biligame.com/images/sr/d/dc/57ion3o7dbl4qxg3lb5ehpu2a97l3ln.png'
+  },
+  邓恩: {
+    name: '邓恩',
+    avatar: 'https://patchwiki.biligame.com/images/sr/3/34/sdf6o527x46333l2x131rrma4s1m6g7.png',
+    info: '已退出「机械热潮」，勿扰'
+  },
+  绿芙蓉: {
+    name: '绿芙蓉',
+    avatar: 'https://patchwiki.biligame.com/images/sr/9/95/jdsp11rmhaavizeoec49gu0nmkaej5u.png'
+  },
+  夕葵: {
+    name: '夕葵',
+    avatar: 'https://patchwiki.biligame.com/images/sr/a/ad/74svgei5rfglq1l3bsv6q5htq4rh15u.png',
+    info: '我，准时下班。'
+  },
+  丹枢: {
+    name: '丹枢',
+    avatar: 'https://patchwiki.biligame.com/images/sr/8/82/pyvtu9bghyell41392py9999w0bzb1a.png'
+  },
+  伦纳德: {
+    name: '伦纳德',
+    avatar: 'https://patchwiki.biligame.com/images/sr/c/c7/48we47dmj2db54l66uj3yjkq08av7ij.png'
+  },
+  奥列格: {
+    name: '奥列格',
+    avatar: 'https://patchwiki.biligame.com/images/sr/c/c1/9nd95n5blnrezjcc7gyuhxjt84r9u5d.png',
+    info: '忆往昔辉煌岁月。'
+  },
+  西衍先生: {
+    name: '西衍先生',
+    avatar: 'https://patchwiki.biligame.com/images/sr/2/2d/q8jyvhcbsm1yknajhla2e4o6xpre48b.png',
+    info: '不对知音，枉费舌尖'
+  },
+  洛奇: {
+    name: '洛奇',
+    avatar: 'https://patchwiki.biligame.com/images/sr/8/8f/3ut27kbshqlbe8y5bvjcznxb5uu98r5.png',
+    info: '莱斯莉，我的生命之光'
+  },
+  温明德: {
+    name: '温明德',
+    avatar: 'https://patchwiki.biligame.com/images/sr/9/98/5lx90pgwu2qd5mdsx79u60delh4hgq0.png',
+    info: '奇物再收容小队时刻准备着'
+  },
+  亚伯拉罕: {
+    name: '亚伯拉罕',
+    avatar: 'https://patchwiki.biligame.com/images/sr/6/63/e5wpvkp078akuz3h6a69zo1aehs69hj.png'
+  },
+  净砚: {
+    name: '净砚',
+    avatar: 'https://patchwiki.biligame.com/images/sr/b/ba/qo5aznmb77ded0kvlnf8z0jkekm2745.png',
+    info: '没空、不行、做不到'
+  },
+  大毫: {
+    name: '大毫',
+    avatar: 'https://patchwiki.biligame.com/images/sr/0/09/rn2p4yozmy8neh5n74jgte3owgc2d3i.png',
+    info: '慢些走，别丢下灵魂。'
+  },
+  铁卫调查员: {
+    name: '铁卫调查员',
+    avatar: 'https://patchwiki.biligame.com/images/sr/3/35/akctqefvnpxs42jitrctn8ny5ako356.png'
   }
 }
