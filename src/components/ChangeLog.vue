@@ -22,8 +22,11 @@
         >
           {{ text.text }}
           <template v-if="text.author">
-            (<a :href="text.url">{{ text.author }}</a
-            >)
+            <a
+              target="_blank"
+              :href="text.url"
+              >@{{ text.author }}</a
+            >
           </template>
         </div>
       </div>
@@ -43,6 +46,14 @@ const changeLog: {
     url?: string
   }[]
 }[] = [
+  {
+    time: '2023-08-14',
+    text: [
+      { text: '增加部分NPC角色(帕姆等)' },
+      { text: '增加角色选择页右键返回' },
+      { text: '优化细节' }
+    ]
+  },
   {
     time: '2023-08-11',
     text: [{ text: '完善字体修改功能' }, { text: '优化界面' }]
@@ -168,6 +179,14 @@ checkUpdate()
 
   .text
     font-size 36px
+
+    a
+      font-weight bold
+      color #1F2328
+      text-decoration none
+
+      &:hover
+        text-decoration underline
 
 .highlight
   background #bbb

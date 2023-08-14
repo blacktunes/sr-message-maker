@@ -6,6 +6,9 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  define: {
+    DEFAULT_TEXT: JSON.stringify('愿此行，终抵群星')
+  },
   plugins: [
     vue(),
     vueJsx(),

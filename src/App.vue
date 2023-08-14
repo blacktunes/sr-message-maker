@@ -69,7 +69,7 @@
     <div
       class="horizontal-tip"
       v-if="horizontalTip && shouldHorizontal"
-      @click="horizontalTip = false"
+      @click.stop="horizontalTip = false"
     >
       <div class="bg"></div>
       <div class="content">

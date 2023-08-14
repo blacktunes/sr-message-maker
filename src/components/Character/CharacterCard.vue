@@ -1,10 +1,13 @@
 <template>
   <div
     class="character"
-    :class="{ 'custom-user': custom, 'glod-border': level === 5 }"
+    :class="{ 'custom-user': custom }"
     :title="name"
   >
-    <div class="card">
+    <div
+      class="card"
+      :class="{ 'gold-border': level === 5 }"
+    >
       <div class="avatar">
         <img
           :src="avatar"
@@ -14,7 +17,12 @@
       </div>
       <div class="name">{{ name }}</div>
     </div>
-    <div class="info">{{ info || '' }}</div>
+    <div
+      class="info"
+      :title="info"
+    >
+      {{ info || '' }}
+    </div>
     <slot></slot>
   </div>
 </template>
@@ -30,10 +38,9 @@ defineProps<{
 </script>
 
 <style lang="stylus" scoped>
-.glod-border
-  height 635px
-  background linear-gradient(to bottom, #373737, #7b715b)
-  border-bottom 12px solid #ffce6f
+.gold-border
+  background linear-gradient(to bottom, #373737, #7b715b) !important
+  border-bottom 12px solid #ffce6f !important
 
 .custom-user
   .card
@@ -51,11 +58,12 @@ defineProps<{
       height 340px
 
       img
-        width 100%
-        height 100%
+        width 100% !important
+        height 100% !important
         border-radius 50%
         object-fit contain
         background rgba(255, 255, 255, 0.1)
+        clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
 
   .name
     color #555
@@ -64,6 +72,7 @@ defineProps<{
   position relative
   margin 10px
   cursor pointer
+  height 700px
 
   .card
     position relative
@@ -71,6 +80,7 @@ defineProps<{
     .avatar
       img
         width 100%
+        height calc(700px - 50px)
 
   .name, .info
     width 100%

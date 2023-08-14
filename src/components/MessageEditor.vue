@@ -45,7 +45,7 @@
               class="input"
               v-model="input.input"
               @keydown.enter="handelAddClick()"
-              placeholder="愿此行，终抵群星"
+              :placeholder="defaultText"
             />
             <div
               class="btn"
@@ -97,11 +97,7 @@
     </template>
     <template v-else>
       <div class="defalut-wrapper">
-        <img
-          src="@/assets/images/列车.svg"
-          alt=""
-          draggable="false"
-        />
+        <Icon name="train" />
         <span>{{ message.list.length > 0 ? '请选择联系人' : '暂无短信' }}</span>
       </div>
     </template>
@@ -120,6 +116,8 @@ import Emoticon from './Message/Emoticon.vue'
 import { getUserAvatar, info, messageIndex, scrollToBottom, title } from './Message/Message'
 import MessageBox from './Message/MessageBox.vue'
 import MessageItem from './Message/MessageItem.vue'
+
+const defaultText = DEFAULT_TEXT
 
 const boxRef = ref<InstanceType<typeof MessageBox>>()
 
@@ -266,7 +264,7 @@ const handelOptionClick = () => {
     key: '开拓者',
     name: '',
     avatar: '',
-    text: input.input || '愿此行，终抵群星',
+    text: input.input || DEFAULT_TEXT,
     option: [false]
   })
   message.list[messageIndex.value].time = Date.now()
@@ -279,7 +277,7 @@ const handelMessageClick = () => {
     key: '开拓者',
     name: '',
     avatar: '',
-    text: input.input || '愿此行，终抵群星',
+    text: input.input || DEFAULT_TEXT,
     mission: {
       type: 0,
       state: 0
@@ -333,7 +331,7 @@ const handelNoticeClick = () => {
     key: '开拓者',
     name: '',
     avatar: '',
-    text: input.input || '愿此行，终抵群星',
+    text: input.input || DEFAULT_TEXT,
     notice: true
   })
   message.list[messageIndex.value].time = Date.now()
@@ -344,7 +342,7 @@ const handelNoticeClick = () => {
 const handelAddClick = (img?: string) => {
   message.list[messageIndex.value].list.push({
     ...getCharacter(),
-    text: input.input || '愿此行，终抵群星',
+    text: input.input || DEFAULT_TEXT,
     img
   })
   message.list[messageIndex.value].time = Date.now()
@@ -418,6 +416,7 @@ box()
         width 100%
         height 100%
         object-fit contain
+        border-radius 50%
         clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
 
     .right
