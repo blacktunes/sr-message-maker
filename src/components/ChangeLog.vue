@@ -22,8 +22,7 @@
         >
           {{ text.text }}
           <template v-if="text.author">
-            (<a :href="text.url">{{ text.author }}</a
-            >)
+            <a target="_blank" :href="text.url">@{{ text.author }}</a>
           </template>
         </div>
       </div>
@@ -168,6 +167,14 @@ checkUpdate()
 
   .text
     font-size 36px
+
+    a
+      font-weight bold
+      color #1F2328
+      text-decoration none
+
+      &:hover
+        text-decoration underline
 
 .highlight
   background #bbb
