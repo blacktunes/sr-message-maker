@@ -97,11 +97,7 @@
     </template>
     <template v-else>
       <div class="defalut-wrapper">
-        <img
-          src="@/assets/images/列车.svg"
-          alt=""
-          draggable="false"
-        />
+        <Icon name="train" />
         <span>{{ message.list.length > 0 ? '请选择联系人' : '暂无短信' }}</span>
       </div>
     </template>

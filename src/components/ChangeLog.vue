@@ -22,7 +22,11 @@
         >
           {{ text.text }}
           <template v-if="text.author">
-            <a target="_blank" :href="text.url">@{{ text.author }}</a>
+            <a
+              target="_blank"
+              :href="text.url"
+              >@{{ text.author }}</a
+            >
           </template>
         </div>
       </div>

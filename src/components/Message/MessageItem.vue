@@ -210,12 +210,21 @@
         </div>
         <div
           v-else
-          class="text"
-          :contenteditable="!preview"
-          @keydown.enter.prevent="preview ? undefined : blur($event)"
-          @blur="preview ? undefined : updateMessage($event)"
+          class="text-box"
         >
-          {{ item.text }}
+          <div
+            class="text"
+            :contenteditable="!preview"
+            @keydown.enter.prevent="preview ? undefined : blur($event)"
+            @blur="preview ? undefined : updateMessage($event)"
+          >
+            {{ item.text }}
+          </div>
+          <Icon
+            contenteditable="false"
+            class="bg-icon"
+            name="train"
+          />
         </div>
       </transition>
     </div>
@@ -546,6 +555,7 @@ $avatar-margin = 35px
     flex 1
     display flex
     flex-direction column
+    align-items flex-start
     max-width calc(100% - var(--message-item-avatar-width) - var(--message-item-avatar-margin))
 
     .name
@@ -611,17 +621,36 @@ $avatar-margin = 35px
         width 100%
         cursor pointer
 
-    .text
-      background #ebebeb
-      padding 35px
-      margin-top 15px
-      width -moz-fit-content
-      width fit-content
-      font-size 45px
-      color var(--text-color)
-      border-radius 0 25px 25px 25px
-      word-break break-word
-      box-shadow 2px 4px #9d9f9f
+    .text-box
+      position relative
+
+      .text
+        display block
+        background #ebebeb
+        min-width 20px
+        width -moz-fit-content
+        width fit-content
+        min-height 65px
+        padding 35px
+        margin-top 15px
+        font-size 45px
+        color var(--text-color)
+        border-radius 0 25px 25px 25px
+        word-break break-word
+        box-shadow -2px 4px #9d9f9f
+
+      .bg-icon
+        z-index 1
+        position absolute
+        left 50%
+        bottom 0
+        height 100px
+        transform translateX(-50%)
+        opacity 0.002
+        pointer-events none
+
+        :deep(path)
+          fill #000
 
 .right
   flex-direction row-reverse
@@ -635,6 +664,7 @@ $avatar-margin = 35px
     .text
       background #d3bb8b !important
       border-radius 25px 0 25px 25px !important
+      box-shadow 2px 4px #9d9f9f !important
 
   .del
     left $del-pos
