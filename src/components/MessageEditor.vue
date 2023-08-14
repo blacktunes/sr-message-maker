@@ -418,6 +418,7 @@ box()
         width 100%
         height 100%
         object-fit contain
+        border-radius 50%
         clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
 
     .right

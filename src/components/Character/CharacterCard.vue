@@ -56,6 +56,7 @@ defineProps<{
         border-radius 50%
         object-fit contain
         background rgba(255, 255, 255, 0.1)
+        clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
 
   .name
     color #555

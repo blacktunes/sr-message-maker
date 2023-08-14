@@ -39,6 +39,8 @@ export const info = computed(() => {
     let info
     if (character.game[key]) {
       info = character.game[key].info
+    } else if (character.other[key]) {
+      info = character.other[key].info
     } else if (character.custom[key]) {
       info = character.custom[key].info
     }

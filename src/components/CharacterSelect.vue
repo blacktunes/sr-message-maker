@@ -27,7 +27,20 @@
               :info="item.info"
               :avatar="item.card"
               @click="handelcharacterClick(String(key), item.name)"
-              @contextmenu.prevent.stop
+            />
+          </div>
+          <div style="height: 30px"></div>
+          <div class="title">其他角色</div>
+          <div class="character-list">
+            <CharacterCard
+              v-for="(item, key) in character.other"
+              :key="`other-character-${key}`"
+              class="character"
+              :custom="true"
+              :name="item.name"
+              :info="item.info"
+              :avatar="item.avatar"
+              @click="handelcharacterClick(String(key), item.name)"
             />
           </div>
           <div style="height: 30px"></div>

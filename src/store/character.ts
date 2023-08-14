@@ -1,11 +1,13 @@
-import { gameCharacter } from '@/assets/data/characterData'
+import { gameCharacter, otherCharacter } from '@/assets/data/characterData'
 import { nextTick, reactive, toRaw, watch } from 'vue'
 
 const character = reactive<{
   game: { [name: string]: Character }
+  other: { [name: string]: Omit<Character, 'card'> }
   custom: { [name: string]: CustomCharacter }
 }>({
   game: gameCharacter,
+  other: otherCharacter,
   custom: {}
 })
 

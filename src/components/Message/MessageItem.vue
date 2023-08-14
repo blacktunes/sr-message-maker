@@ -528,6 +528,7 @@ $avatar-margin = 35px
       object-fit contain
       background rgba(0, 0, 0, 0.1)
       user-select none
+      border-radius 50%
       clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
 
   .message-item

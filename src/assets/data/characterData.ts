@@ -7,19 +7,16 @@ export const user: { [name: string]: Character } = reactive({
     name: '开拓者',
     avatar: '',
     card: '',
-    info: ''
   },
   星: {
     name: '开拓者',
     avatar: 'https://patchwiki.biligame.com/images/sr/f/f4/aaeqzyk10vp6orjpunclv060rdre49c.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/1d351a764ae64aeed744296503bc6266_9196637429550074047.png?x-oss-process=image/quality,q_75/resize,s_280',
-    info: ''
   },
   穹: {
     name: '开拓者',
     avatar: avatar_2,
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/26/288909604/bb5959b4a67a0637f6862b2c8ba163ed_3921856926987798793.png?x-oss-process=image/quality,q_75/resize,s_280',
-    info: ''
   }
 })
 
@@ -182,7 +179,7 @@ export const gameCharacter: { [name: string]: Character } = {
     name: '卢卡',
     avatar: 'https://patchwiki.biligame.com/images/sr/3/34/p12qkd10ugjkhchm4f34q3j2imxh323.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/07/17/75216984/0d7f1c9f746e1d4ad98b2a3360d9a27b_2137170666945226982.png?x-oss-process=image/quality,q_75/resize,s_280',
-    info: ''
+    info: '没回就是在训练！'
   },
   桑博: {
     name: '桑博',
@@ -201,5 +198,13 @@ export const gameCharacter: { [name: string]: Character } = {
     avatar: 'https://patchwiki.biligame.com/images/sr/1/16/r7lbqq30n9x4tc9t84z0a1jru1wl8ho.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/159305577/e4a8703a06b4c42d692133c17b2cdc27_5408538855331042463.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: '智库相关找我'
+  }
+}
+
+export const otherCharacter: { [name: string]: Omit<Character, 'card'> } = {
+  帕姆: {
+    name: '帕姆',
+    avatar: 'https://patchwiki.biligame.com/images/sr/9/9f/qxry2ls9bic9b7lmf74ouim4ls2vmy2.png',
+    info: '开拓奖励找我！以后会优化'
   }
 }
