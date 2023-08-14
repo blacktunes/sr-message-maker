@@ -123,7 +123,7 @@
     <span
       :contenteditable="!preview"
       @keydown.enter.prevent="preview ? undefined : blur($event)"
-      @blur="preview ? undefined : updateText(($event.target as HTMLElement).innerText)"
+      @blur="preview ? undefined : updateMessage($event)"
     >
       {{ item.text }}
     </span>
@@ -213,7 +213,7 @@
           class="text"
           :contenteditable="!preview"
           @keydown.enter.prevent="preview ? undefined : blur($event)"
-          @blur="preview ? undefined : updateText(($event.target as HTMLElement).innerText)"
+          @blur="preview ? undefined : updateMessage($event)"
         >
           {{ item.text }}
         </div>
@@ -296,6 +296,17 @@ const handeStateClick = (state: number) => {
     state: state === 0 ? 1 : state === 1 ? 2 : 0
   }
   emit('mission', data)
+}
+
+const updateMessage = (e: Event) => {
+  if (e.target) {
+    let text = (e.target as HTMLElement).innerText
+    if (text.length < 1) {
+      text = DEFAULT_TEXT
+      ;(e.target as HTMLElement).innerText = DEFAULT_TEXT
+    }
+    updateText(text)
+  }
 }
 
 const updateText = (text: string) => {

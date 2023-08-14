@@ -45,7 +45,7 @@
               class="input"
               v-model="input.input"
               @keydown.enter="handelAddClick()"
-              placeholder="愿此行，终抵群星"
+              :placeholder="defaultText"
             />
             <div
               class="btn"
@@ -120,6 +120,8 @@ import Emoticon from './Message/Emoticon.vue'
 import { getUserAvatar, info, messageIndex, scrollToBottom, title } from './Message/Message'
 import MessageBox from './Message/MessageBox.vue'
 import MessageItem from './Message/MessageItem.vue'
+
+const defaultText = DEFAULT_TEXT
 
 const boxRef = ref<InstanceType<typeof MessageBox>>()
 
@@ -266,7 +268,7 @@ const handelOptionClick = () => {
     key: '开拓者',
     name: '',
     avatar: '',
-    text: input.input || '愿此行，终抵群星',
+    text: input.input || DEFAULT_TEXT,
     option: [false]
   })
   message.list[messageIndex.value].time = Date.now()
@@ -279,7 +281,7 @@ const handelMessageClick = () => {
     key: '开拓者',
     name: '',
     avatar: '',
-    text: input.input || '愿此行，终抵群星',
+    text: input.input || DEFAULT_TEXT,
     mission: {
       type: 0,
       state: 0
@@ -333,7 +335,7 @@ const handelNoticeClick = () => {
     key: '开拓者',
     name: '',
     avatar: '',
-    text: input.input || '愿此行，终抵群星',
+    text: input.input || DEFAULT_TEXT,
     notice: true
   })
   message.list[messageIndex.value].time = Date.now()
@@ -344,7 +346,7 @@ const handelNoticeClick = () => {
 const handelAddClick = (img?: string) => {
   message.list[messageIndex.value].list.push({
     ...getCharacter(),
-    text: input.input || '愿此行，终抵群星',
+    text: input.input || DEFAULT_TEXT,
     img
   })
   message.list[messageIndex.value].time = Date.now()
