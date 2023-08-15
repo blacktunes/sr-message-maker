@@ -9,6 +9,7 @@ export const setting = reactive<{
   select?: string
   log: boolean
   font: boolean
+  bubbles: number
 }>({
   loading: true,
   name: '开拓者',
@@ -17,7 +18,8 @@ export const setting = reactive<{
   preview: false,
   select: '',
   log: false,
-  font: false
+  font: false,
+  bubbles: 0
 })
 
 export const setUserType = (key: string) => {
@@ -27,6 +29,7 @@ export const setUserType = (key: string) => {
 
 setting.name = localStorage.getItem('sr-message-name') || '开拓者'
 setting.type = localStorage.getItem('sr-message-type') || '星'
+setting.bubbles = Number(localStorage.getItem('sr-message-bubbles')) || 0
 
 export const autoPlaySetting = reactive<{
   flag: boolean

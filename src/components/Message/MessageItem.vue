@@ -143,9 +143,7 @@
   <div
     v-else
     class="message"
-    :class="{
-      right: item.key === '开拓者'
-    }"
+    :class="getBubbles(item.key)"
   >
     <transition
       :name="!preview ? 'fade' : 'avatar'"
@@ -252,6 +250,19 @@ const getUserAvatar = (key: string, url: string) => {
   } else {
     return url
   }
+}
+
+const getBubbles = (key: string) => {
+  const classList: string[] = []
+  if (key === '开拓者') {
+    classList.push('right')
+    if (setting.bubbles === 1) {
+      classList.push('bubbles-1')
+    } else {
+      classList.push('bubbles-0')
+    }
+  }
+  return classList
 }
 
 const emit = defineEmits<{
@@ -667,14 +678,15 @@ item()
   .message-item
     align-items flex-end
 
-    .text
-      background #d3bb8b !important
-      border-radius 25px 0 25px 25px !important
-      box-shadow 2px 4px #9d9f9f !important
-
   .del
     left $del-pos
     right unset !important
+
+.bubbles-0
+  bubbles-0()
+
+.bubbles-1
+  bubbles-1()
 
 .mission-0
   :deep(path)
