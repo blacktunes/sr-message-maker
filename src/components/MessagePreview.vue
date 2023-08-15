@@ -302,7 +302,7 @@ const toggleGreenScreen = () => {
   :deep(img)
     cursor auto !important
 
-  .notice:hover, .message:hover
+  .notice:hover, .message:hover, .mission:hover
     background unset !important
 
   .close

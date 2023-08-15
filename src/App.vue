@@ -203,7 +203,7 @@ window.onresize = () => {
       left 30px
       width 650px
       height 470px
-      opacity 0.4
+      opacity 0.5
       pointer-events none
       user-select none
 

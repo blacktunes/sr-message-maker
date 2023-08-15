@@ -194,7 +194,7 @@ defineExpose({ boxDom, listDom, updateArrow })
     display flex
     flex-direction column
     margin 0 70px 0 50px
-    padding 30px 70px 30px 50px
+    padding 30px 0
 
     &::-webkit-scrollbar-track
       position absolute
