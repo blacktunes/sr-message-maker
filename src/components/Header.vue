@@ -22,7 +22,6 @@
   display flex
   align-items center
   user-select none
-  cursor pointer
 
   span
     margin 0 0 15px 20px
