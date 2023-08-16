@@ -3,8 +3,8 @@
     <window
       title="更新记录"
       width="40%"
-      v-if="setting.log"
-      @close="setting.log = false"
+      v-if="popup.log"
+      @close="popup.log = false"
     >
       <div
         class="item"
@@ -35,8 +35,8 @@
 </template>
 
 <script lang="ts" setup>
-import { setting } from '@/store/setting'
-import Window from './Common/Window.vue'
+import Window from '@/components/Common/Window.vue'
+import { popup } from '@/store/popup'
 
 const changeLog: {
   time: string
@@ -161,7 +161,7 @@ const checkUpdate = () => {
   if (lastUpdate) {
     if (lastUpdate <= localLastUpdate) return
   }
-  setting.log = true
+  popup.log = true
   localStorage.setItem('sr-message-time', JSON.stringify(lastUpdate))
 }
 checkUpdate()

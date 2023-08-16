@@ -16,7 +16,7 @@
     <div
       class="font-btn"
       title="修改字体"
-      @click.stop="setting.font = !setting.font"
+      @click.stop="popup.font = !popup.font"
       v-show="!setting.preview"
     >
       <Icon name="font" />
@@ -26,6 +26,7 @@
 
 <script lang="ts" setup>
 import { setting } from '@/store/setting'
+import { popup } from '@/store/popup'
 import Icon from '@/components/Common/Icon.vue'
 </script>
 

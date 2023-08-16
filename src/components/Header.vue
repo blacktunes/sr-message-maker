@@ -2,7 +2,7 @@
   <div
     class="icon"
     title="更新记录"
-    @click.stop="setting.log = true"
+    @click.stop="popup.log = true"
   >
     <img
       src="@/assets/images/短信.svg"
@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts" setup>
-import { setting } from '@/store/setting'
+import { popup } from '@/store/popup'
 </script>
 
 <style lang="stylus" scoped>

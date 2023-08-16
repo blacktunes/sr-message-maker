@@ -7,8 +7,6 @@ export const setting = reactive<{
   index?: number
   preview?: boolean
   select?: string
-  log: boolean
-  font: boolean
   bubbles: number
 }>({
   loading: true,
@@ -17,8 +15,6 @@ export const setting = reactive<{
   index: undefined,
   preview: false,
   select: '',
-  log: false,
-  font: false,
   bubbles: 0
 })
 

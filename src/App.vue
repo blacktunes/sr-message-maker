@@ -16,14 +16,14 @@
     >
       <Loading />
       <Header />
+      <NameInput />
       <Menu />
       <MessageEditor />
       <MessagePreview />
       <CharacterSelect />
-      <NameInput />
+      <Footer />
       <ChangeLog />
       <FontSetting />
-      <Footer />
     </div>
   </div>
   <Tip :show="shouldHorizontal" />
@@ -33,14 +33,14 @@
 import { ref } from 'vue'
 import Loading from './components/Loading.vue'
 import Header from './components/Header.vue'
+import NameInput from './components/NameInput.vue'
 import Menu from './components/Menu.vue'
 import MessageEditor from './components/MessageEditor.vue'
 import MessagePreview from './components/MessagePreview.vue'
 import CharacterSelect from './components/CharacterSelect.vue'
-import NameInput from './components/NameInput.vue'
-import ChangeLog from './components/ChangeLog.vue'
-import FontSetting from './components/FontSetting.vue'
 import Footer from './components/Footer.vue'
+import ChangeLog from './components/Popup/ChangeLog.vue'
+import FontSetting from './components/Popup/FontSetting.vue'
 import Tip from './components/Tip.vue'
 
 // 计算窗口尺寸
