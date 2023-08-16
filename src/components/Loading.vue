@@ -1,97 +1,120 @@
+<script lang="ts" setup>
+import { setting } from '@/store/setting'
+</script>
+
 <template>
-  <div class="item">
-    <div class="circle-group-1">
-      <div class="circle"></div>
-      <div class="circle"></div>
-      <div class="circle"></div>
-      <div class="circle"></div>
+  <transition name="fade">
+    <div
+      class="loading"
+      v-if="setting.loading"
+    >
+      <div class="item">
+        <div class="circle-group-1">
+          <div class="circle"></div>
+          <div class="circle"></div>
+          <div class="circle"></div>
+          <div class="circle"></div>
+        </div>
+        <div class="circle-group-2">
+          <div class="circle"></div>
+          <div class="circle"></div>
+          <div class="circle"></div>
+          <div class="circle"></div>
+        </div>
+      </div>
     </div>
-    <div class="circle-group-2">
-      <div class="circle"></div>
-      <div class="circle"></div>
-      <div class="circle"></div>
-      <div class="circle"></div>
-    </div>
-  </div>
+  </transition>
 </template>
 
 <style lang="stylus" scoped>
-.item
-  position relative
-  width 350px
-  height 350px
-  animation spin 6s infinite cubic-bezier(0.55, 0.09, 0.68, 0.53)
-  animation-delay 1s
+.loading
+  z-index 999
+  display flex
+  justify-content center
+  align-items center
+  position fixed
+  top 0
+  left 0
+  width 100%
+  height 100%
+  background rgba(0, 0, 0, 0.6)
 
-  .circle-group-1, .circle-group-2
-    position absolute
-    top 0
-    left 0
-    width 100%
-    height 100%
+  .item
+    position relative
+    width 350px
+    height 350px
+    animation spin 6s infinite cubic-bezier(0.55, 0.09, 0.68, 0.53)
+    animation-delay 1s
 
-    .circle
+    .circle-group-1, .circle-group-2
       position absolute
-      border 5px solid #aaa
-      border-radius 50%
+      top 0
+      left 0
+      width 100%
+      height 100%
 
-  .circle-group-1
-    .circle
-      width 40px
-      height 40px
-      animation circle-1-light 1s linear infinite
+      .circle
+        position absolute
+        border 5px solid #aaa
+        border-radius 50%
 
-      &:nth-child(1)
-        top 0
-        left 50%
-        transform translateX(-50%)
+    .circle-group-1
+      .circle
+        width 40px
+        height 40px
+        animation circle-1-light 1s linear infinite
 
-      &:nth-child(2)
-        left 0
-        top 50%
-        transform translateY(-50%)
-        animation-delay 0.25s
+        &:nth-child(1)
+          top 0
+          left 50%
+          transform translateX(-50%)
 
-      &:nth-child(3)
-        bottom 0
-        left 50%
-        transform translateX(-50%)
-        animation-delay 0.5s
+        &:nth-child(2)
+          left 0
+          top 50%
+          transform translateY(-50%)
+          animation-delay 0.25s
 
-      &:nth-child(4)
-        right 0
-        top 50%
-        transform translateY(-50%)
-        animation-delay 0.75s
+        &:nth-child(3)
+          bottom 0
+          left 50%
+          transform translateX(-50%)
+          animation-delay 0.5s
 
-  .circle-group-2
-    animation spin 6s infinite ease-in-out
+        &:nth-child(4)
+          right 0
+          top 50%
+          transform translateY(-50%)
+          animation-delay 0.75s
 
-    .circle
-      width 15px
-      height 15px
-      border-width 2px
-      animation circle-2-light 1s linear infinite
+    .circle-group-2
+      animation spin 6s infinite ease-in-out
 
-      &:nth-child(1)
-        top 20%
-        left 20%
-        animation-delay 0.625s
+      .circle
+        width 15px
+        height 15px
+        border-width 2px
+        animation circle-2-light 1s linear infinite
 
-      &:nth-child(2)
-        bottom 20%
-        left 20%
-        animation-delay 0.125s
+        &:nth-child(1)
+          top 20%
+          left 20%
+          animation-delay 0.625s
 
-      &:nth-child(3)
-        bottom 20%
-        right 20%
-        animation-delay 0.875s
+        &:nth-child(2)
+          bottom 20%
+          left 20%
+          animation-delay 0.125s
 
-      &:nth-child(4)
-        top 20%
-        right 20%
-        animation-delay 0.375s
+        &:nth-child(3)
+          bottom 20%
+          right 20%
+          animation-delay 0.875s
+
+        &:nth-child(4)
+          top 20%
+          right 20%
+          animation-delay 0.375s
 
 @keyframes circle-1-light
   0%

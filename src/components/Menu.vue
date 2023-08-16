@@ -9,47 +9,50 @@
       />
     </div>
     <div class="footer">
-      <div
-        class="btn"
-        @click="handelMessageAddClick"
-      >
-        <div class="icon">
-          <Icon
-            name="ring"
-            class="ring"
-          />
-          <Icon name="message" />
+      <div class="btn-list">
+        <div
+          class="btn"
+          @click="handelMessageAddClick"
+        >
+          <div class="icon">
+            <Icon
+              name="ring"
+              class="ring"
+            />
+            <Icon name="message" />
+          </div>
+          <span>发送</span>
         </div>
-        <span>发短信</span>
-      </div>
-      <div
-        class="btn"
-        v-if="setting.index"
-        @click.stop="handelScreenshotClick"
-      >
-        <div class="icon">
-          <Icon
-            name="ring"
-            class="ring"
-          />
-          <Icon name="save" />
+        <div
+          class="btn"
+          v-if="setting.index"
+          @click.stop="handelScreenshotClick"
+        >
+          <div class="icon">
+            <Icon
+              name="ring"
+              class="ring"
+            />
+            <Icon name="save" />
+          </div>
+          <span>保存</span>
         </div>
-        <span>保存对话</span>
-      </div>
-      <div
-        class="btn"
-        v-if="setting.index"
-        @click.stop="handelAutoPlayClick"
-      >
-        <div class="icon">
-          <Icon
-            name="ring"
-            class="ring"
-          />
-          <Icon name="play" />
+        <div
+          class="btn"
+          v-if="setting.index"
+          @click.stop="handelAutoPlayClick"
+        >
+          <div class="icon">
+            <Icon
+              name="ring"
+              class="ring"
+            />
+            <Icon name="play" />
+          </div>
+          <span>播放</span>
         </div>
-        <span>自动播放</span>
       </div>
+      <div class="bubbles-btn"></div>
     </div>
   </div>
 </template>
@@ -148,44 +151,55 @@ $btn-height = 255px
 
   .footer
     display flex
-    align-items flex-start
+    align-items center
     box-sizing border-box
     width 100%
-    height $btn-height
+    height 125px
     border-top var(--menu-border)
     padding-top 35px
     margin-top 15px
 
-    .btn
-      flex 0 0 30%
+    .btn-list
+      width 90%
       display flex
       align-items center
-      color var(--menu-text-color)
-      margin-right 20px
-      user-select none
-      cursor pointer
 
-      &:hover
-        color var(--menu-btn-hover)
+      .btn
+        flex 0 0 30%
+        display flex
+        align-items center
+        color var(--menu-text-color)
+        margin-right 20px
+        user-select none
+        cursor pointer
+
+        &:hover
+          color var(--menu-btn-hover)
+
+          .icon
+            box-shadow var(--meni-icon-shadow)
 
         .icon
-          box-shadow var(--meni-icon-shadow)
+          flex-shrink 0
+          position relative
+          background var(--menu-icon-background-color)
+          border-radius 50%
+          width 80px
+          height 80px
+          display flex
+          justify-content center
+          align-items center
 
-      .icon
-        position relative
-        background var(--menu-icon-background-color)
-        border-radius 50%
-        width 80px
-        height 80px
-        display flex
-        justify-content center
-        align-items center
+          .ring
+            position absolute
 
-        .ring
-          position absolute
+        span
+          margin-left 20px
+          font-size 30px
+          font-weight bold
 
-      span
-        margin-left 20px
-        font-size 30px
-        font-weight bold
+    .bubbles-btn
+      width 50px
+      height 50px
+      background red
 </style>
