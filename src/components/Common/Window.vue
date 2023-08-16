@@ -8,6 +8,9 @@
       }"
       @click.stop
     >
+      <div class="outside">
+        <slot name="outside"></slot>
+      </div>
       <div class="wrapper">
         <div
           class="left"
@@ -87,6 +90,11 @@ const close = () => {
     height -moz-fit-content
     max-height 85%
     message()
+
+    .outside
+      position absolute
+      left -150px
+      top 0
 
     .wrapper
       overflow hidden

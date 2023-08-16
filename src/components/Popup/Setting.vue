@@ -20,6 +20,24 @@
           />
         </div>
       </div>
+      <template #outside>
+        <div class="other-setting">
+          <div
+            class="setting-btn"
+            title="更新记录"
+            @click.stop="popup.log = true"
+          >
+            <Icon name="log" width="50" height="50" />
+          </div>
+          <div
+            class="setting-btn"
+            title="字体设置"
+            @click.stop="popup.font = true"
+          >
+            <Icon name="font" width="60" height="60" />
+          </div>
+        </div>
+      </template>
       <template #left>
         <div class="preview">
           <div class="circle">
@@ -54,13 +72,13 @@
 import { popup } from '@/store/popup'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
+import Icon from '@/components/Common/Icon.vue'
 import bubbles_0 from '@/assets/images/bubbles/0.png'
 import bubbles_0_preview from '@/assets/images/bubbles/0_preview.png'
 import bubbles_1 from '@/assets/images/bubbles/1.png'
 import bubbles_1_preview from '@/assets/images/bubbles/1_preview.png'
 import { watch, ref } from 'vue'
 import { setting } from '@/store/setting'
-
 const index = ref(0)
 
 watch(
@@ -118,6 +136,26 @@ const onBtnClick = () => {
     font-weight bold
     margin-top 10px
     color #6a6a6a
+
+.other-setting
+  .setting-btn
+    box-sizing border-box
+    width 90px
+    height 90px
+    display flex
+    justify-content center
+    align-items center
+    background rgba(255, 255, 255, 0.8)
+    border-radius 50%
+    border 5px solid #767479
+    margin-bottom 30px
+    cursor pointer
+
+    :deep(path)
+      fill #767479
+
+    &:hover
+      background #ffffff
 
 .select
   display flex

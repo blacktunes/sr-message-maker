@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="icon"
-    title="更新记录"
-    @click.stop="popup.log = true"
-  >
+  <div class="icon">
     <img
       src="@/assets/images/短信.svg"
       alt=""
@@ -17,10 +13,6 @@
     />
   </div>
 </template>
-
-<script lang="ts" setup>
-import { popup } from '@/store/popup'
-</script>
 
 <style lang="stylus" scoped>
 .icon
