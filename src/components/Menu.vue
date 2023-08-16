@@ -52,7 +52,12 @@
           <span>播放</span>
         </div>
       </div>
-      <div class="bubbles-btn"></div>
+      <div
+        class="bubbles-btn"
+        @click.stop="popup.setting = true"
+      >
+        <Icon name="setting" />
+      </div>
     </div>
   </div>
 </template>
@@ -65,6 +70,7 @@ import { computed } from 'vue'
 import Icon from './Common/Icon.vue'
 import MessageGroup from './Menu/MessageGroup.vue'
 import { getNames, getTitle } from '@/assets/scripts/header'
+import { popup } from '@/store/popup'
 
 interface MenuItem {
   time: number
@@ -199,7 +205,17 @@ $btn-height = 255px
           font-weight bold
 
     .bubbles-btn
-      width 50px
-      height 50px
-      background red
+      box-sizing border-box
+      width 85px
+      height 85px
+      display flex
+      justify-content center
+      align-items center
+      background rgba(0, 0, 0, 0.5)
+      border-radius 50%
+      border 5px solid #767479
+      cursor pointer
+
+      &:hover
+        box-shadow 0 0 5px 0 #fff
 </style>
