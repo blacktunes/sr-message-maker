@@ -1,5 +1,8 @@
 <template>
-  <div class="button">
+  <div
+    class="button"
+    :class="{ disable }"
+  >
     {{ name }}
   </div>
 </template>
@@ -7,18 +10,30 @@
 <script lang="ts" setup>
 defineProps<{
   name: string
+  disable?: boolean
 }>()
 </script>
 
 <style lang="stylus" scoped>
+.disable
+  background transparent !important
+  border 5px solid #afafaf !important
+  color #afafaf !important
+  cursor auto !important
+
+  &:before
+    display none
+
 .button
   box-sizing border-box
   position relative
   display flex
+  justify-content center
   align-content center
   background #e0e0e0
   height 100px
   padding 10px 120px
+  margin 0 40px
   border-radius 50px
   font-size 46px
   color #161616

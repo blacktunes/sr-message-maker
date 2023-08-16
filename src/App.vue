@@ -22,6 +22,7 @@
       <MessagePreview />
       <CharacterSelect />
       <Footer />
+      <Setting />
       <ChangeLog />
       <FontSetting />
     </div>
@@ -39,6 +40,7 @@ import MessageEditor from './components/MessageEditor.vue'
 import MessagePreview from './components/MessagePreview.vue'
 import CharacterSelect from './components/CharacterSelect.vue'
 import Footer from './components/Footer.vue'
+import Setting from './components/Popup/Setting.vue'
 import ChangeLog from './components/Popup/ChangeLog.vue'
 import FontSetting from './components/Popup/FontSetting.vue'
 import Tip from './components/Tip.vue'
