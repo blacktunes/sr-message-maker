@@ -171,7 +171,7 @@ $btn-height = 255px
       align-items center
 
       .btn
-        flex 0 0 30%
+        flex 0 0 25%
         display flex
         align-items center
         color var(--menu-text-color)

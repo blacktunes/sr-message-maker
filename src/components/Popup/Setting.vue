@@ -35,11 +35,13 @@
         <Btn
           class="btn"
           name="取消"
+          type="wrong"
           @click="popup.setting = false"
         />
         <Btn
           class="btn"
           name="确认"
+          type="check"
           :disable="index === setting.bubbles"
           @click="onBtnClick"
         />
@@ -84,6 +86,7 @@ const bubbles = [
 ]
 
 const onBtnClick = () => {
+  if (setting.bubbles === index.value) return
   popup.setting = false
   setting.bubbles = index.value
 }

@@ -5,7 +5,7 @@ export const popup = reactive<{
   log: boolean
   font: boolean
 }>({
-  setting: true,
+  setting: false,
   log: false,
   font: false
 })

@@ -3,13 +3,28 @@
     class="button"
     :class="{ disable }"
   >
-    {{ name }}
+    <div
+      class="icon"
+      v-if="type"
+    >
+      <Icon
+        :name="type"
+        width="35"
+        height="35"
+      />
+    </div>
+    <span>
+      {{ name }}
+    </span>
   </div>
 </template>
 
 <script lang="ts" setup>
+import Icon from './Icon.vue'
+
 defineProps<{
   name: string
+  type?: 'check' | 'wrong'
   disable?: boolean
 }>()
 </script>
@@ -29,8 +44,8 @@ defineProps<{
   position relative
   display flex
   justify-content center
-  align-content center
-  background #e0e0e0
+  align-items center
+  background rgba(240, 240, 240, 0.8)
   height 100px
   padding 10px 120px
   margin 0 40px
@@ -59,4 +74,18 @@ defineProps<{
 
   &:active
     background rgba(255, 255, 255, 0.8)
+
+  .icon
+    display flex
+    justify-content center
+    align-items center
+    width 45px
+    height 45px
+    margin-right 20px
+    border-radius 50%
+    background #0c0b07
+    border 5px solid #b4a177
+
+    :deep(path)
+      fill #d2c2a0
 </style>

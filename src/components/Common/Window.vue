@@ -75,7 +75,6 @@ const close = () => {
   -webkit-backdrop-filter blur(10px)
   background rgba(0, 0, 0, 0.2)
   box-shadow 0 0 50px 0px rgba(255, 255, 255, 0.5)
-  border-radius 20px
 
   .box
     position relative
@@ -87,13 +86,14 @@ const close = () => {
     height fit-content
     height -moz-fit-content
     max-height 85%
-    background var(--box-background-color)
     message()
 
     .wrapper
       overflow hidden
       display flex
       width 100%
+      background var(--box-background-color)
+      border-radius 0 50px 0 0
 
       .left
         padding 20px
@@ -122,6 +122,10 @@ const close = () => {
 
     .footer
       background #262626
+      background-image url('@/assets/images/菜单背景.png')
+      background-position center
+      background-size auto 100%
+      background-repeat no-repeat
       padding 60px 80px
       display flex
       align-content center
