@@ -33,14 +33,15 @@ import { ref } from 'vue'
 
 const defaultFont = "* { font-family: 'Noto Sans SC'; }"
 
-const font = ref(getComputedStyle(document.body).fontFamily)
+const getFontName = () => (JSON.parse(getComputedStyle(document.body).fontFamily))
+const font = ref(getFontName())
 
 const fontStyle = document.querySelector('style[title=font]')
 
 const setFont = (text: string) => {
   if (fontStyle) {
     fontStyle.innerHTML = text
-    font.value = getComputedStyle(document.body).fontFamily
+    font.value = getFontName()
   } else {
     console.warn('字体设置错误')
   }
