@@ -228,7 +228,7 @@ export const otherCharacter: { [name: string]: OtherCharacter } = {
   },
   尤利安: {
     name: '尤利安',
-    avatar: 'https://patchwiki.biligame.com/images/sr/b/b7/o4fhy25quy9kmqvbe9gj9fyal5oj51n.png',
+    avatar: 'https://patchwiki.biligame.com/images/sr/1/13/2yg4t5hyjt4so9tu29zwa4x7ct51m99.png',
     info: '点此编辑个性签名这是啥'
   },
   维修工程师: {
