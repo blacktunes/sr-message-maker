@@ -84,7 +84,7 @@ const index = ref(0)
 watch(
   () => popup.setting,
   () => {
-    if (!popup.setting) {
+    if (popup.setting) {
       index.value = setting.bubbles
     }
   }
@@ -107,6 +107,7 @@ const onBtnClick = () => {
   if (setting.bubbles === index.value) return
   popup.setting = false
   setting.bubbles = index.value
+  localStorage.setItem('sr-message-bubbles', JSON.stringify(setting.bubbles))
 }
 </script>
 
