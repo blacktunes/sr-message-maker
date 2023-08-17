@@ -13,8 +13,8 @@
 <style lang="stylus" scoped>
 .close
   position relative
-  width 90px
-  height 90px
+  width 75px
+  height 75px
   cursor pointer
 
   div

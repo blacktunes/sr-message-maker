@@ -1,19 +1,28 @@
 import { input } from '@/store/input'
+import { popup } from '@/store/popup'
 import { autoPlaySetting, setting } from '@/store/setting'
 import { emitter } from './event'
 
 const handelBack = () => {
-  if (input.emoticon) {
-    input.emoticon = false
+  if (popup.font) {
+    popup.font = false
+    return
+  }
+  if (popup.log) {
+    popup.log = false
+    return
+  }
+  if (popup.setting) {
+    popup.setting = false
+    return
   }
   if (input.select) {
     input.select = false
+    return
   }
-  if (setting.log) {
-    setting.log = false
-  }
-  if (setting.font) {
-    setting.font = false
+  if (input.emoticon) {
+    input.emoticon = false
+    return
   }
   if (autoPlaySetting.flag) {
     emitter.emit('stopplay')

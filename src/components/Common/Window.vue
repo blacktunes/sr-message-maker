@@ -8,15 +8,32 @@
       }"
       @click.stop
     >
-      <div class="title">{{ title }}</div>
-      <Close
-        class="close"
-        @click="close"
-      />
-      <div class="item">
-        <slot></slot>
+      <div class="outside">
+        <slot name="outside"></slot>
       </div>
-      <div class="footer" v-if="slot.footer">
+      <div class="wrapper">
+        <div
+          class="left"
+          v-if="slot.footer"
+        >
+          <slot name="left"></slot>
+        </div>
+        <div class="right">
+          <div class="title">{{ title }}</div>
+          <Close
+            v-if="!noClose"
+            class="close"
+            @click="close"
+          />
+          <div class="item">
+            <slot></slot>
+          </div>
+        </div>
+      </div>
+      <div
+        class="footer"
+        v-if="slot.footer"
+      >
         <slot name="footer"></slot>
       </div>
     </div>
@@ -30,6 +47,7 @@ defineProps<{
   title: string
   width?: string
   height?: string
+  noClose?: boolean
 }>()
 
 const slot = defineSlots()
@@ -60,39 +78,64 @@ const close = () => {
   -webkit-backdrop-filter blur(10px)
   background rgba(0, 0, 0, 0.2)
   box-shadow 0 0 50px 0px rgba(255, 255, 255, 0.5)
-  border-radius 20px
 
   .box
+    position relative
     display flex
     flex-direction column
-    position relative
     width fit-content
     width -moz-fit-content
     max-width 90%
     height fit-content
     height -moz-fit-content
     max-height 85%
-    background var(--box-background-color)
     message()
 
-    .title
-      font-size 70px
-      font-weight bold
-      border-bottom 5px solid rgba(150, 150, 150, 0.5)
-      margin 0 80px
-      padding 50px 0 30px 0
-      user-select none
-
-    .close
+    .outside
       position absolute
-      top 60px
-      right 80px
-    
-    .item
-      margin 40px 80px
-      overflow auto
-    
+      left -150px
+      top 0
+
+    .wrapper
+      overflow hidden
+      display flex
+      width 100%
+      background var(--box-background-color)
+      border-radius 0 50px 0 0
+
+      .left
+        padding 20px
+
+      .right
+        flex 1
+
+        .title
+          height 85px
+          font-size 60px
+          font-weight bold
+          border-bottom 5px solid rgba(150, 150, 150, 0.5)
+          margin 0 80px
+          padding 40px 0 30px 0
+          user-select none
+
+        .close
+          position absolute
+          top 60px
+          right 80px
+
+        .item
+          margin 40px 80px
+          overflow auto
+          max-height calc(100% - 80px * 2 - 40px - 30px)
+
     .footer
       background #262626
+      background-image url('@/assets/images/菜单背景.png')
+      background-position center
+      background-size auto 100%
+      background-repeat no-repeat
       padding 60px 80px
+      display flex
+      align-content center
+      justify-content center
 </style>

@@ -1,49 +1,47 @@
 <template>
   <transition name="fade">
     <Window
-      v-if="setting.font"
+      v-if="popup.font"
       title="字体设置"
-      width="50%"
-      @close="setting.font = false"
+      @close="popup.font = false"
     >
       <div class="preview">愿此行，终抵群星</div>
       <div class="font">{{ font }}</div>
       <template #footer>
-        <div class="btn-list">
-          <Btn
-            name="默认字体"
-            @click="resetFont"
-          />
-          <Btn
-            name="系统字体"
-            @click="setFont('')"
-          />
-          <Btn
-            name="上传字体"
-            @click="setCustomFont"
-          />
-        </div>
+        <Btn
+          name="默认字体"
+          @click="resetFont"
+        />
+        <Btn
+          name="系统字体"
+          @click="setFont('')"
+        />
+        <Btn
+          name="上传字体"
+          @click="setCustomFont"
+        />
       </template>
     </Window>
   </transition>
 </template>
 
 <script lang="ts" setup>
-import { setting } from '@/store/setting'
-import Window from './Common/Window.vue'
-import Btn from './Common/Btn.vue'
+import { popup } from '@/store/popup'
+import Window from '@/components/Common/Window.vue'
+import Btn from '@/components/Common/Btn.vue'
 import { ref } from 'vue'
 
 const defaultFont = "* { font-family: 'Noto Sans SC'; }"
 
-const font = ref(getComputedStyle(document.body).fontFamily)
+const getFontName = () => (JSON.parse(getComputedStyle(document.body).fontFamily))
+const font = ref(getFontName())
 
 const fontStyle = document.querySelector('style[title=font]')
 
 const setFont = (text: string) => {
   if (fontStyle) {
     fontStyle.innerHTML = text
-    font.value = getComputedStyle(document.body).fontFamily
+    font.value = getFontName()
   } else {
     console.warn('字体设置错误')
   }
@@ -87,9 +85,4 @@ const setCustomFont = () => {
   text-align center
   margin-top 20px
   user-select none
-
-.btn-list
-  display flex
-  align-content center
-  justify-content space-between
 </style>
