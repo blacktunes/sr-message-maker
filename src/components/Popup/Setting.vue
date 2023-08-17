@@ -27,14 +27,22 @@
             title="更新记录"
             @click.stop="popup.log = true"
           >
-            <Icon name="log" width="50" height="50" />
+            <Icon
+              name="log"
+              width="50"
+              height="50"
+            />
           </div>
           <div
             class="setting-btn"
             title="字体设置"
             @click.stop="popup.font = true"
           >
-            <Icon name="font" width="60" height="60" />
+            <Icon
+              name="font"
+              width="60"
+              height="60"
+            />
           </div>
         </div>
       </template>
