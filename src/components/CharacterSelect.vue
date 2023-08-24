@@ -92,6 +92,7 @@ import { message } from '@/store/message'
 import { setting } from '@/store/setting'
 import CharacterCard from './Character/CharacterCard.vue'
 import Icon from './Common/Icon.vue'
+import { compressImage } from '@/assets/scripts/image'
 
 const hide = () => {
   input.select = false
@@ -116,10 +117,7 @@ const addCustom = () => {
   input.accept = 'image/*'
   input.onchange = () => {
     if (input.files?.[0]) {
-      const file = new FileReader()
-      file.readAsDataURL(input.files[0])
-      file.onload = (e) => {
-        const avatar = (e.target?.result as string) || ''
+      compressImage(input.files[0], 500).then((avatar) => {
         const name = prompt('请输入角色名')
         if (!name) return
         const key = Date.now()
@@ -130,7 +128,7 @@ const addCustom = () => {
           info,
           custom: true
         }
-      }
+      })
     }
   }
   input.click()

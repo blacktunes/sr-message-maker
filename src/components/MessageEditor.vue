@@ -116,6 +116,7 @@ import Emoticon from './Message/Emoticon.vue'
 import { getUserAvatar, info, messageIndex, scrollToBottom, title } from './Message/Message'
 import MessageBox from './Message/MessageBox.vue'
 import MessageItem from './Message/MessageItem.vue'
+import { compressImage } from '@/assets/scripts/image'
 
 const defaultText = DEFAULT_TEXT
 
@@ -236,13 +237,11 @@ const handelImageClick = (key: number) => {
   el.accept = 'image/*'
   el.onchange = () => {
     if (el.files?.[0]) {
-      const file = new FileReader()
-      file.readAsDataURL(el.files[0])
-      file.onload = (e) => {
+      compressImage(el.files[0], 1000).then((img) => {
         delete message.list[messageIndex.value].list[key].emoticon
-        message.list[messageIndex.value].list[key].img = e.target?.result as string
+        message.list[messageIndex.value].list[key].img = img
         message.list[messageIndex.value].time = Date.now()
-      }
+      })
     }
   }
   el.click()
@@ -294,17 +293,15 @@ const handelImageAddClick = () => {
   el.accept = 'image/*'
   el.onchange = () => {
     if (el.files?.[0]) {
-      const file = new FileReader()
-      file.readAsDataURL(el.files[0])
-      file.onload = (e) => {
+      compressImage(el.files[0], 1000).then((img) => {
         message.list[messageIndex.value].list.push({
           ...getCharacter(),
           text: '',
-          img: e.target?.result as string
+          img: img
         })
         message.list[messageIndex.value].time = Date.now()
         scrollToBottom(boxRef.value?.listDom)
-      }
+      })
     }
   }
   el.click()
