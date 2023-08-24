@@ -35,6 +35,7 @@
 import { user } from '@/assets/data/characterData'
 import { setUserType, setting } from '@/store/setting'
 import Icon from './Common/Icon.vue'
+import { compressImage } from '@/assets/scripts/image'
 
 const updateName = (e: Event) => {
   setting.name = (e.target as HTMLInputElement).innerText
@@ -48,15 +49,12 @@ const handelAvatarClick = () => {
   el.accept = 'image/*'
   el.onchange = () => {
     if (el.files?.[0]) {
-      const file = new FileReader()
-      file.readAsDataURL(el.files[0])
-      file.onload = (e) => {
-        const avatar = e.target?.result as string
+      compressImage(el.files[0], 250).then((avatar) => {
         user.custom.avatar = avatar
         user.custom.card = avatar
         localStorage.setItem('sr-message-avatar', avatar)
         setUserType('custom')
-      }
+      })
     }
   }
   el.click()

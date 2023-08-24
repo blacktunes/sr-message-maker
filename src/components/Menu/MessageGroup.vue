@@ -72,12 +72,14 @@ import { message } from '@/store/message'
 import { setting } from '@/store/setting'
 import { computed } from 'vue'
 import Icon from '../Common/Icon.vue'
-import image_1 from '@/assets/images/avatar/一家人.jpg'
-import image_2 from '@/assets/images/avatar/群聊.jpg'
+import avatar_0 from '@/assets/images/avatar/一家人.jpg'
+import avatar_1 from '@/assets/images/avatar/私聊.jpg'
+import avatar_2 from '@/assets/images/avatar/群聊.jpg'
 
 const props = defineProps<{
   title?: string
   list: MessageListItem[]
+  num: number
 }>()
 
 const showList = computed(() => {
@@ -163,12 +165,20 @@ const handelDelClick = (index: number, length: number) => {
   }
 }
 
+const getFirstAvatar = (list: MessageListItem) => {
+  for (const item of list.list) {
+    if (item.key !== '开拓者') return item.avatar
+  }
+  return ''
+}
+
 const avatarUrl = computed(() => {
-  if (props.title === '星穹列车一家人') return image_1
+  if (props.title === '星穹列车一家人') return avatar_0
   if (props.title) {
-    return getAvatar(props.title) || image_2
+    if (props.num > 1) return avatar_2
+    return getFirstAvatar(props.list[0]) || avatar_1
   } else {
-    return image_2
+    return avatar_2
   }
 })
 </script>
@@ -293,6 +303,7 @@ const avatarUrl = computed(() => {
         white-space nowrap
         text-overflow ellipsis
         word-break break-word
+        margin-bottom 5px
 
       .del
         display flex

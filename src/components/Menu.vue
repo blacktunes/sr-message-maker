@@ -6,6 +6,7 @@
         :key="item.title"
         :title="item.title"
         :list="item.list"
+        :num="item.num"
       />
     </div>
     <div class="footer">
@@ -76,9 +77,15 @@ interface MenuItem {
   time: number
   title?: string
   list: MessageListItem[]
+  num: number
 }
 
-const setListItem = (list: MenuItem[], messageList: MessageListItem, title?: string) => {
+const setListItem = (
+  list: MenuItem[],
+  messageList: MessageListItem,
+  num: number,
+  title?: string
+) => {
   const index = list.findIndex((item) => item.title === (messageList.title || title))
   if (index !== -1) {
     list[index].list.unshift(messageList)
@@ -88,7 +95,8 @@ const setListItem = (list: MenuItem[], messageList: MessageListItem, title?: str
     list.unshift({
       title: messageList.title || title,
       time: messageList.time,
-      list: [messageList]
+      list: [messageList],
+      num
     })
   }
 }
@@ -96,7 +104,8 @@ const setListItem = (list: MenuItem[], messageList: MessageListItem, title?: str
 const list = computed(() => {
   const temp: MenuItem[] = []
   message.list.forEach((item) => {
-    setListItem(temp, item, getTitle(getNames(item.list)[0]))
+    const names = getNames(item.list)[0]
+    setListItem(temp, item, names.length, getTitle(names))
   })
 
   temp.sort((a, b) => b.time - a.time)
