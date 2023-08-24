@@ -403,7 +403,7 @@ box()
       width 105px
       height 105px
       margin-left 20px
-      background rgba(255, 255, 255, 0.1)
+      background #c2c2c2
       cursor pointer
 
       &:hover
