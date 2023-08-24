@@ -28,6 +28,9 @@
               >@{{ text.author }}</a
             >
           </template>
+          <template v-if="text.info">
+            <div class="info">{{ text.info }}</div>
+          </template>
         </div>
       </div>
     </window>
@@ -37,131 +40,17 @@
 <script lang="ts" setup>
 import Window from '@/components/Common/Window.vue'
 import { popup } from '@/store/popup'
+import log from '@/assets/data/log.json'
 
 const changeLog: {
   time: string
   text: {
     text: string
+    info?: string
     author?: string
     url?: string
   }[]
-}[] = [
-  {
-    time: '2023-08-16',
-    text: [
-      { text: '增加对话气泡修改' },
-      { text: '优化设置菜单' },
-      { text: '优化细节' }
-    ]
-  },
-  {
-    time: '2023-08-14',
-    text: [
-      { text: '增加部分NPC角色(帕姆等)' },
-      { text: '增加角色选择页右键返回' },
-      { text: '优化细节' }
-    ]
-  },
-  {
-    time: '2023-08-11',
-    text: [{ text: '完善字体修改功能' }, { text: '优化界面' }]
-  },
-  {
-    time: '2023-08-06',
-    text: [{ text: '增加新角色(卡芙卡、卢卡)' }, { text: '增加开拓任务和日常任务消息' }]
-  },
-  {
-    time: '2023-08-06',
-    text: [
-      { text: '修复部分浏览器无法下载图片和排版错误' },
-      { text: '增加删除短信和自定义角色的确认' },
-      { text: '修复滚动提示不会自动消失' }
-    ]
-  },
-  {
-    time: '2023-07-31',
-    text: [
-      { text: '增加新角色(刃)' },
-      { text: '增加新的帕姆表情' },
-      { text: '修复滚动提示不会自动消失' }
-    ]
-  },
-  {
-    time: '2023-07-16',
-    text: [
-      { text: '修复头像边框问题', author: 'conglinyizhi', url: 'https://github.com/conglinyizhi' }
-    ]
-  },
-  {
-    time: '2023-07-16',
-    text: [{ text: '增加回复选项' }]
-  },
-  {
-    time: '2023-07-13',
-    text: [{ text: '增加任务消息' }]
-  },
-  {
-    time: '2023-07-11',
-    text: [
-      { text: '增加根据回复长度决定消息加载动画时长' },
-      { text: '增加消息滚动提示' },
-      { text: '修复新消息不会自动展开分组' }
-    ]
-  },
-  {
-    time: '2023-07-10',
-    text: [
-      { text: '修复自定义角色重名导致的角色错误' },
-      { text: '修复标题无法修改' },
-      { text: '修复新消息不会自动展开分组' }
-    ]
-  },
-  {
-    time: '2023-07-07',
-    text: [{ text: '增加菜单细节' }]
-  },
-  {
-    time: '2023-07-03',
-    text: [{ text: '增加新角色(罗刹、驭空)' }]
-  },
-  {
-    time: '2023-06-22',
-    text: [{ text: '增加加载动画' }, { text: '增加修改字体功能' }, { text: '增加自定义头像功能' }]
-  },
-  {
-    time: '2023-06-19',
-    text: [{ text: '增加男女主切换' }]
-  },
-  {
-    time: '2023-06-13',
-    text: [{ text: '优化角色选择组件' }, { text: '增加表情包功能' }]
-  },
-  {
-    time: '2023-05-29',
-    text: [{ text: '增加横屏提示' }, { text: '增加自动播放功能' }, { text: '优化菜单按钮' }]
-  },
-  {
-    time: '2023-05-14',
-    text: [{ text: '增加修改已发送图片' }]
-  },
-  {
-    time: '2023-05-04',
-    text: [
-      { text: '增加自定义角色' },
-      { text: '增加通知消息' },
-      { text: '修复拖拽排序导致的样式异常' },
-      { text: '增加彩蛋' }
-    ]
-  },
-  {
-    time: '2023-04-28',
-    text: [{ text: '增加消息拖拽排序' }]
-  },
-  {
-    time: '2023-04-26',
-    text: [{ text: '初版上线' }]
-  }
-]
+}[] = log
 
 const checkUpdate = () => {
   const lastUpdate = new Date(changeLog[0].time).getTime()
@@ -177,7 +66,7 @@ checkUpdate()
 
 <style lang="stylus" scoped>
 .item
-  margin 30px 20px 30px 0
+  margin 20px 20px 30px 0
   padding 10px
 
   .time
@@ -187,6 +76,7 @@ checkUpdate()
 
   .text
     font-size 36px
+    margin-top 5px
 
     a
       font-weight bold
@@ -195,6 +85,10 @@ checkUpdate()
 
       &:hover
         text-decoration underline
+
+    .info
+      font-size 32px
+      color #666
 
 .highlight
   background #bbb
