@@ -293,7 +293,7 @@ const toggleGreenScreen = () => {
   top 10%
   left 900px
   width 1400px
-  height 79%
+  height 80%
   message()
 
   :deep(div)

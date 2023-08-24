@@ -303,6 +303,7 @@ const avatarUrl = computed(() => {
         white-space nowrap
         text-overflow ellipsis
         word-break break-word
+        margin-bottom 5px
 
       .del
         display flex
