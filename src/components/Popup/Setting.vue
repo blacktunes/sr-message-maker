@@ -1,6 +1,7 @@
 <template>
   <transition name="fade">
     <Window
+      style="z-index: 90"
       v-if="popup.setting"
       title="更换对话框"
       :no-close="true"
@@ -44,6 +45,13 @@
               height="60"
             />
           </div>
+          <div
+            class="setting-btn"
+            title="数据管理"
+            @click.stop="popup.data = true"
+          >
+            <Icon name="download" />
+          </div>
         </div>
       </template>
       <template #left>
@@ -77,6 +85,8 @@
 </template>
 
 <script lang="ts" setup>
+import { watch, ref } from 'vue'
+import { setting } from '@/store/setting'
 import { popup } from '@/store/popup'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
@@ -85,8 +95,7 @@ import bubbles_0 from '@/assets/images/bubbles/0.png'
 import bubbles_0_preview from '@/assets/images/bubbles/0_preview.png'
 import bubbles_1 from '@/assets/images/bubbles/1.png'
 import bubbles_1_preview from '@/assets/images/bubbles/1_preview.png'
-import { watch, ref } from 'vue'
-import { setting } from '@/store/setting'
+
 const index = ref(0)
 
 watch(

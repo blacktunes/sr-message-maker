@@ -19,12 +19,17 @@
           <slot name="left"></slot>
         </div>
         <div class="right">
-          <div class="title">{{ title }}</div>
-          <Close
-            v-if="!noClose"
-            class="close"
-            @click="close"
-          />
+          <div class="title">
+            <span>
+              {{ title }}
+            </span>
+
+            <Close
+              v-if="!noClose"
+              class="close"
+              @click="close"
+            />
+          </div>
           <div class="item">
             <slot></slot>
           </div>
@@ -110,6 +115,9 @@ const close = () => {
         flex 1
 
         .title
+          display flex
+          align-items flex-end
+          justify-content space-between
           height 85px
           font-size 60px
           font-weight bold
@@ -118,10 +126,8 @@ const close = () => {
           padding 40px 0 30px 0
           user-select none
 
-        .close
-          position absolute
-          top 60px
-          right 80px
+          .close
+            margin-left 20px
 
         .item
           margin 40px 80px
