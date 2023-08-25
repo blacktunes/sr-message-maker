@@ -4,13 +4,13 @@ import { autoPlaySetting, setting } from '@/store/setting'
 import { emitter } from './event'
 
 const handelBack = () => {
-  if (popup.font) {
-    popup.font = false
-    return
-  }
-  if (popup.log) {
-    popup.log = false
-    return
+  let key: keyof typeof popup
+  for (key in popup) {
+    if (key === 'setting') continue
+    if (popup[key]) {
+      popup[key] = false
+      return
+    }
   }
   if (popup.setting) {
     popup.setting = false
