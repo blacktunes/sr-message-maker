@@ -79,10 +79,11 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
 import Icon from '../Common/Icon.vue'
-import image_0 from '@/assets/images/同行任务.png'
-import image_1 from '@/assets/images/冒险任务.png'
-import image_2 from '@/assets/images/开拓任务.png'
-import image_3 from '@/assets/images/日常任务.png'
+import image_0 from '@/assets/images/mission/同行任务.png'
+import image_1 from '@/assets/images/mission/冒险任务.png'
+import image_2 from '@/assets/images/mission/开拓任务.png'
+import image_3 from '@/assets/images/mission/日常任务.png'
+import { getAssets } from '@/assets/scripts/preload'
 
 const props = defineProps<{
   text: string
@@ -107,10 +108,10 @@ const missionState = computed(() => {
 })
 
 const backgroundUrl = computed(() => {
-  if (props.mission?.type === 1) return `url(${image_1})`
-  if (props.mission?.type === 2) return `url(${image_2})`
-  if (props.mission?.type === 3) return `url(${image_3})`
-  return `url(${image_0})`
+  if (props.mission?.type === 1) return `url(${getAssets(image_1).value})`
+  if (props.mission?.type === 2) return `url(${getAssets(image_2).value})`
+  if (props.mission?.type === 3) return `url(${getAssets(image_3).value})`
+  return `url(${getAssets(image_0).value})`
 })
 
 const handelTypeClick = (type: number) => {

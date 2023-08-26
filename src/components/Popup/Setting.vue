@@ -85,9 +85,10 @@
 </template>
 
 <script lang="ts" setup>
-import { watch, ref } from 'vue'
+import { watch, ref, reactive } from 'vue'
 import { setting } from '@/store/setting'
 import { popup } from '@/store/popup'
+import { getAssets } from '@/assets/scripts/preload'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
 import Icon from '@/components/Common/Icon.vue'
@@ -107,18 +108,18 @@ watch(
   }
 )
 
-const bubbles = [
+const bubbles = reactive([
   {
     name: '语言的艺术',
-    img: bubbles_0,
-    preview: bubbles_0_preview
+    img: getAssets(bubbles_0),
+    preview: getAssets(bubbles_0_preview)
   },
   {
     name: '兔子在哪里？',
-    img: bubbles_1,
-    preview: bubbles_1_preview
+    img: getAssets(bubbles_1),
+    preview: getAssets(bubbles_1_preview)
   }
-]
+])
 
 const onBtnClick = () => {
   if (setting.bubbles === index.value) return

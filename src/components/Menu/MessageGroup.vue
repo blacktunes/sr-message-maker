@@ -67,7 +67,6 @@
 </template>
 
 <script lang="ts" setup>
-import { getAvatar } from '@/assets/scripts/avatar'
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
 import { computed } from 'vue'
@@ -75,6 +74,7 @@ import Icon from '../Common/Icon.vue'
 import avatar_0 from '@/assets/images/avatar/一家人.jpg'
 import avatar_1 from '@/assets/images/avatar/私聊.jpg'
 import avatar_2 from '@/assets/images/avatar/群聊.jpg'
+import { getAssets } from '@/assets/scripts/preload'
 
 const props = defineProps<{
   title?: string
@@ -173,12 +173,12 @@ const getFirstAvatar = (list: MessageListItem) => {
 }
 
 const avatarUrl = computed(() => {
-  if (props.title === '星穹列车一家人') return avatar_0
+  if (props.title === '星穹列车一家人') return getAssets(avatar_0).value
   if (props.title) {
-    if (props.num > 1) return avatar_2
-    return getFirstAvatar(props.list[0]) || avatar_1
+    if (props.num > 1) return getAssets(avatar_2).value
+    return getFirstAvatar(props.list[0]) || getAssets(avatar_1).value
   } else {
-    return avatar_2
+    return getAssets(avatar_2).value
   }
 })
 </script>
