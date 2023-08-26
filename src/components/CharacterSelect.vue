@@ -84,6 +84,7 @@
 </template>
 
 <script lang="ts" setup>
+import { watch } from 'vue'
 import { getAvatar } from '@/assets/scripts/avatar'
 import { user } from '@/assets/data/characterData'
 import { character } from '@/store/character'
@@ -94,6 +95,15 @@ import CharacterCard from './Character/CharacterCard.vue'
 import Icon from './Common/Icon.vue'
 import { compressImage } from '@/assets/scripts/image'
 
+watch(
+  () => input.select,
+  () => {
+    if (!input.select) {
+      input.index = undefined
+    }
+  }
+)
+
 const hide = () => {
   input.select = false
 }
@@ -103,7 +113,6 @@ const handelcharacterClick = (key: string, name: string) => {
     message.list[input.index[0]].list[input.index[1]].key = key
     message.list[input.index[0]].list[input.index[1]].name = name
     message.list[input.index[0]].list[input.index[1]].avatar = getAvatar(key)
-    input.index = undefined
   } else {
     input.character.key = key
     input.character.name = name

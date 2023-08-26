@@ -3,7 +3,7 @@
     v-if="item.option"
     :text="item.text"
     :highlight="item.option[0]"
-    @update="updateText"
+    @update="emit('text', $event)"
     @delete="emit('delete')"
     @select="emit('option')"
   />
@@ -12,25 +12,25 @@
     :text="item.text"
     :mission="item.mission"
     :preview="preview"
-    @update="updateText"
+    @update="emit('text', $event)"
     @delete="emit('delete')"
-    @state="updateMissionState"
+    @state="emit('mission', $event)"
   />
   <ItemNotice
     v-else-if="item.notice"
     :text="item.text"
     :preview="preview"
-    @update="updateText"
+    @update="emit('text', $event)"
     @delete="emit('delete')"
   />
   <ItemMessage
     v-else
     :item="item"
     :preview="preview"
-    @update="updateText"
+    @update="emit('text', $event)"
     @delete="emit('delete')"
     @avatar="emit('avatar')"
-    @image="emit('image')"
+    @image="emit('image', $event)"
   />
 </template>
 
@@ -51,14 +51,6 @@ const emit = defineEmits<{
   (event: 'option'): void
   (event: 'mission', data: Mission): void
   (event: 'avatar'): void
-  (event: 'image'): void
+  (event: 'image', emoticon: boolean): void
 }>()
-
-const updateText = (text: string) => {
-  emit('text', text)
-}
-
-const updateMissionState = (data: Mission) => {
-  emit('mission', data)
-}
 </script>

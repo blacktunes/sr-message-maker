@@ -30,6 +30,16 @@
 <script lang="ts" setup>
 import { emoticon } from '@/assets/data/emoticon'
 import { input } from '@/store/input'
+import { watch } from 'vue'
+
+watch(
+  () => input.emoticon,
+  () => {
+    if (!input.emoticon) {
+      input.index = undefined
+    }
+  }
+)
 
 const emit = defineEmits<{
   (event: 'emoticon', url: string, name: string): void

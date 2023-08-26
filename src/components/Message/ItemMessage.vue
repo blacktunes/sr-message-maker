@@ -61,7 +61,7 @@
           <img
             :src="item.img"
             alt=""
-            @click.stop="preview ? undefined : emit('image')"
+            @click.stop="preview ? undefined : emit('image', !!item.emoticon)"
           />
         </div>
         <div
@@ -99,7 +99,7 @@ defineProps<{
 
 const emit = defineEmits<{
   (event: 'avatar'): void
-  (event: 'image'): void
+  (event: 'image', emoticon: boolean): void
   (event: 'update', text: string): void
   (event: 'delete'): void
 }>()
