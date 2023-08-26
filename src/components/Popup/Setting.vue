@@ -50,7 +50,7 @@
             title="数据管理"
             @click.stop="popup.data = true"
           >
-            <Icon name="download" />
+            <Icon name="data" />
           </div>
         </div>
       </template>
