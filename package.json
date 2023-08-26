@@ -12,6 +12,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@ckpack/parameter": "^2.9.0",
     "@marshallswain/vuedraggable": "^4.2.0",
     "html-to-image": "^1.11.11",
     "mitt": "^3.0.1",

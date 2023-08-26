@@ -23,7 +23,7 @@
               @mission="(data) => updateMission(index, data)"
               @text="(data) => updateText(index, data)"
               @avatar="handelAvatarClick(index)"
-              @image="handelImageClick(index)"
+              @image="handelImageClick($event, index)"
               @delete="handelDelClick(index)"
             />
           </template>
@@ -91,7 +91,7 @@
               <Icon name="send" />
             </div>
           </div>
-          <Emoticon @emoticon="addEmoticon" />
+          <Emoticon @emoticon="setEmoticon" />
         </template>
       </MessageBox>
     </template>
@@ -231,20 +231,25 @@ const handelAvatarClick = (key: number) => {
   input.select = true
 }
 
-const handelImageClick = (key: number) => {
-  const el = document.createElement('input')
-  el.type = 'file'
-  el.accept = 'image/*'
-  el.onchange = () => {
-    if (el.files?.[0]) {
-      compressImage(el.files[0], 1000).then((img) => {
-        delete message.list[messageIndex.value].list[key].emoticon
-        message.list[messageIndex.value].list[key].img = img
-        message.list[messageIndex.value].time = Date.now()
-      })
+const handelImageClick = (emoticon: boolean, key: number) => {
+  if (emoticon) {
+    input.emoticon = true
+    input.index = [messageIndex.value, key]
+  } else {
+    const el = document.createElement('input')
+    el.type = 'file'
+    el.accept = 'image/*'
+    el.onchange = () => {
+      if (el.files?.[0]) {
+        compressImage(el.files[0], 1000).then((img) => {
+          delete message.list[messageIndex.value].list[key].emoticon
+          message.list[messageIndex.value].list[key].img = img
+          message.list[messageIndex.value].time = Date.now()
+        })
+      }
     }
+    el.click()
   }
-  el.click()
 }
 const handelDelClick = (key: number) => {
   message.list[messageIndex.value].list.splice(key, 1)
@@ -311,16 +316,23 @@ const handelEmoticonClick = () => {
   input.emoticon = !input.emoticon
 }
 
-const addEmoticon = (url: string, name: string) => {
-  message.list[messageIndex.value].list.push({
-    ...getCharacter(),
-    text: '',
-    img: url,
-    emoticon: name
-  })
-  message.list[messageIndex.value].time = Date.now()
+const setEmoticon = (url: string, name: string) => {
+  if (input.index) {
+    message.list[messageIndex.value].list[input.index[1]].img = url
+    message.list[messageIndex.value].list[input.index[1]].emoticon = name
+    message.list[messageIndex.value].time = Date.now()
+  } else {
+    message.list[messageIndex.value].list.push({
+      ...getCharacter(),
+      text: '',
+      img: url,
+      emoticon: name
+    })
+    message.list[messageIndex.value].time = Date.now()
+    input.emoticon = false
+    scrollToBottom(boxRef.value?.listDom)
+  }
   input.emoticon = false
-  scrollToBottom(boxRef.value?.listDom)
 }
 
 const handelNoticeClick = () => {

@@ -1,6 +1,7 @@
 <template>
   <transition name="fade">
     <Window
+      style="z-index: 90"
       v-if="popup.setting"
       title="更换对话框"
       :no-close="true"
@@ -44,6 +45,13 @@
               height="60"
             />
           </div>
+          <div
+            class="setting-btn"
+            title="数据管理"
+            @click.stop="popup.data = true"
+          >
+            <Icon name="data" />
+          </div>
         </div>
       </template>
       <template #left>
@@ -77,7 +85,10 @@
 </template>
 
 <script lang="ts" setup>
+import { watch, ref, reactive } from 'vue'
+import { setting } from '@/store/setting'
 import { popup } from '@/store/popup'
+import { getAssets } from '@/assets/scripts/preload'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
 import Icon from '@/components/Common/Icon.vue'
@@ -85,8 +96,7 @@ import bubbles_0 from '@/assets/images/bubbles/0.png'
 import bubbles_0_preview from '@/assets/images/bubbles/0_preview.png'
 import bubbles_1 from '@/assets/images/bubbles/1.png'
 import bubbles_1_preview from '@/assets/images/bubbles/1_preview.png'
-import { watch, ref } from 'vue'
-import { setting } from '@/store/setting'
+
 const index = ref(0)
 
 watch(
@@ -98,18 +108,18 @@ watch(
   }
 )
 
-const bubbles = [
+const bubbles = reactive([
   {
     name: '语言的艺术',
-    img: bubbles_0,
-    preview: bubbles_0_preview
+    img: getAssets(bubbles_0),
+    preview: getAssets(bubbles_0_preview)
   },
   {
     name: '兔子在哪里？',
-    img: bubbles_1,
-    preview: bubbles_1_preview
+    img: getAssets(bubbles_1),
+    preview: getAssets(bubbles_1_preview)
   }
-]
+])
 
 const onBtnClick = () => {
   if (setting.bubbles === index.value) return

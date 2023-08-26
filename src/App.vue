@@ -14,36 +14,40 @@
         height: `${height}px`
       }"
     >
-      <Loading />
-      <Header />
-      <NameInput />
-      <Menu />
-      <MessageEditor />
-      <MessagePreview />
-      <CharacterSelect />
-      <Footer />
-      <Setting />
-      <ChangeLog />
-      <FontSetting />
+      <component
+        v-for="(item, index) in components"
+        :key="index"
+        :is="item"
+      ></component>
     </div>
   </div>
   <Tip :show="shouldHorizontal" />
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-import Loading from './components/Loading.vue'
-import Header from './components/Header.vue'
-import NameInput from './components/NameInput.vue'
-import Menu from './components/Menu.vue'
-import MessageEditor from './components/MessageEditor.vue'
-import MessagePreview from './components/MessagePreview.vue'
-import CharacterSelect from './components/CharacterSelect.vue'
-import Footer from './components/Footer.vue'
-import Setting from './components/Popup/Setting.vue'
-import ChangeLog from './components/Popup/ChangeLog.vue'
-import FontSetting from './components/Popup/FontSetting.vue'
+import { defineComponent, ref } from 'vue'
+import type { Component } from 'vue'
 import Tip from './components/Tip.vue'
+
+// 动态加载所有组件
+const components: Component[] = []
+const modules = {
+  ...import.meta.glob<{ default: Component }>(
+    [
+      // 组件位置
+      './components/*.vue',
+      '!./components/Tip.vue',
+      './components/Popup/*.vue'
+    ],
+    {
+      eager: true,
+      import: 'default'
+    }
+  )
+}
+for (const i in modules) {
+  components.push(defineComponent(modules[i]))
+}
 
 // 计算窗口尺寸
 const width = 3200

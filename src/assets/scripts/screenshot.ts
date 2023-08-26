@@ -3,7 +3,7 @@ import { getFontEmbedCSS, toPng } from 'html-to-image'
 export const screenshot = async (dom: HTMLElement, width?: number, height?: number) => {
   try {
     const fontEmbedCSS = await getFontEmbedCSS(dom)
-    const title = `SR-${Date.now()}`
+    const title = `SR-${new Date().toLocaleString()}`
     const dataUrl = await toPng(dom, {
       width,
       height,
