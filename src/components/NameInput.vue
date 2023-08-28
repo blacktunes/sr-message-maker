@@ -36,6 +36,7 @@ import { user } from '@/assets/data/characterData'
 import { setUserType, setting } from '@/store/setting'
 import Icon from './Common/Icon.vue'
 import { compressImage } from '@/assets/scripts/image'
+import { cropperOpen } from '@/store/cropper'
 
 const updateName = (e: Event) => {
   setting.name = (e.target as HTMLInputElement).innerText
@@ -47,14 +48,22 @@ const handelAvatarClick = () => {
   const el = document.createElement('input')
   el.type = 'file'
   el.accept = 'image/*'
-  el.onchange = () => {
+  el.onchange = async () => {
     if (el.files?.[0]) {
-      compressImage(el.files[0], 250).then((avatar) => {
-        user.custom.avatar = avatar
-        user.custom.card = avatar
-        localStorage.setItem('sr-message-avatar', avatar)
-        setUserType('custom')
-      })
+      const avatar = await compressImage(el.files[0])
+      cropperOpen(
+        avatar,
+        (res) => {
+          user.custom.avatar = res
+          user.custom.card = res
+          localStorage.setItem('sr-message-avatar', res)
+          setUserType('custom')
+        },
+        {
+          aspectRatio: 1,
+          maxWidth: 500
+        }
+      )
     }
   }
   el.click()

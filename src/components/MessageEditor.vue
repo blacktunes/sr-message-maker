@@ -117,6 +117,7 @@ import { getUserAvatar, info, messageIndex, scrollToBottom, title } from './Mess
 import MessageBox from './Message/MessageBox.vue'
 import MessageItem from './Message/MessageItem.vue'
 import { compressImage } from '@/assets/scripts/image'
+import { cropperOpen } from '@/store/cropper'
 
 const defaultText = DEFAULT_TEXT
 
@@ -239,13 +240,17 @@ const handelImageClick = (emoticon: boolean, key: number) => {
     const el = document.createElement('input')
     el.type = 'file'
     el.accept = 'image/*'
-    el.onchange = () => {
+    el.onchange = async () => {
       if (el.files?.[0]) {
-        compressImage(el.files[0], 1000).then((img) => {
-          delete message.list[messageIndex.value].list[key].emoticon
-          message.list[messageIndex.value].list[key].img = img
-          message.list[messageIndex.value].time = Date.now()
-        })
+        const img = await compressImage(el.files[0])
+        cropperOpen(
+          img,
+          (res) => {
+            message.list[messageIndex.value].list[key].img = res
+            message.list[messageIndex.value].time = Date.now()
+          },
+          { maxWidth: 1280 }
+        )
       }
     }
     el.click()
@@ -296,17 +301,22 @@ const handelImageAddClick = () => {
   const el = document.createElement('input')
   el.type = 'file'
   el.accept = 'image/*'
-  el.onchange = () => {
+  el.onchange = async () => {
     if (el.files?.[0]) {
-      compressImage(el.files[0], 1000).then((img) => {
-        message.list[messageIndex.value].list.push({
-          ...getCharacter(),
-          text: '',
-          img: img
-        })
-        message.list[messageIndex.value].time = Date.now()
-        scrollToBottom(boxRef.value?.listDom)
-      })
+      const img = await compressImage(el.files[0])
+      cropperOpen(
+        img,
+        (res) => {
+          message.list[messageIndex.value].list.push({
+            ...getCharacter(),
+            text: '',
+            img: res
+          })
+          message.list[messageIndex.value].time = Date.now()
+          scrollToBottom(boxRef.value?.listDom)
+        },
+        { maxWidth: 1280 }
+      )
     }
   }
   el.click()

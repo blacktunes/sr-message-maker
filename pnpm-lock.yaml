@@ -20,6 +20,9 @@ dependencies:
   vue:
     specifier: ^3.3.4
     version: registry.npmmirror.com/vue@3.3.4
+  vue-picture-cropper:
+    specifier: ^0.6.2
+    version: 0.6.2(vue@3.3.4)
 
 devDependencies:
   '@rushstack/eslint-patch':
@@ -75,6 +78,16 @@ devDependencies:
     version: registry.npmmirror.com/vue-tsc@1.6.5(typescript@5.0.4)
 
 packages:
+
+  /@bassist/utils@0.11.2:
+    resolution: {integrity: sha512-qybnYCrh/7AYrch4r+sjgrMgUlUIXJ1xmJwnx486nOD9ishFDlel7p6n8uitH6cygNW4n+/AJm5nAKRVSq3yng==}
+    dev: false
+
+  /@bassist/utils@0.4.0:
+    resolution: {integrity: sha512-aoFTl0jUjm8/tDZodP41wnEkvB+C5O9NFCuYN/ztL6jSUSsuBkXq90/1ifBm1XhV/zySHgLYlU1+tgo3XtQ+nA==}
+    dependencies:
+      '@withtypes/mime': 0.1.2
+    dev: false
 
   /@ckpack/parameter@2.9.0:
     resolution: {integrity: sha512-TqpFiJdHIwgIryZZ5Bij9WryNBofk5xkLJkACONEfzYUrEahsGR8WaGQSAshnQq85U1Xs2g1sjmL3+ftKfsopQ==}
@@ -278,6 +291,29 @@ packages:
     dev: true
     optional: true
 
+  /@web-analytics/core@0.1.5:
+    resolution: {integrity: sha512-oJCaAe7zj1X365ZvNQrso9yE+kszPQD2plbP5/J0EjgppZCmHSpkvqtY+T2lArGNcHezzPDjwBEkmYge6d+fIQ==}
+    dependencies:
+      '@bassist/utils': 0.11.2
+    dev: false
+
+  /@web-analytics/vue@0.2.2:
+    resolution: {integrity: sha512-becl9OFlEUYD+0x7ats72FVOvMk+kAXHc3tla2makSGOO2UDu69tGMv5WPExuTg9CqSFHd/a5aUGqmFq4sualQ==}
+    dependencies:
+      '@bassist/utils': 0.11.2
+      '@web-analytics/core': 0.1.5
+    dev: false
+
+  /@withtypes/mime@0.1.2:
+    resolution: {integrity: sha512-PB9BfZGzwblUONJY0LiOwsHCA6uV3DIPj/w9ReekdHxPOl0VdUFgI5s4avKycuuq9Gf5Nz2ZPA2O36GAUzlMPA==}
+    dependencies:
+      mime: 3.0.0
+    dev: false
+
+  /cropperjs@1.6.0:
+    resolution: {integrity: sha512-BzLU/ecrfsbflwxgu+o7sQTrTlo52pVRZkTVrugEK5uyj6n8qKwAHP4s6+DWHqlXLqQ5B9+cM2MKeXiNfAsF6Q==}
+    dev: false
+
   /fsevents@2.3.2:
     resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
@@ -290,8 +326,25 @@ packages:
     resolution: {integrity: sha512-9gux8QhvjRO/erSnDPv28noDZcPZmYE7e1vFsBLKLlRlKDSqNJYebj6Qz1TGd5lsRV+X+xYyjCKjuZdABinWjA==}
     dev: false
 
+  /mime@3.0.0:
+    resolution: {integrity: sha512-jSCU7/VB1loIWBZe14aEYHU/+1UMEHoaO7qxCOVJOw9GgH72VAWppxNcjU+x9a2k3GSIBXNKxXQFqRvvZ7vr3A==}
+    engines: {node: '>=10.0.0'}
+    hasBin: true
+    dev: false
+
   /mitt@3.0.1:
     resolution: {integrity: sha512-vKivATfr97l2/QBCYAkXYDbrIWPM2IIKEl7YPhjCvKlG3kE2gm+uBo6nEXK3M5/Ffh/FLpKExzOQ3JJoJGFKBw==}
+    dev: false
+
+  /vue-picture-cropper@0.6.2(vue@3.3.4):
+    resolution: {integrity: sha512-rULhkXdAofzYSn5K7icbOnWxgaN/UrY12DJ6ncIiS85wlfVB9HPZN/gIHoVQ4Kjz70IQonvP603BT7IaAJ+0DQ==}
+    peerDependencies:
+      vue: '>=3.2.13'
+    dependencies:
+      '@bassist/utils': 0.4.0
+      '@web-analytics/vue': 0.2.2
+      cropperjs: 1.6.0
+      vue: registry.npmmirror.com/vue@3.3.4
     dev: false
 
   registry.npmmirror.com/@aashutoshrathi/word-wrap@1.2.6:
