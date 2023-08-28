@@ -136,7 +136,7 @@ const close = () => {
 
     .footer
       background #262626
-      background-image url('@/assets/images/菜单背景.png')
+      background-image url('@/assets/images/菜单背景.webp')
       background-position center
       background-size auto 100%
       background-repeat no-repeat

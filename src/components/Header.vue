@@ -17,7 +17,7 @@
   </div>
   <div class="img">
     <img
-      src="@/assets/images/背景.png"
+      src="@/assets/images/背景.webp"
       alt=""
     />
   </div>

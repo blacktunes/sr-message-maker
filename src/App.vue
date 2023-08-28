@@ -87,7 +87,7 @@ window.onresize = () => {
       right 0px
       bottom 0px
       left 0px
-      background url('@/assets/images/方块背景.png')
+      background url('@/assets/images/方块背景.webp')
       opacity 0.15
       box-shadow inset 0 0 50px 0px #ffffff
 
