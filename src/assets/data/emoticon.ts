@@ -1,7 +1,6 @@
-import emoticon_1 from '@/assets/images/emoticon/中年人_早上好.jpg'
-import emoticon_2 from '@/assets/images/emoticon/中年人_干杯.jpg'
+import { reactive } from 'vue'
 
-export const emoticon: Emoticon[][] = [
+export const emoticon: Emoticon[][] = reactive([
   [
     {
       title: '开拓者 吃瓜ing',
@@ -455,13 +454,11 @@ export const emoticon: Emoticon[][] = [
   [
     {
       title: '中年人_早上好',
-      url: emoticon_1,
-      base64: true
+      url: 'https://patchwiki.biligame.com/images/sr/c/cc/r1g235z2gp3hgqq6n4opu5gt8xonn60.png'
     },
     {
       title: '中年人_干杯',
-      url: emoticon_2,
-      base64: true
+      url: 'https://patchwiki.biligame.com/images/sr/0/00/o6q5i3bzyvwh658jq1ylqlbnyunejo9.png'
     }
   ]
-]
+])

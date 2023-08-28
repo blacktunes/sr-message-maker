@@ -37,5 +37,4 @@ type CustomCharacter = Omit<Character, 'card'> & { custom: true }
 interface Emoticon {
   title: string
   url: string
-  base64?: boolean
 }

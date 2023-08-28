@@ -46,22 +46,7 @@ const emit = defineEmits<{
 }>()
 
 const handelEmoticonClick = (item: Emoticon) => {
-  if (item.base64) {
-    const img = new Image()
-    img.onload = function () {
-      const canvas = document.createElement('canvas')
-      canvas.width = img.width
-      canvas.height = img.height
-      const ctx = canvas.getContext('2d')
-      ctx?.drawImage(img, 0, 0)
-      const baseData = canvas.toDataURL('image/png')
-
-      emit('emoticon', baseData, item.title)
-    }
-    img.src = item.url
-  } else {
-    emit('emoticon', item.url, item.title)
-  }
+  emit('emoticon', item.url, item.title)
 }
 </script>
 

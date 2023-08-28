@@ -1,4 +1,4 @@
-export const compressImage = (file: File, width?: number) => {
+export const compressImage = (file: File | Blob, width?: number) => {
   return new Promise<string>((reslove) => {
     const src = URL.createObjectURL(file)
     const img = new Image()
@@ -15,7 +15,7 @@ export const compressImage = (file: File, width?: number) => {
       canvas.width = width
       canvas.height = width * (img.height / img.width)
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-      reslove(canvas.toDataURL('image/webp', 0.8))
+      reslove(canvas.toDataURL('image/webp'))
       URL.revokeObjectURL(src)
     }
   })
