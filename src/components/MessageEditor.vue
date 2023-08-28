@@ -12,7 +12,17 @@
         <draggable
           v-model="message.list[messageIndex].list"
           :item-key="(item: Message) => getKey(item)"
+          animation="100"
           delay="100"
+          delay-on-touch-only="true"
+          force-fallback="true"
+          fallback-class="fallback"
+          chosen-class="chosen"
+          scroll-sensitivity="50"
+          scroll-speed="30"
+          @clone="onMoveStart"
+          @end="onMoveEnd"
+          @change="onChange"
         >
           <template #item="{ element, index }: { element: Message, index: number }">
             <MessageItem
@@ -117,14 +127,22 @@ import { getUserAvatar, info, messageIndex, scrollToBottom, title } from './Mess
 import MessageBox from './Message/MessageBox.vue'
 import MessageItem from './Message/MessageItem.vue'
 import { compressImage } from '@/assets/scripts/image'
+import { cropperOpen } from '@/store/cropper'
 
 const defaultText = DEFAULT_TEXT
 
 const boxRef = ref<InstanceType<typeof MessageBox>>()
 
+let randomKey = 0
+const getRandomKey = (): number => {
+  const key = (Math.random() * 901) | 0
+  if (key !== randomKey) return key
+  return getRandomKey()
+}
+
 const getKey = (item: Message) => {
   const index = message.list[messageIndex.value].list.indexOf(item)
-  return `${message.list[messageIndex.value].id}-${index}`
+  return `${message.list[messageIndex.value].id}-${index}-${randomKey}`
 }
 
 watch(messageIndex, () => {
@@ -239,13 +257,17 @@ const handelImageClick = (emoticon: boolean, key: number) => {
     const el = document.createElement('input')
     el.type = 'file'
     el.accept = 'image/*'
-    el.onchange = () => {
+    el.onchange = async () => {
       if (el.files?.[0]) {
-        compressImage(el.files[0], 1000).then((img) => {
-          delete message.list[messageIndex.value].list[key].emoticon
-          message.list[messageIndex.value].list[key].img = img
-          message.list[messageIndex.value].time = Date.now()
-        })
+        const img = await compressImage(el.files[0])
+        cropperOpen(
+          img,
+          (res) => {
+            message.list[messageIndex.value].list[key].img = res
+            message.list[messageIndex.value].time = Date.now()
+          },
+          { maxWidth: 1280 }
+        )
       }
     }
     el.click()
@@ -296,17 +318,22 @@ const handelImageAddClick = () => {
   const el = document.createElement('input')
   el.type = 'file'
   el.accept = 'image/*'
-  el.onchange = () => {
+  el.onchange = async () => {
     if (el.files?.[0]) {
-      compressImage(el.files[0], 1000).then((img) => {
-        message.list[messageIndex.value].list.push({
-          ...getCharacter(),
-          text: '',
-          img: img
-        })
-        message.list[messageIndex.value].time = Date.now()
-        scrollToBottom(boxRef.value?.listDom)
-      })
+      const img = await compressImage(el.files[0])
+      cropperOpen(
+        img,
+        (res) => {
+          message.list[messageIndex.value].list.push({
+            ...getCharacter(),
+            text: '',
+            img: res
+          })
+          message.list[messageIndex.value].time = Date.now()
+          scrollToBottom(boxRef.value?.listDom)
+        },
+        { maxWidth: 1280 }
+      )
     }
   }
   el.click()
@@ -357,6 +384,19 @@ const handelAddClick = (img?: string) => {
   message.list[messageIndex.value].time = Date.now()
   input.input = ''
   scrollToBottom(boxRef.value?.listDom)
+}
+
+const onMoveStart = () => {
+  randomKey = getRandomKey()
+  setting.transition = false
+}
+
+const onMoveEnd = () => {
+  setting.transition = true
+}
+
+const onChange = () => {
+  message.list[messageIndex.value].time = Date.now()
 }
 </script>
 
@@ -471,4 +511,19 @@ box()
 
       &:focus, &:hover
         box-shadow 5px 5px 15px #aaa
+
+.fallback
+  display none !important
+
+.chosen
+  &:before
+    content ''
+    box-sizing border-box
+    position absolute
+    top 0
+    right 0
+    bottom 0
+    left 0
+    border 3px solid rgba(0, 0, 0, 0.2)
+    border-radius 10px
 </style>

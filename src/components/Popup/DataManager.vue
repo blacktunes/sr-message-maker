@@ -7,9 +7,10 @@
     >
       <div class="data">
         <div class="info">
-          <div>短信数: {{ message.list.length }}</div>
-          <div>自定义角色数: {{ Object.keys(character.custom).length }}</div>
-          <div style="margin-top: 20px">当前短信ID: {{ setting.index || '-' }}</div>
+          <div>当前短信ID: {{ setting.index || '-' }}</div>
+          <div style="margin-top: 20px">短信数量: {{ message.list.length }}{{ messageUsage }}</div>
+          <div>消息数量: {{ messageNum }}</div>
+          <div>自定义角色数量: {{ Object.keys(character.custom).length }}{{ characterUsage }}</div>
         </div>
         <div class="box">
           <Btn
@@ -65,12 +66,55 @@
 import { popup } from '@/store/popup'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
-import { computed, toRaw } from 'vue'
+import { computed, ref, toRaw, watch } from 'vue'
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
 import { character } from '@/store/character'
 import { messageIndex } from '@/components/Message/Message'
 import { zhLocale, setLocale, Parameter } from '@ckpack/parameter'
+
+function countStrToSize(str: string) {
+  let count = 0
+  for (let i = 0; i < str.length; i++) {
+    count += Math.ceil(str.charCodeAt(i).toString(2).length / 8)
+  }
+
+  if (count === 0) return '0 B'
+  const k = 1024,
+    sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+    i = Math.floor(Math.log(count) / Math.log(k))
+
+  return (count / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i]
+}
+
+const messageUsage = ref('')
+const messageNum = ref(0)
+const characterUsage = ref('')
+
+const updateMessageUsage = () => {
+  messageUsage.value = ` (${countStrToSize(JSON.stringify(message.list))})`
+  let num = 0
+  message.list.forEach((i) => {
+    i.list.forEach((j) => {
+      num += 1
+    })
+  })
+  messageNum.value = num
+}
+
+const updateCharacterUsage = () => {
+  characterUsage.value = ` (${countStrToSize(JSON.stringify(character.custom))})`
+}
+
+watch(
+  () => popup.data,
+  async () => {
+    if (popup.data) {
+      updateMessageUsage()
+      updateCharacterUsage()
+    }
+  }
+)
 
 setLocale(zhLocale)
 const parameter = new Parameter()
@@ -185,6 +229,7 @@ const uploadDate = () => {
           } else if (num < data.length) {
             alert(`部分短信导入失败\n请检查文件格式是否正确`)
           }
+          updateMessageUsage()
         } catch (err) {
           alert(`短信导入失败\n${err}`)
         }
@@ -254,6 +299,7 @@ const uploadCharacter = () => {
           } else if (num < Object.keys(data).length) {
             alert(`部分自定义导角色入失败\n请检查文件格式是否正确`)
           }
+          updateCharacterUsage()
         } catch (err) {
           alert(`自定义角色导入失败\n${err}`)
         }
@@ -279,7 +325,7 @@ const deleteCharacter = () => {
 
   .info
     font-size 36px
-    padding 50px
+    padding 30px 50px
     margin-bottom 40px
     border 2px solid rgba(0, 0, 0, 0.2)
     border-radius 10px

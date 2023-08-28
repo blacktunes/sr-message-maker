@@ -1,6 +1,8 @@
 import { character } from '@/store/character'
 import { reactive, toRef } from 'vue'
 import { user } from '../data/characterData'
+import { compressImage } from './image'
+import { emoticon } from '../data/emoticon'
 
 export const assets: { [name: string]: string } = reactive({})
 
@@ -17,15 +19,9 @@ export const getAssets = (url: string, base64?: boolean) => {
 const getCache = (url: string, base64?: boolean) => {
   return new Promise<string>((resolve) => {
     fetch(url).then((res) =>
-      res.blob().then((blob) => {
+      res.blob().then(async (blob) => {
         if (base64) {
-          const file = new FileReader()
-          file.onload = (e) => {
-            if (e.target?.result) {
-              resolve(e.target?.result as string)
-            }
-          }
-          file.readAsDataURL(blob)
+          resolve(await compressImage(blob))
         } else {
           resolve(URL.createObjectURL(blob))
         }
@@ -50,6 +46,14 @@ const characterPreload = async () => {
   }
 }
 
+const emoticonPreload = async () => {
+  for (const i in emoticon) {
+    for (const j in emoticon[i]) {
+      emoticon[i][j].url = await getCache(emoticon[i][j].url, true)
+    }
+  }
+}
+
 const preload = () => {
   const list = import.meta.glob<string>(
     [
@@ -65,6 +69,7 @@ const preload = () => {
   )
 
   characterPreload()
+  emoticonPreload()
 
   for (const i in list) {
     getCache(list[i]).then((res) => {

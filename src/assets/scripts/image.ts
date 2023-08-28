@@ -1,5 +1,5 @@
-export const compressImage = (file: File, width = 500) => {
-  return new Promise<string>(reslove => {
+export const compressImage = (file: File | Blob, width?: number) => {
+  return new Promise<string>((reslove) => {
     const src = URL.createObjectURL(file)
     const img = new Image()
     img.src = src
@@ -10,12 +10,12 @@ export const compressImage = (file: File, width = 500) => {
         reslove('')
         return
       }
-  
-      width = img.width < width ? img.width : width
+
+      width = width ? (img.width < width ? img.width : width) : img.width
       canvas.width = width
       canvas.height = width * (img.height / img.width)
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-      reslove(canvas.toDataURL(file.type))
+      reslove(canvas.toDataURL('image/webp'))
       URL.revokeObjectURL(src)
     }
   })

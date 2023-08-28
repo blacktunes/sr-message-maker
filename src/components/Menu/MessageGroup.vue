@@ -71,9 +71,9 @@ import { message } from '@/store/message'
 import { setting } from '@/store/setting'
 import { computed } from 'vue'
 import Icon from '../Common/Icon.vue'
-import avatar_0 from '@/assets/images/avatar/一家人.jpg'
-import avatar_1 from '@/assets/images/avatar/私聊.jpg'
-import avatar_2 from '@/assets/images/avatar/群聊.jpg'
+import avatar_0 from '@/assets/images/avatar/一家人.webp'
+import avatar_1 from '@/assets/images/avatar/私聊.webp'
+import avatar_2 from '@/assets/images/avatar/群聊.webp'
 import { getAssets } from '@/assets/scripts/preload'
 
 const props = defineProps<{
@@ -208,7 +208,7 @@ const avatarUrl = computed(() => {
       right 0
       bottom 0
       left 0
-      background url('@/assets/images/对话背景.png')
+      background url('@/assets/images/对话背景.webp')
       background-repeat no-repeat
       background-position right
       opacity 0.15

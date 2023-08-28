@@ -92,10 +92,10 @@ import { getAssets } from '@/assets/scripts/preload'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
 import Icon from '@/components/Common/Icon.vue'
-import bubbles_0 from '@/assets/images/bubbles/0.png'
-import bubbles_0_preview from '@/assets/images/bubbles/0_preview.png'
-import bubbles_1 from '@/assets/images/bubbles/1.png'
-import bubbles_1_preview from '@/assets/images/bubbles/1_preview.png'
+import bubbles_0 from '@/assets/images/bubbles/0.webp'
+import bubbles_0_preview from '@/assets/images/bubbles/0_preview.webp'
+import bubbles_1 from '@/assets/images/bubbles/1.webp'
+import bubbles_1_preview from '@/assets/images/bubbles/1_preview.webp'
 
 const index = ref(0)
 
