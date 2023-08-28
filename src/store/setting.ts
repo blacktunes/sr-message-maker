@@ -8,6 +8,7 @@ export const setting = reactive<{
   preview?: boolean
   select?: string
   bubbles: number
+  transition: boolean
 }>({
   loading: true,
   name: '开拓者',
@@ -15,7 +16,8 @@ export const setting = reactive<{
   index: undefined,
   preview: false,
   select: '',
-  bubbles: 0
+  bubbles: 0,
+  transition: true
 })
 
 export const setUserType = (key: string) => {

@@ -4,7 +4,7 @@
     :class="getBubbles(item.key)"
   >
     <transition
-      :name="!preview ? 'fade' : 'avatar'"
+      :name="!preview ? (setting.transition ? 'fade-in' : undefined) : 'avatar'"
       appear
     >
       <div
@@ -19,7 +19,7 @@
     </transition>
     <div class="message-item">
       <transition
-        :name="!preview ? 'fade' : 'message'"
+        :name="!preview ? (setting.transition ? 'fade-in' : undefined) : 'message'"
         appear
       >
         <div class="name">
@@ -40,7 +40,7 @@
         </div>
       </transition>
       <transition
-        :name="!preview ? 'fade' : 'message'"
+        :name="!preview ? (setting.transition ? 'fade-in' : undefined) : 'message'"
         appear
       >
         <div
@@ -151,7 +151,7 @@ $del-pos = -100px
   display flex
   height -moz-fit-content
   height fit-content
-  padding 15px 30px
+  padding 5px 30px 15px 30px
   item()
 
   &:hover
@@ -249,6 +249,7 @@ $del-pos = -100px
 
     .text-box
       position relative
+      margin-bottom 10px
 
       .text
         display block

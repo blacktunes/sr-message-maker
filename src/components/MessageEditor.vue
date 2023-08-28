@@ -12,7 +12,17 @@
         <draggable
           v-model="message.list[messageIndex].list"
           :item-key="(item: Message) => getKey(item)"
+          animation="100"
           delay="100"
+          delay-on-touch-only="true"
+          force-fallback="true"
+          fallback-class="fallback"
+          chosen-class="chosen"
+          scroll-sensitivity="50"
+          scroll-speed="30"
+          @clone="onMoveStart"
+          @end="onMoveEnd"
+          @change="onChange"
         >
           <template #item="{ element, index }: { element: Message, index: number }">
             <MessageItem
@@ -123,9 +133,16 @@ const defaultText = DEFAULT_TEXT
 
 const boxRef = ref<InstanceType<typeof MessageBox>>()
 
+let randomKey = 0
+const getRandomKey = (): number => {
+  const key = (Math.random() * 901) | 0
+  if (key !== randomKey) return key
+  return getRandomKey()
+}
+
 const getKey = (item: Message) => {
   const index = message.list[messageIndex.value].list.indexOf(item)
-  return `${message.list[messageIndex.value].id}-${index}`
+  return `${message.list[messageIndex.value].id}-${index}-${randomKey}`
 }
 
 watch(messageIndex, () => {
@@ -368,6 +385,19 @@ const handelAddClick = (img?: string) => {
   input.input = ''
   scrollToBottom(boxRef.value?.listDom)
 }
+
+const onMoveStart = () => {
+  randomKey = getRandomKey()
+  setting.transition = false
+}
+
+const onMoveEnd = () => {
+  setting.transition = true
+}
+
+const onChange = () => {
+  message.list[messageIndex.value].time = Date.now()
+}
 </script>
 
 <style lang="stylus" scoped>
@@ -481,4 +511,19 @@ box()
 
       &:focus, &:hover
         box-shadow 5px 5px 15px #aaa
+
+.fallback
+  display none !important
+
+.chosen
+  &:before
+    content ''
+    box-sizing border-box
+    position absolute
+    top 0
+    right 0
+    bottom 0
+    left 0
+    border 3px solid rgba(0, 0, 0, 0.2)
+    border-radius 10px
 </style>

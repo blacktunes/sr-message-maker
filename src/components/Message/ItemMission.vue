@@ -1,7 +1,7 @@
 <template>
   <div class="mission">
     <transition
-      name="fade"
+      :name="setting.transition ? 'fade-in' : undefined"
       appear
     >
       <div
@@ -78,6 +78,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue'
+import { setting } from '@/store/setting'
 import Icon from '../Common/Icon.vue'
 import image_0 from '@/assets/images/mission/同行任务.webp'
 import image_1 from '@/assets/images/mission/冒险任务.webp'

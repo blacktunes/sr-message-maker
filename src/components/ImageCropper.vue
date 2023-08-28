@@ -19,7 +19,7 @@
       <div
         class="btn-list"
         :style="{
-          transform: `scale(${scale})`
+          transform: `scale(${scale}) translateX(-50%)`
         }"
       >
         <Btn
@@ -67,11 +67,12 @@ const onCropper = () => {
   left 0
 
 .btn-list
-  position fixed
   display flex
+  position fixed
   bottom 15px
-  width 100%
-  transform-origin bottom
+  left 50%
+  width auto
+  transform-origin 0 bottom 0px
 
   .btn
     width 600px
