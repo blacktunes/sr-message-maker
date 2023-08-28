@@ -7,10 +7,19 @@
     >
       <div class="bg"></div>
       <div class="content">
-        <div class="img">
-          <img src="@/assets/images/horizontal.png" />
-        </div>
-        <div>建议解除方向锁定后横屏使用</div>
+        <svg
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          width="200"
+          height="200"
+        >
+          <path
+            d="M832 448l-128-128h96V224a32 32 0 0 0-32-32h-192V128h192a96 96 0 0 1 96 96v96h96zM448 160a32 32 0 0 0-32-32H160a32 32 0 0 0-32 32v288H64V160a96 96 0 0 1 96-96h256a96 96 0 0 1 96 96v288h-64V160zM160 512h704a96 96 0 0 1 96 96v256a96 96 0 0 1-96 96H160a96 96 0 0 1-96-96v-256a96 96 0 0 1 96-96zM128 864a32 32 0 0 0 32 32h704a32 32 0 0 0 32-32v-256a32 32 0 0 0-32-32H160a32 32 0 0 0-32 32v256z"
+            fill="#666666"
+          ></path>
+        </svg>
+        <div style="text-align: center">建议解除方向锁定后横屏使用</div>
         <div style="font-size: 10px; margin: 5px 0">(点击屏幕关闭提示)</div>
       </div>
     </div>
@@ -56,10 +65,4 @@ const isShow = ref(true)
     width 100%
     color #8a8a8a
     user-select none
-
-    .img
-      width 25%
-
-      img
-        width 100%
 </style>
