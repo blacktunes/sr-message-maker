@@ -93,7 +93,7 @@ const close = () => {
     max-width 90%
     height fit-content
     height -moz-fit-content
-    max-height 85%
+    max-height 90%
     message()
 
     .outside
