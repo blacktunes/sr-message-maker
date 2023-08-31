@@ -56,6 +56,9 @@ defineProps<{
   cursor pointer
   border 5px solid #e0e0e0
 
+  span
+    margin-bottom 5px
+
   &:before
     content ''
     position absolute

@@ -1,6 +1,9 @@
 <template>
-  <transition-group name="fade">
-    <template v-if="setting.index">
+  <template v-if="setting.index">
+    <transition
+      name="fade"
+      appear
+    >
       <MessageBox
         class="message-editor"
         :index="messageIndex"
@@ -59,6 +62,27 @@
             />
             <div
               class="btn"
+              @click="handelMessageClick"
+              title="创建任务"
+            >
+              <Icon name="mission" />
+            </div>
+            <div
+              class="btn"
+              @click="handelOptionClick"
+              title="创建选项"
+            >
+              <Icon name="option" />
+            </div>
+            <div
+              class="btn"
+              @click="handelNoticeClick"
+              title="发送通知"
+            >
+              <Icon name="notice" />
+            </div>
+            <div
+              class="btn"
               @click="handelImageAddClick"
               title="发送图片"
             >
@@ -72,28 +96,6 @@
               <Icon name="emoticon" />
             </div>
             <div
-              class="btn"
-              @click="handelOptionClick"
-              title="创建选项"
-            >
-              <Icon name="option" />
-            </div>
-            <div
-              class="btn"
-              @click="handelMessageClick"
-              title="创建任务"
-            >
-              <Icon name="mission" />
-            </div>
-
-            <div
-              class="btn"
-              @click="handelNoticeClick"
-              title="发送通知"
-            >
-              <Icon name="notice" />
-            </div>
-            <div
               class="btn right"
               @click="handelAddClick()"
               title="发送消息"
@@ -104,14 +106,19 @@
           <Emoticon @emoticon="setEmoticon" />
         </template>
       </MessageBox>
-    </template>
-    <template v-else>
+    </transition>
+  </template>
+  <template v-else>
+    <transition
+      name="slide-left"
+      appear
+    >
       <div class="defalut-wrapper">
         <Icon name="train" />
         <span>{{ message.list.length > 0 ? '请选择联系人' : '暂无短信' }}</span>
       </div>
-    </template>
-  </transition-group>
+    </transition>
+  </template>
 </template>
 
 <script lang="ts" setup>

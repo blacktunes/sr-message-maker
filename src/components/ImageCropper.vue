@@ -26,13 +26,13 @@
           class="btn"
           name="取消"
           type="wrong"
-          @click="cropperClose"
+          @click.stop="cropperClose"
         />
         <Btn
           class="btn"
           name="确认"
           type="check"
-          @click="onCropper"
+          @click.stop="onCropper"
         />
       </div>
     </div>

@@ -9,9 +9,37 @@
         class="box"
         @click.stop=""
       >
-        <div class="list">
-          <div class="title">游戏角色</div>
-          <div class="character-list">
+        <div class="tabs">
+          <div
+            class="tab"
+            :class="{ highlight: input.select_page === 0 }"
+            @click="changePage(0)"
+          >
+            游戏角色
+          </div>
+          <div
+            class="tab"
+            :class="{ highlight: input.select_page === 1 }"
+            @click="changePage(1)"
+          >
+            其它角色
+          </div>
+          <div
+            class="tab"
+            :class="{ highlight: input.select_page === 2 }"
+            @click="changePage(2)"
+          >
+            自定义角色
+          </div>
+        </div>
+        <div
+          class="list"
+          ref="listDom"
+        >
+          <div
+            class="character-list"
+            v-if="input.select_page === 0"
+          >
             <CharacterCard
               class="character"
               :custom="setting.type === 'custom'"
@@ -30,9 +58,10 @@
               @click="handelcharacterClick(String(key), item.name)"
             />
           </div>
-          <div style="height: 30px"></div>
-          <div class="title">其他角色</div>
-          <div class="character-list">
+          <div
+            class="character-list"
+            v-else-if="input.select_page === 1"
+          >
             <CharacterCard
               v-for="(item, key) in character.other"
               :key="`other-character-${key}`"
@@ -45,9 +74,10 @@
               @click="handelcharacterClick(String(key), item.name)"
             />
           </div>
-          <div style="height: 30px"></div>
-          <div class="title">自定义角色</div>
-          <div class="character-list">
+          <div
+            class="character-list"
+            v-else-if="input.select_page === 2"
+          >
             <CharacterCard
               v-for="(item, key) in character.custom"
               :key="`custom-character-${key}`"
@@ -84,7 +114,7 @@
 </template>
 
 <script lang="ts" setup>
-import { watch } from 'vue'
+import { nextTick, ref, watch } from 'vue'
 import { getAvatar } from '@/assets/scripts/avatar'
 import { user } from '@/assets/data/characterData'
 import { character } from '@/store/character'
@@ -94,6 +124,18 @@ import { setting } from '@/store/setting'
 import CharacterCard from './Character/CharacterCard.vue'
 import Icon from './Common/Icon.vue'
 import { compressImage } from '@/assets/scripts/image'
+import { cropperOpen } from '@/store/cropper'
+
+const listDom = ref<HTMLElement | null>(null)
+
+const changePage = (page: number) => {
+  input.select_page = page
+  nextTick(() => {
+    if (listDom.value) {
+      listDom.value.scrollTop = 0
+    }
+  })
+}
 
 watch(
   () => input.select,
@@ -121,23 +163,32 @@ const handelcharacterClick = (key: string, name: string) => {
 }
 
 const addCustom = () => {
+  const name = prompt('请输入角色名')
+  if (!name) return
+  const key = Date.now()
+  const info = prompt('请输入角色签名') || ''
+
   const input = document.createElement('input')
   input.type = 'file'
   input.accept = 'image/*'
-  input.onchange = () => {
+  input.onchange = async () => {
     if (input.files?.[0]) {
-      compressImage(input.files[0], 500).then((avatar) => {
-        const name = prompt('请输入角色名')
-        if (!name) return
-        const key = Date.now()
-        const info = prompt('请输入角色签名') || ''
-        character.custom[key] = {
-          name,
-          avatar,
-          info,
-          custom: true
+      const avatar = await compressImage(input.files[0])
+      cropperOpen(
+        avatar,
+        (res) => {
+          character.custom[key] = {
+            name,
+            avatar: res,
+            info,
+            custom: true
+          }
+        },
+        {
+          aspectRatio: 1,
+          maxWidth: 500
         }
-      })
+      )
     }
   }
   input.click()
@@ -179,26 +230,27 @@ $character-item-width = 387px
     cursor default
     message()
 
+    .tabs
+      display flex
+      align-self flex-start
+      width 100%
+
+      .tab
+        font-size 60px
+        font-weight bold
+        margin 0 20px 25px 5px
+        opacity 0.5
+        cursor pointer
+
+        &:hover
+          opacity 1
+
     .list
       overflow overlay
       width 100%
       height 100%
       padding 0 30px 0 20px
       margin 15px 0
-
-      &::-webkit-scrollbar-track
-        margin-top 120px
-
-      .title
-        z-index 9
-        position sticky
-        top 0
-        font-size 60px
-        font-weight bold
-        margin 0 20px 25px 5px
-        padding-bottom 20px
-        background var(--box-background-color)
-        box-shadow 0 -2px var(--box-background-color), 0 20px 10px -10px rgba(183, 183, 183, 0.8)
 
       .character-list
         display flex
@@ -222,6 +274,20 @@ $character-item-width = 387px
           flex-direction column
           border 5px solid #afafaf
           cursor pointer
+
+.highlight
+  opacity 1 !important
+  position relative
+
+  &:after
+    content ''
+    position absolute
+    left 0
+    bottom -10px
+    width 100%
+    height 5px
+    background #121212
+    animation open 0.3s forwards
 
 .del
   display flex

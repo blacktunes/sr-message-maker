@@ -64,6 +64,7 @@ defineProps<{
         object-fit contain
         background rgba(255, 255, 255, 0.1)
         clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
+        user-select none
 
   .name
     color #555
@@ -81,6 +82,7 @@ defineProps<{
       img
         width 100%
         height calc(700px - 50px)
+        user-select none
 
   .name, .info
     width 100%

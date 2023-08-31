@@ -1,47 +1,65 @@
 <template>
   <div class="window">
-    <div
-      class="box"
-      :style="{
-        width,
-        height
-      }"
-      @click.stop
+    <Transition
+      name="window"
+      appear
     >
-      <div class="outside">
-        <slot name="outside"></slot>
-      </div>
-      <div class="wrapper">
+      <div
+        class="box"
+        :style="{
+          width,
+          height
+        }"
+        @click.stop
+      >
+        <div class="outside">
+          <slot name="outside"></slot>
+        </div>
+        <div class="wrapper">
+          <div
+            class="left"
+            v-if="slot.footer"
+          >
+            <slot name="left"></slot>
+          </div>
+          <div class="right">
+            <div class="title">
+              <span>
+                {{ title }}
+              </span>
+
+              <Close
+                v-if="!noClose"
+                class="close"
+                @click="close"
+              />
+            </div>
+            <div class="item">
+              <slot></slot>
+            </div>
+          </div>
+        </div>
         <div
-          class="left"
+          class="footer"
           v-if="slot.footer"
         >
-          <slot name="left"></slot>
-        </div>
-        <div class="right">
-          <div class="title">
-            <span>
-              {{ title }}
-            </span>
-
-            <Close
-              v-if="!noClose"
-              class="close"
-              @click="close"
-            />
-          </div>
-          <div class="item">
-            <slot></slot>
-          </div>
+          <Transition
+            name="footer"
+            appear
+          >
+            <div class="bg"></div>
+          </Transition>
+          <Transition
+            name="btn"
+            appear
+          >
+            <div class="btn-list">
+              <slot name="footer"></slot>
+            </div>
+          </Transition>
         </div>
       </div>
-      <div
-        class="footer"
-        v-if="slot.footer"
-      >
-        <slot name="footer"></slot>
-      </div>
-    </div>
+    </Transition>
   </div>
 </template>
 
@@ -135,13 +153,53 @@ const close = () => {
           max-height calc(100% - 80px * 2 - 40px - 30px)
 
     .footer
-      background #262626
-      background-image url('@/assets/images/菜单背景.webp')
-      background-position center
-      background-size auto 100%
-      background-repeat no-repeat
-      padding 60px 80px
+      position relative
       display flex
       align-content center
       justify-content center
+      padding 40px 80px
+      background var(--box-background-color)
+
+      .bg
+        position absolute
+        top 0
+        right 0
+        bottom 0
+        left 0
+        background #262626
+        background-image url('@/assets/images/菜单背景.webp')
+        background-position center
+        background-size auto 100%
+        background-repeat no-repeat
+        display flex
+        align-content center
+        justify-content center
+
+      .btn-list
+        display flex
+        align-content center
+        justify-content center
+
+.window-enter-active
+  transition all 0.2s ease-out
+
+.window-enter-from
+  opacity 0
+  transform translateY(20%)
+
+.footer-enter-active
+  transition all 0.25s
+  transition-delay 0.05s
+  transform-origin bottom
+
+.footer-enter-from
+  opacity 0
+  transform scaleY(0)
+
+.btn-enter-active
+  transition all 0.2s
+  transition-delay 0.15s
+
+.btn-enter-from
+  opacity 0
 </style>
