@@ -57,6 +57,9 @@
       <template #left>
         <div class="preview">
           <div class="circle">
+            <div class="circle-1"></div>
+            <div class="circle-2"></div>
+            <div class="circle-3"></div>
             <img
               :src="bubbles[index].preview"
               alt=""
@@ -139,6 +142,7 @@ const onBtnClick = () => {
   user-select none
 
   .circle
+    position relative
     display flex
     justify-content center
     align-items center
@@ -149,6 +153,29 @@ const onBtnClick = () => {
 
     img
       width 80%
+
+    .circle-1, .circle-2, .circle-3
+      position absolute
+      left 50%
+      bottom -5px
+      transform translate(-50%)
+      border-radius 50%
+
+    .circle-1
+      width 115%
+      height 115%
+      border 2px solid #b9babf
+
+    .circle-2
+      width 108%
+      height 108%
+      border 2px dotted #b9babf
+
+    .circle-3
+      width 200%
+      height 200%
+      border 2px dotted #b9babf
+      opacity 0.5
 
   .name
     font-size 35px
@@ -224,5 +251,5 @@ const onBtnClick = () => {
     background #c5c6ca !important
 
 .btn
-  width 600px
+  width 650px
 </style>

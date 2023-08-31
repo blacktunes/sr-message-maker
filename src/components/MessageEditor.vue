@@ -59,6 +59,27 @@
             />
             <div
               class="btn"
+              @click="handelMessageClick"
+              title="创建任务"
+            >
+              <Icon name="mission" />
+            </div>
+            <div
+              class="btn"
+              @click="handelOptionClick"
+              title="创建选项"
+            >
+              <Icon name="option" />
+            </div>
+            <div
+              class="btn"
+              @click="handelNoticeClick"
+              title="发送通知"
+            >
+              <Icon name="notice" />
+            </div>
+            <div
+              class="btn"
               @click="handelImageAddClick"
               title="发送图片"
             >
@@ -70,28 +91,6 @@
               title="发送表情"
             >
               <Icon name="emoticon" />
-            </div>
-            <div
-              class="btn"
-              @click="handelOptionClick"
-              title="创建选项"
-            >
-              <Icon name="option" />
-            </div>
-            <div
-              class="btn"
-              @click="handelMessageClick"
-              title="创建任务"
-            >
-              <Icon name="mission" />
-            </div>
-
-            <div
-              class="btn"
-              @click="handelNoticeClick"
-              title="发送通知"
-            >
-              <Icon name="notice" />
             </div>
             <div
               class="btn right"
