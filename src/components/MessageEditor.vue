@@ -1,6 +1,9 @@
 <template>
-  <transition-group name="fade">
-    <template v-if="setting.index">
+  <template v-if="setting.index">
+    <transition
+      name="fade"
+      appear
+    >
       <MessageBox
         class="message-editor"
         :index="messageIndex"
@@ -103,14 +106,19 @@
           <Emoticon @emoticon="setEmoticon" />
         </template>
       </MessageBox>
-    </template>
-    <template v-else>
+    </transition>
+  </template>
+  <template v-else>
+    <transition
+      name="slide-left"
+      appear
+    >
       <div class="defalut-wrapper">
         <Icon name="train" />
         <span>{{ message.list.length > 0 ? '请选择联系人' : '暂无短信' }}</span>
       </div>
-    </template>
-  </transition-group>
+    </transition>
+  </template>
 </template>
 
 <script lang="ts" setup>

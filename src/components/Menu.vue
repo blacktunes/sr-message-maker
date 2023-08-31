@@ -1,66 +1,71 @@
 <template>
-  <div class="menu">
-    <div class="list">
-      <MessageGroup
-        v-for="item in list"
-        :key="item.title"
-        :title="item.title"
-        :list="item.list"
-        :num="item.num"
-      />
-    </div>
-    <div class="footer">
-      <div class="btn-list">
-        <div
-          class="btn"
-          @click="handelMessageAddClick"
-        >
-          <div class="icon">
-            <Icon
-              name="ring"
-              class="ring"
-            />
-            <Icon name="message" />
+  <Transition
+    name="slide-right"
+    appear
+  >
+    <div class="menu">
+      <div class="list">
+        <MessageGroup
+          v-for="item in list"
+          :key="item.title"
+          :title="item.title"
+          :list="item.list"
+          :num="item.num"
+        />
+      </div>
+      <div class="footer">
+        <div class="btn-list">
+          <div
+            class="btn"
+            @click="handelMessageAddClick"
+          >
+            <div class="icon">
+              <Icon
+                name="ring"
+                class="ring"
+              />
+              <Icon name="message" />
+            </div>
+            <span>发送</span>
           </div>
-          <span>发送</span>
+          <div
+            class="btn"
+            v-if="setting.index"
+            @click.stop="handelScreenshotClick"
+          >
+            <div class="icon">
+              <Icon
+                name="ring"
+                class="ring"
+              />
+              <Icon name="save" />
+            </div>
+            <span>保存</span>
+          </div>
+          <div
+            class="btn"
+            v-if="setting.index"
+            @click.stop="handelAutoPlayClick"
+          >
+            <div class="icon">
+              <Icon
+                name="ring"
+                class="ring"
+              />
+              <Icon name="play" />
+            </div>
+            <span>播放</span>
+          </div>
         </div>
         <div
-          class="btn"
-          v-if="setting.index"
-          @click.stop="handelScreenshotClick"
+          class="bubbles-btn"
+          @click.stop="popup.setting = true"
         >
-          <div class="icon">
-            <Icon
-              name="ring"
-              class="ring"
-            />
-            <Icon name="save" />
-          </div>
-          <span>保存</span>
-        </div>
-        <div
-          class="btn"
-          v-if="setting.index"
-          @click.stop="handelAutoPlayClick"
-        >
-          <div class="icon">
-            <Icon
-              name="ring"
-              class="ring"
-            />
-            <Icon name="play" />
-          </div>
-          <span>播放</span>
+          <Icon name="setting" />
         </div>
       </div>
-      <div
-        class="bubbles-btn"
-        @click.stop="popup.setting = true"
-      >
-        <Icon name="setting" />
-      </div>
     </div>
-  </div>
+  </Transition>
 </template>
 
 <script lang="ts" setup>
