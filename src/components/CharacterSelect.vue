@@ -94,6 +94,7 @@ import { setting } from '@/store/setting'
 import CharacterCard from './Character/CharacterCard.vue'
 import Icon from './Common/Icon.vue'
 import { compressImage } from '@/assets/scripts/image'
+import { cropperOpen } from '@/store/cropper'
 
 watch(
   () => input.select,
@@ -121,23 +122,32 @@ const handelcharacterClick = (key: string, name: string) => {
 }
 
 const addCustom = () => {
+  const name = prompt('请输入角色名')
+  if (!name) return
+  const key = Date.now()
+  const info = prompt('请输入角色签名') || ''
+
   const input = document.createElement('input')
   input.type = 'file'
   input.accept = 'image/*'
-  input.onchange = () => {
+  input.onchange = async () => {
     if (input.files?.[0]) {
-      compressImage(input.files[0], 500).then((avatar) => {
-        const name = prompt('请输入角色名')
-        if (!name) return
-        const key = Date.now()
-        const info = prompt('请输入角色签名') || ''
-        character.custom[key] = {
-          name,
-          avatar,
-          info,
-          custom: true
+      const avatar = await compressImage(input.files[0])
+      cropperOpen(
+        avatar,
+        (res) => {
+          character.custom[key] = {
+            name,
+            avatar: res,
+            info,
+            custom: true
+          }
+        },
+        {
+          aspectRatio: 1,
+          maxWidth: 500
         }
-      })
+      )
     }
   }
   input.click()
