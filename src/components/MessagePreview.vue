@@ -16,7 +16,7 @@
         </div>
       </div>
     </Transition>
-    <Transition name="fade">
+    <Transition name="preview" appear>
       <MessageBox
         v-show="setting.preview"
         class="message-preview"
@@ -356,4 +356,11 @@ const toggleGreenScreen = () => {
 
 .option-leave-to
   opacity 0
+
+.preview-enter-active
+  transition all 0.3s
+
+.preview-enter-from
+  opacity 0
+  transform scaleY(0)
 </style>
