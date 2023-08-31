@@ -3,6 +3,7 @@ import { reactive } from 'vue'
 export const input = reactive<{
   input: string
   select: boolean
+  select_page: number,
   emoticon: boolean
   index?: [number, number]
   character: {
@@ -12,6 +13,7 @@ export const input = reactive<{
 }>({
   input: '',
   select: false,
+  select_page: 0,
   emoticon: false,
   index: undefined,
   character: {
