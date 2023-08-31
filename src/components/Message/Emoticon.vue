@@ -103,6 +103,7 @@ const handelEmoticonClick = (item: Emoticon) => {
 
 <style lang="stylus" scoped>
 .emoticon
+  z-index 10
   display flex
   flex-direction column
   position absolute
@@ -110,7 +111,7 @@ const handelEmoticonClick = (item: Emoticon) => {
   bottom 120px
   width 1400px
   height 900px
-  background rgba(255, 255, 255, 0.95)
+  background rgba(255, 255, 255, 0.99)
   padding 30px 60px 60px 60px
   border-radius 5px
   box-shadow 0 0 20px 0px rgba(0, 0, 0, 0.15)
@@ -172,11 +173,13 @@ const handelEmoticonClick = (item: Emoticon) => {
     overflow-x auto
     scrollbar-width none
     box-shadow 0px -20px 25px 20px rgba(255, 255, 255, 0.95)
+    background #fff
 
     &::-webkit-scrollbar
       height 0
 
     .group-item
+      z-index 5
       box-sizing border-box
       position relative
       display flex
