@@ -245,6 +245,7 @@ const deleteData = () => {
   const flag = confirm('确定删除所有短信吗？')
   if (flag) {
     message.list.length = 0
+    updateMessageUsage()
   }
 }
 
@@ -315,6 +316,7 @@ const deleteCharacter = () => {
   const flag = confirm('确定删除所有自定义角色吗？')
   if (flag) {
     character.custom = {}
+    updateCharacterUsage()
   }
 }
 </script>

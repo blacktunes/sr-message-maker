@@ -273,11 +273,11 @@ $del-pos = -100px
         bottom 0
         height 100px
         transform translateX(-50%)
-        opacity 0.002
+        opacity 0.005
         pointer-events none
 
         :deep(path)
-          fill #000
+          fill #999
 
 .right
   flex-direction row-reverse
