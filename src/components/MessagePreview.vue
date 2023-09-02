@@ -16,7 +16,10 @@
         </div>
       </div>
     </Transition>
-    <Transition name="preview" appear>
+    <Transition
+      name="preview"
+      appear
+    >
       <MessageBox
         v-show="setting.preview"
         class="message-preview"
@@ -296,33 +299,8 @@ const toggleGreenScreen = () => {
   height 80%
   message()
 
-  :deep(div)
+  :deep(*)
     cursor auto !important
-
-  :deep(img)
-    cursor auto !important
-
-  .notice:hover, .message:hover, .mission:hover
-    background unset !important
-
-  .close
-    z-index 9
-    position absolute
-    right 70px
-    top 65px
-    display flex
-    justify-content center
-    align-items center
-    width 100px
-    height 100px
-
-    svg
-      transition all 0.2s
-
-    &:hover
-      svg
-        width 80px
-        height 80px
 
   .option-box
     height 90px * 3 + 20px * 4

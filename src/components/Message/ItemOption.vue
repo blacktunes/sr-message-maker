@@ -73,12 +73,6 @@ const blur = (e: KeyboardEvent) => {
   padding 15px 0
   item()
 
-  &:hover
-    background var(--message-item-background-color)
-
-    .change, .del
-      opacity 1
-
   .change, .del
     display flex
     align-items center
@@ -89,6 +83,7 @@ const blur = (e: KeyboardEvent) => {
     height 60px
     transform translateY(-50%)
     opacity 0
+    transition opacity 0.2s
     cursor pointer
 
     :deep(path)
@@ -105,5 +100,5 @@ const blur = (e: KeyboardEvent) => {
 
   input
     option()
-    width calc(100% - var(--message-item-avatar-width) * 2)
+    width calc(100% - var(--message-item-avatar-width) * 2 - 100px)
 </style>

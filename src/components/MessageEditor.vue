@@ -22,12 +22,15 @@
           chosen-class="chosen"
           scroll-sensitivity="50"
           scroll-speed="30"
+          @choose="onChoose"
+          @unchoose="onUnChoose"
           @clone="onMoveStart"
           @end="onMoveEnd"
           @change="onChange"
         >
           <template #item="{ element, index }: { element: Message, index: number }">
             <MessageItem
+              class="message-item"
               :style="setMessageStyle(index)"
               :item="element"
               :index="index"
@@ -392,18 +395,32 @@ const handelAddClick = (img?: string) => {
   scrollToBottom(boxRef.value?.listDom)
 }
 
+let isMove = false
+
+const onChoose = () => {
+  setting.transition = false
+}
+
+const onUnChoose = () => {
+  if (isMove) return
+  setting.transition = true
+}
+
 const onMoveStart = () => {
   randomKey = getRandomKey()
-  setting.transition = false
+  isMove = true
 }
 
 const onMoveEnd = () => {
   setting.transition = true
+  isMove = false
 }
 
 const onChange = () => {
   message.list[messageIndex.value].time = Date.now()
 }
+
+const opacity = computed(() => (setting.transition ? 1 : 0))
 </script>
 
 <style lang="stylus" scoped>
@@ -437,6 +454,13 @@ box()
 .message-editor
   box()
   message()
+
+  .message-item
+    &:hover
+      background var(--message-item-background-color)
+
+      :deep(.change), :deep(.del)
+        opacity v-bind(opacity) !important
 
   .bottom
     position relative
@@ -522,6 +546,9 @@ box()
   display none !important
 
 .chosen
+  cursor grabbing
+  background var(--message-item-background-color) !important
+
   &:before
     content ''
     box-sizing border-box

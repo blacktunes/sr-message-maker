@@ -154,13 +154,6 @@ const blur = (e: KeyboardEvent) => {
   padding 20px 0
   item()
 
-  &:hover
-    background var(--message-item-background-color)
-
-    .bg
-      .del
-        opacity 1
-
   .bg
     position relative
     height 180px

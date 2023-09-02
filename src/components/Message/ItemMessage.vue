@@ -154,12 +154,6 @@ $del-pos = -100px
   padding 5px 30px 15px 30px
   item()
 
-  &:hover
-    background var(--message-item-background-color)
-
-    .del
-      opacity 1 !important
-
   .avatar
     flex-shrink 0
     overflow hidden

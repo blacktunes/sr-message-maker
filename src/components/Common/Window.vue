@@ -112,6 +112,7 @@ const close = () => {
     height fit-content
     height -moz-fit-content
     max-height 90%
+    background var(--box-background-color)
     message()
 
     .outside
@@ -123,7 +124,6 @@ const close = () => {
       overflow hidden
       display flex
       width 100%
-      background var(--box-background-color)
       border-radius 0 50px 0 0
 
       .left
@@ -197,7 +197,7 @@ const close = () => {
   transform scaleY(0)
 
 .btn-enter-active
-  transition all 0.2s
+  transition all 0.35s
   transition-delay 0.15s
 
 .btn-enter-from

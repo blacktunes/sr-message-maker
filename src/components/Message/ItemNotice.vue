@@ -66,13 +66,6 @@ const updateMessage = (e: Event) => {
   font-size 30px
   color var(--notice-color)
 
-  &:hover
-    background var(--message-item-background-color)
-
-    div
-      .del
-        opacity 1
-
   img
     user-select none
 
