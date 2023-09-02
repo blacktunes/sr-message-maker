@@ -17,7 +17,6 @@
           :item-key="(item: Message) => getKey(item)"
           animation="100"
           delay="100"
-          delay-on-touch-only="true"
           force-fallback="true"
           fallback-class="fallback"
           chosen-class="chosen"
