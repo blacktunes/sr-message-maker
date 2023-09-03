@@ -112,7 +112,7 @@ const handelEmoticonClick = (item: Emoticon) => {
   width 1400px
   height 900px
   background rgba(255, 255, 255, 0.99)
-  padding 30px 60px 60px 60px
+  padding 30px 40px 60px 50px
   border-radius 5px
   box-shadow 0 0 20px 0px rgba(0, 0, 0, 0.15)
   user-select none
@@ -129,9 +129,6 @@ const handelEmoticonClick = (item: Emoticon) => {
     scrollbar-gutter stable
     scrollbar-width none
 
-    &::-webkit-scrollbar
-      width 10px
-
     &::-webkit-scrollbar-track
       margin 0
 
@@ -140,7 +137,7 @@ const handelEmoticonClick = (item: Emoticon) => {
       flex-direction column
       box-sizing border-box
       border 5px solid #c6c5c5
-      background #d8d8d8
+      background #e0e0e0
       width calc(20% - 20px)
       height 320px
       margin 0 20px 30px 0
@@ -255,10 +252,10 @@ const handelEmoticonClick = (item: Emoticon) => {
     background #fdd073
     transform scaleX(0)
 
-  70%
+  75%
     background #fdd073
 
-  90%
+  95%
     transform scaleX(1)
 
   100%

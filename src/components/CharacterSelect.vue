@@ -32,13 +32,11 @@
             自定义角色
           </div>
         </div>
-        <div
-          class="list"
-          ref="listDom"
-        >
+        <div class="list">
           <div
             class="character-list"
-            v-if="input.select_page === 0"
+            data-type="game"
+            ref="game"
           >
             <CharacterCard
               class="character"
@@ -60,7 +58,8 @@
           </div>
           <div
             class="character-list"
-            v-else-if="input.select_page === 1"
+            data-type="other"
+            ref="other"
           >
             <CharacterCard
               v-for="(item, key) in character.other"
@@ -74,9 +73,11 @@
               @click="handelcharacterClick(String(key), item.name)"
             />
           </div>
+
           <div
             class="character-list"
-            v-else-if="input.select_page === 2"
+            data-type="custom"
+            ref="custom"
           >
             <CharacterCard
               v-for="(item, key) in character.custom"
@@ -114,7 +115,7 @@
 </template>
 
 <script lang="ts" setup>
-import { nextTick, ref, watch } from 'vue'
+import { nextTick, onMounted, ref, watch } from 'vue'
 import { getAvatar } from '@/assets/scripts/avatar'
 import { user } from '@/assets/data/characterData'
 import { character } from '@/store/character'
@@ -126,15 +127,65 @@ import Icon from './Common/Icon.vue'
 import { compressImage } from '@/assets/scripts/image'
 import { cropperOpen } from '@/store/cropper'
 
-const listDom = ref<HTMLElement | null>(null)
+const game = ref<HTMLElement | null>(null)
+const other = ref<HTMLElement | null>(null)
+const custom = ref<HTMLElement | null>(null)
 
-const changePage = (page: number) => {
-  input.select_page = page
-  nextTick(() => {
-    if (listDom.value) {
-      listDom.value.scrollTop = 0
+const intersectionRatio: [number, number, number] = [0, 0, 0]
+
+const intersectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach((item) => {
+    switch ((item.target as HTMLElement).dataset.type) {
+      case 'game':
+        intersectionRatio[0] = item.intersectionRatio
+        break
+      case 'other':
+        intersectionRatio[1] = item.intersectionRatio
+        break
+      case 'custom':
+        intersectionRatio[2] = item.intersectionRatio
+        break
     }
   })
+
+  if (intersectionRatio[2] > 0) {
+    input.select_page = 2
+    return
+  }
+  if (intersectionRatio[1] > 0) {
+    input.select_page = 1
+    return
+  }
+  input.select_page = 0
+})
+
+onMounted(() => {
+  if (game.value) intersectionObserver.observe(game.value)
+  if (other.value) intersectionObserver.observe(other.value)
+  if (custom.value) intersectionObserver.observe(custom.value)
+})
+
+const changePage = (page: number) => {
+  if (page === 0) {
+    game.value?.scrollIntoView({
+      behavior: 'smooth'
+    })
+    return
+  }
+
+  if (page === 1) {
+    other.value?.scrollIntoView({
+      behavior: 'smooth'
+    })
+    return
+  }
+
+  if (page === 2) {
+    custom.value?.scrollIntoView({
+      behavior: 'smooth'
+    })
+    return
+  }
 }
 
 watch(
@@ -307,4 +358,7 @@ $character-item-width = 387px
 
   &:hover
     opacity 1
+
+.test
+  width 100%
 </style>
