@@ -66,13 +66,12 @@ checkUpdate()
 
 <style lang="stylus" scoped>
 .item
-  margin 20px 20px 30px 0
-  padding 10px
+  margin 20px 20px 20px 0
+  padding 10px 20px 20px 10px
 
   .time
     font-size 46px
     font-weight bold
-    margin-bottom 10px
 
   .text
     font-size 36px
@@ -91,6 +90,6 @@ checkUpdate()
       color #666
 
 .highlight
-  background #bbb
+  background #ccc
   border-radius 5px
 </style>

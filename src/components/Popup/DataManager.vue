@@ -84,7 +84,7 @@ function countStrToSize(str: string) {
     sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
     i = Math.floor(Math.log(count) / Math.log(k))
 
-  return (count / Math.pow(k, i)).toPrecision(3) + ' ' + sizes[i]
+  return `${Number((count / Math.pow(k, i)).toPrecision(3))} ${sizes[i]}`
 }
 
 const messageUsage = ref('')
