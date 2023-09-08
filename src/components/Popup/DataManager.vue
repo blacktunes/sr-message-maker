@@ -315,7 +315,9 @@ const deleteCharacter = () => {
 
   const flag = confirm('确定删除所有自定义角色吗？')
   if (flag) {
-    character.custom = {}
+    Object.keys(character.custom).forEach((key) => {
+      delete character.custom[key]
+    })
     updateCharacterUsage()
   }
 }
