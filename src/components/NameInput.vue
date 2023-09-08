@@ -44,7 +44,7 @@ const updateName = (e: Event) => {
   localStorage.setItem('sr-message-name', setting.name)
 }
 
-const handelAvatarClick = () => {
+const handelAvatarClick = async () => {
   const el = document.createElement('input')
   el.type = 'file'
   el.accept = 'image/*'

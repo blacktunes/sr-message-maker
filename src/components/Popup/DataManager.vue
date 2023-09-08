@@ -202,7 +202,7 @@ const downloadAllData = () => {
   a.click()
 }
 
-const uploadDate = () => {
+const uploadDate = async () => {
   const el = document.createElement('input')
   el.type = 'file'
   el.accept = '.json'
@@ -276,7 +276,7 @@ const downloadCharacter = () => {
   a.click()
 }
 
-const uploadCharacter = () => {
+const uploadCharacter = async () => {
   const el = document.createElement('input')
   el.type = 'file'
   el.accept = '.json'

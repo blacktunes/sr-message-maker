@@ -213,7 +213,7 @@ const handelcharacterClick = (key: string, name: string) => {
   hide()
 }
 
-const addCustom = () => {
+const addCustom = async () => {
   const name = prompt('请输入角色名')
   if (!name) return
   const key = Date.now()

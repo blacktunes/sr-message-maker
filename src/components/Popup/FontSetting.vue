@@ -51,7 +51,7 @@ const resetFont = () => {
   setFont(defaultFont)
 }
 
-const setCustomFont = () => {
+const setCustomFont = async () => {
   const el = document.createElement('input')
   el.type = 'file'
   el.onchange = () => {

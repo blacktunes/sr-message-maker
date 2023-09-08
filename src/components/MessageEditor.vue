@@ -258,7 +258,7 @@ const handelAvatarClick = (key: number) => {
   input.select = true
 }
 
-const handelImageClick = (emoticon: boolean, key: number) => {
+const handelImageClick = async (emoticon: boolean, key: number) => {
   if (emoticon) {
     input.emoticon = true
     input.index = [messageIndex.value, key]
@@ -323,7 +323,7 @@ const handelMessageClick = () => {
   scrollToBottom(boxRef.value?.listDom)
 }
 
-const handelImageAddClick = () => {
+const handelImageAddClick = async () => {
   const el = document.createElement('input')
   el.type = 'file'
   el.accept = 'image/*'
