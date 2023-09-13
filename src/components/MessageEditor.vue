@@ -263,23 +263,25 @@ const handelImageClick = async (emoticon: boolean, key: number) => {
     input.emoticon = true
     input.index = [messageIndex.value, key]
   } else {
-    const el = document.createElement('input')
-    el.type = 'file'
-    el.accept = 'image/*'
-    el.onchange = async () => {
-      if (el.files?.[0]) {
-        const img = await compressImage(el.files[0])
-        cropperOpen(
-          img,
-          (res) => {
-            message.list[messageIndex.value].list[key].img = res
-            message.list[messageIndex.value].time = Date.now()
-          },
-          { maxWidth: 1280 }
-        )
+    setTimeout(() => {
+      const el = document.createElement('input')
+      el.type = 'file'
+      el.accept = 'image/*'
+      el.onchange = async () => {
+        if (el.files?.[0]) {
+          const img = await compressImage(el.files[0])
+          cropperOpen(
+            img,
+            (res) => {
+              message.list[messageIndex.value].list[key].img = res
+              message.list[messageIndex.value].time = Date.now()
+            },
+            { maxWidth: 1280 }
+          )
+        }
       }
-    }
-    el.click()
+      el.click()
+    }, 0)
   }
 }
 const handelDelClick = (key: number) => {

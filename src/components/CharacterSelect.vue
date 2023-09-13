@@ -219,30 +219,32 @@ const addCustom = async () => {
   const key = Date.now()
   const info = prompt('请输入角色签名') || ''
 
-  const input = document.createElement('input')
-  input.type = 'file'
-  input.accept = 'image/*'
-  input.onchange = async () => {
-    if (input.files?.[0]) {
-      const avatar = await compressImage(input.files[0])
-      cropperOpen(
-        avatar,
-        (res) => {
-          character.custom[key] = {
-            name,
-            avatar: res,
-            info,
-            custom: true
+  setTimeout(() => {
+    const input = document.createElement('input')
+    input.type = 'file'
+    input.accept = 'image/*'
+    input.onchange = async () => {
+      if (input.files?.[0]) {
+        const avatar = await compressImage(input.files[0])
+        cropperOpen(
+          avatar,
+          (res) => {
+            character.custom[key] = {
+              name,
+              avatar: res,
+              info,
+              custom: true
+            }
+          },
+          {
+            aspectRatio: 1,
+            maxWidth: 500
           }
-        },
-        {
-          aspectRatio: 1,
-          maxWidth: 500
-        }
-      )
+        )
+      }
     }
-  }
-  input.click()
+    input.click()
+  }, 0)
 }
 
 const handelDelClick = (key: string, name: string) => {
