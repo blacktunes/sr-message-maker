@@ -28,6 +28,12 @@ if (avatar === '') {
 }
 
 export const gameCharacter: { [name: string]: Character } = {
+  符玄: {
+    name: '符玄',
+    avatar: 'https://patchwiki.biligame.com/images/sr/9/93/4t66mewmti17qteotn6ul16p1624i7b.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/09/14/279865110/e4436a038b70cc69882fc9add94e70f7_7081735167856849522.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: ''
+  },
   卡芙卡: {
     name: '卡芙卡',
     avatar: 'https://patchwiki.biligame.com/images/sr/f/fe/swjc15h5lekheoa1g15hi2kcm3mi7u6.png',
@@ -112,6 +118,12 @@ export const gameCharacter: { [name: string]: Character } = {
     avatar: 'https://patchwiki.biligame.com/images/sr/8/87/f50frnxnzqgx3lrnqz2f4hjzrlqcfae.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/d5a01ddc0494595417fee74fa3285b56_8110023215605946848.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: '列车组的各位，随时保持联系'
+  },
+  玲可: {
+    name: '玲可',
+    avatar: 'https://patchwiki.biligame.com/images/sr/8/82/dji139apt4n3a7rqi4s4aej45obuipx.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/09/14/279865110/e02e6ad60e4cea0d8582803058bf9b70_8453316196841959392.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: ''
   },
   驭空: {
     name: '驭空',
