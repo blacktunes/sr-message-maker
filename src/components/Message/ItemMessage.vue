@@ -170,6 +170,8 @@ $del-pos = -100px
       user-select none
       border-radius 50%
       clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
+      user-select none
+      pointer-events none
 
   .message-item
     flex 1

@@ -245,6 +245,8 @@ const avatarUrl = computed(() => {
         background #3f3f3f
         border-radius 50%
         clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
+        user-select none
+        pointer-events none
 
     .name
       width 480px
