@@ -12,7 +12,8 @@ export const screenshot = async (dom: HTMLElement, width?: number, height?: numb
     const img = new Image()
     img.src = dataUrl
     img.alt = title
-    const win = window.open('')
+    img.style.width = '100%'
+    const win = window.open('', '_blank')
     if (win) {
       win.document.title = title
       win.document.body.appendChild(img)

@@ -131,6 +131,8 @@ const handelChangeClick = () => {
       object-fit contain
       border-radius 50%
       clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
+      user-select none
+      pointer-events none
 
   .change
     user-select none
