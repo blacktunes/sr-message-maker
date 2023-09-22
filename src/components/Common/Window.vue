@@ -29,7 +29,7 @@
               </span>
 
               <Close
-                v-if="!noClose"
+                v-if="!!onClose"
                 class="close"
                 @click="close"
               />
@@ -70,7 +70,7 @@ defineProps<{
   title: string
   width?: string
   height?: string
-  noClose?: boolean
+  onClose?: () => void
 }>()
 
 const slot = defineSlots()
