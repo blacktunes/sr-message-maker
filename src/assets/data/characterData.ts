@@ -32,7 +32,7 @@ export const gameCharacter: { [name: string]: Character } = {
     name: '符玄',
     avatar: 'https://patchwiki.biligame.com/images/sr/9/93/4t66mewmti17qteotn6ul16p1624i7b.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/09/14/279865110/e4436a038b70cc69882fc9add94e70f7_7081735167856849522.png?x-oss-process=image/quality,q_75/resize,s_280',
-    info: ''
+    info: '不卜人事福祸！'
   },
   卡芙卡: {
     name: '卡芙卡',
@@ -123,7 +123,7 @@ export const gameCharacter: { [name: string]: Character } = {
     name: '玲可',
     avatar: 'https://patchwiki.biligame.com/images/sr/8/82/dji139apt4n3a7rqi4s4aej45obuipx.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/09/14/279865110/e02e6ad60e4cea0d8582803058bf9b70_8453316196841959392.png?x-oss-process=image/quality,q_75/resize,s_280',
-    info: ''
+    info: '您呼叫的用户不在服务区'
   },
   驭空: {
     name: '驭空',

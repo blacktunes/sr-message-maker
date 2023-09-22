@@ -4,8 +4,6 @@
       style="z-index: 90"
       v-if="popup.setting"
       title="更换对话框"
-      :no-close="true"
-      @close="popup.setting = false"
     >
       <div class="select">
         <div

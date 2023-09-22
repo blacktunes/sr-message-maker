@@ -1,5 +1,5 @@
 import { nextTick, reactive, toRaw, watch } from 'vue'
-import { setting } from './setting'
+import { setLoadingType } from '@/assets/scripts/setup'
 
 export const message = reactive<{
   list: MessageListItem[]
@@ -8,7 +8,7 @@ export const message = reactive<{
 })
 
 const setWatch = () => {
-  setting.loading = false
+  setLoadingType('message')
   watch(message.list, () => {
     nextTick(() => {
       updateDB()
@@ -24,7 +24,7 @@ export const updateDB = () => {
     .objectStore('data')
     .put({
       id: 0,
-      data: JSON.stringify(toRaw(message.list))
+      data: toRaw(message.list)
     })
 }
 
@@ -36,7 +36,12 @@ export const getDB = () => {
     if (hasDB) {
       db.transaction('data', 'readonly').objectStore('data').get(0).onsuccess = (e) => {
         try {
-          message.list = JSON.parse((e.target as IDBRequest).result?.data || '[]')
+          const data = (e.target as IDBRequest).result?.data
+          if (typeof data === 'string') {
+            message.list = JSON.parse(data)
+          } else {
+            message.list = data || {}
+          }
         } finally {
           setWatch()
         }
@@ -56,4 +61,9 @@ export const getDB = () => {
   }
 }
 
-getDB()
+try {
+  getDB()
+} catch (err) {
+  console.error(err)
+  setLoadingType('message', true)
+}

@@ -1,4 +1,5 @@
 import { gameCharacter, otherCharacter } from '@/assets/data/characterData'
+import { setLoadingType } from '@/assets/scripts/setup'
 import { nextTick, reactive, toRaw, watch } from 'vue'
 
 const character = reactive<{
@@ -12,6 +13,7 @@ const character = reactive<{
 })
 
 const setWatch = () => {
+  setLoadingType('character')
   watch(character.custom, () => {
     nextTick(() => {
       updateDB()
@@ -27,7 +29,7 @@ export const updateDB = () => {
     .objectStore('data')
     .put({
       id: 0,
-      data: JSON.stringify(toRaw(character.custom))
+      data: toRaw(character.custom)
     })
 }
 
@@ -39,7 +41,12 @@ export const getDB = () => {
     if (hasDB) {
       db.transaction('data', 'readonly').objectStore('data').get(0).onsuccess = (e) => {
         try {
-          character.custom = JSON.parse((e.target as IDBRequest).result?.data || '{}')
+          const data = (e.target as IDBRequest).result?.data
+          if (typeof data === 'string') {
+            character.custom = JSON.parse(data)
+          } else {
+            character.custom = data || {}
+          }
         } finally {
           setWatch()
         }
@@ -59,6 +66,11 @@ export const getDB = () => {
   }
 }
 
-getDB()
+try {
+  getDB()
+} catch (err) {
+  console.error(err)
+  setLoadingType('character', true)
+}
 
 export { character }
