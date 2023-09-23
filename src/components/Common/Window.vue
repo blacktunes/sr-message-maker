@@ -23,13 +23,16 @@
             <slot name="left"></slot>
           </div>
           <div class="right">
-            <div class="title">
+            <div
+              class="title"
+              :style="{ justifyContent: confirm ? 'center' : undefined }"
+            >
               <span>
                 {{ title }}
               </span>
 
               <Close
-                v-if="!!onClose"
+                v-if="!!onClose && !confirm"
                 class="close"
                 @click="close"
               />
@@ -67,6 +70,7 @@
 import Close from './Close.vue'
 
 defineProps<{
+  confirm?: boolean
   title: string
   width?: string
   height?: string

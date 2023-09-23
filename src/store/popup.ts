@@ -5,13 +5,15 @@ export const popup = reactive({
   log: false,
   font: false,
   data: false,
-  error: false
+  confirm: false
 })
 
-export const errorData = reactive<{
+export const confirmData = reactive<{
   title: string
-  text: string[]
+  text: string[],
+  fn?: () => void
 }>({
   title: '',
-  text: []
+  text: [],
+  fn: undefined,
 })
