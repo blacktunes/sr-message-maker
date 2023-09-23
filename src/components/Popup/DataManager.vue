@@ -55,6 +55,12 @@
             @click="deleteCharacter"
           />
           <div class="line"></div>
+          <Btn
+            class="btn"
+            name="重置数据库"
+            @click="reserDatabase"
+          />
+          <div class="line"></div>
         </div>
         <div class="tip">Beta</div>
       </div>
@@ -319,6 +325,17 @@ const deleteCharacter = () => {
       delete character.custom[key]
     })
     updateCharacterUsage()
+  }
+}
+
+const reserDatabase = () => {
+  const flag = confirm('确定要重置数据库吗？')
+  if (flag) {
+    setting.loading = true
+    const promise = [indexedDB.deleteDatabase('sr-custom'), indexedDB.deleteDatabase('sr-message')]
+    Promise.all(promise).then(() => {
+      location.reload()
+    })
   }
 }
 </script>
