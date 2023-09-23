@@ -1,9 +1,10 @@
 <template>
   <transition name="fade">
     <window
+      style="z-index: 999"
       confirm
       :title="confirmData.title"
-      width="50%"
+      width="60%"
       v-if="popup.confirm"
     >
       <div class="text">
@@ -13,6 +14,9 @@
           v-html="text"
         ></div>
       </div>
+      <template #bottom>
+        <div class="tip">{{ confirmData.tip }}</div>
+      </template>
       <template #footer>
         <Btn
           v-if="!confirmData.fn"
@@ -46,6 +50,7 @@ import Btn from '@/components/Common/Btn.vue'
 
 const reset = () => {
   confirmData.title = ''
+  confirmData.tip = undefined
   confirmData.text = []
   confirmData.fn = undefined
 }
@@ -67,6 +72,11 @@ const onConfirmlClick = () => {
   text-align center
   font-size 50px
   margin 50px auto 80px auto
+
+.tip
+  text-align center
+  background #e4c680
+  padding 10px
 
 .btn
   width 650px

@@ -18,7 +18,7 @@
         <div class="wrapper">
           <div
             class="left"
-            v-if="slot.footer"
+            v-if="slot.left"
           >
             <slot name="left"></slot>
           </div>
@@ -40,6 +40,7 @@
             <div class="item">
               <slot></slot>
             </div>
+            <slot name="bottom"></slot>
           </div>
         </div>
         <div

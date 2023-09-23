@@ -1,4 +1,4 @@
-import { confirmData, popup } from '@/store/popup'
+import { showConfirm } from '@/store/popup'
 import { setting } from '@/store/setting'
 
 const loadingFlag = {
@@ -32,9 +32,22 @@ export const setLoadingType = (type: 'character' | 'message' | 'avatar', error?:
       if (text) text += '/'
       text += '<span style="color:red">自定义头像</span>'
     }
-    confirmData.title = '数据库初始化失败'
-    confirmData.text = ['短信编辑器可以正常使用', `${text}数据可能丢失且不会被保存`]
-    popup.confirm = true
+    showConfirm({
+      title: '数据库初始化失败',
+      text: ['短信编辑器可以正常使用', `${text}数据可能丢失且不会被保存`]
+    })
   }
 }
 
+setTimeout(() => {
+  if (!loadingFlag.message || !loadingFlag.character || !loadingFlag.avatar) {
+    showConfirm({
+      title: '数据库加载异常',
+      tip: '如果持续出现这种情况可以尝试在数据管理里重置数据库',
+      text: ['加载时间过长，可能是数据损坏', '点击<span style="color:red">确认</span>可以强行使用，但是可能导致功能异常'],
+      fn: () => {
+        setting.loading = false
+      }
+    })
+  }
+}, 30 * 1000)
