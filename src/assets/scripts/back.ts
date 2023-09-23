@@ -5,6 +5,11 @@ import { emitter } from './event'
 import { cropper, cropperClose } from '@/store/cropper'
 
 const handelBack = () => {
+  if (popup.input) {
+    popup.input = false
+    return
+  }
+
   if (popup.confirm) {
     popup.confirm = false
     return

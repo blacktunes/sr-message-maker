@@ -5,7 +5,8 @@ export const popup = reactive({
   log: false,
   font: false,
   data: false,
-  confirm: false
+  confirm: false,
+  input: false
 })
 
 export const confirmData = reactive<{
@@ -31,4 +32,30 @@ export const showConfirm = (config: {
   confirmData.text = config.text
   confirmData.fn = config.fn
   popup.confirm = true
+}
+
+export const inputData = reactive<{
+  title: string
+  tip?: string
+  required: boolean
+  text: string
+  fn?: (str: string) => void
+}>({
+  title: '',
+  tip: undefined,
+  required: true,
+  text: '',
+  fn: undefined
+})
+
+export const showInput = (title: string, tip?: string, required = true) => {
+  return new Promise<string>((resolve) => {
+    inputData.title = title
+    inputData.tip = tip
+    inputData.required = required
+    popup.input = true
+    inputData.fn = (str: string) => {
+      resolve(str)
+    }
+  })
 }

@@ -153,8 +153,10 @@ const close = () => {
             margin-left 20px
 
         .item
-          margin 40px 80px
           overflow auto
+          display flex
+          flex-direction column
+          margin 40px 80px
           max-height calc(100% - 80px * 2 - 40px - 30px)
 
     .footer

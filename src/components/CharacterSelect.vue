@@ -126,7 +126,7 @@ import CharacterCard from './Character/CharacterCard.vue'
 import Icon from './Common/Icon.vue'
 import { compressImage } from '@/assets/scripts/image'
 import { cropperOpen } from '@/store/cropper'
-import { showConfirm } from '@/store/popup'
+import { showConfirm, showInput } from '@/store/popup'
 
 const game = ref<HTMLElement | null>(null)
 const other = ref<HTMLElement | null>(null)
@@ -215,10 +215,11 @@ const handelcharacterClick = (key: string, name: string) => {
 }
 
 const addCustom = async () => {
-  const name = prompt('请输入角色名')
+  const name: string = await showInput('请输入角色名')
   if (!name) return
+
+  const info = await showInput('请输入角色签名', '非必要选项', false)
   const key = Date.now()
-  const info = prompt('请输入角色签名') || ''
 
   setTimeout(() => {
     const input = document.createElement('input')
