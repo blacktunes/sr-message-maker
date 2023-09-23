@@ -6,17 +6,28 @@ const character = reactive<{
   game: { [name: string]: Character }
   other: { [name: string]: OtherCharacter }
   custom: { [name: string]: CustomCharacter }
+  avatar: string[]
 }>({
   game: gameCharacter,
   other: otherCharacter,
-  custom: {}
+  custom: {},
+  avatar: []
 })
 
-const setWatch = () => {
+const setCustomWatch = () => {
   setLoadingType('character')
   watch(character.custom, () => {
     nextTick(() => {
-      updateDB()
+      updateDB(0, toRaw(character.custom))
+    })
+  })
+}
+
+const setAvatarWatch = () => {
+  setLoadingType('avatar')
+  watch(character.custom, () => {
+    nextTick(() => {
+      updateDB(1, toRaw(character.avatar))
     })
   })
 }
@@ -24,13 +35,16 @@ const setWatch = () => {
 let hasDB = true
 let db: IDBDatabase
 
-export const updateDB = () => {
-  db.transaction('data', 'readwrite')
-    .objectStore('data')
-    .put({
-      id: 0,
-      data: toRaw(character.custom)
-    })
+interface UpdateDB {
+  (id: 0, data: { [name: string]: CustomCharacter }): void
+  (id: 1, data: string[]): void
+}
+
+export const updateDB: UpdateDB = (id, data) => {
+  db.transaction('data', 'readwrite').objectStore('data').put({
+    id,
+    data
+  })
 }
 
 export const getDB = () => {
@@ -48,12 +62,23 @@ export const getDB = () => {
             character.custom = data || {}
           }
         } finally {
-          setWatch()
+          setCustomWatch()
+        }
+      }
+
+      db.transaction('data', 'readonly').objectStore('data').get(1).onsuccess = (e) => {
+        try {
+          const data = (e.target as IDBRequest).result?.data
+          character.avatar = data || []
+        } finally {
+          setAvatarWatch()
         }
       }
     } else {
-      updateDB()
-      setWatch()
+      updateDB(0, toRaw(character.custom))
+      updateDB(1, toRaw(character.avatar))
+      setCustomWatch()
+      setAvatarWatch()
     }
   }
 
@@ -71,6 +96,7 @@ try {
 } catch (err) {
   console.error(err)
   setLoadingType('character', true)
+  setLoadingType('avatar', true)
 }
 
 export { character }
