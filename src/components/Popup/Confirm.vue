@@ -4,7 +4,7 @@
       style="z-index: 999"
       confirm
       :title="confirmData.title"
-      width="60%"
+      width="50%"
       v-if="popup.confirm"
     >
       <div class="text">
@@ -14,7 +14,10 @@
           v-html="text"
         ></div>
       </div>
-      <template #bottom>
+      <template
+        #bottom
+        v-if="confirmData.tip"
+      >
         <div class="tip">{{ confirmData.tip }}</div>
       </template>
       <template #footer>

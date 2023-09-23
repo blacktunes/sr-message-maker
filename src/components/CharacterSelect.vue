@@ -115,7 +115,7 @@
 </template>
 
 <script lang="ts" setup>
-import { nextTick, onMounted, ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { getAvatar } from '@/assets/scripts/avatar'
 import { user } from '@/assets/data/characterData'
 import { character } from '@/store/character'
@@ -126,6 +126,7 @@ import CharacterCard from './Character/CharacterCard.vue'
 import Icon from './Common/Icon.vue'
 import { compressImage } from '@/assets/scripts/image'
 import { cropperOpen } from '@/store/cropper'
+import { showConfirm } from '@/store/popup'
 
 const game = ref<HTMLElement | null>(null)
 const other = ref<HTMLElement | null>(null)
@@ -248,8 +249,13 @@ const addCustom = async () => {
 }
 
 const handelDelClick = (key: string, name: string) => {
-  const flag = confirm(`是否删除该角色 - ${name}`)
-  if (flag) delete character.custom[key]
+  showConfirm({
+    title: '删除角色',
+    text: [`是否删除${name}？`],
+    fn: () => {
+      delete character.custom[key]
+    }
+  })
 }
 </script>
 

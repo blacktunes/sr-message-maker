@@ -69,7 +69,7 @@
 </template>
 
 <script lang="ts" setup>
-import { popup } from '@/store/popup'
+import { popup, showConfirm } from '@/store/popup'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
 import { computed, ref, toRaw, watch } from 'vue'
@@ -231,13 +231,22 @@ const uploadDate = async () => {
             }
           }
           if (num === 0) {
-            alert(`短信导入失败\n请检查文件格式是否正确`)
+            showConfirm({
+              title: '短信导入失败',
+              text: ['请检查文件格式是否正确']
+            })
           } else if (num < data.length) {
-            alert(`部分短信导入失败\n请检查文件格式是否正确`)
+            showConfirm({
+              title: '短信导入失败',
+              text: ['部分短信导入失败', '请检查文件格式是否正确']
+            })
           }
           updateMessageUsage()
         } catch (err) {
-          alert(`短信导入失败\n${err}`)
+          showConfirm({
+            title: '短信导入失败',
+            text: [String(err)]
+          })
         }
       }
     }
@@ -248,11 +257,14 @@ const uploadDate = async () => {
 const deleteData = () => {
   if (!hasData.value) return
 
-  const flag = confirm('确定删除所有短信吗？')
-  if (flag) {
-    message.list.length = 0
-    updateMessageUsage()
-  }
+  showConfirm({
+    title: '删除短信',
+    text: ['确定删除所有短信吗？'],
+    fn: () => {
+      message.list.length = 0
+      updateMessageUsage()
+    }
+  })
 }
 
 const characterRule = {
@@ -302,13 +314,22 @@ const uploadCharacter = async () => {
             }
           }
           if (num === 0) {
-            alert(`自定义导角色入失败\n请检查文件格式是否正确`)
+            showConfirm({
+              title: '自定义导角色入失败',
+              text: ['请检查文件格式是否正确']
+            })
           } else if (num < Object.keys(data).length) {
-            alert(`部分自定义导角色入失败\n请检查文件格式是否正确`)
+            showConfirm({
+              title: '自定义导角色入失败',
+              text: ['部分自定义导角色入失败', '请检查文件格式是否正确']
+            })
           }
           updateCharacterUsage()
         } catch (err) {
-          alert(`自定义角色导入失败\n${err}`)
+          showConfirm({
+            title: '自定义导角色入失败',
+            text: [String(err)]
+          })
         }
       }
     }
@@ -319,24 +340,34 @@ const uploadCharacter = async () => {
 const deleteCharacter = () => {
   if (!hasCharacter.value) return
 
-  const flag = confirm('确定删除所有自定义角色吗？')
-  if (flag) {
-    Object.keys(character.custom).forEach((key) => {
-      delete character.custom[key]
-    })
-    updateCharacterUsage()
-  }
+  showConfirm({
+    title: '删除角色',
+    text: ['确定删除所有自定义角色吗？'],
+    fn: () => {
+      Object.keys(character.custom).forEach((key) => {
+        delete character.custom[key]
+      })
+      updateCharacterUsage()
+    }
+  })
 }
 
 const reserDatabase = () => {
-  const flag = confirm('确定要重置数据库吗？')
-  if (flag) {
-    setting.loading = true
-    const promise = [indexedDB.deleteDatabase('sr-custom'), indexedDB.deleteDatabase('sr-message')]
-    Promise.all(promise).then(() => {
-      location.reload()
-    })
-  }
+  showConfirm({
+    title: '重置数据库',
+    tip: '该操作会清除所有短信/头像/自定义角色',
+    text: ['确定重置数据库吗？'],
+    fn: () => {
+      setting.loading = true
+      const promise = [
+        indexedDB.deleteDatabase('sr-custom'),
+        indexedDB.deleteDatabase('sr-message')
+      ]
+      Promise.all(promise).then(() => {
+        location.reload()
+      })
+    }
+  })
 }
 </script>
 

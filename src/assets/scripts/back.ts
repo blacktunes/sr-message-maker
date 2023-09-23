@@ -5,6 +5,11 @@ import { emitter } from './event'
 import { cropper, cropperClose } from '@/store/cropper'
 
 const handelBack = () => {
+  if (popup.confirm) {
+    popup.confirm = false
+    return
+  }
+
   let key: keyof typeof popup
   for (key in popup) {
     if (key === 'setting') continue
