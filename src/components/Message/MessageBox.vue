@@ -38,6 +38,7 @@
                   (e.target as HTMLInputElement).blur()
                 }
               "
+              @focus="getTitle"
               @blur="updateTitle"
             />
             <div class="info">{{ info }}</div>
@@ -97,7 +98,15 @@ const updateArrow = () => {
   }
 }
 
+let oldTitle = ''
+const getTitle = (e: Event) => {
+  oldTitle = (e.target as HTMLInputElement).value
+}
+
 const updateTitle = (e: Event) => {
+  const newTitle = (e.target as HTMLInputElement).value
+  if (newTitle === oldTitle) return
+
   emit('title', (e.target as HTMLInputElement).value)
 }
 
