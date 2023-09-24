@@ -25,9 +25,7 @@
 </template>
 
 <script lang="ts" setup>
-import { setAvatar, setting } from '@/store/setting'
-import { compressImage } from '@/assets/scripts/image'
-import { cropperOpen } from '@/store/cropper'
+import { setting } from '@/store/setting'
 import { userData } from '@/store/character'
 import { popup } from '@/store/popup'
 
@@ -36,31 +34,6 @@ const updateName = (e: Event) => {
   if (setting.name === '') setting.name = '开拓者'
   localStorage.setItem('sr-message-name', setting.name)
 }
-
-// const handelAvatarClick = async () => {
-//   const el = document.createElement('input')
-//   el.type = 'file'
-//   el.accept = 'image/*'
-//   el.onchange = async () => {
-//     if (el.files?.[0]) {
-//       const avatar = await compressImage(el.files[0])
-//       cropperOpen(
-//         avatar,
-//         (res) => {
-//           user.custom.avatar = res
-//           user.custom.card = res
-//           localStorage.setItem('sr-message-avatar', res)
-//           setAvatar('custom')
-//         },
-//         {
-//           aspectRatio: 1,
-//           maxWidth: 500
-//         }
-//       )
-//     }
-//   }
-//   el.click()
-// }
 </script>
 
 <style lang="stylus" scoped>

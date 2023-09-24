@@ -47,7 +47,7 @@ const setCustomWatch = () => {
 
 const setAvatarWatch = () => {
   setLoadingType('avatar')
-  watch(character.custom, () => {
+  watch(character.customAvatar, () => {
     nextTick(() => {
       updateDB(1, toRaw(character.customAvatar))
     })

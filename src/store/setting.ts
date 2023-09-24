@@ -12,7 +12,7 @@ export const setting = reactive<{
 }>({
   loading: true,
   name: '开拓者',
-  avatar: '星·存护',
+  avatar: DEFAULT_AVATAR,
   index: undefined,
   preview: false,
   select: '',
@@ -26,7 +26,7 @@ export const setAvatar = (key: string | number = DEFAULT_AVATAR) => {
 }
 
 setting.name = localStorage.getItem('sr-message-name') || '开拓者'
-setting.avatar = localStorage.getItem('sr-message-avatar') || DEFAULT_AVATAR
+setting.avatar = JSON.parse(localStorage.getItem('sr-message-avatar') ?? DEFAULT_AVATAR)
 setting.bubbles = Number(localStorage.getItem('sr-message-bubbles')) || 0
 
 export const autoPlaySetting = reactive<{

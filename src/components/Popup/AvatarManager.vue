@@ -19,6 +19,34 @@
             alt=""
           />
         </div>
+        <div
+          class="avatar"
+          v-for="(url, key) in character.customAvatar"
+          :key="key"
+          :class="{ highlight: index === key }"
+          @click="index = key"
+        >
+          <img
+            :src="url"
+            alt=""
+          />
+          <div
+            class="del"
+            @click.stop="handelDelClick(key)"
+          >
+            <Icon
+              name="delete"
+              width="25"
+              height="25"
+            />
+          </div>
+        </div>
+        <div
+          class="add"
+          @click="addCustom"
+        >
+          <Icon name="add" />
+        </div>
       </div>
       <template #left>
         <div class="preview">
@@ -59,10 +87,14 @@ import { setAvatar, setting } from '@/store/setting'
 import { popup } from '@/store/popup'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
+import Icon from '@/components/Common/Icon.vue'
 import { character } from '@/store/character'
 import { getAssets } from '@/assets/scripts/preload'
 import borderUrl from '@/assets/images/avatar/边框.webp'
 import iconUrl from '@/assets/images/avatar/图标.webp'
+import { compressImage } from '@/assets/scripts/image'
+import { cropperOpen } from '@/store/cropper'
+import { showConfirm } from '@/store/popup'
 
 const index = ref<string | number>(0)
 
@@ -93,6 +125,44 @@ const imgUrl = computed(() => {
   }
   return ''
 })
+
+const handelDelClick = (key: number) => {
+  showConfirm({
+    title: '删除头像',
+    text: ['是否删除该头像'],
+    fn: () => {
+      character.customAvatar.splice(key, 1)
+      if (key === setting.avatar) {
+        index.value = DEFAULT_AVATAR
+        setAvatar(index.value)
+      } else if (key === index.value) {
+        index.value = DEFAULT_AVATAR
+      }
+    }
+  })
+}
+
+const addCustom = () => {
+  const el = document.createElement('input')
+  el.type = 'file'
+  el.accept = 'image/*'
+  el.onchange = async () => {
+    if (el.files?.[0]) {
+      const avatar = await compressImage(el.files[0])
+      cropperOpen(
+        avatar,
+        (res) => {
+          character.customAvatar.push(res)
+        },
+        {
+          aspectRatio: 1,
+          maxWidth: 500
+        }
+      )
+    }
+  }
+  el.click()
+}
 
 const name = computed(() => {
   if (typeof index.value === 'string') {
@@ -181,9 +251,9 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
   flex-wrap wrap
   justify-content flex-start
   overflow-x hidden
-  height 530px
+  height 500px
   width 1200px
-  padding-right 10px
+  padding-bottom 60px
   user-select none
 
   .avatar
@@ -197,7 +267,8 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
     cursor pointer
 
     &:hover
-      background #d7d7d7
+      .del
+        opacity 1
 
     img
       width 100%
@@ -207,6 +278,28 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
       clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
       user-select none
       pointer-events none
+
+    .del
+      position absolute
+      right -20px
+      top -20px
+      opacity 0
+      cursor pointer
+
+      &:hover
+        opacity 1
+
+  .add
+    display flex
+    align-items center
+    justify-content center
+    box-sizing border-box
+    width 190px
+    height 190px
+    border-radius 50%
+    margin 50px 30px 10px 10px
+    border 8px solid #afafaf
+    cursor pointer
 
 .highlight
   cursor auto !important
@@ -228,7 +321,7 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
     content ''
     position absolute
     left 50%
-    top -60px
+    top -70px
     height 30%
     width 25%
     transform translate(-50%, 50%)
