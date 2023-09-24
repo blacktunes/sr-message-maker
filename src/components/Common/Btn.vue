@@ -32,7 +32,7 @@ defineProps<{
 <style lang="stylus" scoped>
 .disable
   background transparent !important
-  border 5px solid #afafaf !important
+  border 3px solid #afafaf !important
   color #afafaf !important
   cursor auto !important
 
