@@ -3,10 +3,13 @@
     <Window
       class="window"
       style="z-index: 90"
-      v-show="popup.avatar"
+      v-if="popup.avatar"
       title="更换头像"
     >
-      <div class="select">
+      <div
+        class="list"
+        ref="listDom"
+      >
         <div
           class="avatar"
           v-for="(item, key) in character.avatar"
@@ -82,7 +85,7 @@
 </template>
 
 <script lang="ts" setup>
-import { watch, ref, computed } from 'vue'
+import { watch, ref, computed, nextTick } from 'vue'
 import { setAvatar, setting } from '@/store/setting'
 import { popup } from '@/store/popup'
 import Window from '@/components/Common/Window.vue'
@@ -97,6 +100,7 @@ import { cropperOpen } from '@/store/cropper'
 import { showConfirm } from '@/store/popup'
 
 const index = ref<string | number>(0)
+const listDom = ref<HTMLElement | null>(null)
 
 watch(
   () => popup.avatar,
@@ -109,6 +113,14 @@ watch(
         setAvatar()
       }
       index.value = setting.avatar
+
+      nextTick(() => {
+        if (listDom.value) {
+          listDom.value.querySelector('.highlight')?.scrollIntoView({
+            block: 'center'
+          })
+        }
+      })
     }
   },
   {
@@ -246,7 +258,7 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
       margin-top 10px
       color #6a6a6a
 
-.select
+.list
   display flex
   flex-wrap wrap
   justify-content flex-start

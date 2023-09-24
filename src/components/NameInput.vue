@@ -3,7 +3,7 @@
     <div class="text-wrapper">
       <div
         class="text"
-        title="修改角色名"
+        title="修改昵称"
         @click.stop="handelNameClick"
       >
         {{ setting.name }}
@@ -28,7 +28,7 @@ import { userData } from '@/store/character'
 import { popup, showInput } from '@/store/popup'
 
 const handelNameClick = async () => {
-  const name: string = await showInput('请输入角色名', '随便改，不过最好别太长', false, setting.name, '开拓者')
+  const name: string = await showInput('修改昵称', '建议不要使用过长的昵称', false, setting.name, '开拓者')
   if (name.length < 1) {
     setting.name = '开拓者'
   } else {

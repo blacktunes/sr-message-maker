@@ -272,6 +272,9 @@ $del-pos = -100px
   .avatar
     margin 0 0 0 var(--message-item-avatar-margin) !important
 
+    img
+      background #c3b7a9 !important
+
   .message-item
     align-items flex-end
 

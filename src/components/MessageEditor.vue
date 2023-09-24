@@ -112,8 +112,9 @@
   </template>
   <template v-else>
     <transition
-      name="slide-left"
+      :name="appearTransition"
       appear
+      @after-appear="appearTransition = ''"
     >
       <div class="defalut-wrapper">
         <Icon name="train" />
@@ -137,6 +138,8 @@ import MessageBox from './Message/MessageBox.vue'
 import MessageItem from './Message/MessageItem.vue'
 import { compressImage } from '@/assets/scripts/image'
 import { cropperOpen } from '@/store/cropper'
+
+const appearTransition = ref('slide-left')
 
 const defaultText = DEFAULT_TEXT
 
