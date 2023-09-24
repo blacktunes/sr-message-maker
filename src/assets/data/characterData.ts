@@ -1,15 +1,8 @@
 import { reactive } from 'vue'
-import avatar_2 from '@/assets/images/avatar/穹.webp'
+import avatar from '@/assets/images/avatar/穹_毁灭.webp'
+import card from '@/assets/images/avatar/星_毁灭_card.webp'
 
 export const user: { [name: string]: UserAvatar } = reactive({
-  '星·存护': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/f/f4/aaeqzyk10vp6orjpunclv060rdre49c.png',
-    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/1d351a764ae64aeed744296503bc6266_9196637429550074047.png?x-oss-process=image/quality,q_75/resize,s_280'
-  },
-  '穹·毁灭': {
-    avatar: avatar_2,
-    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/26/288909604/bb5959b4a67a0637f6862b2c8ba163ed_3921856926987798793.png?x-oss-process=image/quality,q_75/resize,s_280'
-  },
   '景元•适暇': {
     avatar: 'https://patchwiki.biligame.com/images/sr/3/35/bsxm7j1i6iphtmbvsk9y84ei7pq36w7.png'
   },
@@ -51,6 +44,18 @@ export const user: { [name: string]: UserAvatar } = reactive({
   },
   通缉令: {
     avatar: 'https://patchwiki.biligame.com/images/sr/6/61/s52qmmbcym2h6060khma3xtulsnwsob.png'
+  },
+  '星·毁灭': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/5/52/rhgkx12fxucnesllif85tatcmhxqex3.png',
+    card: card
+  },
+  '星·存护': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/7/71/sg4gsfp901hyfd1huaipfsbcm8p85j2.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/1d351a764ae64aeed744296503bc6266_9196637429550074047.png?x-oss-process=image/quality,q_75/resize,s_280'
+  },
+  '穹·毁灭': {
+    avatar: avatar,
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/26/288909604/bb5959b4a67a0637f6862b2c8ba163ed_3921856926987798793.png?x-oss-process=image/quality,q_75/resize,s_280'
   }
 })
 
