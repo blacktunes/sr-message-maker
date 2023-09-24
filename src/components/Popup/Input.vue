@@ -12,6 +12,7 @@
           type="text"
           ref="inputDom"
           v-model="inputData.text"
+          :placeholder="inputData.placeholder"
           @keydown.enter="onConfirmlClick"
         />
       </div>
@@ -69,6 +70,7 @@ const reset = () => {
   inputData.tip = undefined
   inputData.required = true
   inputData.text = ''
+  inputData.placeholder = undefined
   inputData.fn = undefined
 }
 

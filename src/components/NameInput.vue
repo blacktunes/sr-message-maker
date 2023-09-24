@@ -3,10 +3,8 @@
     <div class="text-wrapper">
       <div
         class="text"
-        contenteditable
-        @keydown.enter.prevent="updateName($event)"
-        @blur="updateName($event)"
         title="修改角色名"
+        @click.stop="handelNameClick"
       >
         {{ setting.name }}
       </div>
@@ -27,11 +25,15 @@
 <script lang="ts" setup>
 import { setting } from '@/store/setting'
 import { userData } from '@/store/character'
-import { popup } from '@/store/popup'
+import { popup, showInput } from '@/store/popup'
 
-const updateName = (e: Event) => {
-  setting.name = (e.target as HTMLInputElement).innerText
-  if (setting.name === '') setting.name = '开拓者'
+const handelNameClick = async () => {
+  const name: string = await showInput('请输入角色名', '随便改，不过最好别太长', false, setting.name, '开拓者')
+  if (name.length < 1) {
+    setting.name = '开拓者'
+  } else {
+    setting.name = name
+  }
   localStorage.setItem('sr-message-name', setting.name)
 }
 </script>
@@ -48,13 +50,16 @@ const updateName = (e: Event) => {
 
   .text-wrapper
     overflow hidden
-    max-width 500px
 
   .text
     box-sizing border-box
     white-space nowrap
     text-overflow ellipsis
+    text-align center
+    min-width 100px
+    max-width 1000px
     height 85px
+    cursor pointer
 
     &:hover
       color var(--menu-btn-hover)
