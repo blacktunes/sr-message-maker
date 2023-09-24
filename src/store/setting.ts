@@ -26,7 +26,7 @@ export const setAvatar = (key: string | number = DEFAULT_AVATAR) => {
 }
 
 setting.name = localStorage.getItem('sr-message-name') || '开拓者'
-setting.avatar = JSON.parse(localStorage.getItem('sr-message-avatar') ?? DEFAULT_AVATAR)
+setting.avatar = JSON.parse(localStorage.getItem('sr-message-avatar') ?? JSON.stringify(DEFAULT_AVATAR)) 
 setting.bubbles = Number(localStorage.getItem('sr-message-bubbles')) || 0
 
 export const autoPlaySetting = reactive<{
