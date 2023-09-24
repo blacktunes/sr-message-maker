@@ -101,7 +101,7 @@ const updateMessageUsage = () => {
   messageUsage.value = ` (${countStrToSize(JSON.stringify(message.list))})`
   let num = 0
   message.list.forEach((i) => {
-    i.list.forEach((j) => {
+    i.list.forEach(() => {
       num += 1
     })
   })

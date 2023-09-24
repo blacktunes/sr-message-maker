@@ -62,8 +62,8 @@
               :src="bubbles[index].preview"
               alt=""
             />
+            <div class="name">{{ bubbles[index].name }}</div>
           </div>
-          <div class="name">{{ bubbles[index].name }}</div>
         </div>
       </template>
       <template #footer>
@@ -136,7 +136,9 @@ const onBtnClick = () => {
   flex-direction column
   align-items center
   justify-content center
-  padding 130px 120px
+  width 300px
+  height 100%
+  padding 0 80px 0 150px
   user-select none
 
   .circle
@@ -175,11 +177,13 @@ const onBtnClick = () => {
       border 2px dotted #b9babf
       opacity 0.5
 
-  .name
-    font-size 35px
-    font-weight bold
-    margin-top 10px
-    color #6a6a6a
+    .name
+      position absolute
+      bottom -60px
+      font-size 35px
+      font-weight bold
+      margin-top 10px
+      color #6a6a6a
 
 .other-setting
   .setting-btn
