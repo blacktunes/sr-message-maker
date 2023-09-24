@@ -1,17 +1,39 @@
-import { gameCharacter, otherCharacter } from '@/assets/data/characterData'
+import { gameCharacter, otherCharacter, user } from '@/assets/data/characterData'
 import { setLoadingType } from '@/assets/scripts/setup'
-import { nextTick, reactive, toRaw, watch } from 'vue'
+import { computed, nextTick, reactive, toRaw, watch } from 'vue'
+import { setting } from './setting'
 
 const character = reactive<{
   game: { [name: string]: Character }
   other: { [name: string]: OtherCharacter }
   custom: { [name: string]: CustomCharacter }
-  avatar: string[]
+  avatar: { [name: string]: UserAvatar }
+  customAvatar: string[]
 }>({
   game: gameCharacter,
   other: otherCharacter,
   custom: {},
-  avatar: []
+  avatar: user,
+  customAvatar: []
+})
+
+const userData = computed(() => {
+  const key = setting.avatar
+  if (typeof key === 'string' && character.avatar[key]) {
+    return {
+      avatar: character.avatar[key].avatar,
+      card: character.avatar[key].card
+    }
+  }
+  if (typeof key === 'number' && character.customAvatar[key]) {
+    return {
+      avatar: character.customAvatar[key]
+    }
+  }
+  return {
+    avatar: character.avatar[DEFAULT_AVATAR].avatar,
+    card: character.avatar[DEFAULT_AVATAR].card
+  }
 })
 
 const setCustomWatch = () => {
@@ -27,7 +49,7 @@ const setAvatarWatch = () => {
   setLoadingType('avatar')
   watch(character.custom, () => {
     nextTick(() => {
-      updateDB(1, toRaw(character.avatar))
+      updateDB(1, toRaw(character.customAvatar))
     })
   })
 }
@@ -69,14 +91,14 @@ export const getDB = () => {
       db.transaction('data', 'readonly').objectStore('data').get(1).onsuccess = (e) => {
         try {
           const data = (e.target as IDBRequest).result?.data
-          character.avatar = data || []
+          character.customAvatar = data || []
         } finally {
           setAvatarWatch()
         }
       }
     } else {
       updateDB(0, toRaw(character.custom))
-      updateDB(1, toRaw(character.avatar))
+      updateDB(1, toRaw(character.customAvatar))
       setCustomWatch()
       setAvatarWatch()
     }
@@ -99,4 +121,4 @@ try {
   setLoadingType('avatar', true)
 }
 
-export { character }
+export { character, userData }

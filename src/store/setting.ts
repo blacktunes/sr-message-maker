@@ -3,7 +3,7 @@ import { reactive } from 'vue'
 export const setting = reactive<{
   loading: boolean
   name: string
-  type: string
+  avatar: string | number
   index?: number
   preview?: boolean
   select?: string
@@ -12,7 +12,7 @@ export const setting = reactive<{
 }>({
   loading: true,
   name: '开拓者',
-  type: '星',
+  avatar: '星·存护',
   index: undefined,
   preview: false,
   select: '',
@@ -20,13 +20,13 @@ export const setting = reactive<{
   transition: true
 })
 
-export const setUserType = (key: string) => {
-  setting.type = key
-  localStorage.setItem('sr-message-type', setting.type)
+export const setAvatar = (key: string | number = DEFAULT_AVATAR) => {
+  setting.avatar = key
+  localStorage.setItem('sr-message-avatar', JSON.stringify(setting.avatar))
 }
 
 setting.name = localStorage.getItem('sr-message-name') || '开拓者'
-setting.type = localStorage.getItem('sr-message-type') || '星'
+setting.avatar = localStorage.getItem('sr-message-avatar') || DEFAULT_AVATAR
 setting.bubbles = Number(localStorage.getItem('sr-message-bubbles')) || 0
 
 export const autoPlaySetting = reactive<{

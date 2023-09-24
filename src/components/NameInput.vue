@@ -1,12 +1,5 @@
 <template>
   <div class="name">
-    <div
-      class="change"
-      title="更换主角"
-      @click="handelChangeClick"
-    >
-      <Icon name="change" />
-    </div>
     <div class="text-wrapper">
       <div
         class="text"
@@ -20,11 +13,11 @@
     </div>
     <div
       class="avatar"
-      @click="handelAvatarClick"
+      @click.stop="popup.avatar = true"
       title="修改头像"
     >
       <img
-        :src="user[setting.type].avatar || ''"
+        :src="userData.avatar"
         alt=""
       />
     </div>
@@ -32,11 +25,11 @@
 </template>
 
 <script lang="ts" setup>
-import { user } from '@/assets/data/characterData'
-import { setUserType, setting } from '@/store/setting'
-import Icon from './Common/Icon.vue'
+import { setAvatar, setting } from '@/store/setting'
 import { compressImage } from '@/assets/scripts/image'
 import { cropperOpen } from '@/store/cropper'
+import { userData } from '@/store/character'
+import { popup } from '@/store/popup'
 
 const updateName = (e: Event) => {
   setting.name = (e.target as HTMLInputElement).innerText
@@ -44,48 +37,30 @@ const updateName = (e: Event) => {
   localStorage.setItem('sr-message-name', setting.name)
 }
 
-const handelAvatarClick = async () => {
-  const el = document.createElement('input')
-  el.type = 'file'
-  el.accept = 'image/*'
-  el.onchange = async () => {
-    if (el.files?.[0]) {
-      const avatar = await compressImage(el.files[0])
-      cropperOpen(
-        avatar,
-        (res) => {
-          user.custom.avatar = res
-          user.custom.card = res
-          localStorage.setItem('sr-message-avatar', res)
-          setUserType('custom')
-        },
-        {
-          aspectRatio: 1,
-          maxWidth: 500
-        }
-      )
-    }
-  }
-  el.click()
-}
-
-const handelChangeClick = () => {
-  switch (setting.type) {
-    case '星':
-      setting.type = '穹'
-      break
-    case '穹':
-      if (user.custom.avatar) {
-        setting.type = 'custom'
-      } else {
-        setting.type = '星'
-      }
-      break
-    default:
-      setting.type = '星'
-  }
-  localStorage.setItem('sr-message-type', setting.type)
-}
+// const handelAvatarClick = async () => {
+//   const el = document.createElement('input')
+//   el.type = 'file'
+//   el.accept = 'image/*'
+//   el.onchange = async () => {
+//     if (el.files?.[0]) {
+//       const avatar = await compressImage(el.files[0])
+//       cropperOpen(
+//         avatar,
+//         (res) => {
+//           user.custom.avatar = res
+//           user.custom.card = res
+//           localStorage.setItem('sr-message-avatar', res)
+//           setAvatar('custom')
+//         },
+//         {
+//           aspectRatio: 1,
+//           maxWidth: 500
+//         }
+//       )
+//     }
+//   }
+//   el.click()
+// }
 </script>
 
 <style lang="stylus" scoped>

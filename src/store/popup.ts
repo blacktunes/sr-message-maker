@@ -6,7 +6,8 @@ export const popup = reactive({
   font: false,
   data: false,
   confirm: false,
-  input: false
+  input: false,
+  avatar: false
 })
 
 export const confirmData = reactive<{

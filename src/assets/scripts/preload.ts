@@ -1,6 +1,5 @@
 import { character } from '@/store/character'
 import { reactive, toRef } from 'vue'
-import { user } from '../data/characterData'
 import { compressImage } from './image'
 import { emoticon } from '../data/emoticon'
 
@@ -35,8 +34,8 @@ const setCache = (url: string, data: string) => {
 }
 
 const characterPreload = async () => {
-  for (const i in user) {
-    user[i].avatar = await getCache(user[i].avatar)
+  for (const i in character.avatar) {
+    character.avatar[i].avatar = await getCache(character.avatar[i].avatar)
   }
   for (const i in character.game) {
     character.game[i].avatar = await getCache(character.game[i].avatar, true)

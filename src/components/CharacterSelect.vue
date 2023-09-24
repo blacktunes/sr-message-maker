@@ -40,10 +40,10 @@
           >
             <CharacterCard
               class="character"
-              :custom="setting.type === 'custom'"
+              :custom="!userData.card"
               :name="setting.name"
-              :avatar="user[setting.type].card"
-              :level="setting.type === 'custom' ? 5 : undefined"
+              :avatar="userData.card || userData.avatar"
+              :level="!userData.card ? 5 : undefined"
               @click="handelcharacterClick('开拓者', '')"
             />
             <CharacterCard
@@ -116,9 +116,8 @@
 
 <script lang="ts" setup>
 import { onMounted, ref, watch } from 'vue'
-import { getAvatar } from '@/assets/scripts/avatar'
-import { user } from '@/assets/data/characterData'
-import { character } from '@/store/character'
+import { getCharaterAvatar } from '@/assets/scripts/avatar'
+import { character, userData } from '@/store/character'
 import { input } from '@/store/input'
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
@@ -206,7 +205,7 @@ const handelcharacterClick = (key: string, name: string) => {
   if (input.index) {
     message.list[input.index[0]].list[input.index[1]].key = key
     message.list[input.index[0]].list[input.index[1]].name = name
-    message.list[input.index[0]].list[input.index[1]].avatar = getAvatar(key)
+    message.list[input.index[0]].list[input.index[1]].avatar = getCharaterAvatar(key)
   } else {
     input.character.key = key
     input.character.name = name

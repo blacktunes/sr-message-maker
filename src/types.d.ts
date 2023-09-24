@@ -38,3 +38,8 @@ interface Emoticon {
   title: string
   url: string
 }
+
+interface UserAvatar {
+  avatar: string
+  card?: string
+}
