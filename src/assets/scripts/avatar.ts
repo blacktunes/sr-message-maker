@@ -1,6 +1,6 @@
 import { character } from '@/store/character'
 
-export const getAvatar = (key: string) => {
+export const getCharaterAvatar = (key: string) => {
   let avatar = ''
   if (character.game[key]) {
     avatar = character.game[key].avatar

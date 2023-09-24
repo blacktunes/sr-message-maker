@@ -1,31 +1,63 @@
-import { setUserType } from '@/store/setting'
 import { reactive } from 'vue'
-import avatar_2 from '@/assets/images/avatar/穹.webp'
+import avatar from '@/assets/images/avatar/穹_毁灭.webp'
+import card from '@/assets/images/avatar/星_毁灭_card.webp'
 
-export const user: { [name: string]: Character } = reactive({
-  custom: {
-    name: '开拓者',
-    avatar: '',
-    card: ''
+export const user: { [name: string]: UserAvatar } = reactive({
+  '景元•适暇': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/3/35/bsxm7j1i6iphtmbvsk9y84ei7pq36w7.png'
   },
-  星: {
-    name: '开拓者',
-    avatar: 'https://patchwiki.biligame.com/images/sr/f/f4/aaeqzyk10vp6orjpunclv060rdre49c.png',
+  '符玄•适暇': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/1/18/rphdzko00g2aev7tm1ra8iu2yemms7d.png'
+  },
+  '刃•夜宴': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/4/43/affscyu0v25sx7ostvvel52hxmpj9q1.png'
+  },
+  '卡芙卡•夜宴': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/4/41/qgnlg62iwio1832jj27j9rmiezmoqsr.png'
+  },
+  '三月七•迎新': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/9/92/96zt43mky1thz9ckk4nrzvltrk97394.png'
+  },
+  '丹恒•迎新': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/2/26/t9lpgudwjqpbt476lcxcpipbov4pznm.png'
+  },
+  '姬子•迎新': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/e/ef/k5z5p8gihx7t3e7lf0rcihmcddqjk5g.png'
+  },
+  '瓦尔特•迎新': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/a/a6/hn0xpu06nb5jfgxritpske6jl61vysr.png'
+  },
+  '开拓者•迎新（星）': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/a/ad/nchbvcsw6xwt2lbgltdcighm7b9y0jq.png'
+  },
+  '开拓者•迎新（穹）': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/c/c4/jxonipo79e7jw3alj2wr8ijjvfexdyl.png'
+  },
+  '帕姆•美食': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/4/45/4ti8vqyjoqya5dsg7l3lw300yh72q6r.png'
+  },
+  谛听: {
+    avatar: 'https://patchwiki.biligame.com/images/sr/8/8b/mvvqrfg0nw0ghrx1p91reedqnvt2wbv.png'
+  },
+  垃圾桶: {
+    avatar: 'https://patchwiki.biligame.com/images/sr/f/f7/dpes8v24ax5sod5323arf26b5ch43g5.png'
+  },
+  通缉令: {
+    avatar: 'https://patchwiki.biligame.com/images/sr/6/61/s52qmmbcym2h6060khma3xtulsnwsob.png'
+  },
+  '星·毁灭': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/5/52/rhgkx12fxucnesllif85tatcmhxqex3.png',
+    card: card
+  },
+  '星·存护': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/7/71/sg4gsfp901hyfd1huaipfsbcm8p85j2.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/1d351a764ae64aeed744296503bc6266_9196637429550074047.png?x-oss-process=image/quality,q_75/resize,s_280'
   },
-  穹: {
-    name: '开拓者',
-    avatar: avatar_2,
+  '穹·毁灭': {
+    avatar: avatar,
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/26/288909604/bb5959b4a67a0637f6862b2c8ba163ed_3921856926987798793.png?x-oss-process=image/quality,q_75/resize,s_280'
   }
 })
-
-const avatar = localStorage.getItem('sr-message-avatar') || ''
-user.custom.avatar = avatar
-user.custom.card = avatar
-if (avatar === '') {
-  setUserType('星')
-}
 
 export const gameCharacter: { [name: string]: Character } = {
   符玄: {

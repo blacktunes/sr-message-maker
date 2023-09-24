@@ -24,7 +24,7 @@ export const updateDB = () => {
     .objectStore('data')
     .put({
       id: 0,
-      data: toRaw(message.list)
+      data: JSON.parse(JSON.stringify(toRaw(message.list)))
     })
 }
 

@@ -11,6 +11,7 @@
           <div style="margin-top: 20px">短信数量: {{ message.list.length }}{{ messageUsage }}</div>
           <div>消息数量: {{ messageNum }}</div>
           <div>自定义角色数量: {{ Object.keys(character.custom).length }}{{ characterUsage }}</div>
+          <div>自定义头像数量: {{ character.customAvatar.length }}{{ customAvatarUsage }}</div>
         </div>
         <div class="box">
           <Btn
@@ -55,15 +56,19 @@
             @click="deleteCharacter"
           />
           <div class="line"></div>
+          <Btn
+            class="btn"
+            name="重置数据库"
+            @click="reserDatabase"
+          />
         </div>
-        <div class="tip">Beta</div>
       </div>
     </Window>
   </transition>
 </template>
 
 <script lang="ts" setup>
-import { popup } from '@/store/popup'
+import { popup, showConfirm } from '@/store/popup'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
 import { computed, ref, toRaw, watch } from 'vue'
@@ -90,12 +95,13 @@ function countStrToSize(str: string) {
 const messageUsage = ref('')
 const messageNum = ref(0)
 const characterUsage = ref('')
+const customAvatarUsage = ref('')
 
 const updateMessageUsage = () => {
   messageUsage.value = ` (${countStrToSize(JSON.stringify(message.list))})`
   let num = 0
   message.list.forEach((i) => {
-    i.list.forEach((j) => {
+    i.list.forEach(() => {
       num += 1
     })
   })
@@ -106,12 +112,17 @@ const updateCharacterUsage = () => {
   characterUsage.value = ` (${countStrToSize(JSON.stringify(character.custom))})`
 }
 
+const updateCustomAvatarUsage = () => {
+  customAvatarUsage.value = ` (${countStrToSize(JSON.stringify(character.customAvatar))})`
+}
+
 watch(
   () => popup.data,
   async () => {
     if (popup.data) {
       updateMessageUsage()
       updateCharacterUsage()
+      updateCustomAvatarUsage()
     }
   }
 )
@@ -225,13 +236,22 @@ const uploadDate = async () => {
             }
           }
           if (num === 0) {
-            alert(`短信导入失败\n请检查文件格式是否正确`)
+            showConfirm({
+              title: '短信导入失败',
+              text: ['请检查文件格式是否正确']
+            })
           } else if (num < data.length) {
-            alert(`部分短信导入失败\n请检查文件格式是否正确`)
+            showConfirm({
+              title: '短信导入失败',
+              text: ['部分短信导入失败', '请检查文件格式是否正确']
+            })
           }
           updateMessageUsage()
         } catch (err) {
-          alert(`短信导入失败\n${err}`)
+          showConfirm({
+            title: '短信导入失败',
+            text: [String(err)]
+          })
         }
       }
     }
@@ -242,11 +262,14 @@ const uploadDate = async () => {
 const deleteData = () => {
   if (!hasData.value) return
 
-  const flag = confirm('确定删除所有短信吗？')
-  if (flag) {
-    message.list.length = 0
-    updateMessageUsage()
-  }
+  showConfirm({
+    title: '删除短信',
+    text: ['确定删除所有短信吗？'],
+    fn: () => {
+      message.list.length = 0
+      updateMessageUsage()
+    }
+  })
 }
 
 const characterRule = {
@@ -296,13 +319,22 @@ const uploadCharacter = async () => {
             }
           }
           if (num === 0) {
-            alert(`自定义导角色入失败\n请检查文件格式是否正确`)
+            showConfirm({
+              title: '自定义导角色入失败',
+              text: ['请检查文件格式是否正确']
+            })
           } else if (num < Object.keys(data).length) {
-            alert(`部分自定义导角色入失败\n请检查文件格式是否正确`)
+            showConfirm({
+              title: '自定义导角色入失败',
+              text: ['部分自定义导角色入失败', '请检查文件格式是否正确']
+            })
           }
           updateCharacterUsage()
         } catch (err) {
-          alert(`自定义角色导入失败\n${err}`)
+          showConfirm({
+            title: '自定义导角色入失败',
+            text: [String(err)]
+          })
         }
       }
     }
@@ -313,13 +345,34 @@ const uploadCharacter = async () => {
 const deleteCharacter = () => {
   if (!hasCharacter.value) return
 
-  const flag = confirm('确定删除所有自定义角色吗？')
-  if (flag) {
-    Object.keys(character.custom).forEach((key) => {
-      delete character.custom[key]
-    })
-    updateCharacterUsage()
-  }
+  showConfirm({
+    title: '删除角色',
+    text: ['确定删除所有自定义角色吗？'],
+    fn: () => {
+      Object.keys(character.custom).forEach((key) => {
+        delete character.custom[key]
+      })
+      updateCharacterUsage()
+    }
+  })
+}
+
+const reserDatabase = () => {
+  showConfirm({
+    title: '重置数据库',
+    tip: '该操作会清除所有短信/头像/自定义角色',
+    text: ['确定重置数据库吗？'],
+    fn: () => {
+      setting.loading = true
+      const promise = [
+        indexedDB.deleteDatabase('sr-custom'),
+        indexedDB.deleteDatabase('sr-message')
+      ]
+      Promise.all(promise).then(() => {
+        location.reload()
+      })
+    }
+  })
 }
 </script>
 

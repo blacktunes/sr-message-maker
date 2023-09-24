@@ -12,7 +12,7 @@
         @click.stop="preview ? undefined : emit('avatar')"
       >
         <img
-          :src="getUserAvatar(item.key, item.avatar)"
+          :src="getAvatar(item.key, item.avatar)"
           alt=""
         />
       </div>
@@ -88,9 +88,9 @@
 </template>
 
 <script lang="ts" setup>
-import { user } from '@/assets/data/characterData'
 import { autoPlaySetting, setting } from '@/store/setting'
 import Icon from '../Common/Icon.vue'
+import { getAvatar } from './Message'
 
 defineProps<{
   item: Message
@@ -103,14 +103,6 @@ const emit = defineEmits<{
   (event: 'update', text: string): void
   (event: 'delete'): void
 }>()
-
-const getUserAvatar = (key: string, url: string) => {
-  if (key === '开拓者') {
-    return user[setting.type].avatar || ''
-  } else {
-    return url
-  }
-}
 
 const getBubbles = (key: string) => {
   const classList: string[] = []
@@ -279,6 +271,9 @@ $del-pos = -100px
 
   .avatar
     margin 0 0 0 var(--message-item-avatar-margin) !important
+
+    img
+      background #c3b7a9 !important
 
   .message-item
     align-items flex-end

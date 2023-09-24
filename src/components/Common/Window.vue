@@ -18,18 +18,21 @@
         <div class="wrapper">
           <div
             class="left"
-            v-if="slot.footer"
+            v-if="slot.left"
           >
             <slot name="left"></slot>
           </div>
           <div class="right">
-            <div class="title">
+            <div
+              class="title"
+              :style="{ justifyContent: confirm ? 'center' : undefined }"
+            >
               <span>
                 {{ title }}
               </span>
 
               <Close
-                v-if="!!onClose"
+                v-if="!!onClose && !confirm"
                 class="close"
                 @click="close"
               />
@@ -37,6 +40,7 @@
             <div class="item">
               <slot></slot>
             </div>
+            <slot name="bottom"></slot>
           </div>
         </div>
         <div
@@ -67,6 +71,7 @@
 import Close from './Close.vue'
 
 defineProps<{
+  confirm?: boolean
   title: string
   width?: string
   height?: string
@@ -148,8 +153,10 @@ const close = () => {
             margin-left 20px
 
         .item
-          margin 40px 80px
           overflow auto
+          display flex
+          flex-direction column
+          margin 40px 80px
           max-height calc(100% - 80px * 2 - 40px - 30px)
 
     .footer

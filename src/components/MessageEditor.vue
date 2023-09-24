@@ -51,7 +51,7 @@
               title="选择角色"
             >
               <img
-                :src="getUserAvatar(input.character.key, getAvatar(input.character.key))"
+                :src="getAvatar(input.character.key, getCharaterAvatar(input.character.key))"
                 alt=""
               />
             </div>
@@ -112,8 +112,9 @@
   </template>
   <template v-else>
     <transition
-      name="slide-left"
+      :name="appearTransition"
       appear
+      @after-appear="appearTransition = ''"
     >
       <div class="defalut-wrapper">
         <Icon name="train" />
@@ -124,7 +125,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getAvatar } from '@/assets/scripts/avatar'
+import { getCharaterAvatar } from '@/assets/scripts/avatar'
 import { input } from '@/store/input'
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
@@ -132,11 +133,13 @@ import draggable from '@marshallswain/vuedraggable'
 import { computed, nextTick, ref, watch } from 'vue'
 import Icon from './Common/Icon.vue'
 import Emoticon from './Message/Emoticon.vue'
-import { getUserAvatar, info, messageIndex, scrollToBottom, title } from './Message/Message'
+import { getAvatar, info, messageIndex, scrollToBottom, title } from './Message/Message'
 import MessageBox from './Message/MessageBox.vue'
 import MessageItem from './Message/MessageItem.vue'
 import { compressImage } from '@/assets/scripts/image'
 import { cropperOpen } from '@/store/cropper'
+
+const appearTransition = ref('slide-left')
 
 const defaultText = DEFAULT_TEXT
 
@@ -193,7 +196,7 @@ const getCharacter = () => {
   return {
     key: input.character.key,
     name: input.character.name,
-    avatar: getAvatar(input.character.key)
+    avatar: getCharaterAvatar(input.character.key)
   }
 }
 

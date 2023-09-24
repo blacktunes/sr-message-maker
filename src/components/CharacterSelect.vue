@@ -40,10 +40,10 @@
           >
             <CharacterCard
               class="character"
-              :custom="setting.type === 'custom'"
+              :custom="!userData.card"
               :name="setting.name"
-              :avatar="user[setting.type].card"
-              :level="setting.type === 'custom' ? 5 : undefined"
+              :avatar="userData.card || userData.avatar"
+              :level="!userData.card ? 5 : undefined"
               @click="handelcharacterClick('开拓者', '')"
             />
             <CharacterCard
@@ -115,10 +115,9 @@
 </template>
 
 <script lang="ts" setup>
-import { nextTick, onMounted, ref, watch } from 'vue'
-import { getAvatar } from '@/assets/scripts/avatar'
-import { user } from '@/assets/data/characterData'
-import { character } from '@/store/character'
+import { onMounted, ref, watch } from 'vue'
+import { getCharaterAvatar } from '@/assets/scripts/avatar'
+import { character, userData } from '@/store/character'
 import { input } from '@/store/input'
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
@@ -126,6 +125,7 @@ import CharacterCard from './Character/CharacterCard.vue'
 import Icon from './Common/Icon.vue'
 import { compressImage } from '@/assets/scripts/image'
 import { cropperOpen } from '@/store/cropper'
+import { showConfirm, showInput } from '@/store/popup'
 
 const game = ref<HTMLElement | null>(null)
 const other = ref<HTMLElement | null>(null)
@@ -205,7 +205,7 @@ const handelcharacterClick = (key: string, name: string) => {
   if (input.index) {
     message.list[input.index[0]].list[input.index[1]].key = key
     message.list[input.index[0]].list[input.index[1]].name = name
-    message.list[input.index[0]].list[input.index[1]].avatar = getAvatar(key)
+    message.list[input.index[0]].list[input.index[1]].avatar = getCharaterAvatar(key)
   } else {
     input.character.key = key
     input.character.name = name
@@ -214,10 +214,11 @@ const handelcharacterClick = (key: string, name: string) => {
 }
 
 const addCustom = async () => {
-  const name = prompt('请输入角色名')
+  const name: string = await showInput('请输入角色名')
   if (!name) return
+
+  const info = await showInput('请输入角色签名', '非必要选项', false)
   const key = Date.now()
-  const info = prompt('请输入角色签名') || ''
 
   setTimeout(() => {
     const input = document.createElement('input')
@@ -248,8 +249,13 @@ const addCustom = async () => {
 }
 
 const handelDelClick = (key: string, name: string) => {
-  const flag = confirm(`是否删除该角色 - ${name}`)
-  if (flag) delete character.custom[key]
+  showConfirm({
+    title: '删除角色',
+    text: [`是否删除${name}？`],
+    fn: () => {
+      delete character.custom[key]
+    }
+  })
 }
 </script>
 

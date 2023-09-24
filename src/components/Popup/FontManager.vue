@@ -7,20 +7,22 @@
     >
       <div class="preview">愿此行，终抵群星</div>
       <div class="font">{{ font }}</div>
-      <template #footer>
-        <Btn
-          name="默认字体"
-          @click="resetFont"
-        />
-        <Btn
-          name="系统字体"
-          @click="setFont('')"
-        />
-        <Btn
-          name="上传字体"
-          @click="setCustomFont"
-        />
-      </template>
+      <div class="line"></div>
+      <Btn
+        class="btn"
+        name="默认字体"
+        @click="resetFont"
+      />
+      <Btn
+        class="btn"
+        name="系统字体"
+        @click="setFont('')"
+      />
+      <Btn
+        class="btn"
+        name="上传字体"
+        @click="setCustomFont"
+      />
     </Window>
   </transition>
 </template>
@@ -33,7 +35,7 @@ import { ref } from 'vue'
 
 const defaultFont = "* { font-family: 'Noto Sans SC'; }"
 
-const getFontName = () => (JSON.parse(getComputedStyle(document.body).fontFamily))
+const getFontName = () => JSON.parse(getComputedStyle(document.body).fontFamily)
 const font = ref(getFontName())
 
 const fontStyle = document.querySelector('style[title=font]')
@@ -85,4 +87,12 @@ const setCustomFont = async () => {
   text-align center
   margin-top 20px
   user-select none
+
+.btn
+  margin 10px 0 0 0
+
+.line
+  width 100%
+  margin 20px 0
+  border-bottom 5px solid rgba(150, 150, 150, 0.5)
 </style>

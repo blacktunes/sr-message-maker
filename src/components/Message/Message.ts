@@ -1,6 +1,5 @@
-import { user } from '@/assets/data/characterData'
 import { getNames, getTitle } from '@/assets/scripts/header'
-import { character } from '@/store/character'
+import { character, userData } from '@/store/character'
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
 import { computed, nextTick } from 'vue'
@@ -50,9 +49,9 @@ export const info = computed(() => {
   }
 })
 
-export const getUserAvatar = (key: string, url: string) => {
+export const getAvatar = (key: string, url: string) => {
   if (key === '开拓者') {
-    return user[setting.type].avatar || ''
+    return userData.value.avatar
   } else {
     return url
   }

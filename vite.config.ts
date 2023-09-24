@@ -7,7 +7,8 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 // https://vitejs.dev/config/
 export default defineConfig({
   define: {
-    DEFAULT_TEXT: JSON.stringify('愿此行，终抵群星')
+    DEFAULT_TEXT: JSON.stringify('愿此行，终抵群星'),
+    DEFAULT_AVATAR: JSON.stringify('星·存护')
   },
   plugins: [
     vue(),

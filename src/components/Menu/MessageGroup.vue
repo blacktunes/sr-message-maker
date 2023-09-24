@@ -75,6 +75,7 @@ import avatar_0 from '@/assets/images/avatar/一家人.webp'
 import avatar_1 from '@/assets/images/avatar/私聊.webp'
 import avatar_2 from '@/assets/images/avatar/群聊.webp'
 import { getAssets } from '@/assets/scripts/preload'
+import { showConfirm } from '@/store/popup'
 
 const props = defineProps<{
   title?: string
@@ -150,18 +151,26 @@ const handelMessageClick = (index: number) => {
   setting.index = index
 }
 
-const handelDelClick = (index: number, length: number) => {
-  let flag = true
-  if (length > 0) {
-    flag = confirm('是否删除短信')
+const deleteMessage = (index: number) => {
+  const id = message.list.findIndex((item) => {
+    return item.id === index
+  })
+  if (id !== -1) {
+    message.list.splice(id, 1)
   }
-  if (flag) {
-    const id = message.list.findIndex((item) => {
-      return item.id === index
+}
+
+const handelDelClick = (index: number, length: number) => {
+  if (length > 0) {
+    showConfirm({
+      title: '删除短信',
+      text: ['是否删除该短信？'],
+      fn: () => {
+        deleteMessage(index)
+      }
     })
-    if (id !== -1) {
-      message.list.splice(id, 1)
-    }
+  } else {
+    deleteMessage(index)
   }
 }
 

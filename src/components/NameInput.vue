@@ -1,30 +1,21 @@
 <template>
   <div class="name">
-    <div
-      class="change"
-      title="更换主角"
-      @click="handelChangeClick"
-    >
-      <Icon name="change" />
-    </div>
     <div class="text-wrapper">
       <div
         class="text"
-        contenteditable
-        @keydown.enter.prevent="updateName($event)"
-        @blur="updateName($event)"
-        title="修改角色名"
+        title="修改昵称"
+        @click.stop="handelNameClick"
       >
         {{ setting.name }}
       </div>
     </div>
     <div
       class="avatar"
-      @click="handelAvatarClick"
+      @click.stop="popup.avatar = true"
       title="修改头像"
     >
       <img
-        :src="user[setting.type].avatar || ''"
+        :src="userData.avatar"
         alt=""
       />
     </div>
@@ -32,59 +23,18 @@
 </template>
 
 <script lang="ts" setup>
-import { user } from '@/assets/data/characterData'
-import { setUserType, setting } from '@/store/setting'
-import Icon from './Common/Icon.vue'
-import { compressImage } from '@/assets/scripts/image'
-import { cropperOpen } from '@/store/cropper'
+import { setting } from '@/store/setting'
+import { userData } from '@/store/character'
+import { popup, showInput } from '@/store/popup'
 
-const updateName = (e: Event) => {
-  setting.name = (e.target as HTMLInputElement).innerText
-  if (setting.name === '') setting.name = '开拓者'
+const handelNameClick = async () => {
+  const name: string = await showInput('修改昵称', '建议不要使用过长的昵称', false, setting.name, '开拓者')
+  if (name.length < 1) {
+    setting.name = '开拓者'
+  } else {
+    setting.name = name
+  }
   localStorage.setItem('sr-message-name', setting.name)
-}
-
-const handelAvatarClick = async () => {
-  const el = document.createElement('input')
-  el.type = 'file'
-  el.accept = 'image/*'
-  el.onchange = async () => {
-    if (el.files?.[0]) {
-      const avatar = await compressImage(el.files[0])
-      cropperOpen(
-        avatar,
-        (res) => {
-          user.custom.avatar = res
-          user.custom.card = res
-          localStorage.setItem('sr-message-avatar', res)
-          setUserType('custom')
-        },
-        {
-          aspectRatio: 1,
-          maxWidth: 500
-        }
-      )
-    }
-  }
-  el.click()
-}
-
-const handelChangeClick = () => {
-  switch (setting.type) {
-    case '星':
-      setting.type = '穹'
-      break
-    case '穹':
-      if (user.custom.avatar) {
-        setting.type = 'custom'
-      } else {
-        setting.type = '星'
-      }
-      break
-    default:
-      setting.type = '星'
-  }
-  localStorage.setItem('sr-message-type', setting.type)
 }
 </script>
 
@@ -100,13 +50,16 @@ const handelChangeClick = () => {
 
   .text-wrapper
     overflow hidden
-    max-width 500px
 
   .text
     box-sizing border-box
     white-space nowrap
     text-overflow ellipsis
+    text-align center
+    min-width 100px
+    max-width 1000px
     height 85px
+    cursor pointer
 
     &:hover
       color var(--menu-btn-hover)
