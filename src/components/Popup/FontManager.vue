@@ -1,30 +1,28 @@
 <template>
-  <transition name="fade">
-    <Window
-      v-if="popup.font"
-      title="字体设置"
-      @close="popup.font = false"
-    >
-      <div class="preview">愿此行，终抵群星</div>
-      <div class="font">{{ font }}</div>
-      <div class="line"></div>
-      <Btn
-        class="btn"
-        name="默认字体"
-        @click="resetFont"
-      />
-      <Btn
-        class="btn"
-        name="系统字体"
-        @click="setFont('')"
-      />
-      <Btn
-        class="btn"
-        name="上传字体"
-        @click="setCustomFont"
-      />
-    </Window>
-  </transition>
+  <Window
+    :show="popup.font"
+    title="字体设置"
+    @close="popup.font = false"
+  >
+    <div class="preview">愿此行，终抵群星</div>
+    <div class="font">{{ font }}</div>
+    <div class="line"></div>
+    <Btn
+      class="btn"
+      name="默认字体"
+      @click="resetFont"
+    />
+    <Btn
+      class="btn"
+      name="系统字体"
+      @click="setFont('')"
+    />
+    <Btn
+      class="btn"
+      name="上传字体"
+      @click="setCustomFont"
+    />
+  </Window>
 </template>
 
 <script lang="ts" setup>
@@ -92,7 +90,9 @@ const setCustomFont = async () => {
   margin 10px 0 0 0
 
 .line
+  box-sizing border-box
   width 100%
-  margin 20px 0
-  border-bottom 5px solid rgba(150, 150, 150, 0.5)
+  padding 0 10px
+  margin 30px 0 20px 0
+  border-bottom 3px solid rgba(150, 150, 150, 0.5)
 </style>

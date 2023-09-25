@@ -1,49 +1,47 @@
 <template>
-  <transition name="fade">
-    <window
-      style="z-index: 999"
-      confirm
-      :title="confirmData.title"
-      width="50%"
-      v-if="popup.confirm"
+  <window
+    style="z-index: 999"
+    confirm
+    :title="confirmData.title"
+    width="50%"
+    :show="popup.confirm"
+  >
+    <div class="text">
+      <div
+        v-for="(text, index) in confirmData.text"
+        :key="index"
+        v-html="text"
+      ></div>
+    </div>
+    <template
+      #bottom
+      v-if="confirmData.tip"
     >
-      <div class="text">
-        <div
-          v-for="(text, index) in confirmData.text"
-          :key="index"
-          v-html="text"
-        ></div>
-      </div>
-      <template
-        #bottom
-        v-if="confirmData.tip"
-      >
-        <div class="tip">{{ confirmData.tip }}</div>
-      </template>
-      <template #footer>
+      <div class="tip">{{ confirmData.tip }}</div>
+    </template>
+    <template #footer>
+      <Btn
+        v-if="!confirmData.fn"
+        class="btn"
+        name="知道了"
+        @click="onCancelClick"
+      />
+      <template v-else>
         <Btn
-          v-if="!confirmData.fn"
           class="btn"
-          name="知道了"
+          name="取消"
+          type="wrong"
           @click="onCancelClick"
         />
-        <template v-else>
-          <Btn
-            class="btn"
-            name="取消"
-            type="wrong"
-            @click="onCancelClick"
-          />
-          <Btn
-            class="btn"
-            name="确认"
-            type="check"
-            @click="onConfirmlClick"
-          />
-        </template>
+        <Btn
+          class="btn"
+          name="确认"
+          type="check"
+          @click="onConfirmlClick"
+        />
       </template>
-    </window>
-  </transition>
+    </template>
+  </window>
 </template>
 
 <script lang="ts" setup>

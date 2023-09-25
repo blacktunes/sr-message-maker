@@ -1,87 +1,85 @@
 <template>
-  <transition name="fade">
-    <Window
-      class="window"
-      style="z-index: 90"
-      v-if="popup.avatar"
-      title="更换头像"
+  <Window
+    class="window"
+    style="z-index: 90"
+    :show="popup.avatar"
+    title="更换头像"
+  >
+    <div
+      class="list"
+      ref="listDom"
     >
       <div
-        class="list"
-        ref="listDom"
+        class="avatar"
+        v-for="(item, key) in character.avatar"
+        :key="key"
+        :class="{ highlight: index === key }"
+        @click="index = key"
       >
+        <img
+          :src="item.avatar"
+          alt=""
+        />
+      </div>
+      <div
+        class="avatar"
+        v-for="(url, key) in character.customAvatar"
+        :key="key"
+        :class="{ highlight: index === key }"
+        @click="index = key"
+      >
+        <img
+          :src="url"
+          alt=""
+        />
         <div
-          class="avatar"
-          v-for="(item, key) in character.avatar"
-          :key="key"
-          :class="{ highlight: index === key }"
-          @click="index = key"
+          class="del"
+          @click.stop="handelDelClick(key)"
         >
-          <img
-            :src="item.avatar"
-            alt=""
+          <Icon
+            name="delete"
+            width="25"
+            height="25"
           />
-        </div>
-        <div
-          class="avatar"
-          v-for="(url, key) in character.customAvatar"
-          :key="key"
-          :class="{ highlight: index === key }"
-          @click="index = key"
-        >
-          <img
-            :src="url"
-            alt=""
-          />
-          <div
-            class="del"
-            @click.stop="handelDelClick(key)"
-          >
-            <Icon
-              name="delete"
-              width="25"
-              height="25"
-            />
-          </div>
-        </div>
-        <div
-          class="add"
-          @click="addCustom"
-        >
-          <Icon name="add" />
         </div>
       </div>
-      <template #left>
-        <div class="preview">
-          <div class="circle">
-            <div class="circle-1"></div>
-            <div class="circle-2"></div>
-            <div class="circle-3"></div>
-            <img
-              :src="imgUrl"
-              alt=""
-            />
-            <div class="name">{{ name }}</div>
-          </div>
+      <div
+        class="add"
+        @click="addCustom"
+      >
+        <Icon name="add" />
+      </div>
+    </div>
+    <template #left>
+      <div class="preview">
+        <div class="circle">
+          <div class="circle-1"></div>
+          <div class="circle-2"></div>
+          <div class="circle-3"></div>
+          <img
+            :src="imgUrl"
+            alt=""
+          />
+          <div class="name">{{ name }}</div>
         </div>
-      </template>
-      <template #footer>
-        <Btn
-          class="btn"
-          name="取消"
-          type="wrong"
-          @click="popup.avatar = false"
-        />
-        <Btn
-          class="btn"
-          name="确认"
-          type="check"
-          :disable="index === setting.bubbles"
-          @click="onBtnClick"
-        />
-      </template>
-    </Window>
-  </transition>
+      </div>
+    </template>
+    <template #footer>
+      <Btn
+        class="btn"
+        name="取消"
+        type="wrong"
+        @click="popup.avatar = false"
+      />
+      <Btn
+        class="btn"
+        name="确认"
+        type="check"
+        :disable="index === setting.bubbles"
+        @click="onBtnClick"
+      />
+    </template>
+  </Window>
 </template>
 
 <script lang="ts" setup>

@@ -1,40 +1,38 @@
 <template>
-  <transition name="fade">
-    <window
-      title="更新记录"
-      width="40%"
-      v-if="popup.log"
-      @close="popup.log = false"
+  <window
+    title="更新记录"
+    width="40%"
+    :show="popup.log"
+    @close="popup.log = false"
+  >
+    <div
+      class="item"
+      :class="{
+        highlight: index === 0
+      }"
+      v-for="(item, index) in changeLog"
+      :key="`time-${index}`"
     >
+      <div class="time">{{ item.time }}</div>
       <div
-        class="item"
-        :class="{
-          highlight: index === 0
-        }"
-        v-for="(item, index) in changeLog"
-        :key="`time-${index}`"
+        class="text"
+        v-for="(text, key) in item.text"
+        :key="`text-${index}-${key}`"
       >
-        <div class="time">{{ item.time }}</div>
-        <div
-          class="text"
-          v-for="(text, key) in item.text"
-          :key="`text-${index}-${key}`"
-        >
-          {{ text.text }}
-          <template v-if="text.author">
-            <a
-              target="_blank"
-              :href="text.url"
-              >@{{ text.author }}</a
-            >
-          </template>
-          <template v-if="text.info">
-            <div class="info">{{ text.info }}</div>
-          </template>
-        </div>
+        {{ text.text }}
+        <template v-if="text.author">
+          <a
+            target="_blank"
+            :href="text.url"
+            >@{{ text.author }}</a
+          >
+        </template>
+        <template v-if="text.info">
+          <div class="info">{{ text.info }}</div>
+        </template>
       </div>
-    </window>
-  </transition>
+    </div>
+  </window>
 </template>
 
 <script lang="ts" setup>

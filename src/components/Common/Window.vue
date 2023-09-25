@@ -1,8 +1,11 @@
 <template>
-  <div class="window">
-    <Transition
-      name="window"
-      appear
+  <Transition
+    name="window"
+    appear
+  >
+    <div
+      class="window"
+      v-if="show"
     >
       <div
         class="box"
@@ -47,30 +50,21 @@
           class="footer"
           v-if="slot.footer"
         >
-          <Transition
-            name="footer"
-            appear
-          >
-            <div class="bg"></div>
-          </Transition>
-          <Transition
-            name="btn"
-            appear
-          >
-            <div class="btn-list">
-              <slot name="footer"></slot>
-            </div>
-          </Transition>
+          <div class="bg"></div>
+          <div class="btn-list">
+            <slot name="footer"></slot>
+          </div>
         </div>
       </div>
-    </Transition>
-  </div>
+    </div>
+  </Transition>
 </template>
 
 <script lang="ts" setup>
 import Close from './Close.vue'
 
 defineProps<{
+  show: boolean
   confirm?: boolean
   title: string
   width?: string
@@ -187,26 +181,35 @@ const close = () => {
         align-content center
         justify-content center
 
-.window-enter-active
+.window-enter-active, .window-leave-active
+  transition all 0.3s
+
+.window-enter-from, .window-leave-to
+  opacity 0
+
+.window-enter-active .box, .window-leave-active .box
   transition all 0.2s ease-out
 
-.window-enter-from
-  opacity 0
-  transform translateY(20%)
+.window-enter-from .box, .window-leave-to .box
+  transform translateY(10%)
 
-.footer-enter-active
+.window-enter-active .bg, .window-leave-active .bg
   transition all 0.25s
   transition-delay 0.05s
   transform-origin bottom
 
-.footer-enter-from
+.window-enter-from .bg
   opacity 0
   transform scaleY(0)
 
-.btn-enter-active
+.window-leave-to .bg
+  opacity 0
+  transform scaleY(0) translateY(20%)
+
+.window-enter-active .btn-list
   transition all 0.35s
   transition-delay 0.15s
 
-.btn-enter-from
+.window-enter-from .btn-list
   opacity 0
 </style>

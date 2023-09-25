@@ -1,44 +1,42 @@
 <template>
-  <transition name="fade">
-    <window
-      style="z-index: 990"
-      confirm
-      :title="inputData.title"
-      width="55%"
-      v-if="popup.input"
+  <window
+    :show="popup.input"
+    style="z-index: 990"
+    confirm
+    :title="inputData.title"
+    width="55%"
+  >
+    <div class="text">
+      <input
+        type="text"
+        ref="inputDom"
+        v-model="inputData.text"
+        :placeholder="inputData.placeholder"
+        @keydown.enter="onConfirmlClick"
+      />
+    </div>
+    <template
+      #bottom
+      v-if="inputData.tip"
     >
-      <div class="text">
-        <input
-          type="text"
-          ref="inputDom"
-          v-model="inputData.text"
-          :placeholder="inputData.placeholder"
-          @keydown.enter="onConfirmlClick"
-        />
-      </div>
-      <template
-        #bottom
-        v-if="inputData.tip"
-      >
-        <div class="tip">{{ inputData.tip }}</div>
-      </template>
-      <template #footer>
-        <Btn
-          class="btn"
-          name="取消"
-          type="wrong"
-          @click="popup.input = false"
-        />
-        <Btn
-          class="btn"
-          name="确认"
-          :disable="inputData.required && (!inputData.fn || inputData.text.length < 1)"
-          type="check"
-          @click="onConfirmlClick"
-        />
-      </template>
-    </window>
-  </transition>
+      <div class="tip">{{ inputData.tip }}</div>
+    </template>
+    <template #footer>
+      <Btn
+        class="btn"
+        name="取消"
+        type="wrong"
+        @click="popup.input = false"
+      />
+      <Btn
+        class="btn"
+        name="确认"
+        :disable="inputData.required && (!inputData.fn || inputData.text.length < 1)"
+        type="check"
+        @click="onConfirmlClick"
+      />
+    </template>
+  </window>
 </template>
 
 <script lang="ts" setup>

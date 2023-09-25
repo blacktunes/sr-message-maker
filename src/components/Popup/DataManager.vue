@@ -1,70 +1,68 @@
 <template>
-  <transition name="fade">
-    <Window
-      v-if="popup.data"
-      title="数据管理"
-      @close="popup.data = false"
-    >
-      <div class="data">
-        <div class="info">
-          <div>当前短信ID: {{ setting.index || '-' }}</div>
-          <div style="margin-top: 20px">短信数量: {{ message.list.length }}{{ messageUsage }}</div>
-          <div>消息数量: {{ messageNum }}</div>
-          <div>自定义角色数量: {{ Object.keys(character.custom).length }}{{ characterUsage }}</div>
-          <div>自定义头像数量: {{ character.customAvatar.length }}{{ customAvatarUsage }}</div>
-        </div>
-        <div class="box">
-          <Btn
-            class="btn"
-            name="导出当前短信"
-            :disable="!setting.index"
-            @click="downloadData"
-          />
-          <Btn
-            class="btn"
-            name="导出全部短信"
-            :disable="!hasData"
-            @click="downloadAllData"
-          />
-          <Btn
-            class="btn"
-            name="导入短信数据"
-            @click="uploadDate"
-          />
-          <Btn
-            class="btn"
-            name="删除所有短信"
-            :disable="!hasData"
-            @click="deleteData"
-          />
-          <div class="line"></div>
-          <Btn
-            class="btn"
-            name="导出自定义角色"
-            :disable="!hasCharacter"
-            @click="downloadCharacter"
-          />
-          <Btn
-            class="btn"
-            name="导入自定义角色"
-            @click="uploadCharacter"
-          />
-          <Btn
-            class="btn"
-            name="删除自定义角色"
-            :disable="!hasCharacter"
-            @click="deleteCharacter"
-          />
-          <div class="line"></div>
-          <Btn
-            class="btn"
-            name="重置数据库"
-            @click="reserDatabase"
-          />
-        </div>
+  <Window
+    :show="popup.data"
+    title="数据管理"
+    @close="popup.data = false"
+  >
+    <div class="data">
+      <div class="info">
+        <div>当前短信ID: {{ setting.index || '-' }}</div>
+        <div style="margin-top: 20px">短信数量: {{ message.list.length }}{{ messageUsage }}</div>
+        <div>消息数量: {{ messageNum }}</div>
+        <div>自定义角色数量: {{ Object.keys(character.custom).length }}{{ characterUsage }}</div>
+        <div>自定义头像数量: {{ character.customAvatar.length }}{{ customAvatarUsage }}</div>
       </div>
-    </Window>
-  </transition>
+      <div class="box">
+        <Btn
+          class="btn"
+          name="导出当前短信"
+          :disable="!setting.index"
+          @click="downloadData"
+        />
+        <Btn
+          class="btn"
+          name="导出全部短信"
+          :disable="!hasData"
+          @click="downloadAllData"
+        />
+        <Btn
+          class="btn"
+          name="导入短信数据"
+          @click="uploadDate"
+        />
+        <Btn
+          class="btn"
+          name="删除所有短信"
+          :disable="!hasData"
+          @click="deleteData"
+        />
+        <div class="line"></div>
+        <Btn
+          class="btn"
+          name="导出自定义角色"
+          :disable="!hasCharacter"
+          @click="downloadCharacter"
+        />
+        <Btn
+          class="btn"
+          name="导入自定义角色"
+          @click="uploadCharacter"
+        />
+        <Btn
+          class="btn"
+          name="删除自定义角色"
+          :disable="!hasCharacter"
+          @click="deleteCharacter"
+        />
+        <div class="line"></div>
+        <Btn
+          class="btn"
+          name="重置数据库"
+          @click="reserDatabase"
+        />
+      </div>
+    </div>
+  </Window>
 </template>
 
 <script lang="ts" setup>

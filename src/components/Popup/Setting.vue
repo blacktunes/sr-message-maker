@@ -1,88 +1,86 @@
 <template>
-  <transition name="fade">
-    <Window
-      style="z-index: 90"
-      v-if="popup.setting"
-      title="更换对话框"
-    >
-      <div class="select">
+  <Window
+    style="z-index: 90"
+    :show="popup.setting"
+    title="更换对话框"
+  >
+    <div class="select">
+      <div
+        class="item"
+        v-for="(item, key) in bubbles"
+        :key="key"
+        :class="{ highlight: index === key }"
+        @click="index = key"
+      >
+        <img
+          :src="item.img"
+          :alt="item.name"
+        />
+      </div>
+    </div>
+    <template #outside>
+      <div class="other-setting">
         <div
-          class="item"
-          v-for="(item, key) in bubbles"
-          :key="key"
-          :class="{ highlight: index === key }"
-          @click="index = key"
+          class="setting-btn"
+          title="更新记录"
+          @click.stop="popup.log = true"
         >
-          <img
-            :src="item.img"
-            :alt="item.name"
+          <Icon
+            name="log"
+            width="50"
+            height="50"
           />
         </div>
+        <div
+          class="setting-btn"
+          title="字体设置"
+          @click.stop="popup.font = true"
+        >
+          <Icon
+            name="font"
+            width="60"
+            height="60"
+          />
+        </div>
+        <div
+          class="setting-btn"
+          title="数据管理"
+          @click.stop="popup.data = true"
+        >
+          <Icon name="data" />
+        </div>
       </div>
-      <template #outside>
-        <div class="other-setting">
-          <div
-            class="setting-btn"
-            title="更新记录"
-            @click.stop="popup.log = true"
-          >
-            <Icon
-              name="log"
-              width="50"
-              height="50"
-            />
-          </div>
-          <div
-            class="setting-btn"
-            title="字体设置"
-            @click.stop="popup.font = true"
-          >
-            <Icon
-              name="font"
-              width="60"
-              height="60"
-            />
-          </div>
-          <div
-            class="setting-btn"
-            title="数据管理"
-            @click.stop="popup.data = true"
-          >
-            <Icon name="data" />
-          </div>
+    </template>
+    <template #left>
+      <div class="preview">
+        <div class="circle">
+          <div class="circle-1"></div>
+          <div class="circle-2"></div>
+          <div class="circle-3"></div>
+          <img
+            :src="bubbles[index].preview"
+            alt=""
+          />
+          <div class="name">{{ bubbles[index].name }}</div>
         </div>
-      </template>
-      <template #left>
-        <div class="preview">
-          <div class="circle">
-            <div class="circle-1"></div>
-            <div class="circle-2"></div>
-            <div class="circle-3"></div>
-            <img
-              :src="bubbles[index].preview"
-              alt=""
-            />
-            <div class="name">{{ bubbles[index].name }}</div>
-          </div>
-        </div>
-      </template>
-      <template #footer>
-        <Btn
-          class="btn"
-          name="取消"
-          type="wrong"
-          @click="popup.setting = false"
-        />
-        <Btn
-          class="btn"
-          name="确认"
-          type="check"
-          :disable="index === setting.bubbles"
-          @click="onBtnClick"
-        />
-      </template>
-    </Window>
-  </transition>
+      </div>
+    </template>
+    <template #footer>
+      <Btn
+        class="btn"
+        name="取消"
+        type="wrong"
+        @click="popup.setting = false"
+      />
+      <Btn
+        class="btn"
+        name="确认"
+        type="check"
+        :disable="index === setting.bubbles"
+        @click="onBtnClick"
+      />
+    </template>
+  </Window>
 </template>
 
 <script lang="ts" setup>
