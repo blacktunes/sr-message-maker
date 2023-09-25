@@ -7,13 +7,11 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 // https://vitejs.dev/config/
 export default defineConfig({
   define: {
+    BUILD_TIME: Date.now(),
     DEFAULT_TEXT: JSON.stringify('愿此行，终抵群星'),
     DEFAULT_AVATAR: JSON.stringify('星·存护')
   },
-  plugins: [
-    vue(),
-    vueJsx(),
-  ],
+  plugins: [vue(), vueJsx()],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))

@@ -5,6 +5,6 @@ import '@/assets/scripts/back'
 import '@/assets/scripts/analytics'
 import '@/assets/scripts/preload'
 
-(window as any).BUILD_TIME = new Date()
+window.BUILD_TIME = new Date(BUILD_TIME)
 
 createApp(App).mount('#app')
