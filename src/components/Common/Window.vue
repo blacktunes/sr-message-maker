@@ -181,8 +181,11 @@ const close = () => {
         align-content center
         justify-content center
 
-.window-enter-active, .window-leave-active
+.window-enter-active
   transition all 0.3s
+
+.window-leave-active
+  transition all 0.25s
 
 .window-enter-from, .window-leave-to
   opacity 0
@@ -204,12 +207,18 @@ const close = () => {
 
 .window-leave-to .bg
   opacity 0
-  transform scaleY(0) translateY(20%)
+  transform scaleY(0) translateY(30%)
 
 .window-enter-active .btn-list
   transition all 0.35s
   transition-delay 0.15s
 
 .window-enter-from .btn-list
+  opacity 0
+
+.window-leave-active .btn-list
+  transition all 0.2s
+
+.window-leave-to .btn-list
   opacity 0
 </style>
