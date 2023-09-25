@@ -23,7 +23,7 @@
         <div
           class="setting-btn"
           title="更新记录"
-          @click.stop="popup.log = true"
+          @click.stop="openWindow('log')"
         >
           <Icon
             name="log"
@@ -34,7 +34,7 @@
         <div
           class="setting-btn"
           title="字体设置"
-          @click.stop="popup.font = true"
+          @click.stop="openWindow('font')"
         >
           <Icon
             name="font"
@@ -45,7 +45,7 @@
         <div
           class="setting-btn"
           title="数据管理"
-          @click.stop="popup.data = true"
+          @click.stop="openWindow('data')"
         >
           <Icon name="data" />
         </div>
@@ -86,7 +86,7 @@
 <script lang="ts" setup>
 import { watch, ref, reactive } from 'vue'
 import { setting } from '@/store/setting'
-import { popup } from '@/store/popup'
+import { openWindow, popup } from '@/store/popup'
 import { getAssets } from '@/assets/scripts/preload'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'

@@ -59,7 +59,7 @@
         </div>
         <div
           class="bubbles-btn"
-          @click.stop="popup.setting = true"
+          @click.stop="openWindow('setting')"
         >
           <Icon name="setting" />
         </div>
@@ -76,7 +76,7 @@ import { computed } from 'vue'
 import Icon from './Common/Icon.vue'
 import MessageGroup from './Menu/MessageGroup.vue'
 import { getNames, getTitle } from '@/assets/scripts/header'
-import { popup } from '@/store/popup'
+import { openWindow, popup } from '@/store/popup'
 
 interface MenuItem {
   time: number

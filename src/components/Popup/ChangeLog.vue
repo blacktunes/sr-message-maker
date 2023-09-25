@@ -37,7 +37,7 @@
 
 <script lang="ts" setup>
 import Window from '@/components/Common/Window.vue'
-import { popup } from '@/store/popup'
+import { openWindow, popup } from '@/store/popup'
 import log from '@/assets/data/log.json'
 
 const changeLog: {
@@ -56,7 +56,7 @@ const checkUpdate = () => {
   if (lastUpdate) {
     if (lastUpdate <= localLastUpdate) return
   }
-  popup.log = true
+  openWindow('log')
   localStorage.setItem('sr-message-time', JSON.stringify(lastUpdate))
 }
 checkUpdate()

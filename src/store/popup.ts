@@ -32,7 +32,7 @@ export const showConfirm = (config: {
   confirmData.tip = config.tip
   confirmData.text = config.text
   confirmData.fn = config.fn
-  popup.confirm = true
+  openWindow('confirm')
 }
 
 export const inputData = reactive<{
@@ -66,9 +66,30 @@ export const showInput = (
       inputData.text = defaultText
     }
     inputData.placeholder = placeholder
-    popup.input = true
+    openWindow('input')
     inputData.fn = (str: string) => {
       resolve(str)
     }
   })
+}
+
+export const popupList: (keyof typeof popup)[] = []
+
+export const openWindow = (key: keyof typeof popup) => {
+  if (!popup[key]) {
+    popupList.push(key)
+    popup[key] = true
+  }
+}
+
+export const closeWindow = () => {
+  const key = popupList.pop()
+  if (key) {
+    if (popup[key]) {
+      popup[key] = false
+      return true
+    } else {
+      closeWindow()
+    }
+  }
 }
