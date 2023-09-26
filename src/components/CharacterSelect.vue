@@ -126,6 +126,7 @@ import Icon from './Common/Icon.vue'
 import { compressImage } from '@/assets/scripts/image'
 import { cropperOpen } from '@/store/cropper'
 import { showConfirm, showInput } from '@/store/popup'
+import { emitter } from '@/assets/scripts/event'
 
 const game = ref<HTMLElement | null>(null)
 const other = ref<HTMLElement | null>(null)
@@ -192,6 +193,9 @@ watch(
   () => input.select,
   () => {
     if (!input.select) {
+      if (!input.index) {
+        emitter.emit('focus')
+      }
       input.index = undefined
     }
   }

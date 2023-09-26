@@ -60,11 +60,13 @@
               class="input"
               v-model="input.input"
               @keydown.enter="handelAddClick()"
+              @keydown.tab.prevent=";[(input.select = true), inputFocus(false)]"
               :placeholder="defaultText"
+              ref="inputDom"
             />
             <div
               class="btn"
-              @click="handelMessageClick"
+              @click="handelMissionClick"
               title="创建任务"
             >
               <Icon name="mission" />
@@ -92,6 +94,7 @@
             </div>
             <div
               class="btn"
+              style="border-radius: 0 50px 50px 0"
               @click.stop="handelEmoticonClick"
               title="发送表情"
             >
@@ -138,12 +141,14 @@ import MessageBox from './Message/MessageBox.vue'
 import MessageItem from './Message/MessageItem.vue'
 import { compressImage } from '@/assets/scripts/image'
 import { cropperOpen } from '@/store/cropper'
+import { emitter } from '@/assets/scripts/event'
 
 const appearTransition = ref('slide-left')
 
 const defaultText = DEFAULT_TEXT
 
 const boxRef = ref<InstanceType<typeof MessageBox>>()
+const inputDom = ref<HTMLInputElement | null>(null)
 
 let randomKey = 0
 const getRandomKey = (): number => {
@@ -299,6 +304,18 @@ const handelSelectClick = () => {
   input.select = true
 }
 
+emitter.on('focus', () => {
+  inputFocus()
+})
+
+const inputFocus = (flag = true) => {
+  if (flag) {
+    inputDom.value?.focus()
+  } else {
+    inputDom.value?.blur()
+  }
+}
+
 const handelOptionClick = () => {
   message.list[messageIndex.value].list.push({
     key: '开拓者',
@@ -310,9 +327,10 @@ const handelOptionClick = () => {
   message.list[messageIndex.value].time = Date.now()
   input.input = ''
   scrollToBottom(boxRef.value?.listDom)
+  inputFocus()
 }
 
-const handelMessageClick = () => {
+const handelMissionClick = () => {
   message.list[messageIndex.value].list.push({
     key: '开拓者',
     name: '',
@@ -326,6 +344,7 @@ const handelMessageClick = () => {
   message.list[messageIndex.value].time = Date.now()
   input.input = ''
   scrollToBottom(boxRef.value?.listDom)
+  inputFocus()
 }
 
 const handelImageAddClick = async () => {
@@ -387,6 +406,7 @@ const handelNoticeClick = () => {
   message.list[messageIndex.value].time = Date.now()
   input.input = ''
   scrollToBottom(boxRef.value?.listDom)
+  inputFocus()
 }
 
 const handelAddClick = (img?: string) => {
@@ -398,6 +418,7 @@ const handelAddClick = (img?: string) => {
   message.list[messageIndex.value].time = Date.now()
   input.input = ''
   scrollToBottom(boxRef.value?.listDom)
+  inputFocus()
 }
 
 let isMove = false
@@ -504,9 +525,9 @@ box()
         clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
 
     .right
-      padding-right 10px
-      border-radius 0 50px 50px 0
-      margin-right 20px
+      padding 0 10px
+      margin 0 20px
+      border-radius 50px
 
     .btn
       overflow hidden
