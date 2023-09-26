@@ -75,7 +75,7 @@
         class="btn"
         name="确认"
         type="check"
-        :disable="index === setting.bubbles"
+        :disable="index === setting.avatar"
         @click="onBtnClick"
       />
     </template>
