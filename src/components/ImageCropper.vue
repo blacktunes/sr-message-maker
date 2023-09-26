@@ -3,6 +3,7 @@
     <div
       class="cropper"
       v-if="cropperSetting.show"
+      @click.stop
     >
       <VuePictureCropper
         :img="cropperSetting.img"
