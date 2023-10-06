@@ -3,6 +3,7 @@ import { closeWindow } from '@/store/popup'
 import { autoPlaySetting, setting } from '@/store/setting'
 import { emitter } from './event'
 import { cropper, cropperClose } from '@/store/cropper'
+import { messageIndex } from '@/components/Message/Message'
 
 const handelBack = () => {
   if (closeWindow()) return
@@ -33,6 +34,14 @@ document.addEventListener('click', (e) => {
 })
 
 document.addEventListener('keydown', (e) => {
+  if (e.key === 'Tab') {
+    e.preventDefault()
+    if (messageIndex.value !== -1) {
+      input.select = !input.select
+    }
+    return
+  }
+
   if (e.key !== 'Escape') return
 
   if (cropper.show) {
