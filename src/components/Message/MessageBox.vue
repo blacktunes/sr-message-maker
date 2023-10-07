@@ -32,7 +32,7 @@
               v-else
               class="title"
               :value="title"
-              @keydown.enter.prevent="
+              @keydown.enter.prevent.stop="
                 (e) => {
                   updateTitle(e);
                   (e.target as HTMLInputElement).blur()

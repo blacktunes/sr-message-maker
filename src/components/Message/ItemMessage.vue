@@ -71,7 +71,7 @@
           <div
             class="text"
             :contenteditable="!preview"
-            @keydown.enter.prevent="preview ? undefined : blur($event)"
+            @keydown.enter.prevent.stop="preview ? undefined : blur($event)"
             @blur="preview ? undefined : updateMessage($event)"
           >
             {{ item.text }}

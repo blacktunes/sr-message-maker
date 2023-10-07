@@ -59,7 +59,7 @@
               type="text"
               class="input"
               v-model="input.input"
-              @keydown.enter="onEnter"
+              @keydown.enter.prevent.stop="onEnter"
               @keydown.tab="inputFocus(false)"
               @keydown.escape="inputFocus(false)"
               :placeholder="defaultText"
