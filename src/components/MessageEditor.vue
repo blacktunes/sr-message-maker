@@ -61,6 +61,7 @@
               v-model="input.input"
               @keydown.enter="onEnter"
               @keydown.tab="inputFocus(false)"
+              @keydown.escape="inputFocus(false)"
               :placeholder="defaultText"
               ref="inputDom"
             />

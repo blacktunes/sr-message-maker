@@ -24,20 +24,20 @@
         v-if="!confirmData.fn"
         class="btn"
         name="知道了"
-        @click="onCancelClick"
+        @click="popup.confirm = false"
       />
       <template v-else>
         <Btn
           class="btn"
           name="取消"
           type="wrong"
-          @click="onCancelClick"
+          @click="popup.confirm = false"
         />
         <Btn
           class="btn"
           name="确认"
           type="check"
-          @click="onConfirmlClick"
+          @click="onConfirml"
         />
       </template>
     </template>
@@ -48,6 +48,16 @@
 import Window from '@/components/Common/Window.vue'
 import { confirmData, popup } from '@/store/popup'
 import Btn from '@/components/Common/Btn.vue'
+import { watch } from 'vue'
+
+watch(
+  () => popup.confirm,
+  () => {
+    if (!popup.confirm) {
+      reset()
+    }
+  }
+)
 
 const reset = () => {
   confirmData.title = ''
@@ -56,15 +66,9 @@ const reset = () => {
   confirmData.fn = undefined
 }
 
-const onCancelClick = () => {
-  popup.confirm = false
-  reset()
-}
-
-const onConfirmlClick = () => {
-  popup.confirm = false
+const onConfirml = () => {
   confirmData.fn?.()
-  reset()
+  popup.confirm = false
 }
 </script>
 

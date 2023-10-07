@@ -1,11 +1,24 @@
 import { nextTick, reactive, toRaw, watch } from 'vue'
 import { setLoadingType } from '@/assets/scripts/setup'
+import { setting } from './setting'
+import { showConfirm } from './popup'
 
 export const message = reactive<{
   list: MessageListItem[]
 }>({
   list: []
 })
+
+export const addNewMessage = () => {
+  const time = Date.now()
+  message.list.unshift({
+    id: time,
+    time,
+    list: []
+  })
+  setting.index = time
+  setting.select = '未命名短信'
+}
 
 const setWatch = () => {
   setLoadingType('message')
