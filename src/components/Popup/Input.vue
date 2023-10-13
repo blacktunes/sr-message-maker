@@ -12,7 +12,7 @@
         ref="inputDom"
         v-model="inputData.text"
         :placeholder="inputData.placeholder"
-        @keydown.prevent.stop="onConfirmlClick"
+        @keydown.enter.prevent.stop="onConfirmlClick"
       />
     </div>
     <template
