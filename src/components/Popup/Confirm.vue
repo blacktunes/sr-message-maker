@@ -46,7 +46,7 @@
 
 <script lang="ts" setup>
 import Window from '@/components/Common/Window.vue'
-import { confirmData, popup } from '@/store/popup'
+import { confirmData, popup, popupCallbalk } from '@/store/popup'
 import Btn from '@/components/Common/Btn.vue'
 import { watch } from 'vue'
 
@@ -69,7 +69,10 @@ const reset = () => {
 const onConfirml = () => {
   confirmData.fn?.()
   popup.confirm = false
+  return true
 }
+
+popupCallbalk.confirm = onConfirml
 </script>
 
 <style lang="stylus" scoped>

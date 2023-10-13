@@ -11,7 +11,7 @@ export const popup = reactive({
 })
 
 export const popupCallbalk = reactive<{
-  [name: string]: () => boolean | undefined
+  [key in keyof typeof popup]?: () => boolean | undefined
 }>({})
 
 export const confirmData = reactive<{
@@ -91,7 +91,7 @@ export const closeWindow = (confirm?: boolean) => {
   if (key) {
     if (popup[key]) {
       if (confirm) {
-        if (!(popupCallbalk?.[key]?.())) {
+        if (!popupCallbalk?.[key]?.()) {
           popupList.push(key)
         }
       } else {

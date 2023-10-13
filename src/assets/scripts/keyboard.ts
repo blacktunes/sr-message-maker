@@ -74,13 +74,6 @@ document.addEventListener('keydown', (e) => {
       }
       return
     case 'Enter':
-      // 确认通知
-      if (popup.confirm) {
-        e.preventDefault()
-        confirmData.fn?.()
-        popup.confirm = false
-        return
-      }
       // 确认窗口
       if (closeWindow(true)) {
         e.preventDefault()
