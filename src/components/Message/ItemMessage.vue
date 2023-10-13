@@ -71,7 +71,8 @@
           <div
             class="text"
             :contenteditable="!preview"
-            @keydown.enter.prevent="preview ? undefined : blur($event)"
+            @keydown.enter.prevent.stop="preview ? undefined : blur($event)"
+            @keydown.escape.prevent.stop="preview ? undefined : blur($event)"
             @blur="preview ? undefined : updateMessage($event)"
           >
             {{ item.text }}
@@ -108,10 +109,15 @@ const getBubbles = (key: string) => {
   const classList: string[] = []
   if (key === '开拓者') {
     classList.push('right')
-    if (setting.bubbles === 1) {
-      classList.push('bubbles-1')
-    } else {
-      classList.push('bubbles-0')
+    switch (setting.bubbles) {
+      case 1:
+        classList.push('bubbles-1')
+        break
+      case 2:
+        classList.push('bubbles-2')
+        break
+      default:
+        classList.push('bubbles-0')
     }
   }
   return classList
@@ -287,6 +293,9 @@ $del-pos = -100px
 
 .bubbles-1
   bubbles-1()
+
+.bubbles-2
+  bubbles-2()
 
 .avatar-enter-active
   animation avatar 0.5s ease

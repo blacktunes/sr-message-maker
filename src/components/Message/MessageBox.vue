@@ -32,12 +32,8 @@
               v-else
               class="title"
               :value="title"
-              @keydown.enter.prevent="
-                (e) => {
-                  updateTitle(e);
-                  (e.target as HTMLInputElement).blur()
-                }
-              "
+              @keydown.enter.prevent.stop="blur"
+              @keydown.escape.prevent.stop="blur"
               @focus="getTitle"
               @blur="updateTitle"
             />
@@ -96,6 +92,10 @@ const updateArrow = () => {
   if (listDom.value) {
     handelScroll(listDom.value)
   }
+}
+
+const blur = (e: KeyboardEvent) => {
+  ;(e.target as HTMLInputElement).blur()
 }
 
 let oldTitle = ''

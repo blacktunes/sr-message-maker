@@ -60,6 +60,12 @@ export const user: { [name: string]: UserAvatar } = reactive({
 })
 
 export const gameCharacter: { [name: string]: Character } = {
+  镜流: {
+    name: '镜流',
+    avatar: 'https://patchwiki.biligame.com/images/sr/4/4f/aymc2kbwihnsi8rq1irhy2axaugatmm.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/10/11/279865110/000f9e08e4991b98a175f8b5eb608c35_7503970170591208950.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '不卜人事福祸！'
+  },
   符玄: {
     name: '符玄',
     avatar: 'https://patchwiki.biligame.com/images/sr/9/93/4t66mewmti17qteotn6ul16p1624i7b.png',

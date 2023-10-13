@@ -14,23 +14,37 @@
       :key="`time-${index}`"
     >
       <div class="time">{{ item.time }}</div>
-      <div
-        class="text"
-        v-for="(text, key) in item.text"
-        :key="`text-${index}-${key}`"
-      >
-        {{ text.text }}
-        <template v-if="text.author">
-          <a
-            target="_blank"
-            :href="text.url"
-            >@{{ text.author }}</a
-          >
-        </template>
-        <template v-if="text.info">
-          <div class="info">{{ text.info }}</div>
-        </template>
-      </div>
+      <ul>
+        <li
+          class="text"
+          v-for="(text, key) in item.text"
+          :key="`text-${index}-${key}`"
+        >
+          {{ text.text }}
+          <template v-if="text.author">
+            <a
+              target="_blank"
+              :href="text.url"
+            >
+              @{{ text.author }}
+            </a>
+          </template>
+          <template v-if="text.info">
+            <template v-if="Array.isArray(text.info)">
+              <div
+                v-for="(info, infoKey) in text.info"
+                :key="infoKey"
+                class="info"
+              >
+                {{ info }}
+              </div>
+            </template>
+            <template v-else>
+              <div class="info">{{ text.info }}</div>
+            </template>
+          </template>
+        </li>
+      </ul>
     </div>
   </window>
 </template>
@@ -44,7 +58,7 @@ const changeLog: {
   time: string
   text: {
     text: string
-    info?: string
+    info?: string | string[]
     author?: string
     url?: string
   }[]
@@ -63,12 +77,15 @@ checkUpdate()
 </script>
 
 <style lang="stylus" scoped>
+ul
+  margin 5px auto
+
 .item
   margin 20px 20px 20px 0
-  padding 10px 20px 20px 10px
+  padding 10px 20px 20px 20px
 
   .time
-    font-size 46px
+    font-size 50px
     font-weight bold
 
   .text

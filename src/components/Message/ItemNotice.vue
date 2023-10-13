@@ -3,7 +3,8 @@
     <Icon name="warn" />
     <span
       :contenteditable="!preview"
-      @keydown.enter.prevent="preview ? undefined : blur($event)"
+      @keydown.enter.prevent.stop="preview ? undefined : blur($event)"
+      @keydown.escape.prevent.stop="preview ? undefined : blur($event)"
       @blur="preview ? undefined : updateMessage($event)"
     >
       {{ text }}

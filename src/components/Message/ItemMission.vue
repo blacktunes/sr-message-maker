@@ -38,7 +38,8 @@
           :value="text"
           @input="emit('update', ($event.target as HTMLInputElement).value)"
           @blur="updateText(($event.target as HTMLInputElement).value)"
-          @keydown.enter.prevent="blur"
+          @keydown.enter.prevent.stop="blur"
+          @keydown.escape.prevent.stop="blur"
         />
         <div
           class="state"

@@ -85,7 +85,7 @@
 <script lang="ts" setup>
 import { watch, ref, computed, nextTick } from 'vue'
 import { setAvatar, setting } from '@/store/setting'
-import { popup } from '@/store/popup'
+import { popup, popupCallbalk } from '@/store/popup'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
 import Icon from '@/components/Common/Icon.vue'
@@ -182,10 +182,13 @@ const name = computed(() => {
 })
 
 const onBtnClick = () => {
-  if (setting.avatar === index.value) return
+  if (setting.avatar === index.value) return false
   popup.avatar = false
   setAvatar(index.value)
+  return true
 }
+
+popupCallbalk.avatar = onBtnClick
 
 const border = computed(() => `url('${getAssets(borderUrl).value}`)
 const icon = computed(() => `url('${getAssets(iconUrl).value}`)

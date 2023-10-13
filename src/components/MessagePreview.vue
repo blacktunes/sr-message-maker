@@ -239,7 +239,7 @@ const stopPlay = () => {
 }
 
 emitter.on('screenshot', () => {
-  if (setting.preview) return
+  if (setting.loading) return
   reset()
 
   setting.preview = true

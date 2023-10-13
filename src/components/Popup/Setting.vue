@@ -61,7 +61,7 @@
             :src="bubbles[index].preview"
             alt=""
           />
-          <div class="name">{{ bubbles[index].name }}</div>
+          <div class="name">{{ name }}</div>
         </div>
       </div>
     </template>
@@ -84,9 +84,9 @@
 </template>
 
 <script lang="ts" setup>
-import { watch, ref, reactive } from 'vue'
+import { watch, ref, reactive, computed } from 'vue'
 import { setting } from '@/store/setting'
-import { openWindow, popup } from '@/store/popup'
+import { openWindow, popup, popupCallbalk } from '@/store/popup'
 import { getAssets } from '@/assets/scripts/preload'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
@@ -95,8 +95,19 @@ import bubbles_0 from '@/assets/images/bubbles/0.webp'
 import bubbles_0_preview from '@/assets/images/bubbles/0_preview.webp'
 import bubbles_1 from '@/assets/images/bubbles/1.webp'
 import bubbles_1_preview from '@/assets/images/bubbles/1_preview.webp'
+import bubbles_2 from '@/assets/images/bubbles/2.webp'
+import bubbles_2_preview from '@/assets/images/bubbles/2_preview.webp'
 
 const index = ref(0)
+
+const nameList = ['次元扑满', '扑满', '泡泡', '毛球', '白色恶魔', '肥大', '扑满侠', '扑神']
+const name = computed(() => {
+  if (index.value === 2) {
+    return nameList[Math.floor(Math.random() * nameList.length)]
+  } else {
+    return bubbles[index.value].name
+  }
+})
 
 watch(
   () => popup.setting,
@@ -117,15 +128,23 @@ const bubbles = reactive([
     name: '兔子在哪里？',
     img: getAssets(bubbles_1),
     preview: getAssets(bubbles_1_preview)
+  },
+  {
+    name: '次元扑满',
+    img: getAssets(bubbles_2),
+    preview: getAssets(bubbles_2_preview)
   }
 ])
 
 const onBtnClick = () => {
-  if (setting.bubbles === index.value) return
+  if (setting.bubbles === index.value) return false
   popup.setting = false
   setting.bubbles = index.value
   localStorage.setItem('sr-message-bubbles', JSON.stringify(setting.bubbles))
+  return true
 }
+
+popupCallbalk.setting = onBtnClick
 </script>
 
 <style lang="stylus" scoped>

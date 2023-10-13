@@ -17,7 +17,7 @@
         <div class="btn-list">
           <div
             class="btn"
-            @click="handelMessageAddClick"
+            @click="addNewMessage"
           >
             <div class="icon">
               <Icon
@@ -70,7 +70,7 @@
 
 <script lang="ts" setup>
 import { emitter } from '@/assets/scripts/event'
-import { message } from '@/store/message'
+import { addNewMessage, message } from '@/store/message'
 import { setting } from '@/store/setting'
 import { computed } from 'vue'
 import Icon from './Common/Icon.vue'
@@ -117,17 +117,6 @@ const list = computed(() => {
 
   return temp
 })
-
-const handelMessageAddClick = () => {
-  const time = Date.now()
-  message.list.unshift({
-    id: time,
-    time,
-    list: []
-  })
-  setting.index = time
-  setting.select = '未命名短信'
-}
 
 const handelScreenshotClick = () => {
   if (setting.preview) return

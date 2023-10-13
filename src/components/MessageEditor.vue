@@ -59,8 +59,9 @@
               type="text"
               class="input"
               v-model="input.input"
-              @keydown.enter="handelAddClick()"
-              @keydown.tab.prevent=";[(input.select = true), inputFocus(false)]"
+              @keydown.enter.prevent.stop="onEnter"
+              @keydown.tab="inputFocus(false)"
+              @keydown.escape="inputFocus(false)"
               :placeholder="defaultText"
               ref="inputDom"
             />
@@ -169,6 +170,7 @@ watch(messageIndex, () => {
     nextTick(() => {
       scrollToBottom(boxRef.value?.listDom, true)
       boxRef.value?.updateArrow()
+      inputFocus()
     })
   }
 })
@@ -419,6 +421,28 @@ const handelAddClick = (img?: string) => {
   input.input = ''
   scrollToBottom(boxRef.value?.listDom)
   inputFocus()
+}
+
+const getName = (index: number) => {
+  if (index < 0) {
+    input.character.key = '开拓者'
+    input.character.name = ''
+    return
+  }
+  const prev = message.list[messageIndex.value].list[index]
+  if (prev.key === input.character.key) {
+    getName(index - 1)
+  } else {
+    input.character.key = prev.key
+    input.character.name = prev.name
+  }
+}
+
+const onEnter = (e: KeyboardEvent) => {
+  handelAddClick()
+  if (e.ctrlKey) {
+    getName(message.list[messageIndex.value].list.length - 2)
+  }
 }
 
 let isMove = false
