@@ -86,7 +86,7 @@
 <script lang="ts" setup>
 import { watch, ref, reactive, computed } from 'vue'
 import { setting } from '@/store/setting'
-import { openWindow, popup } from '@/store/popup'
+import { openWindow, popup, popupCallbalk } from '@/store/popup'
 import { getAssets } from '@/assets/scripts/preload'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
@@ -137,11 +137,14 @@ const bubbles = reactive([
 ])
 
 const onBtnClick = () => {
-  if (setting.bubbles === index.value) return
+  if (setting.bubbles === index.value) return false
   popup.setting = false
   setting.bubbles = index.value
   localStorage.setItem('sr-message-bubbles', JSON.stringify(setting.bubbles))
+  return true
 }
+
+popupCallbalk.setting = onBtnClick
 </script>
 
 <style lang="stylus" scoped>

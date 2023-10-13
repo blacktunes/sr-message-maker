@@ -81,6 +81,11 @@ document.addEventListener('keydown', (e) => {
         popup.confirm = false
         return
       }
+      // 确认窗口
+      if (closeWindow(true)) {
+        e.preventDefault()
+        return
+      }
       // 聚焦输入框
       if (messageIndex.value !== -1 && !hasPopup()) {
         e.preventDefault()
