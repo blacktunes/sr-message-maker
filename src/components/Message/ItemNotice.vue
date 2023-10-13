@@ -4,6 +4,7 @@
     <span
       :contenteditable="!preview"
       @keydown.enter.prevent.stop="preview ? undefined : blur($event)"
+      @keydown.escape.prevent.stop="preview ? undefined : blur($event)"
       @blur="preview ? undefined : updateMessage($event)"
     >
       {{ text }}
