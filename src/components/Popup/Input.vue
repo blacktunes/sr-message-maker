@@ -41,7 +41,7 @@
 
 <script lang="ts" setup>
 import Window from '@/components/Common/Window.vue'
-import { inputData, popup } from '@/store/popup'
+import { inputData, popup, popupCallbalk } from '@/store/popup'
 import Btn from '@/components/Common/Btn.vue'
 import { ref, nextTick, watch } from 'vue'
 
@@ -73,12 +73,15 @@ const reset = () => {
 }
 
 const onConfirmlClick = () => {
-  if (inputData.required && inputData.text.length < 1) return
+  if (inputData.required && inputData.text.length < 1) return false
 
   inputData.fn?.(inputData.text)
   reset()
   popup.input = false
+  return true
 }
+
+popupCallbalk.input = onConfirmlClick
 </script>
 
 <style lang="stylus" scoped>
