@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue'
+import { ref } from 'vue'
 
 const props = withDefaults(
   defineProps<{
@@ -36,12 +36,8 @@ const props = withDefaults(
 
 const data = defineModel<number>({ default: 0 })
 
-const percentage = ref((data.value - props.min) / (props.max - props.min))
+const percentage = ref(((Math.min(Math.max(data.value, props.min), props.max)) - props.min) / (props.max - props.min))
 const track = ref<HTMLElement | null>(null)
-
-watch(data, () => {
-  console.log(percentage)
-})
 
 const onTouchstart = (e: TouchEvent) => {
   if (e.touches.length > 1) return
@@ -99,10 +95,9 @@ const updatePercentage = (mouseX: number) => {
 </script>
 
 <style lang="stylus" scoped>
-$bar-height = 15px
+$bar-height = 12px
 
 .slider
-  height 50px
   display flex
   align-items center
   justify-content center
@@ -131,10 +126,10 @@ $bar-height = 15px
       position absolute
       top 0
       left 0
-      width 50px
-      height 50px
+      width 45px
+      height 45px
       background #fff
-      border 'calc(%s * 0.6) solid #f19839' % $bar-height
+      border 'calc(%s * 0.7) solid #f19839' % $bar-height
       border-radius 50%
       transform 'translate(-50%, calc(-50% + %s / 2))' % $bar-height
       cursor pointer
