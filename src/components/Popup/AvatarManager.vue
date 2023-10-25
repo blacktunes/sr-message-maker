@@ -66,13 +66,13 @@
     </template>
     <template #footer>
       <Btn
-        class="btn"
+        class="win-btn"
         name="取消"
         type="wrong"
         @click="popup.avatar = false"
       />
       <Btn
-        class="btn"
+        class="win-btn"
         name="确认"
         type="check"
         :disable="index === setting.avatar"
@@ -342,9 +342,6 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
     background-size 100%
     background-repeat no-repeat
     animation highlight-icon 0.5s linear alternate infinite
-
-.btn
-  width 650px
 
 @keyframes highlight-rotate
   from

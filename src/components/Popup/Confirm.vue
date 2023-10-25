@@ -22,19 +22,19 @@
     <template #footer>
       <Btn
         v-if="!confirmData.fn"
-        class="btn"
+        class="win-btn"
         name="知道了"
         @click="popup.confirm = false"
       />
       <template v-else>
         <Btn
-          class="btn"
+          class="win-btn"
           name="取消"
           type="wrong"
           @click="popup.confirm = false"
         />
         <Btn
-          class="btn"
+          class="win-btn"
           name="确认"
           type="check"
           @click="onConfirml"
@@ -85,7 +85,4 @@ popupCallbalk.confirm = onConfirml
   text-align center
   background #e4c680
   padding 10px
-
-.btn
-  width 650px
 </style>

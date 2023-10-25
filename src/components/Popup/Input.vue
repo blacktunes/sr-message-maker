@@ -23,13 +23,13 @@
     </template>
     <template #footer>
       <Btn
-        class="btn"
+        class="win-btn"
         name="取消"
         type="wrong"
         @click="popup.input = false"
       />
       <Btn
-        class="btn"
+        class="win-btn"
         name="确认"
         :disable="inputData.required && (!inputData.fn || inputData.text.length < 1)"
         type="check"
@@ -107,7 +107,4 @@ popupCallbalk.input = onConfirmlClick
   text-align center
   background #b4b4b4
   padding 10px
-
-.btn
-  width 650px
 </style>

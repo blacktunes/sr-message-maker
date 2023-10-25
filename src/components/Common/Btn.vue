@@ -46,11 +46,11 @@ defineProps<{
   justify-content center
   align-items center
   background rgba(240, 240, 240, 0.8)
-  height 100px
+  height 90px
   padding 10px 120px
   margin 0 40px
   border-radius 50px
-  font-size 46px
+  font-size 40px
   color #161616
   user-select none
   cursor pointer
@@ -67,7 +67,7 @@ defineProps<{
     left 50%
     width 98%
     height 90%
-    border-radius 40px
+    border-radius 50px
     border 5px solid rgba(180, 180, 180, 0.5)
     transform translate(-50%, -50%)
     pointer-events none
