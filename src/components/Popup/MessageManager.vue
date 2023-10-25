@@ -7,9 +7,28 @@
     <div class="config">
       <table class="table">
         <tr class="line">
+          <td class="left">修改昵称</td>
+          <td class="right">
+            <div
+              class="link"
+              :class="{
+                link_disable:
+                  message.list[messageIndex].list?.[messageData.key || -1]?.key === '开拓者'
+              }"
+              @click.stop="handelChangeName"
+            >
+              <span>点击修改</span>
+              <Icon
+                name="arrow"
+                class="icon"
+              />
+            </div>
+          </td>
+        </tr>
+        <tr class="line">
           <td class="left">等待时间</td>
           <td class="right">
-            <div class="item">
+            <div class="slider">
               <Slider
                 class="range"
                 :min="1"
@@ -45,12 +64,32 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
 import { message } from '@/store/message'
-import { messageData, popup } from '@/store/popup'
+import { messageData, popup, showInput } from '@/store/popup'
 import { messageIndex } from '../Message/Message'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
 import Slider from '../Common/Slider.vue'
+import Icon from '../Common/Icon.vue'
 
+// 修改昵称
+const handelChangeName = async () => {
+  if (messageData.key !== undefined && message.list[messageIndex.value].list[messageData.key]) {
+    if (message.list[messageIndex.value].list[messageData.key].key !== '开拓者') {
+      const name: string = await showInput(
+        '修改昵称',
+        '建议不要使用过长的昵称',
+        false,
+        message.list[messageIndex.value].list[messageData.key].name,
+        message.list[messageIndex.value].list[messageData.key].name
+      )
+      if (name.length > 0) {
+        message.list[messageIndex.value].list[messageData.key].name = name
+      }
+    }
+  }
+}
+
+// 等待时间
 watch(
   () => popup.message,
   () => {
@@ -95,26 +134,44 @@ const onConfirml = () => {
 
       .left, .right
         box-sizing border-box
-        padding 5px 50px
+        padding 5px 40px
 
       .left
         width 60%
-        background #c8c8c8
+        background transparent
 
       .right
         width 40%
-        background #d5d6d8
+        background #e2e2e2
 
-  .item
+  .slider
     display flex
     justify-content space-evenly
     align-items center
 
-  .range
-    flex 0 0 70%
-    margin 20px 0
+    .range
+      flex 0 0 70%
+      margin 20px 0
 
-  .text
-    flex 0 0 20%
-    text-align right
+    .text
+      flex 0 0 20%
+      text-align right
+
+  .link
+    position relative
+    display flex
+    justify-content center
+    align-items center
+    cursor pointer
+
+    .icon
+      position absolute
+      right 0
+
+  .link_disable
+    color #808080
+    cursor not-allowed
+
+    .icon
+      display none
 </style>
