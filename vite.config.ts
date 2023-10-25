@@ -11,7 +11,14 @@ export default defineConfig({
     DEFAULT_TEXT: JSON.stringify('愿此行，终抵群星'),
     DEFAULT_AVATAR: JSON.stringify('星·存护')
   },
-  plugins: [vue(), vueJsx()],
+  plugins: [
+    vue({
+      script: {
+        defineModel: true
+      }
+    }),
+    vueJsx()
+  ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
