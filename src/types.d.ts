@@ -14,6 +14,7 @@ interface Message {
   loading?: boolean
   mission?: Mission
   option?: [boolean]
+  interval?: number
 }
 
 interface MessageListItem {

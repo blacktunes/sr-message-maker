@@ -184,7 +184,7 @@ const autoPlay = (i: number, loading: boolean) => {
     if (loading) {
       const time = Math.min(
         Math.max(message.list[messageIndex.value].list[i].text.length * 50, 1000),
-        2000
+        3000
       )
 
       clearTimeout(timer)
@@ -193,7 +193,10 @@ const autoPlay = (i: number, loading: boolean) => {
       }, time)
     } else {
       if (message.list[messageIndex.value].list[i + 1]) {
-        const time = message.list[messageIndex.value].list[i + 1].key === '开拓者' ? 1500 : 1000
+        let time = message.list[messageIndex.value].list[i + 1].interval
+        if (time === undefined || time < 1000) {
+          time = message.list[messageIndex.value].list[i + 1].key === '开拓者' ? 2000 : 1500
+        }
         clearTimeout(timer)
         timer = setTimeout(() => {
           autoPlay(i + 1, true)
@@ -303,6 +306,7 @@ const toggleGreenScreen = () => {
     cursor auto !important
 
   .option-box
+    z-index 9
     height 90px * 3 + 20px * 4
     border-top var(--menu-border-hover)
     background var(--message-menu-background-color)

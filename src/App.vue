@@ -14,11 +14,11 @@
         height: `${height}px`
       }"
     >
-      <component
+      <Component
         v-for="(item, index) in components"
         :key="index"
         :is="item"
-      ></component>
+      />
     </div>
   </div>
   <Tip :show="shouldHorizontal" />

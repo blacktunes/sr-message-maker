@@ -23,7 +23,7 @@
         appear
       >
         <div class="name">
-          <span>
+          <span @click.stop="preview ? undefined : emit('config')">
             {{ item.key === '开拓者' ? setting.name : item.name }}
           </span>
           <div
@@ -103,6 +103,7 @@ const emit = defineEmits<{
   (event: 'image', emoticon: boolean): void
   (event: 'update', text: string): void
   (event: 'delete'): void
+  (event: 'config'): void
 }>()
 
 const getBubbles = (key: string) => {
@@ -185,6 +186,7 @@ $del-pos = -100px
       width -moz-fit-content
       width fit-content
       max-width calc(100% - var(--message-item-avatar-width) - var(--message-item-avatar-margin) - 160px)
+      cursor pointer
 
       span
         display block
