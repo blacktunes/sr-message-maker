@@ -60,6 +60,12 @@ export const user: { [name: string]: UserAvatar } = reactive({
 })
 
 export const gameCharacter: { [name: string]: Character } = {
+  '托帕&账账': {
+    name: '托帕&账账',
+    avatar: 'https://patchwiki.biligame.com/images/sr/c/c4/06fupomr900c72ymsn6pgq8m4c077r7.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/10/27/299598919/ac8e2aa531827eb0122e1901d33b8c56_724402127957550422.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '出差中~小事留言，大事语音'
+  },
   镜流: {
     name: '镜流',
     avatar: 'https://patchwiki.biligame.com/images/sr/4/4f/aymc2kbwihnsi8rq1irhy2axaugatmm.png',
@@ -156,6 +162,12 @@ export const gameCharacter: { [name: string]: Character } = {
     avatar: 'https://patchwiki.biligame.com/images/sr/8/87/f50frnxnzqgx3lrnqz2f4hjzrlqcfae.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/d5a01ddc0494595417fee74fa3285b56_8110023215605946848.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: '列车组的各位，随时保持联系'
+  },
+  桂乃芬: {
+    name: '桂乃芬',
+    avatar: 'https://patchwiki.biligame.com/images/sr/1/12/n5bdag071smlkixsx6karq9fb6yckbf.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/10/27/299598919/ab9973a72d6a155f074995c6eca83db4_3291400279023226681.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '不惹事不怕事、不咬打火机'
   },
   玲可: {
     name: '玲可',
@@ -268,87 +280,137 @@ export const otherCharacter: { [name: string]: OtherCharacter } = {
     name: '匿名',
     avatar: 'https://patchwiki.biligame.com/images/sr/a/a8/1qtsu8eokug9uhap13026hk2yvdk8zb.png'
   },
+  // 乔瓦尼 活在当下，安心狂欢。
+  // 维尔德 上班开会，下班上班
+  // 广进
+  // 燕翠 团餐有优惠，详情请私聊
   雷金: {
     name: '雷金',
     avatar: 'https://patchwiki.biligame.com/images/sr/b/b7/o4fhy25quy9kmqvbe9gj9fyal5oj51n.png',
     info: '非研究资助事宜勿扰'
   },
-  青镞: {
-    name: '青镞',
-    avatar: 'https://patchwiki.biligame.com/images/sr/4/43/fhn4ww08kk1qe5s7uccxm4o44kx3k90.png'
-  },
-  掘掘博士: {
-    name: '掘掘博士',
-    avatar: 'https://patchwiki.biligame.com/images/sr/d/d5/mzphn2b2i42c9scbk8kzge3yj378ohv.png',
-    info: '史考特商业，为冠军服务！'
-  },
-  尤利安: {
-    name: '尤利安',
-    avatar: 'https://patchwiki.biligame.com/images/sr/1/13/2yg4t5hyjt4so9tu29zwa4x7ct51m99.png',
-    info: '点此编辑个性签名这是啥'
-  },
-  维修工程师: {
-    name: '维修工程师',
-    avatar: 'https://patchwiki.biligame.com/images/sr/d/dc/57ion3o7dbl4qxg3lb5ehpu2a97l3ln.png'
-  },
-  邓恩: {
-    name: '邓恩',
-    avatar: 'https://patchwiki.biligame.com/images/sr/3/34/sdf6o527x46333l2x131rrma4s1m6g7.png',
-    info: '已退出「机械热潮」，勿扰'
-  },
-  绿芙蓉: {
-    name: '绿芙蓉',
-    avatar: 'https://patchwiki.biligame.com/images/sr/9/95/jdsp11rmhaavizeoec49gu0nmkaej5u.png'
-  },
-  夕葵: {
-    name: '夕葵',
-    avatar: 'https://patchwiki.biligame.com/images/sr/a/ad/74svgei5rfglq1l3bsv6q5htq4rh15u.png',
-    info: '我，准时下班。'
-  },
-  丹枢: {
-    name: '丹枢',
-    avatar: 'https://patchwiki.biligame.com/images/sr/8/82/pyvtu9bghyell41392py9999w0bzb1a.png'
-  },
-  伦纳德: {
-    name: '伦纳德',
-    avatar: 'https://patchwiki.biligame.com/images/sr/c/c7/48we47dmj2db54l66uj3yjkq08av7ij.png'
-  },
-  奥列格: {
-    name: '奥列格',
-    avatar: 'https://patchwiki.biligame.com/images/sr/c/c1/9nd95n5blnrezjcc7gyuhxjt84r9u5d.png',
-    info: '忆往昔辉煌岁月。'
-  },
-  西衍先生: {
-    name: '西衍先生',
-    avatar: 'https://patchwiki.biligame.com/images/sr/2/2d/q8jyvhcbsm1yknajhla2e4o6xpre48b.png',
-    info: '不对知音，枉费舌尖'
-  },
-  洛奇: {
-    name: '洛奇',
-    avatar: 'https://patchwiki.biligame.com/images/sr/8/8f/3ut27kbshqlbe8y5bvjcznxb5uu98r5.png',
-    info: '莱斯莉，我的生命之光'
-  },
-  温明德: {
-    name: '温明德',
-    avatar: 'https://patchwiki.biligame.com/images/sr/9/98/5lx90pgwu2qd5mdsx79u60delh4hgq0.png',
-    info: '奇物再收容小队时刻准备着'
-  },
   亚伯拉罕: {
     name: '亚伯拉罕',
-    avatar: 'https://patchwiki.biligame.com/images/sr/6/63/e5wpvkp078akuz3h6a69zo1aehs69hj.png'
+    avatar: 'https://patchwiki.biligame.com/images/sr/6/63/riftf6vn9hmxc2im8rthp0t2xxxaz3s.png'
   },
+  魔方秘社: {
+    name: '魔方秘社',
+    avatar: 'https://patchwiki.biligame.com/images/sr/a/a8/1qtsu8eokug9uhap13026hk2yvdk8zb.png',
+    info: '枘凿六合，其乐无穷啦'
+  },
+  // 陶德 心有余而力不足……
+  夕葵: {
+    name: '夕葵',
+    avatar: 'https://patchwiki.biligame.com/images/sr/a/ad/lp8c80f068ssg2ve3itm9sve2csrjxa.png',
+    info: '我，准时下班。'
+  },
+  // 晴霓
+  // 梁沐 陪伴是最长情的告白
   净砚: {
     name: '净砚',
-    avatar: 'https://patchwiki.biligame.com/images/sr/b/ba/qo5aznmb77ded0kvlnf8z0jkekm2745.png',
+    avatar: 'https://patchwiki.biligame.com/images/sr/b/ba/13tczmak4a5le91pjx0o6p8jv7wgacy.png',
     info: '没空、不行、做不到'
+  },
+  // 钟珊
+  // 小聪 从零开始的诗人生活
+  西衍先生: {
+    name: '西衍先生',
+    avatar: 'https://patchwiki.biligame.com/images/sr/2/2d/3qib3btki6ik3fo4eroaulgexfrfg9w.png',
+    info: '不对知音，枉费舌尖'
   },
   大毫: {
     name: '大毫',
-    avatar: 'https://patchwiki.biligame.com/images/sr/0/09/rn2p4yozmy8neh5n74jgte3owgc2d3i.png',
+    avatar: 'https://patchwiki.biligame.com/images/sr/0/09/hvvttp4w37es3oyebrzwcwozcl9hgyl.png',
     info: '慢些走，别丢下灵魂。'
+  },
+  '「黑塔·全景系统」': {
+    name: '「黑塔·全景系统」',
+    avatar: 'https://patchwiki.biligame.com/images/sr/a/a8/1qtsu8eokug9uhap13026hk2yvdk8zb.png',
+    info: '至上博识尊正在俯瞰'
+  },
+  伦纳德: {
+    name: '伦纳德',
+    avatar: 'https://patchwiki.biligame.com/images/sr/c/c7/9dj7norat405g86w8v7g4h797zbqjn7.png'
+  },
+  // 埃美丽 做好事，说好话，存好心！
+  // 铖杰 追梦人
+  阿青: {
+    name: '阿青',
+    avatar: 'https://patchwiki.biligame.com/images/sr/a/a8/1qtsu8eokug9uhap13026hk2yvdk8zb.png',
+    info: '看见工作就烦: )'
+  },
+  // 狐仙黛青 萌音仙子，在线聊天。
+  // 温符瑞 狐人总冠军！！！！
+  '「星际和平家电」': {
+    name: '「星际和平家电」',
+    avatar: 'https://patchwiki.biligame.com/images/sr/a/a8/1qtsu8eokug9uhap13026hk2yvdk8zb.png',
+    info: '纪中大促，可领大额优惠券'
   },
   铁卫调查员: {
     name: '铁卫调查员',
     avatar: 'https://patchwiki.biligame.com/images/sr/3/35/akctqefvnpxs42jitrctn8ny5ako356.png'
+  },
+  维修工程师: {
+    name: '维修工程师',
+    avatar: 'https://patchwiki.biligame.com/images/sr/d/dc/h65xtbjyine9dx46sz78xyjrfl50e0u.png'
+  },
+  // 芦慧 拍摄中，消息回复晚，见谅
+  '「地火」官方': {
+    name: '「地火」官方',
+    avatar: 'https://patchwiki.biligame.com/images/sr/a/a8/1qtsu8eokug9uhap13026hk2yvdk8zb.png',
+    info: '加入「地火」，拯救家园。'
+  },
+  // 檀檀 一秒钟事故，一千年痛苦
+  丹枢: {
+    name: '丹枢',
+    avatar: 'https://patchwiki.biligame.com/images/sr/8/82/4jtycvcqrd56w1wcnodzu7o7gm36ulw.png'
+  },
+  绿芙蓉: {
+    name: '绿芙蓉',
+    avatar: 'https://patchwiki.biligame.com/images/sr/9/95/ix9a3hiyq5i2hkro3plzw88upc7dolh.png'
+  },
+  青镞: {
+    name: '青镞',
+    avatar: 'https://patchwiki.biligame.com/images/sr/4/43/glhjz51q07hpwfka9kr5inqvqasyv7u.png'
+  },
+  温明德: {
+    name: '温明德',
+    avatar: 'https://patchwiki.biligame.com/images/sr/9/98/lbhpyb9vcaa9ob8mn362rv6f8ewaca3.png',
+    info: '奇物再收容小队时刻准备着'
+  },
+  邓恩: {
+    name: '邓恩',
+    avatar: 'https://patchwiki.biligame.com/images/sr/3/34/b85w43985lh1tw1otf1sz9dy4j2y60z.png',
+    info: '已退出「机械热潮」，勿扰'
+  },
+  铁卫禁区播报: {
+    name: '铁卫禁区播报',
+    avatar: 'https://patchwiki.biligame.com/images/sr/a/a8/1qtsu8eokug9uhap13026hk2yvdk8zb.png'
+  },
+  奥列格: {
+    name: '奥列格',
+    avatar: 'https://patchwiki.biligame.com/images/sr/c/c1/nwe1gy14p87z3enu0u0qn4s13xi95i9.png',
+    info: '忆往昔辉煌岁月。'
+  },
+  // 帕梅拉
+  掘掘博士: {
+    name: '掘掘博士',
+    avatar: 'https://patchwiki.biligame.com/images/sr/d/d5/o7c5dvud7fhn87ipwt5n3n0sahtgbaz.png',
+    info: '史考特商业，为冠军服务！'
+  },
+  洛奇: {
+    name: '洛奇',
+    avatar: 'https://patchwiki.biligame.com/images/sr/8/8f/h1y02weyrl8b8kqxyullx100a5k7qz2.png',
+    info: '莱斯莉，我的生命之光'
+  },
+  尤利安: {
+    name: '尤利安',
+    avatar: 'https://patchwiki.biligame.com/images/sr/1/13/d3kidm219ro8vbtsp396d1gi5pfpkzn.png',
+    info: '点此编辑个性签名这是啥'
+  },
+  螺中笑声: {
+    name: '螺中笑声',
+    avatar: 'https://patchwiki.biligame.com/images/sr/a/a8/1qtsu8eokug9uhap13026hk2yvdk8zb.png',
+    info: '虽然没品，但希望你能开心'
   }
 }
