@@ -165,7 +165,7 @@ $del-pos = -100px
       width 100%
       height 100%
       object-fit contain
-      background rgba(0, 0, 0, 0.1)
+      background var(--avatar-background)
       user-select none
       border-radius 50%
       clip-path var(--avatar-image-clip-path-bilibiliwiki-only)

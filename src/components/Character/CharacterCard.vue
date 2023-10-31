@@ -62,7 +62,7 @@ defineProps<{
         height 100% !important
         border-radius 50%
         object-fit contain
-        background rgba(255, 255, 255, 0.1)
+        background var(--avatar-background)
         clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
         user-select none
         pointer-events none
