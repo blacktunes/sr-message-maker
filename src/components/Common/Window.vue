@@ -158,7 +158,7 @@ const close = () => {
       display flex
       align-content center
       justify-content center
-      padding 40px 80px
+      padding 30px 80px
       background var(--box-background-color)
 
       .bg

@@ -70,7 +70,7 @@ export const updateDB: UpdateDB = (id, data) => {
 }
 
 export const getDB = () => {
-  console.log('GET - SR Custom indexDB...')
+  console.log('GET - SR Custom indexedDB...')
   const _db = window.indexedDB.open('sr-custom')
   _db.onsuccess = (event) => {
     db = (event.target as IDBOpenDBRequest).result

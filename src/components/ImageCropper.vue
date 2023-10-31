@@ -77,4 +77,5 @@ const onCropper = () => {
 
   .btn
     width 600px
+    height 100px
 </style>

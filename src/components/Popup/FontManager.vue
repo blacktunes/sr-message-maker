@@ -88,6 +88,8 @@ const setCustomFont = async () => {
 
 .btn
   margin 10px 0 0 0
+  height 100px
+  font-size 42px
 
 .line
   box-sizing border-box

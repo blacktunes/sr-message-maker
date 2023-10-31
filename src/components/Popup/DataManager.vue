@@ -390,6 +390,17 @@ const reserDatabase = () => {
 
     .btn
       margin 10px 0 0 0
+      height 100px
+      font-size 42px
+
+    :deep(.disable)
+      border none !important
+
+      &:before
+        display block !important
+
+  &:before
+    display none
 
     .line
       width 100%

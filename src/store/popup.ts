@@ -7,7 +7,8 @@ export const popup = reactive({
   data: false,
   confirm: false,
   input: false,
-  avatar: false
+  avatar: false,
+  message: false
 })
 
 export const popupCallbalk = reactive<{
@@ -75,6 +76,17 @@ export const showInput = (
       resolve(str)
     }
   })
+}
+
+export const messageData = reactive<{
+  key?: number
+}>({
+  key: undefined
+})
+
+export const showMessageManager = (key: number) => {
+  messageData.key = key
+  openWindow('message')
 }
 
 export const popupList: (keyof typeof popup)[] = []

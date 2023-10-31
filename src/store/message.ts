@@ -42,7 +42,7 @@ export const updateDB = () => {
 }
 
 export const getDB = () => {
-  console.log('GET - SR Message indexDB...')
+  console.log('GET - SR Message indexedDB...')
   const _db = window.indexedDB.open('sr-message')
   _db.onsuccess = (event) => {
     db = (event.target as IDBOpenDBRequest).result

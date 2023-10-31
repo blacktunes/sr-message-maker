@@ -251,7 +251,7 @@ const avatarUrl = computed(() => {
         height 100%
         border-radius 50%
         object-fit contain
-        background #3f3f3f
+        background var(--avatar-background)
         border-radius 50%
         clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
         user-select none

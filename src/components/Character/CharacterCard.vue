@@ -10,7 +10,7 @@
     >
       <div class="avatar">
         <img
-          :src="avatar"
+          :src="avatar || defaultAvatar"
           :alt="name"
           draggable="false"
         />
@@ -28,6 +28,8 @@
 </template>
 
 <script lang="ts" setup>
+import defaultAvatar from '@/assets/images/avatar/私聊.webp'
+
 defineProps<{
   custom?: boolean
   name: string
@@ -62,7 +64,7 @@ defineProps<{
         height 100% !important
         border-radius 50%
         object-fit contain
-        background rgba(255, 255, 255, 0.1)
+        background var(--avatar-background)
         clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
         user-select none
         pointer-events none

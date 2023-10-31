@@ -3,6 +3,7 @@ import { character, userData } from '@/store/character'
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
 import { computed, nextTick } from 'vue'
+import defaultAvatar from '@/assets/images/avatar/私聊.webp'
 
 export const messageIndex = computed(() => {
   if (setting.index) {
@@ -53,7 +54,7 @@ export const getAvatar = (key: string, url: string) => {
   if (key === '开拓者') {
     return userData.value.avatar
   } else {
-    return url
+    return url || defaultAvatar
   }
 }
 

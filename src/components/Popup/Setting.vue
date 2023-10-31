@@ -67,13 +67,13 @@
     </template>
     <template #footer>
       <Btn
-        class="btn"
+        class="win-btn"
         name="取消"
         type="wrong"
         @click="popup.setting = false"
       />
       <Btn
-        class="btn"
+        class="win-btn"
         name="确认"
         type="check"
         :disable="index === setting.bubbles"
@@ -268,7 +268,4 @@ popupCallbalk.setting = onBtnClick
 
   &:hover
     background #c5c6ca !important
-
-.btn
-  width 650px
 </style>

@@ -40,6 +40,7 @@
               @avatar="handelAvatarClick(index)"
               @image="handelImageClick($event, index)"
               @delete="handelDelClick(index)"
+              @config="showMessageManager(index)"
             />
           </template>
         </draggable>
@@ -143,6 +144,7 @@ import MessageItem from './Message/MessageItem.vue'
 import { compressImage } from '@/assets/scripts/image'
 import { cropperOpen } from '@/store/cropper'
 import { emitter } from '@/assets/scripts/event'
+import { showMessageManager } from '@/store/popup'
 
 const appearTransition = ref('slide-left')
 
@@ -546,6 +548,7 @@ box()
         height 100%
         object-fit contain
         border-radius 50%
+        background var(--avatar-background)
         clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
 
     .right
