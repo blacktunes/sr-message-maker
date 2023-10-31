@@ -248,6 +248,14 @@ const addCustom = async () => {
         )
       }
     }
+    input.oncancel = () => {
+      character.custom[key] = {
+        name,
+        avatar: '',
+        info,
+        custom: true
+      }
+    }
     input.click()
   }, 0)
 }

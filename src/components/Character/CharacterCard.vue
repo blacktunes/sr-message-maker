@@ -10,7 +10,7 @@
     >
       <div class="avatar">
         <img
-          :src="avatar"
+          :src="avatar || defaultAvatar"
           :alt="name"
           draggable="false"
         />
@@ -28,6 +28,8 @@
 </template>
 
 <script lang="ts" setup>
+import defaultAvatar from '@/assets/images/avatar/私聊.webp'
+
 defineProps<{
   custom?: boolean
   name: string
