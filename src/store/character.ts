@@ -1,4 +1,4 @@
-import { gameCharacter, otherCharacter, user } from '@/assets/data/characterData'
+import { gameCharacter, otherCharacter, user } from '@/assets/data/gameData'
 import { setLoadingType } from '@/assets/scripts/setup'
 import { computed, nextTick, reactive, toRaw, watch } from 'vue'
 import { setting } from './setting'
