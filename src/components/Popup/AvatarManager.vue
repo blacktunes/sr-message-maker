@@ -51,18 +51,14 @@
       </div>
     </div>
     <template #left>
-      <div class="preview">
-        <div class="circle">
-          <div class="circle-1"></div>
-          <div class="circle-2"></div>
-          <div class="circle-3"></div>
-          <img
-            :src="imgUrl"
-            alt=""
-          />
-          <div class="name">{{ name }}</div>
-        </div>
-      </div>
+      <Preview
+        class="circle"
+        :img="imgUrl"
+        :name="name"
+        width="350px"
+        color="#333"
+        bg-color="linear-gradient(to top, #c3b7a9, transparent)"
+      />
     </template>
     <template #footer>
       <Btn
@@ -89,6 +85,7 @@ import { popup, popupCallbalk } from '@/store/popup'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
 import Icon from '@/components/Common/Icon.vue'
+import Preview from '@/components/Common/Preview.vue'
 import { character } from '@/store/character'
 import { getAssets } from '@/assets/scripts/preload'
 import borderUrl from '@/assets/images/avatar/边框.webp'
@@ -199,65 +196,6 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
   :deep(.item)
     margin 10px 80px !important
     max-height unset !important
-
-.preview
-  display flex
-  flex-direction column
-  align-items center
-  justify-content center
-  width 300px
-  height 100%
-  padding 0 80px 0 150px
-  user-select none
-
-  .circle
-    position relative
-    display flex
-    justify-content center
-    align-items center
-    width 350px
-    height 350px
-    background linear-gradient(to top, #c3b7a9, transparent)
-    border-radius 50%
-
-    img
-      width 75%
-      object-fit contain
-      border-radius 50%
-      clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
-      user-select none
-      pointer-events none
-
-    .circle-1, .circle-2, .circle-3
-      position absolute
-      left 50%
-      bottom -5px
-      transform translate(-50%)
-      border-radius 50%
-
-    .circle-1
-      width 115%
-      height 115%
-      border 2px solid #b9babf
-
-    .circle-2
-      width 108%
-      height 108%
-      border 2px dotted #b9babf
-
-    .circle-3
-      width 200%
-      height 200%
-      border 2px dotted #b9babf
-      opacity 0.5
-
-    .name
-      position absolute
-      bottom -60px
-      font-size 35px
-      font-weight bold
-      margin-top 10px
-      color #6a6a6a
 
 .list
   display flex

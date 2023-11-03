@@ -52,18 +52,10 @@
       </div>
     </template>
     <template #left>
-      <div class="preview">
-        <div class="circle">
-          <div class="circle-1"></div>
-          <div class="circle-2"></div>
-          <div class="circle-3"></div>
-          <img
-            :src="bubbles[index].preview"
-            alt=""
-          />
-          <div class="name">{{ name }}</div>
-        </div>
-      </div>
+      <Preview
+        :img="bubbles[index].preview"
+        :name="name"
+      />
     </template>
     <template #footer>
       <Btn
@@ -91,6 +83,7 @@ import { getAssets } from '@/assets/scripts/preload'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
 import Icon from '@/components/Common/Icon.vue'
+import Preview from '@/components/Common/Preview.vue'
 import bubbles_0 from '@/assets/images/bubbles/0.webp'
 import bubbles_0_preview from '@/assets/images/bubbles/0_preview.webp'
 import bubbles_1 from '@/assets/images/bubbles/1.webp'
@@ -148,60 +141,6 @@ popupCallbalk.setting = onBtnClick
 </script>
 
 <style lang="stylus" scoped>
-.preview
-  display flex
-  flex-direction column
-  align-items center
-  justify-content center
-  width 300px
-  height 100%
-  padding 0 80px 0 150px
-  user-select none
-
-  .circle
-    position relative
-    display flex
-    justify-content center
-    align-items center
-    width 300px
-    height 300px
-    background #b9babf
-    border-radius 50%
-
-    img
-      width 80%
-
-    .circle-1, .circle-2, .circle-3
-      position absolute
-      left 50%
-      bottom -5px
-      transform translate(-50%)
-      border-radius 50%
-
-    .circle-1
-      width 115%
-      height 115%
-      border 2px solid #b9babf
-
-    .circle-2
-      width 108%
-      height 108%
-      border 2px dotted #b9babf
-
-    .circle-3
-      width 200%
-      height 200%
-      border 2px dotted #b9babf
-      opacity 0.5
-
-    .name
-      position absolute
-      bottom -60px
-      font-size 35px
-      font-weight bold
-      margin-top 10px
-      color #6a6a6a
-
 .other-setting
   .setting-btn
     box-sizing border-box
