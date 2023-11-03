@@ -3,6 +3,7 @@
     <slot name="top"></slot>
     <div
       class="box"
+      :class="{ 'box_preview': preview }"
       ref="boxDom"
     >
       <transition
@@ -10,6 +11,7 @@
         appear
       >
         <div
+          v-if="!preview"
           class="circle"
           :key="index"
         >
@@ -114,6 +116,12 @@ defineExpose({ boxDom, listDom, updateArrow })
 </script>
 
 <style lang="stylus" scoped>
+.box_preview
+  &:before
+    content none !important
+  &:after
+    z-index -1
+
 .box
   display flex
   flex-direction column
