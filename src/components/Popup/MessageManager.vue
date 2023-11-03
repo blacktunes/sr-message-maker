@@ -6,15 +6,14 @@
   >
     <div class="config">
       <table class="table">
-        <tr class="line">
+        <tr
+          class="line"
+          v-if="message.list[messageIndex].list?.[messageData.key || -1]?.key !== '开拓者'"
+        >
           <td class="left">修改昵称</td>
           <td class="right">
             <div
               class="link"
-              :class="{
-                link_disable:
-                  message.list[messageIndex].list?.[messageData.key || -1]?.key === '开拓者'
-              }"
               @click.stop="handelChangeName"
             >
               <span>点击修改</span>
