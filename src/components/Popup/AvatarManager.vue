@@ -51,21 +51,6 @@
         <Icon name="add" />
       </div>
     </div>
-    <template #outside>
-      <div class="other-setting">
-        <div
-          class="setting-btn"
-          title="切换为游戏角色"
-          @click.stop="changeTOGameCharacter"
-        >
-          <Icon
-            name="character"
-            width="50"
-            height="50"
-          />
-        </div>
-      </div>
-    </template>
     <template #left>
       <Preview
         class="circle"
@@ -74,6 +59,8 @@
         width="350px"
         color="#333"
         bg-color="linear-gradient(to top, #c3b7a9, transparent)"
+        title="切换为游戏角色"
+        @click="changeTOGameCharacter"
       />
     </template>
     <template #footer>
@@ -239,26 +226,6 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
 </script>
 
 <style lang="stylus" scoped>
-.other-setting
-  .setting-btn
-    box-sizing border-box
-    width 90px
-    height 90px
-    display flex
-    justify-content center
-    align-items center
-    background rgba(255, 255, 255, 0.8)
-    border-radius 50%
-    border 5px solid #767479
-    margin-bottom 30px
-    cursor pointer
-
-    :deep(path)
-      fill #767479
-
-    &:hover
-      background #ffffff
-
 .window
   :deep(.item)
     margin 10px 80px !important

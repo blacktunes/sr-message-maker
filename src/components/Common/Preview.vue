@@ -12,6 +12,9 @@
       <div class="point-3"></div>
       <div class="line"></div>
       <img
+        @click.stop="onClick ? emit('click') : undefined"
+        :style="{ cursor: onClick ? 'pointer' : undefined }"
+        :title="title"
         :src="img"
         alt=""
       />
@@ -28,9 +31,15 @@ withDefaults(
     width?: string
     color?: string
     bgColor?: string
+    onClick?: () => void
+    title?: string
   }>(),
   { width: '300px', color: '#6a6a6a', bgColor: 'linear-gradient(#d5d5d5 10%, #b8b8b8)' }
 )
+
+const emit = defineEmits<{
+  (event: 'click'): void
+}>()
 </script>
 
 <style lang="stylus" scoped>
