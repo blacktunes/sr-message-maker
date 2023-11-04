@@ -60,6 +60,8 @@ $border-color = #b9babf
 
     img
       width 80%
+      border-radius 50%
+      clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
 
     .circle-1, .circle-2, .circle-3
       position absolute

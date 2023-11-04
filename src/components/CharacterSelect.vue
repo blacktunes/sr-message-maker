@@ -125,7 +125,7 @@ import CharacterCard from './Character/CharacterCard.vue'
 import Icon from './Common/Icon.vue'
 import { compressImage } from '@/assets/scripts/image'
 import { cropperOpen } from '@/store/cropper'
-import { showConfirm, showInput } from '@/store/popup'
+import { avatarData, showConfirm, showInput } from '@/store/popup'
 import { emitter } from '@/assets/scripts/event'
 
 const game = ref<HTMLElement | null>(null)
@@ -207,9 +207,16 @@ const hide = () => {
 
 const handelcharacterClick = (key: string, name: string) => {
   if (input.index) {
-    message.list[input.index[0]].list[input.index[1]].key = key
-    message.list[input.index[0]].list[input.index[1]].name = name
-    message.list[input.index[0]].list[input.index[1]].avatar = getCharaterAvatar(key)
+    if (input.index[0] === -1) {
+      if (key !== '开拓者') {
+        avatarData.index = key
+        avatarData.name = name
+      }
+    } else {
+      message.list[input.index[0]].list[input.index[1]].key = key
+      message.list[input.index[0]].list[input.index[1]].name = name
+      message.list[input.index[0]].list[input.index[1]].avatar = getCharaterAvatar(key)
+    }
   } else {
     input.character.key = key
     input.character.name = name

@@ -1,5 +1,5 @@
 import { input } from '@/store/input'
-import { closeWindow, confirmData, popup } from '@/store/popup'
+import { closeWindow, popup } from '@/store/popup'
 import { autoPlaySetting, setting } from '@/store/setting'
 import { emitter } from './event'
 import { cropper, cropperClose } from '@/store/cropper'
