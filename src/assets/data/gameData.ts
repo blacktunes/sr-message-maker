@@ -64,7 +64,7 @@ export const user: { [name: string]: UserAvatar } = reactive({
 
 export const gameCharacter: { [name: string]: Character } = {
   '托帕&账账': {
-    name: '托帕&账账',
+    name: '托帕',
     avatar: 'https://patchwiki.biligame.com/images/sr/c/c4/06fupomr900c72ymsn6pgq8m4c077r7.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/10/27/299598919/ac8e2aa531827eb0122e1901d33b8c56_724402127957550422.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: '出差中~小事留言，大事语音'
@@ -124,7 +124,7 @@ export const gameCharacter: { [name: string]: Character } = {
     info: '可以不喝水，但不能没咖啡'
   },
   '丹恒•饮月': {
-    name: '丹恒•饮月',
+    name: '丹恒',
     avatar: 'https://patchwiki.biligame.com/images/sr/5/5e/jx9s48qhgcydxiw608oowmbf4pokw3g.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/08/30/75216984/b4ce779a97f89e5a9c527b8f2a149d1f_8461686478390387922.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: ''
