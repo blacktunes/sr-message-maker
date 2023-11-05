@@ -13,8 +13,8 @@
         class="avatar"
         v-for="(item, key) in character.avatar"
         :key="key"
-        :class="{ highlight: index === key }"
-        @click="index = key"
+        :class="{ highlight: avatarData.index === key }"
+        @click="onAvatarClick(key)"
       >
         <img
           :src="item.avatar"
@@ -25,8 +25,8 @@
         class="avatar"
         v-for="(url, key) in character.customAvatar"
         :key="key"
-        :class="{ highlight: index === key }"
-        @click="index = key"
+        :class="{ highlight: avatarData.index === key }"
+        @click="avatarData.index = key"
       >
         <img
           :src="url"
@@ -45,24 +45,24 @@
       </div>
       <div
         class="add"
-        @click="addCustom"
+        title="上传头像"
+        @click.stop="addCustom"
       >
         <Icon name="add" />
       </div>
     </div>
     <template #left>
-      <div class="preview">
-        <div class="circle">
-          <div class="circle-1"></div>
-          <div class="circle-2"></div>
-          <div class="circle-3"></div>
-          <img
-            :src="imgUrl"
-            alt=""
-          />
-          <div class="name">{{ name }}</div>
-        </div>
-      </div>
+      <Preview
+        class="circle"
+        :img="imgUrl"
+        :name="name"
+        width="350px"
+        color="#333"
+        bg-color="linear-gradient(to top, #c3b7a9, transparent)"
+        title="切换为游戏角色"
+        circle
+        @click="changeTOGameCharacter"
+      />
     </template>
     <template #footer>
       <Btn
@@ -75,7 +75,7 @@
         class="win-btn"
         name="确认"
         type="check"
-        :disable="index === setting.avatar"
+        :disable="avatarData.index === setting.avatar"
         @click="onBtnClick"
       />
     </template>
@@ -83,21 +83,23 @@
 </template>
 
 <script lang="ts" setup>
-import { watch, ref, computed, nextTick } from 'vue'
-import { setAvatar, setting } from '@/store/setting'
-import { popup, popupCallbalk } from '@/store/popup'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
 import Icon from '@/components/Common/Icon.vue'
-import { character } from '@/store/character'
-import { getAssets } from '@/assets/scripts/preload'
+import Preview from '@/components/Common/Preview.vue'
 import borderUrl from '@/assets/images/avatar/边框.webp'
 import iconUrl from '@/assets/images/avatar/图标.webp'
-import { compressImage } from '@/assets/scripts/image'
+import defaultAvatar from '@/assets/images/avatar/私聊.webp'
+import { watch, ref, computed, nextTick } from 'vue'
+import { setAvatar, setName, setting } from '@/store/setting'
+import { popup, popupCallbalk, avatarData } from '@/store/popup'
 import { cropperOpen } from '@/store/cropper'
 import { showConfirm } from '@/store/popup'
+import { input } from '@/store/input'
+import { character } from '@/store/character'
+import { getAssets } from '@/assets/scripts/preload'
+import { compressImage } from '@/assets/scripts/image'
 
-const index = ref<string | number>(0)
 const listDom = ref<HTMLElement | null>(null)
 
 watch(
@@ -105,12 +107,16 @@ watch(
   () => {
     if (popup.avatar) {
       if (
-        (typeof setting.avatar === 'string' && !character.avatar[setting.avatar]) ||
+        (typeof setting.avatar === 'string' &&
+          !character.avatar[setting.avatar] &&
+          !character.game[setting.avatar] &&
+          !character.other[setting.avatar] &&
+          !character.custom[setting.avatar]) ||
         (typeof setting.avatar === 'number' && !character.customAvatar[setting.avatar])
       ) {
         setAvatar()
       }
-      index.value = setting.avatar
+      avatarData.index = setting.avatar
 
       nextTick(() => {
         if (listDom.value) {
@@ -119,6 +125,8 @@ watch(
           })
         }
       })
+    } else {
+      avatarData.name = undefined
     }
   },
   {
@@ -127,11 +135,22 @@ watch(
 )
 
 const imgUrl = computed(() => {
-  if (typeof index.value === 'string') {
-    return character.avatar[index.value].avatar
+  if (typeof avatarData.index === 'string') {
+    if (character.avatar[avatarData.index]) {
+      return character.avatar[avatarData.index].avatar
+    }
+    if (character.game[avatarData.index]) {
+      return character.game[avatarData.index].avatar
+    }
+    if (character.other[avatarData.index]) {
+      return character.other[avatarData.index].avatar
+    }
+    if (character.custom[avatarData.index]) {
+      return character.custom[avatarData.index].avatar || defaultAvatar
+    }
   }
-  if (typeof index.value === 'number') {
-    return character.customAvatar[index.value]
+  if (typeof avatarData.index === 'number') {
+    return character.customAvatar[avatarData.index]
   }
   return ''
 })
@@ -143,10 +162,10 @@ const handelDelClick = (key: number) => {
     fn: () => {
       character.customAvatar.splice(key, 1)
       if (key === setting.avatar) {
-        index.value = DEFAULT_AVATAR
-        setAvatar(index.value)
-      } else if (key === index.value) {
-        index.value = DEFAULT_AVATAR
+        avatarData.index = DEFAULT_AVATAR
+        setAvatar(avatarData.index)
+      } else if (key === avatarData.index) {
+        avatarData.index = DEFAULT_AVATAR
       }
     }
   })
@@ -175,20 +194,33 @@ const addCustom = () => {
 }
 
 const name = computed(() => {
-  if (typeof index.value === 'string') {
-    return index.value
+  if (typeof avatarData.index === 'string' && !Number(avatarData.index)) {
+    return avatarData.index
   }
   return ''
 })
 
+const onAvatarClick = (key: string | number) => {
+  avatarData.name = undefined
+  avatarData.index = key
+}
+
 const onBtnClick = () => {
-  if (setting.avatar === index.value) return false
+  if (setting.avatar === avatarData.index) return false
   popup.avatar = false
-  setAvatar(index.value)
+  if (avatarData.name) {
+    setName(avatarData.name)
+  }
+  setAvatar(avatarData.index)
   return true
 }
 
 popupCallbalk.avatar = onBtnClick
+
+const changeTOGameCharacter = () => {
+  input.index = [-1, -1]
+  input.select = true
+}
 
 const border = computed(() => `url('${getAssets(borderUrl).value}`)
 const icon = computed(() => `url('${getAssets(iconUrl).value}`)
@@ -199,65 +231,6 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
   :deep(.item)
     margin 10px 80px !important
     max-height unset !important
-
-.preview
-  display flex
-  flex-direction column
-  align-items center
-  justify-content center
-  width 300px
-  height 100%
-  padding 0 80px 0 150px
-  user-select none
-
-  .circle
-    position relative
-    display flex
-    justify-content center
-    align-items center
-    width 350px
-    height 350px
-    background linear-gradient(to top, #c3b7a9, transparent)
-    border-radius 50%
-
-    img
-      width 75%
-      object-fit contain
-      border-radius 50%
-      clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
-      user-select none
-      pointer-events none
-
-    .circle-1, .circle-2, .circle-3
-      position absolute
-      left 50%
-      bottom -5px
-      transform translate(-50%)
-      border-radius 50%
-
-    .circle-1
-      width 115%
-      height 115%
-      border 2px solid #b9babf
-
-    .circle-2
-      width 108%
-      height 108%
-      border 2px dotted #b9babf
-
-    .circle-3
-      width 200%
-      height 200%
-      border 2px dotted #b9babf
-      opacity 0.5
-
-    .name
-      position absolute
-      bottom -60px
-      font-size 35px
-      font-weight bold
-      margin-top 10px
-      color #6a6a6a
 
 .list
   display flex

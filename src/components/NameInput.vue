@@ -23,18 +23,19 @@
 </template>
 
 <script lang="ts" setup>
-import { setting } from '@/store/setting'
+import { setName, setting } from '@/store/setting'
 import { userData } from '@/store/character'
 import { openWindow, showInput } from '@/store/popup'
 
 const handelNameClick = async () => {
-  const name: string = await showInput('修改昵称', '建议不要使用过长的昵称', false, setting.name, '开拓者')
-  if (name.length < 1) {
-    setting.name = '开拓者'
-  } else {
-    setting.name = name
-  }
-  localStorage.setItem('sr-message-name', setting.name)
+  const name: string = await showInput(
+    '修改昵称',
+    '建议不要使用过长的昵称',
+    false,
+    setting.name,
+    '开拓者'
+  )
+  setName(name)
 }
 </script>
 

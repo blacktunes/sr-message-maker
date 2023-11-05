@@ -20,6 +20,15 @@ export const setting = reactive<{
   transition: true
 })
 
+export const setName = (name: string) => {
+  if (name.length < 1) {
+    setting.name = '开拓者'
+  } else {
+    setting.name = name
+  }
+  localStorage.setItem('sr-message-name', setting.name)
+}
+
 export const setAvatar = (key: string | number = DEFAULT_AVATAR) => {
   setting.avatar = key
   localStorage.setItem('sr-message-avatar', JSON.stringify(setting.avatar))
