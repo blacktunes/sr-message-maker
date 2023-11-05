@@ -60,6 +60,7 @@
         color="#333"
         bg-color="linear-gradient(to top, #c3b7a9, transparent)"
         title="切换为游戏角色"
+        circle
         @click="changeTOGameCharacter"
       />
     </template>

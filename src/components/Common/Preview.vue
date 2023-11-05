@@ -14,6 +14,7 @@
       <img
         @click.stop="onClick ? emit('click') : undefined"
         :style="{ cursor: onClick ? 'pointer' : undefined }"
+        :class="{ img_circle: circle }"
         :title="title"
         :src="img"
         alt=""
@@ -29,6 +30,7 @@ withDefaults(
     img: string
     name: string
     width?: string
+    circle?: boolean
     color?: string
     bgColor?: string
     onClick?: () => void
@@ -69,8 +71,6 @@ $border-color = #b9babf
 
     img
       width 80%
-      border-radius 50%
-      clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
 
     .circle-1, .circle-2, .circle-3
       position absolute
@@ -158,4 +158,8 @@ $border-color = #b9babf
       font-weight bold
       margin-top 10px
       color v-bind(color)
+
+.img_circle
+  border-radius 50%
+  clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
 </style>
