@@ -1,5 +1,9 @@
 type Message<T extends keyof MessageType | undefined = undefined> = T extends undefined
-  ? BaseItem & OptionItem & MissionItem & NoticeItem & MessageItem
+  ? BaseItem &
+      Partial<OptionItem> &
+      Partial<MissionItem> &
+      Partial<NoticeItem> &
+      Partial<MessageItem>
   : BaseItem & MessageType[T]
 
 interface MessageType {
@@ -7,13 +11,6 @@ interface MessageType {
   mission: MissionItem
   notice: NoticeItem
   message: MessageItem
-}
-
-interface BaseItem {
-  key: string
-  name: string
-  avatar: string
-  text: string
 }
 
 interface BaseItem {
