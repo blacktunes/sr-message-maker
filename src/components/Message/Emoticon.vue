@@ -116,7 +116,7 @@ const handelEmoticonClick = (item: Emoticon) => {
   border-radius 5px
   box-shadow 0 0 20px 0px rgba(0, 0, 0, 0.15)
   user-select none
-  clip-path polygon(-1% -1%, 101% -1%, 101% calc(100% - 40px), calc(100% - 165px) calc(100% - 40px), calc(100% - 200px) 100%, calc(100% - 235px) calc(100% - 40px), -1% calc(100% - 40px))
+  clip-path polygon(-1% -1%, 101% -1%, 101% calc(100% - 40px), calc(100% - 205px) calc(100% - 40px), calc(100% - 230px) 100%, calc(100% - 255px) calc(100% - 40px), -1% calc(100% - 40px))
 
   .emoticon-list
     flex 1
