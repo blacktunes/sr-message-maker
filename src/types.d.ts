@@ -1,19 +1,46 @@
+type Message<T extends keyof MessageType | undefined = undefined> = T extends undefined
+  ? BaseItem &
+      Partial<OptionItem> &
+      Partial<MissionItem> &
+      Partial<NoticeItem> &
+      Partial<MessageItem>
+  : BaseItem & MessageType[T]
+
+interface MessageType {
+  option: OptionItem
+  mission: MissionItem
+  notice: NoticeItem
+  message: MessageItem
+}
+
+interface BaseItem {
+  key: string
+  name: string
+  avatar: string
+  text: string
+}
+
+interface OptionItem {
+  option: [boolean]
+}
+
 interface Mission {
   type: 0 | 1 | 2 | 3
   state: 0 | 1 | 2
 }
 
-interface Message {
-  key: string
-  name: string
-  avatar: string
-  text: string
+interface MissionItem {
+  mission: Mission
+}
+
+interface NoticeItem {
+  notice: boolean
+}
+
+interface MessageItem {
   img?: string
-  notice?: boolean
   emoticon?: string
   loading?: boolean
-  mission?: Mission
-  option?: [boolean]
   interval?: number
 }
 
