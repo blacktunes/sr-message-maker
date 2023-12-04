@@ -26,10 +26,12 @@
 </template>
 
 <script lang="ts" setup>
-import { defineComponent, ref } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
 import type { Component } from 'vue'
 import Tip from './components/Tip.vue'
 import ImageCropper from './components/ImageCropper.vue'
+import { useRegisterSW } from 'virtual:pwa-register/vue'
+import { showConfirm } from './store/popup'
 
 // 动态加载所有组件
 const components: Component[] = []
@@ -69,6 +71,21 @@ setSize()
 window.onresize = () => {
   setSize()
 }
+
+// PWA
+const { needRefresh, updateServiceWorker } = useRegisterSW()
+
+watch(needRefresh, () => {
+  if (needRefresh.value) {
+    showConfirm({
+      title: '发现新版本',
+      text: ['是否立刻更新？'],
+      fn: () => {
+        updateServiceWorker()
+      }
+    })
+  }
+})
 </script>
 
 <style lang="stylus" scoped>
@@ -96,7 +113,7 @@ window.onresize = () => {
       position absolute
       width 100%
       height 100%
-      background url('https://patchwiki.biligame.com/images/sr/8/8e/2ywvn145o3txkmqwhhtt884nb5mjfh2.jpg'), rgba(0,0,0,0.6)
+      background url('https://patchwiki.biligame.com/images/sr/8/8e/2ywvn145o3txkmqwhhtt884nb5mjfh2.jpg'), rgba(0, 0, 0, 0.6)
       background-size cover
       background-position center
       filter blur(30px)
