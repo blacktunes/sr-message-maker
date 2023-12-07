@@ -74,13 +74,13 @@ import Icon from '../Common/Icon.vue'
 const handelChangeName = async () => {
   if (messageData.key !== undefined && message.list[messageIndex.value].list[messageData.key]) {
     if (message.list[messageIndex.value].list[messageData.key].key !== '开拓者') {
-      const name: string = await showInput(
-        '修改昵称',
-        '建议不要使用过长的昵称',
-        false,
-        message.list[messageIndex.value].list[messageData.key].name,
-        message.list[messageIndex.value].list[messageData.key].name
-      )
+      const name: string = await showInput({
+        title: '修改昵称',
+        tip: '建议不要使用过长的昵称',
+        required: false,
+        defaultText: message.list[messageIndex.value].list[messageData.key].name,
+        placeholder: message.list[messageIndex.value].list[messageData.key].name
+      })
       if (name.length > 0) {
         message.list[messageIndex.value].list[messageData.key].name = name
       }

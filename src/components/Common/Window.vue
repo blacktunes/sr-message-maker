@@ -4,8 +4,8 @@
     appear
   >
     <div
-      class="window"
       v-if="show"
+      class="window"
     >
       <div
         class="box"
@@ -40,7 +40,7 @@
                 @click="close"
               />
             </div>
-            <div class="item">
+            <div class="content">
               <slot></slot>
             </div>
             <slot name="bottom"></slot>
@@ -119,6 +119,7 @@ const close = () => {
       top 0
 
     .wrapper
+      flex 1
       overflow hidden
       display flex
       width 100%
@@ -145,12 +146,13 @@ const close = () => {
           .close
             margin-left 20px
 
-        .item
+        .content
           overflow auto
           display flex
           flex-direction column
           margin 40px 80px
-          max-height calc(100% - 80px * 2 - 40px - 30px)
+          max-height calc(100% - 80px * 2 - 40px - 25px)
+          height 100%
 
     .footer
       position relative
