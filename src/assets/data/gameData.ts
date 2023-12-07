@@ -88,7 +88,7 @@ export const gameCharacter: { [name: string]: Character } = {
     name: '藿藿',
     avatar: 'https://patchwiki.biligame.com/images/sr/1/18/n7k48ig39p9jqgzfki6ng7avh338n1d.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/11/14/75216984/b07e27f469ad81f775a9c30ebcbf83a7_6088601846356470298.png?x-oss-process=image/quality,q_75/resize,s_280',
-    info: ''
+    info: '尾巴大爷的小跟班'
   },
   '托帕&账账': {
     name: '托帕',
@@ -100,7 +100,7 @@ export const gameCharacter: { [name: string]: Character } = {
     name: '镜流',
     avatar: 'https://patchwiki.biligame.com/images/sr/4/4f/aymc2kbwihnsi8rq1irhy2axaugatmm.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/10/11/279865110/000f9e08e4991b98a175f8b5eb608c35_7503970170591208950.png?x-oss-process=image/quality,q_75/resize,s_280',
-    info: '不卜人事福祸！'
+    info: ''
   },
   符玄: {
     name: '符玄',
@@ -150,6 +150,12 @@ export const gameCharacter: { [name: string]: Character } = {
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/4d5ac247ca1460b34b3f73244afbb0f6_8390343856757982675.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: '可以不喝水，但不能没咖啡'
   },
+  '银枝': {
+    name: '银枝',
+    avatar: 'https://patchwiki.biligame.com/images/sr/d/d8/25koyev56amcbvilazmtmclya7yorh5.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/12/06/75216984/9ec67ff870b47578ab8e34b0705f4308_8632157186727669589.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: ''
+  },
   '丹恒•饮月': {
     name: '丹恒',
     avatar: 'https://patchwiki.biligame.com/images/sr/5/5e/jx9s48qhgcydxiw608oowmbf4pokw3g.png',
@@ -198,6 +204,12 @@ export const gameCharacter: { [name: string]: Character } = {
     avatar: 'https://patchwiki.biligame.com/images/sr/1/12/n5bdag071smlkixsx6karq9fb6yckbf.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/10/27/299598919/ab9973a72d6a155f074995c6eca83db4_3291400279023226681.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: '不惹事不怕事、不咬打火机'
+  },
+  寒鸦: {
+    name: '寒鸦',
+    avatar: 'https://patchwiki.biligame.com/images/sr/2/2a/30onn7takviutzcou54pov7k5yjrn1m.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/12/06/75216984/b16619bbc5d7d285717bcfb9a9b11dbd_2895406737291682164.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '梦占中，勿扰。'
   },
   玲可: {
     name: '玲可',
