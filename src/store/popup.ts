@@ -57,21 +57,21 @@ export const inputData = reactive<{
   fn: undefined
 })
 
-export const showInput = (
-  title: string,
-  tip?: string,
-  required = true,
-  defaultText?: string,
+export const showInput = (config: {
+  title: string
+  tip?: string
+  required?: boolean
+  defaultText?: string
   placeholder?: string
-) => {
+}) => {
   return new Promise<string>((resolve) => {
-    inputData.title = title
-    inputData.tip = tip
-    inputData.required = required
-    if (defaultText) {
-      inputData.text = defaultText
+    inputData.title = config.title
+    inputData.tip = config.tip
+    inputData.required = config.required === undefined ? true : config.required
+    if (config.defaultText) {
+      inputData.text = config.defaultText
     }
-    inputData.placeholder = placeholder
+    inputData.placeholder = config.placeholder
     openWindow('input')
     inputData.fn = (str: string) => {
       resolve(str)

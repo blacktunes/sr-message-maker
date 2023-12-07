@@ -225,10 +225,10 @@ const handelcharacterClick = (key: string, name: string) => {
 }
 
 const addCustom = async () => {
-  const name: string = await showInput('请输入角色名')
+  const name: string = await showInput({ title: '请输入角色名' })
   if (!name) return
 
-  const info = await showInput('请输入角色签名', '非必要选项', false)
+  const info = await showInput({ title: '请输入角色签名', tip: '非必要选项', required: false })
   const key = Date.now()
 
   setTimeout(() => {
