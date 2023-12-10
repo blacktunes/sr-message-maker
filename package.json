@@ -16,6 +16,7 @@
     "@marshallswain/vuedraggable": "^4.2.0",
     "html-to-image": "^1.11.11",
     "mitt": "^3.0.1",
+    "super-image-cropper": "^1.0.18",
     "vue": "^3.3.4",
     "vue-picture-cropper": "^0.6.2"
   },
