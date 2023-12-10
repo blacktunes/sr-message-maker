@@ -154,7 +154,7 @@ export const gameCharacter: { [name: string]: Character } = {
     name: '银枝',
     avatar: 'https://patchwiki.biligame.com/images/sr/d/d8/25koyev56amcbvilazmtmclya7yorh5.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/12/06/75216984/9ec67ff870b47578ab8e34b0705f4308_8632157186727669589.png?x-oss-process=image/quality,q_75/resize,s_280',
-    info: ''
+    info: '向一朵玫瑰起誓'
   },
   '丹恒•饮月': {
     name: '丹恒',

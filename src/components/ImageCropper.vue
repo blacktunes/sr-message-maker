@@ -43,16 +43,23 @@
 <script lang="ts" setup>
 import Btn from '@/components/Common/Btn.vue'
 import VuePictureCropper, { cropper } from 'vue-picture-cropper'
+import { SuperImageCropper } from 'super-image-cropper'
 import { cropper as cropperSetting, cropperClose } from '@/store/cropper'
+
+const imageCropper = new SuperImageCropper()
 
 defineProps<{
   scale: number
 }>()
 
-const onCropper = () => {
-  if (cropperSetting.fn) {
+const onCropper = async () => {
+  if (cropper && cropperSetting.fn) {
     cropperSetting.fn(
-      cropper?.getDataURL({ maxWidth: cropperSetting.maxWidth }) || cropperSetting.img
+      (await imageCropper.crop({
+        cropperInstance: cropper,
+        src: cropperSetting.img,
+        outputType: 'base64'
+      })) as string
     )
   }
   cropperClose()
