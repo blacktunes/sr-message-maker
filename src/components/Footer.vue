@@ -6,7 +6,7 @@
     >
       Github
     </a>
-    <span>·</span>
+    <div class="sep"></div>
     <a
       href="https://space.bilibili.com/1384118"
       target="_blank"
@@ -21,20 +21,24 @@
   position absolute
   bottom -80px
   display flex
-  width 100%
   justify-content center
+  align-items center
+  width 100%
 
-  a, span
-    color #666
-    font-size 50px
-    user-select none
+  .sep
+    width 10px
+    height 10px
+    background-color #666
+    border-radius 50%
+    margin 0 25px
 
   a
+    color #ddd
+    font-size 50px
+    user-select none
     text-decoration none
+    opacity 0.25
 
     &:hover
-      color #ddd
-
-  span
-    margin 0 20px
+      opacity 1
 </style>

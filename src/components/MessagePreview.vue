@@ -307,6 +307,17 @@ const toggleGreenScreen = () => {
     background #666
     transition background 0.2s
 
+    &:hover
+      &:before
+        content ''
+        position absolute
+        top -10px
+        right -10px
+        bottom -10px
+        left -10px
+        border 5px solid #666
+        border-radius 10px
+
   .highlight
     background none
 

@@ -58,7 +58,7 @@
         :name="name"
         width="350px"
         color="#333"
-        bg-color="linear-gradient(to top, #c3b7a9, transparent)"
+        bg-color="linear-gradient(to top, #bcb2a2, #cac2b7, transparent)"
         font-size="40px"
         title="切换为游戏角色"
         circle
@@ -233,6 +233,10 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
     margin 10px 80px !important
     max-height unset !important
 
+  :deep(.img_circle)
+    &:hover
+      filter brightness(1.05)
+
 .list
   display flex
   flex-wrap wrap
@@ -249,6 +253,9 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
     height 190px
     border-radius 50%
     margin 40px 30px 10px 10px
+
+    &:hover
+      filter brightness(1.05)
 
   .avatar
     position relative

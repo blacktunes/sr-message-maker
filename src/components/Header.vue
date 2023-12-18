@@ -12,7 +12,6 @@
         fill-rule="evenodd"
       />
     </svg>
-
     <span>短信</span>
   </div>
   <div class="img">
