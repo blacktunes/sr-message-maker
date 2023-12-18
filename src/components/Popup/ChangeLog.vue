@@ -2,6 +2,7 @@
   <window
     title="更新记录"
     width="40%"
+    height="90%"
     :show="popup.log"
     @close="popup.log = false"
   >

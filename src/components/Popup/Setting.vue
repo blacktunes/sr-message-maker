@@ -168,6 +168,7 @@ popupCallbalk.setting = onBtnClick
   overflow-x hidden
   height 400px
   width 1200px
+  margin 40px 0
   padding-right 10px
   user-select none
 

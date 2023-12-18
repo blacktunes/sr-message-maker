@@ -11,11 +11,16 @@
         class="box"
         :style="{
           width,
-          height
+          height,
+          minWidth,
+          minHeight
         }"
         @click.stop
       >
-        <div class="outside">
+        <div
+          class="outside"
+          v-if="slot.outside"
+        >
           <slot name="outside"></slot>
         </div>
         <div class="wrapper">
@@ -68,7 +73,9 @@ defineProps<{
   confirm?: boolean
   title: string
   width?: string
+  minWidth?: string
   height?: string
+  minHeight?: string
   onClose?: () => void
 }>()
 
@@ -106,9 +113,11 @@ const close = () => {
     flex-direction column
     width fit-content
     width -moz-fit-content
+    // width 50%
     max-width 90%
     height fit-content
     height -moz-fit-content
+    // height 50%
     max-height 90%
     background var(--box-background-color)
     message()
@@ -122,6 +131,7 @@ const close = () => {
       flex 1
       overflow hidden
       display flex
+      align-items center
       width 100%
       border-radius 0 50px 0 0
 
@@ -130,36 +140,47 @@ const close = () => {
 
       .right
         flex 1
+        height 100%
+        display flex
+        flex-direction column
 
         .title
           display flex
           align-items flex-end
           justify-content space-between
           height 85px
-          font-size 60px
+          font-size 56px
           font-weight bold
           border-bottom 5px solid rgba(150, 150, 150, 0.5)
           margin 0 80px
-          padding 40px 0 30px 0
+          padding 30px 0 20px 0
           user-select none
 
           .close
             margin-left 20px
 
         .content
+          flex 1
           overflow auto
           display flex
           flex-direction column
-          margin 40px 80px
-          max-height calc(100% - 80px * 2 - 40px - 25px)
+          margin 0 80px
           height 100%
+          -webkit-mask-image linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 60px)
+
+          ::-webkit-scrollbar
+            width 9px
+            height 9px
+
+          ::-webkit-scrollbar-track
+            margin 30px 0
 
     .footer
       position relative
       display flex
       align-content center
       justify-content center
-      padding 30px 80px
+      padding 40px 80px
       background var(--box-background-color)
 
       .bg
