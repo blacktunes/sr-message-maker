@@ -1,13 +1,13 @@
 <template>
   <div
-    class="main"
+    id="main"
     :style="{
       width: `${width * scale}px`,
       height: `${(height + bottom) * scale}px`
     }"
   >
     <div
-      class="home"
+      id="home"
       :style="{
         transform: `scale(${scale})`,
         width: `${width}px`,
@@ -72,8 +72,8 @@ window.onresize = () => {
 </script>
 
 <style lang="stylus" scoped>
-.main
-  .home
+#main
+  #home
     position relative
     height 100%
     width 100%
@@ -100,4 +100,5 @@ window.onresize = () => {
       background-size cover
       background-position center
       filter blur(30px)
+      opacity 0.8
 </style>

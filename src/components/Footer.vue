@@ -32,6 +32,9 @@
   a
     text-decoration none
 
+    &:hover
+      color #ddd
+
   span
     margin 0 20px
 </style>

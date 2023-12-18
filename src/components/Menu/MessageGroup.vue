@@ -289,6 +289,10 @@ const avatarUrl = computed(() => {
       border var(--menu-border)
       background rgba(0, 0, 0, 0.4)
       cursor pointer
+      transition all 0.2s
+
+      :deep(path)
+        transition all 0.2s
 
       &:hover
         color var(--message-text-hover-color)
