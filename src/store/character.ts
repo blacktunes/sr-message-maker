@@ -72,6 +72,7 @@ const setAvatarWatch = () => {
   })
 }
 
+// https://github.com/blacktunes/sr-light-cone/blob/master/src/assets/scripts/indexedDB.ts
 let hasDB = true
 let db: IDBDatabase
 

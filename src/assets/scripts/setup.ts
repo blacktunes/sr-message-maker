@@ -1,36 +1,39 @@
 import { showConfirm } from '@/store/popup'
 import { setting } from '@/store/setting'
 
-const loadingFlag = {
+type LoadingType = 'character' | 'message' | 'avatar'
+
+const loadingFlag: Record<LoadingType, boolean> = {
   message: false,
   character: false,
   avatar: false
 }
 
-const errorFlag = {
+const errorFlag: Record<LoadingType, boolean> = {
   message: false,
   character: false,
   avatar: false
 }
 
-export const setLoadingType = (type: 'character' | 'message' | 'avatar', error?: boolean) => {
+const errorText: Record<LoadingType, string> = {
+  message: '短信',
+  character: '头像',
+  avatar: '头像'
+}
+
+export const setLoadingType = (type: LoadingType, error?: boolean) => {
   loadingFlag[type] = true
   if (error) errorFlag[type] = true
 
-  if (loadingFlag.message && loadingFlag.character && loadingFlag.avatar) {
+  if (Object.values(loadingFlag).every((flag) => flag)) {
     setting.loading = false
   }
 
-  if (errorFlag.message || errorFlag.character || errorFlag.avatar) {
+  if (Object.values(errorFlag).some((flag) => flag)) {
     let text = ''
-    if (errorFlag.message) text = '<span style="color:red">短信</span>'
-    if (errorFlag.avatar) {
-      if (text) text += '/'
-      text += '<span style="color:red">头像</span>'
-    }
-    if (errorFlag.character) {
-      if (text) text += '/'
-      text += '<span style="color:red">自定义角色</span>'
+    let key: LoadingType
+    for (key in errorFlag) {
+      text += `${text ? '/' : ''}<span style="color:red">${errorText[key]}</span>`
     }
     showConfirm({
       title: '数据库初始化失败',
@@ -40,13 +43,13 @@ export const setLoadingType = (type: 'character' | 'message' | 'avatar', error?:
 }
 
 setTimeout(() => {
-  if (!loadingFlag.message || !loadingFlag.character || !loadingFlag.avatar) {
+  if (Object.values(loadingFlag).some((flag) => !flag)) {
     showConfirm({
       title: '数据库加载异常',
       tip: '如果持续出现这种情况可以尝试在数据管理里重置数据库',
       text: [
         '加载时间过长，可能是数据损坏',
-        '点击<span style="color:red">确认</span>可以强行使用，但是可能导致功能异常'
+        '点击<span style="color:red">确认</span>可以继续使用，但是可能出现功能异常'
       ],
       fn: () => {
         setting.loading = false

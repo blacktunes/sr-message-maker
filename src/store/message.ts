@@ -1,7 +1,6 @@
 import { nextTick, reactive, toRaw, watch } from 'vue'
 import { setLoadingType } from '@/assets/scripts/setup'
 import { setting } from './setting'
-import { showConfirm } from './popup'
 
 export const message = reactive<{
   list: MessageListItem[]
@@ -29,6 +28,7 @@ const setWatch = () => {
   })
 }
 
+// https://github.com/blacktunes/sr-light-cone/blob/master/src/assets/scripts/indexedDB.ts
 let hasDB = true
 let db: IDBDatabase
 
