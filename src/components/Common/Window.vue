@@ -113,11 +113,9 @@ const close = () => {
     flex-direction column
     width fit-content
     width -moz-fit-content
-    // width 50%
     max-width 90%
     height fit-content
     height -moz-fit-content
-    // height 50%
     max-height 90%
     background var(--box-background-color)
     message()
@@ -166,7 +164,7 @@ const close = () => {
           flex-direction column
           margin 0 80px
           height 100%
-          -webkit-mask-image linear-gradient(to top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1) 60px)
+          -webkit-mask-image linear-gradient(to top, rgba(0, 0, 0, 0), #000 60px)
 
           ::-webkit-scrollbar
             width 9px
