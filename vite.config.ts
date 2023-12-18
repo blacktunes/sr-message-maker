@@ -1,6 +1,6 @@
 import { fileURLToPath, URL } from 'node:url'
 
-import { defineConfig } from 'vite'
+import { defineConfig, splitVendorChunkPlugin } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 
@@ -17,11 +17,15 @@ export default defineConfig({
         defineModel: true
       }
     }),
-    vueJsx()
+    vueJsx(),
+    splitVendorChunkPlugin()
   ],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  build: {
+    assetsInlineLimit: 0
   }
 })
