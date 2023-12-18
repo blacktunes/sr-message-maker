@@ -25,7 +25,7 @@ interface OptionItem {
 }
 
 interface Mission {
-  type: 0 | 1 | 2 | 3
+  type: 0 | 1 | 2 | 3 | 4
   state: 0 | 1 | 2
 }
 
