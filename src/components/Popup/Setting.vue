@@ -76,20 +76,14 @@
 </template>
 
 <script lang="ts" setup>
-import { watch, ref, reactive, computed } from 'vue'
+import { watch, ref, computed } from 'vue'
+import { bubbles } from '@/assets/data/bubbles'
 import { setting } from '@/store/setting'
 import { openWindow, popup, popupCallbalk } from '@/store/popup'
-import { getAssets } from '@/assets/scripts/preload'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
 import Icon from '@/components/Common/Icon.vue'
 import Preview from '@/components/Common/Preview.vue'
-import bubbles_0 from '@/assets/images/bubbles/0.webp'
-import bubbles_0_preview from '@/assets/images/bubbles/0_preview.webp'
-import bubbles_1 from '@/assets/images/bubbles/1.webp'
-import bubbles_1_preview from '@/assets/images/bubbles/1_preview.webp'
-import bubbles_2 from '@/assets/images/bubbles/2.webp'
-import bubbles_2_preview from '@/assets/images/bubbles/2_preview.webp'
 
 const index = ref(0)
 
@@ -110,24 +104,6 @@ watch(
     }
   }
 )
-
-const bubbles = reactive([
-  {
-    name: '语言的艺术',
-    img: getAssets(bubbles_0),
-    preview: getAssets(bubbles_0_preview)
-  },
-  {
-    name: '兔子在哪里？',
-    img: getAssets(bubbles_1),
-    preview: getAssets(bubbles_1_preview)
-  },
-  {
-    name: '次元扑满',
-    img: getAssets(bubbles_2),
-    preview: getAssets(bubbles_2_preview)
-  }
-])
 
 const onBtnClick = () => {
   if (setting.bubbles === index.value) return false
@@ -166,19 +142,22 @@ popupCallbalk.setting = onBtnClick
   flex-wrap wrap
   justify-content flex-start
   overflow-x hidden
-  height 400px
+  height 450px
   width 1200px
-  margin 40px 0
+  margin-bottom 30px
   padding-right 10px
   user-select none
 
   .item
+    display flex
+    justify-content center
+    align-items center
     overflow hidden
     position relative
     box-sizing border-box
-    width 30%
+    width 385px
     height 200px
-    margin 0 3% 3% 0
+    margin 30px 10px 0 0
     background #c5c6ca
     border 4px solid #a7a8aa
     cursor pointer

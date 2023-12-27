@@ -2,6 +2,7 @@ import { character } from '@/store/character'
 import { reactive, toRef } from 'vue'
 import { compressImage } from './image'
 import { emoticon } from '../data/emoticon'
+import { bubbles } from '../data/bubbles'
 
 export const assets: { [name: string]: string } = reactive({})
 
@@ -53,11 +54,17 @@ const emoticonPreload = async () => {
   }
 }
 
+const bubblesPreload = async () => {
+  for (const i in bubbles) {
+    bubbles[i].img = await getCache(bubbles[i].img)
+    bubbles[i].preview = await getCache(bubbles[i].preview)
+  }
+}
+
 const preload = () => {
   const list = import.meta.glob<string>(
     [
       // 预加载素材
-      '../images/bubbles/*',
       '../images/avatar/*',
       '../images/mission/*'
     ],
@@ -69,6 +76,7 @@ const preload = () => {
 
   characterPreload()
   emoticonPreload()
+  bubblesPreload()
 
   for (const i in list) {
     getCache(list[i]).then((res) => {
