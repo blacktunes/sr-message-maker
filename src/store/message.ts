@@ -42,7 +42,7 @@ export const updateDB = () => {
 }
 
 export const getDB = () => {
-  console.log('GET - SR Message indexedDB...')
+  console.log('正在加载短信数据库...')
   const _db = window.indexedDB.open('sr-message')
   _db.onsuccess = (event) => {
     db = (event.target as IDBOpenDBRequest).result

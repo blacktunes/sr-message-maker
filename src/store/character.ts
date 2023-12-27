@@ -89,7 +89,7 @@ export const updateDB: UpdateDB = (id, data) => {
 }
 
 export const getDB = () => {
-  console.log('GET - SR Custom indexedDB...')
+  console.log('正在加载自定义角色/头像数据库...')
   const _db = window.indexedDB.open('sr-custom')
   _db.onsuccess = (event) => {
     db = (event.target as IDBOpenDBRequest).result

@@ -342,10 +342,10 @@ bubbles()
     border-image-source $bubbles-3
     border-image-slice 86 100 86 100 fill
     border-image-width 86px 100px 86px 100px
-    border-image-outset 25px 60px 10px 65px
+    border-image-outset 25px 55px 10px 60px
 
     .text
-      margin 15px 0 20px -5px !important
+      margin 10px 0 20px -5px !important
       color #fffafb !important
 
 .avatar-enter-active

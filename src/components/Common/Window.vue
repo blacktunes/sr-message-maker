@@ -167,8 +167,8 @@ const close = () => {
           -webkit-mask-image linear-gradient(to top, rgba(0, 0, 0, 0), #000 60px)
 
           ::-webkit-scrollbar
-            width 9px
-            height 9px
+            width 8px
+            height 8px
 
           ::-webkit-scrollbar-track
             margin 30px 0
@@ -178,7 +178,7 @@ const close = () => {
       display flex
       align-content center
       justify-content center
-      padding 40px 80px
+      padding 30px 80px
       background var(--box-background-color)
 
       .bg

@@ -96,7 +96,7 @@ window.onresize = () => {
       position absolute
       width 100%
       height 100%
-      background url('https://patchwiki.biligame.com/images/sr/8/8e/2ywvn145o3txkmqwhhtt884nb5mjfh2.jpg'), rgba(0,0,0,0.6)
+      background url('https://patchwiki.biligame.com/images/sr/8/8e/2ywvn145o3txkmqwhhtt884nb5mjfh2.jpg'), rgba(0, 0, 0, 0.6)
       background-size cover
       background-position center
       filter blur(30px)
