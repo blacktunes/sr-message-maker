@@ -1,5 +1,13 @@
 <template>
   <div class="link">
+    <Transition name="fade" appear>
+      <div
+        v-if="progress[0] > 0 && progress[1] < progress[0]"
+        class="progress"
+      >
+        <span>图片预加载[</span>{{ progress[1] }}/{{ progress[0] }}]
+      </div>
+    </Transition>
     <a
       href="https://github.com/blacktunes/sr-message-maker"
       target="_blank"
@@ -16,6 +24,10 @@
   </div>
 </template>
 
+<script lang="ts" setup>
+import { progress } from '@/assets/scripts/preload'
+</script>
+
 <style lang="stylus" scoped>
 .link
   position absolute
@@ -24,6 +36,24 @@
   justify-content center
   align-items center
   width 100%
+  height 75px
+  color #ddd
+
+  .progress
+    box-sizing border-box
+    display flex
+    justify-content center
+    align-items center
+    position absolute
+    left 180px
+    bottom 0
+    height 75px
+    font-size 38px
+    opacity 0.25
+    user-select none
+
+    &:hover
+      opacity 1
 
   .sep
     width 10px
