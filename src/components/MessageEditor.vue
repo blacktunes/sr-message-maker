@@ -97,6 +97,10 @@
             <div
               class="btn"
               style="border-radius: 0 50px 50px 0"
+              :style="{
+                background: input.emoticon ? '#575B66' : '',
+                color: input.emoticon ? '#e8e8e8' : ''
+              }"
               @click.stop="handelEmoticonClick"
               title="发送表情"
             >
@@ -565,11 +569,9 @@ box()
       height 100px
       cursor pointer
       background #e8e8e8
+      color #575B66
       user-select none
-      transition box-shadow 0.2s
-
-      :deep(path)
-        fill #575B66
+      transition 0.2s
 
       img
         width 100%

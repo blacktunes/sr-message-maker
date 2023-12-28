@@ -1,6 +1,6 @@
 <template>
   <div class="link">
-    <Transition name="fade" appear>
+    <Transition name="fade-out">
       <div
         v-if="progress[0] > 0 && progress[1] < progress[0]"
         class="progress"
@@ -49,11 +49,8 @@ import { progress } from '@/assets/scripts/preload'
     bottom 0
     height 75px
     font-size 38px
-    opacity 0.25
+    color rgba(255, 255, 255, 0.3)
     user-select none
-
-    &:hover
-      opacity 1
 
   .sep
     width 10px
@@ -70,5 +67,5 @@ import { progress } from '@/assets/scripts/preload'
     opacity 0.25
 
     &:hover
-      opacity 1
+      opacity 9
 </style>
