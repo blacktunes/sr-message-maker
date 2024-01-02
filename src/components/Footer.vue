@@ -2,7 +2,7 @@
   <div class="link">
     <Transition name="fade-out">
       <div
-        v-if="progress[0] > 0 && progress[1] < progress[0]"
+        v-show="progress[0] > 0 && progress[1] < progress[0]"
         class="progress"
       >
         <span>图片预加载[</span>{{ progress[1] }}/{{ progress[0] }}]

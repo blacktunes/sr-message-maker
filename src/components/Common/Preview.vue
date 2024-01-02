@@ -159,11 +159,12 @@ $border-color = #b9babf
 
     .name
       position absolute
-      bottom -60px
+      bottom -65px
       font-size v-bind(fontSize)
       font-weight bold
-      margin-top 10px
       color v-bind(color)
+      white-space nowrap
+      text-overflow ellipsis
 
 .img_circle
   border-radius 50%

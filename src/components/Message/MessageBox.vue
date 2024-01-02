@@ -213,7 +213,10 @@ defineExpose({ boxDom, listDom, updateArrow })
     flex-direction column
     margin 0 70px 0 50px
     padding 30px 0
-    -webkit-mask-image linear-gradient(to bottom, rgba(0, 0, 0, 0), #000 60px, #000 calc(100% - 60px), rgba(0, 0, 0, 0))
+    mask-image linear-gradient(to bottom, transparent, #000 60px, #000, #000 calc(100% - 60px), transparent), linear-gradient(to left, black, transparent 50px)
+    mask-size 100% 100%
+    mask-position 0 0, 100% 0
+    mask-repeat no-repeat, no-repeat
 
     &::-webkit-scrollbar-track
       position absolute
