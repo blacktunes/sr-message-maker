@@ -44,6 +44,7 @@
               :name="setting.name"
               :avatar="userData.card || userData.avatar"
               :level="!userData.card ? 5 : undefined"
+              title="开拓者"
               @click="handelcharacterClick('开拓者', '')"
             />
             <CharacterCard
@@ -211,6 +212,9 @@ const handelcharacterClick = (key: string, name: string) => {
       if (key !== '开拓者') {
         avatarData.index = key
         avatarData.name = name
+      } else {
+        avatarData.index = setting.avatar
+        avatarData.name = setting.name
       }
     } else {
       message.list[input.index[0]].list[input.index[1]].key = key

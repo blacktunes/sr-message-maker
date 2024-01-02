@@ -5,41 +5,11 @@ export const user: { [name: string]: UserAvatar } = {
   无: {
     avatar: 'https://patchwiki.biligame.com/images/sr/a/a8/1qtsu8eokug9uhap13026hk2yvdk8zb.png'
   },
-  '真理医生•教研': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/2/21/ohly0b002dhztt3yep5af0j3a4p3sri.png'
+  '开拓者•迎新（星）': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/a/ad/nchbvcsw6xwt2lbgltdcighm7b9y0jq.png'
   },
-  '阮•梅•教研': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/d/de/lm1tx0rny8w287kfr5nidt7k6q71oqx.png'
-  },
-  '彦卿•远行': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/8/8c/dcbn6p2p95tmfxevu1amzs3ims0a28s.png'
-  },
-  '镜流•远行': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/f/fb/n9oz2j9l3mnnkzztdr0i1myrcg8z2nr.png'
-  },
-  '布洛妮娅•庆典': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/9/99/qul923de63ye0w8jco9h3ox0tcsf4dl.png'
-  },
-  '杰帕德•庆典': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/9/90/s2w9pp9vnbak3nxikjx2ahfu23tn8gx.png'
-  },
-  '景元•适暇': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/3/35/bsxm7j1i6iphtmbvsk9y84ei7pq36w7.png'
-  },
-  '符玄•适暇': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/1/18/rphdzko00g2aev7tm1ra8iu2yemms7d.png'
-  },
-  '刃•夜宴': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/4/43/affscyu0v25sx7ostvvel52hxmpj9q1.png'
-  },
-  '卡芙卡•夜宴': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/4/41/qgnlg62iwio1832jj27j9rmiezmoqsr.png'
-  },
-  '三月七•迎新': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/9/92/96zt43mky1thz9ckk4nrzvltrk97394.png'
-  },
-  '丹恒•迎新': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/2/26/t9lpgudwjqpbt476lcxcpipbov4pznm.png'
+  '开拓者•迎新（穹）': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/c/c4/jxonipo79e7jw3alj2wr8ijjvfexdyl.png'
   },
   '姬子•迎新': {
     avatar: 'https://patchwiki.biligame.com/images/sr/e/ef/k5z5p8gihx7t3e7lf0rcihmcddqjk5g.png'
@@ -47,32 +17,68 @@ export const user: { [name: string]: UserAvatar } = {
   '瓦尔特•迎新': {
     avatar: 'https://patchwiki.biligame.com/images/sr/a/a6/hn0xpu06nb5jfgxritpske6jl61vysr.png'
   },
-  '开拓者•迎新（星）': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/a/ad/nchbvcsw6xwt2lbgltdcighm7b9y0jq.png'
+  '三月七•迎新': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/9/92/96zt43mky1thz9ckk4nrzvltrk97394.png'
   },
-  '开拓者•迎新（穹）': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/c/c4/jxonipo79e7jw3alj2wr8ijjvfexdyl.png'
+  '丹恒•迎新': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/2/26/t9lpgudwjqpbt476lcxcpipbov4pznm.png'
   },
-  '帕姆•美食': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/4/45/4ti8vqyjoqya5dsg7l3lw300yh72q6r.png'
+  '刃•夜宴': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/4/43/affscyu0v25sx7ostvvel52hxmpj9q1.png'
   },
-  谛听: {
-    avatar: 'https://patchwiki.biligame.com/images/sr/8/8b/mvvqrfg0nw0ghrx1p91reedqnvt2wbv.png'
+  '卡芙卡•夜宴': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/4/41/qgnlg62iwio1832jj27j9rmiezmoqsr.png'
   },
-  垃圾桶: {
-    avatar: 'https://patchwiki.biligame.com/images/sr/f/f7/dpes8v24ax5sod5323arf26b5ch43g5.png'
+  '景元•适暇': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/3/35/bsxm7j1i6iphtmbvsk9y84ei7pq36w7.png'
   },
-  通缉令: {
-    avatar: 'https://patchwiki.biligame.com/images/sr/6/61/s52qmmbcym2h6060khma3xtulsnwsob.png'
+  '符玄•适暇': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/1/18/rphdzko00g2aev7tm1ra8iu2yemms7d.png'
   },
-  佩佩: {
-    avatar: 'https://patchwiki.biligame.com/images/sr/9/93/n6bsmrgi3as9gttm6av8zxb3f90r5bb.png'
+  '布洛妮娅•庆典': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/9/99/qul923de63ye0w8jco9h3ox0tcsf4dl.png'
+  },
+  '杰帕德•庆典': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/9/90/s2w9pp9vnbak3nxikjx2ahfu23tn8gx.png'
+  },
+  '彦卿•远行': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/8/8c/dcbn6p2p95tmfxevu1amzs3ims0a28s.png'
+  },
+  '镜流•远行': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/f/fb/n9oz2j9l3mnnkzztdr0i1myrcg8z2nr.png'
+  },
+  '真理医生•教研': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/2/21/ohly0b002dhztt3yep5af0j3a4p3sri.png'
+  },
+  '阮•梅•教研': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/d/de/lm1tx0rny8w287kfr5nidt7k6q71oqx.png'
+  },
+  菌菌: {
+    avatar: 'https://patchwiki.biligame.com/images/sr/1/1f/4un48lwd7xrd4jehzxfnc2n8hykb205.png'
   },
   呜呜伯: {
     avatar: 'https://patchwiki.biligame.com/images/sr/6/68/cuvuk88575dmuj27n0cdfkiyxek5dzv.png'
   },
-  菌菌: {
-    avatar: 'https://patchwiki.biligame.com/images/sr/1/1f/4un48lwd7xrd4jehzxfnc2n8hykb205.png'
+  佩佩: {
+    avatar: 'https://patchwiki.biligame.com/images/sr/9/93/n6bsmrgi3as9gttm6av8zxb3f90r5bb.png'
+  },
+  通缉令: {
+    avatar: 'https://patchwiki.biligame.com/images/sr/6/61/s52qmmbcym2h6060khma3xtulsnwsob.png'
+  },
+  垃圾桶: {
+    avatar: 'https://patchwiki.biligame.com/images/sr/f/f7/dpes8v24ax5sod5323arf26b5ch43g5.png'
+  },
+  谛听: {
+    avatar: 'https://patchwiki.biligame.com/images/sr/8/8b/mvvqrfg0nw0ghrx1p91reedqnvt2wbv.png'
+  },
+  '帕姆•美食': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/4/45/4ti8vqyjoqya5dsg7l3lw300yh72q6r.png'
+  },
+  '开拓者•星轨(星)': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/1/1c/oq49xov0qpomd3rknwl72n2y6tqd7nj.png'
+  },
+  '开拓者•星轨(穹)': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/4/48/cichewt3xev1fu27higunsm6co6jbjt.png'
   },
   '星·毁灭': {
     avatar: 'https://patchwiki.biligame.com/images/sr/5/52/rhgkx12fxucnesllif85tatcmhxqex3.png',
