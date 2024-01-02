@@ -63,6 +63,7 @@ type OtherCharacter = Omit<Character, 'card'> & { gold?: boolean }
 type CustomCharacter = Omit<Character, 'card'> & { custom: true }
 
 interface Emoticon {
+  name?: string
   title: string
   url: string
 }

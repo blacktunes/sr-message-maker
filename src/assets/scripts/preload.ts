@@ -60,9 +60,9 @@ const characterPreload = () => {
 
 const emoticonPreload = () => {
   for (const i in emoticon) {
-    for (const j in emoticon[i]) {
-      getCache(emoticon[i][j].url, true).then((res) => {
-        emoticon[i][j].url = res
+    for (const j in emoticon[i].list) {
+      getCache(emoticon[i].list[j].url, true).then((res) => {
+        emoticon[i].list[j].url = res
       })
     }
   }

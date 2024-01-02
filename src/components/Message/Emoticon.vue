@@ -5,6 +5,7 @@
       v-show="input.emoticon"
       @click.stop=""
     >
+      <div class="title">{{ emoticon[input.emoticon_page]?.title }}</div>
       <transition
         name="fade-in"
         appear
@@ -16,7 +17,7 @@
         >
           <div
             class="item"
-            v-for="(item, key) in emoticon[input.emoticon_page]"
+            v-for="(item, key) in emoticon[input.emoticon_page]?.list"
             :key="`emoticon-${key}`"
             @click="handelEmoticonClick(item)"
           >
@@ -46,8 +47,8 @@
         >
           <div class="img">
             <img
-              :src="group[0].url"
-              :alt="group[0].title"
+              :src="group.list[0].url"
+              :alt="group.list[0].title"
             />
           </div>
         </div>
@@ -107,16 +108,24 @@ const handelEmoticonClick = (item: Emoticon) => {
   display flex
   flex-direction column
   position absolute
-  right -10px
+  right 0
   bottom 120px
   width 1400px
-  height 900px
-  background rgba(255, 255, 255, 0.99)
+  height 950px
+  background rgba(239, 239, 239, 0.97)
   padding 30px 40px 60px 50px
   border-radius 5px
-  box-shadow 0 0 20px 0px rgba(0, 0, 0, 0.15)
+  $shadow-width = 20px
+  $arrow-height = 30px
+  $arrow-width = (50px / 2)
+  $arrow-right = 170px
+  box-shadow 0 0 $shadow-width 0px rgba(0, 0, 0, 0.15)
+  clip-path s('polygon(-%s -%s, calc(100% + %s) -%s, calc(100% + %s) calc(100% - %s), calc(100% - %s) calc(100% - %s), calc(100% - %s) 100%, calc(100% - %s) calc(100% - %s), -%s calc(100% - %s))', $shadow-width, $shadow-width, $shadow-width, $shadow-width, $shadow-width, $arrow-height, $arrow-right + $arrow-width, $arrow-height, $arrow-right + $arrow-width * 2, $arrow-right + $arrow-width * 3, $arrow-height, $shadow-width, $arrow-height)
   user-select none
-  clip-path polygon(-1% -1%, 101% -1%, 101% calc(100% - 40px), calc(100% - 205px) calc(100% - 40px), calc(100% - 230px) 100%, calc(100% - 255px) calc(100% - 40px), -1% calc(100% - 40px))
+
+  .title
+    font-size 48px
+    margin-bottom 15px
 
   .emoticon-list
     flex 1
@@ -136,15 +145,21 @@ const handelEmoticonClick = (item: Emoticon) => {
       display flex
       flex-direction column
       box-sizing border-box
-      border 5px solid #c6c5c5
-      background #e0e0e0
-      width calc(20% - 20px)
-      height 320px
+      border 5px solid #c5c5c5
+      background #d9d9d9
+      width 261px
       margin 0 20px 30px 0
       cursor pointer
 
+      &:nth-child(5n)
+        margin-right 0
+
       .img
-        flex 1
+        overflow hidden
+        box-sizing border-box
+        width 261px
+        height 245px
+        padding 5px
         display flex
         align-items center
         justify-content center
@@ -154,10 +169,11 @@ const handelEmoticonClick = (item: Emoticon) => {
           width calc(100% - 20px)
 
     .text
-      background #ebebeb
+      background #ececec
       padding 5px
       font-size 32px
-      color #666
+      color #545454
+      font-weight bold
       text-align center
       overflow hidden
       white-space nowrap
@@ -182,7 +198,7 @@ const handelEmoticonClick = (item: Emoticon) => {
       display flex
       justify-content center
       align-items center
-      width 16%
+      width 200px
       height 100%
       flex-shrink 0
       border-bottom 8px solid #dadada
@@ -193,11 +209,14 @@ const handelEmoticonClick = (item: Emoticon) => {
           opacity 1
 
       .img
+        display flex
+        align-items center
+        justify-content center
         width 100px
         opacity 0.5
 
         img
-          width 100%
+          width 75px
 
 .highlight
   .img
@@ -223,7 +242,7 @@ const handelEmoticonClick = (item: Emoticon) => {
     left 0
     bottom -8px
     width 100%
-    height 8px
+    height 7px
     background #121212
     animation open-2 0.6s forwards
 
