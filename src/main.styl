@@ -42,8 +42,8 @@ img
   user-drag none
 
 ::-webkit-scrollbar
-  width 7px
-  height 7px
+  width 8px
+  height 8px
 
 ::-webkit-scrollbar-track
   background #c6c6c6
@@ -74,6 +74,12 @@ img
   transition all 0.2s
 
 .fade-in-enter-from
+  opacity 0
+
+.fade-out-leave-active
+  transition opacity 0.5s 1s linear
+
+.fade-out-leave-to
   opacity 0
 
 .fade-enter-active, .fade-leave-active

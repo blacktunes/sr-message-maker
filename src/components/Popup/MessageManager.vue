@@ -119,7 +119,7 @@ const onConfirml = () => {
 <style lang="stylus" scoped>
 .config
   width 1600px
-  padding 20px 0
+  padding 60px 0
   user-select none
 
   .table

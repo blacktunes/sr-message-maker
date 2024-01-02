@@ -1,7 +1,6 @@
 import { nextTick, reactive, toRaw, watch } from 'vue'
 import { setLoadingType } from '@/assets/scripts/setup'
 import { setting } from './setting'
-import { showConfirm } from './popup'
 
 export const message = reactive<{
   list: MessageListItem[]
@@ -29,6 +28,7 @@ const setWatch = () => {
   })
 }
 
+// https://github.com/blacktunes/sr-light-cone/blob/master/src/assets/scripts/indexedDB.ts
 let hasDB = true
 let db: IDBDatabase
 
@@ -42,7 +42,7 @@ export const updateDB = () => {
 }
 
 export const getDB = () => {
-  console.log('GET - SR Message indexedDB...')
+  console.log('正在加载短信数据库...')
   const _db = window.indexedDB.open('sr-message')
   _db.onsuccess = (event) => {
     db = (event.target as IDBOpenDBRequest).result

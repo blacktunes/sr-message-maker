@@ -3,7 +3,7 @@
     <slot name="top"></slot>
     <div
       class="box"
-      :class="{ 'box_preview': preview }"
+      :class="{ box_preview: preview }"
       ref="boxDom"
     >
       <transition
@@ -119,6 +119,7 @@ defineExpose({ boxDom, listDom, updateArrow })
 .box_preview
   &:before
     content none !important
+
   &:after
     z-index -1
 
@@ -212,6 +213,10 @@ defineExpose({ boxDom, listDom, updateArrow })
     flex-direction column
     margin 0 70px 0 50px
     padding 30px 0
+    mask-image linear-gradient(to bottom, transparent, #000 60px, #000, #000 calc(100% - 60px), transparent), linear-gradient(to left, black, transparent 50px)
+    mask-size 100% 100%
+    mask-position 0 0, 100% 0
+    mask-repeat no-repeat, no-repeat
 
     &::-webkit-scrollbar-track
       position absolute

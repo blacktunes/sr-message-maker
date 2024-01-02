@@ -11,11 +11,16 @@
         class="box"
         :style="{
           width,
-          height
+          height,
+          minWidth,
+          minHeight
         }"
         @click.stop
       >
-        <div class="outside">
+        <div
+          class="outside"
+          v-if="slot.outside"
+        >
           <slot name="outside"></slot>
         </div>
         <div class="wrapper">
@@ -68,7 +73,9 @@ defineProps<{
   confirm?: boolean
   title: string
   width?: string
+  minWidth?: string
   height?: string
+  minHeight?: string
   onClose?: () => void
 }>()
 
@@ -122,6 +129,7 @@ const close = () => {
       flex 1
       overflow hidden
       display flex
+      align-items center
       width 100%
       border-radius 0 50px 0 0
 
@@ -130,29 +138,44 @@ const close = () => {
 
       .right
         flex 1
+        height 100%
+        display flex
+        flex-direction column
 
         .title
           display flex
           align-items flex-end
           justify-content space-between
           height 85px
-          font-size 60px
+          font-size 56px
           font-weight bold
           border-bottom 5px solid rgba(150, 150, 150, 0.5)
           margin 0 80px
-          padding 40px 0 30px 0
+          padding 30px 0 20px 0
           user-select none
 
           .close
             margin-left 20px
 
         .content
+          flex 1
           overflow auto
           display flex
           flex-direction column
-          margin 40px 80px
-          max-height calc(100% - 80px * 2 - 40px - 25px)
+          margin 0 80px
           height 100%
+          mask-image linear-gradient(to bottom, transparent, #000 60px, #000, #000 calc(100% - 60px), transparent), linear-gradient(to left, black, transparent 50px)
+          mask-size 100% 100%
+          mask-position 0 0, 100% 0
+          mask-repeat no-repeat, no-repeat
+          
+
+          ::-webkit-scrollbar
+            width 8px
+            height 8px
+
+          ::-webkit-scrollbar-track
+            margin 30px 0
 
     .footer
       position relative

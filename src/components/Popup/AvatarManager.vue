@@ -53,12 +53,13 @@
     </div>
     <template #left>
       <Preview
-        class="circle"
+        style="margin-top: 45px"
         :img="imgUrl"
         :name="name"
         width="350px"
         color="#333"
-        bg-color="linear-gradient(to top, #c3b7a9, transparent)"
+        bg-color="linear-gradient(to top, #bcb2a2, #cac2b7, transparent)"
+        font-size="40px"
         title="切换为游戏角色"
         circle
         @click="changeTOGameCharacter"
@@ -232,6 +233,10 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
     margin 10px 80px !important
     max-height unset !important
 
+  :deep(.img_circle)
+    &:hover
+      filter brightness(1.05)
+
 .list
   display flex
   flex-wrap wrap
@@ -242,13 +247,18 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
   padding-bottom 60px
   user-select none
 
-  .avatar
-    position relative
+  .avatar, .add
     box-sizing border-box
     width 190px
     height 190px
     border-radius 50%
-    margin 50px 30px 10px 10px
+    margin 40px 30px 10px 10px
+
+    &:hover
+      filter brightness(1.05)
+
+  .avatar
+    position relative
     background #c3b7a9
     cursor pointer
 
@@ -279,11 +289,6 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
     display flex
     align-items center
     justify-content center
-    box-sizing border-box
-    width 190px
-    height 190px
-    border-radius 50%
-    margin 50px 30px 10px 10px
     border 8px solid #afafaf
     cursor pointer
 

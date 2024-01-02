@@ -3,8 +3,8 @@
     style="z-index: 999"
     confirm
     :title="confirmData.title"
-    width="50%"
     :show="popup.confirm"
+    min-width="50%"
   >
     <div class="text">
       <div
@@ -79,7 +79,7 @@ popupCallbalk.confirm = onConfirml
 .text
   text-align center
   font-size 50px
-  margin 50px auto 80px auto
+  margin 100px 300px
 
 .tip
   text-align center

@@ -92,6 +92,7 @@
 import { autoPlaySetting, setting } from '@/store/setting'
 import Icon from '../Common/Icon.vue'
 import { getAvatar } from './Message'
+import { bubbles } from '@/assets/data/bubbles'
 
 defineProps<{
   item: Message
@@ -110,15 +111,10 @@ const getBubbles = (key: string) => {
   const classList: string[] = []
   if (key === '开拓者') {
     classList.push('right')
-    switch (setting.bubbles) {
-      case 1:
-        classList.push('bubbles-1')
-        break
-      case 2:
-        classList.push('bubbles-2')
-        break
-      default:
-        classList.push('bubbles-0')
+    if (setting.bubbles > 0 && setting.bubbles <= bubbles.length - 1) {
+      classList.push(`bubbles-${setting.bubbles}`)
+    } else {
+      classList.push('bubbles-0')
     }
   }
   return classList
@@ -142,6 +138,7 @@ const updateMessage = (e: Event) => {
 
 <style lang="stylus" scoped>
 @import './Message.styl'
+@import './BubblesImage.styl'
 
 $del-pos = -100px
 
@@ -286,18 +283,70 @@ $del-pos = -100px
   .message-item
     align-items flex-end
 
+    .text-box
+      .text
+        border-radius 25px 0 25px 25px
+        box-shadow 2px 4px #9d9f9f
+
   .del
     left $del-pos
     right unset !important
 
 .bubbles-0
-  bubbles-0()
+  .text-box
+    .text
+      background #d3bb8b !important
+
+bubbles()
+  .text-box
+    margin 30px 40px !important
+    border 1px solid transparent
+    border-image-repeat stretch
+
+    .text
+      background none !important
+      border-radius 0 !important
+      box-shadow none !important
+      padding 5px !important
 
 .bubbles-1
-  bubbles-1()
+  bubbles()
+
+  .text-box
+    border-image-source $bubbles-1
+    border-image-slice 70 85 45 110 fill
+    border-image-width 70px 85px 45px 110px
+    border-image-outset 35px 60px 25px 65px
+
+    .text
+      margin 30px 0 15px 15px !important
+      color #fffafb !important
 
 .bubbles-2
-  bubbles-2()
+  bubbles()
+
+  .text-box
+    border-image-source $bubbles-2
+    border-image-slice 75 85 60 110 fill
+    border-image-width 75px 85px 60px 110px
+    border-image-outset 25px 60px 10px 65px
+
+    .text
+      margin 35px 0 15px 15px !important
+      color #fffafb !important
+
+.bubbles-3
+  bubbles()
+
+  .text-box
+    border-image-source $bubbles-3
+    border-image-slice 86 100 86 100 fill
+    border-image-width 86px 100px 86px 100px
+    border-image-outset 25px 55px 10px 60px
+
+    .text
+      margin 10px 0 20px -5px !important
+      color #fffafb !important
 
 .avatar-enter-active
   animation avatar 0.5s ease

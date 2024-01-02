@@ -45,8 +45,8 @@ defineProps<{
   display flex
   justify-content center
   align-items center
-  background rgba(240, 240, 240, 0.8)
-  height 90px
+  background rgba(255, 255, 255, 0.85)
+  height 95px
   padding 10px 120px
   margin 0 40px
   border-radius 50px

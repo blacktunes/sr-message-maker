@@ -3,11 +3,16 @@
     <Transition name="fade">
       <div
         class="bg"
-        :style="{ background: isGreenScreen ? 'green' : '' }"
         v-show="setting.preview"
       >
+        <Transition name="fade">
+          <div
+            class="green"
+            v-show="isGreenScreen"
+          ></div>
+        </Transition>
         <div
-          class="green"
+          class="green-btn"
           title="切换背景"
           @click.stop="toggleGreenScreen"
           :class="{ highlight: isGreenScreen }"
@@ -17,7 +22,7 @@
       </div>
     </Transition>
     <Transition
-      name="preview"
+      :name="isGreenScreen ? 'preview-delay' : 'preview'"
       appear
     >
       <MessageBox
@@ -117,6 +122,7 @@ let timer: number
 emitter.on('autoplay', () => {
   if (autoPlaySetting.flag) return
 
+  isGreenScreen.value = JSON.parse(localStorage.getItem('sr-message-screen') || 'false')
   setting.preview = true
   reset()
   autoPlaySetting.flag = true
@@ -245,6 +251,7 @@ emitter.on('screenshot', () => {
   if (setting.loading) return
   reset()
 
+  isGreenScreen.value = false
   setting.preview = true
   setting.loading = true
   nextTick(async () => {
@@ -279,7 +286,17 @@ const toggleGreenScreen = () => {
 
   .green
     position absolute
-    right 10px
+    top 50%
+    left 50%
+    width 95%
+    height 95%
+    background-color green
+    transform translate(-50%, -50%)
+    transition 0.2s
+
+  .green-btn
+    position absolute
+    right 80px
     bottom -75px
     border-radius 15px
     display flex
@@ -289,6 +306,17 @@ const toggleGreenScreen = () => {
     user-select none
     background #666
     transition background 0.2s
+
+    &:hover
+      &:before
+        content ''
+        position absolute
+        top -10px
+        right -10px
+        bottom -10px
+        left -10px
+        border 5px solid #666
+        border-radius 10px
 
   .highlight
     background none
@@ -342,7 +370,11 @@ const toggleGreenScreen = () => {
 .preview-enter-active
   transition all 0.3s
 
-.preview-enter-from
+.preview-delay-enter-active
+  transition all 0.3s
+  transition-delay 0.5s
+
+.preview-enter-from, .preview-delay-enter-from
   opacity 0
   transform scaleY(0)
 </style>

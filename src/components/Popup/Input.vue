@@ -90,7 +90,7 @@ popupCallbalk.input = onConfirmlClick
   display flex
   justify-content center
   align-items center
-  margin 40px 110px
+  margin 80px 110px
 
   input
     box-sizing border-box

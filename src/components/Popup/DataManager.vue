@@ -377,6 +377,7 @@ const reserDatabase = () => {
 <style lang="stylus" scoped>
 .data
   width 1000px
+  margin 40px 0
 
   .info
     font-size 36px

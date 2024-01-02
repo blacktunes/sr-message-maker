@@ -85,6 +85,7 @@ import image_0 from '@/assets/images/mission/同行任务.webp'
 import image_1 from '@/assets/images/mission/冒险任务.webp'
 import image_2 from '@/assets/images/mission/开拓任务.webp'
 import image_3 from '@/assets/images/mission/日常任务.webp'
+import image_4 from '@/assets/images/mission/开拓续闻.webp'
 import { getAssets } from '@/assets/scripts/preload'
 
 const props = defineProps<{
@@ -113,12 +114,13 @@ const backgroundUrl = computed(() => {
   if (props.mission?.type === 1) return `url(${getAssets(image_1).value})`
   if (props.mission?.type === 2) return `url(${getAssets(image_2).value})`
   if (props.mission?.type === 3) return `url(${getAssets(image_3).value})`
+  if (props.mission?.type === 4) return `url(${getAssets(image_4).value})`
   return `url(${getAssets(image_0).value})`
 })
 
 const handelTypeClick = (type: number) => {
   type += 1
-  if (type > 3) type = 0
+  if (type > 4) type = 0
 
   const data: Mission = {
     type: type as 0,
@@ -230,18 +232,17 @@ const blur = (e: KeyboardEvent) => {
         opacity 1
 
 .mission-0
-  :deep(path)
-    fill #b886ed
+  color #b886ed
 
 .mission-1
-  :deep(path)
-    fill #54a9be
+  color #54a9be
 
 .mission-2
-  :deep(path)
-    fill #f4b334
+  color #f4b334
 
 .mission-3
-  :deep(path)
-    fill #b6d671
+  color #b6d671
+
+.mission-4
+  color #e68321
 </style>

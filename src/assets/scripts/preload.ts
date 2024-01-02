@@ -2,7 +2,9 @@ import { character } from '@/store/character'
 import { reactive, toRef } from 'vue'
 import { compressImage } from './image'
 import { emoticon } from '../data/emoticon'
+import { bubbles } from '../data/bubbles'
 
+export const progress = reactive([0, 0])
 export const assets: { [name: string]: string } = reactive({})
 
 export const getAssets = (url: string, base64?: boolean) => {
@@ -17,15 +19,20 @@ export const getAssets = (url: string, base64?: boolean) => {
 
 const getCache = (url: string, base64?: boolean) => {
   return new Promise<string>((resolve) => {
-    fetch(url).then((res) =>
-      res.blob().then(async (blob) => {
-        if (base64) {
-          resolve(await compressImage(blob))
-        } else {
-          resolve(URL.createObjectURL(blob))
-        }
-      })
-    )
+    if (url) {
+      progress[0] += 1
+
+      fetch(url).then((res) =>
+        res.blob().then(async (blob) => {
+          if (base64) {
+            resolve(await compressImage(blob))
+          } else {
+            resolve(URL.createObjectURL(blob))
+          }
+          progress[1] += 1
+        })
+      )
+    }
   })
 }
 
@@ -33,23 +40,42 @@ const setCache = (url: string, data: string) => {
   assets[url] = data
 }
 
-const characterPreload = async () => {
-  for (const i in character.avatar) {
-    character.avatar[i].avatar = await getCache(character.avatar[i].avatar)
-  }
+const characterPreload = () => {
   for (const i in character.game) {
-    character.game[i].avatar = await getCache(character.game[i].avatar, true)
+    getCache(character.game[i].avatar, true).then((res) => {
+      character.game[i].avatar = res
+    })
   }
   for (const i in character.other) {
-    character.other[i].avatar = await getCache(character.other[i].avatar, true)
+    getCache(character.other[i].avatar, true).then((res) => {
+      character.other[i].avatar = res
+    })
+  }
+  for (const i in character.avatar) {
+    getCache(character.avatar[i].avatar).then((res) => {
+      character.avatar[i].avatar = res
+    })
   }
 }
 
-const emoticonPreload = async () => {
+const emoticonPreload = () => {
   for (const i in emoticon) {
-    for (const j in emoticon[i]) {
-      emoticon[i][j].url = await getCache(emoticon[i][j].url, true)
+    for (const j in emoticon[i].list) {
+      getCache(emoticon[i].list[j].url, true).then((res) => {
+        emoticon[i].list[j].url = res
+      })
     }
+  }
+}
+
+const bubblesPreload = () => {
+  for (const i in bubbles) {
+    getCache(bubbles[i].img).then((res) => {
+      bubbles[i].img = res
+    })
+    getCache(bubbles[i].preview).then((res) => {
+      bubbles[i].preview = res
+    })
   }
 }
 
@@ -57,7 +83,6 @@ const preload = () => {
   const list = import.meta.glob<string>(
     [
       // 预加载素材
-      '../images/bubbles/*',
       '../images/avatar/*',
       '../images/mission/*'
     ],
@@ -69,12 +94,13 @@ const preload = () => {
 
   characterPreload()
   emoticonPreload()
+  bubblesPreload()
 
   for (const i in list) {
-    getCache(list[i]).then((res) => {
-      setCache(list[i], res)
-    })
+    getAssets(list[i])
   }
+
+  console.log(`正在预加载图片...[${progress[0]}]`)
 }
 
 preload()

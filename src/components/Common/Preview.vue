@@ -33,10 +33,16 @@ withDefaults(
     circle?: boolean
     color?: string
     bgColor?: string
+    fontSize?: string
     onClick?: () => void
     title?: string
   }>(),
-  { width: '300px', color: '#6a6a6a', bgColor: 'linear-gradient(#d5d5d5 10%, #b8b8b8)' }
+  {
+    width: '300px',
+    color: '#6a6a6a',
+    bgColor: 'linear-gradient(#d5d5d5 10%, #b8b8b8)',
+    fontSize: '35px'
+  }
 )
 
 const emit = defineEmits<{
@@ -54,7 +60,7 @@ $border-color = #b9babf
   justify-content center
   width v-bind(width)
   height 100%
-  padding 0 80px 0 150px
+  padding 0 60px 0 150px
   user-select none
 
   .circle
@@ -153,11 +159,12 @@ $border-color = #b9babf
 
     .name
       position absolute
-      bottom -60px
-      font-size 35px
+      bottom -65px
+      font-size v-bind(fontSize)
       font-weight bold
-      margin-top 10px
       color v-bind(color)
+      white-space nowrap
+      text-overflow ellipsis
 
 .img_circle
   border-radius 50%
