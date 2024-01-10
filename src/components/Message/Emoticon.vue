@@ -136,10 +136,13 @@ const handelEmoticonClick = (item: Emoticon) => {
     overflow-y overlay
     overflow-x hidden
     scrollbar-gutter stable
-    scrollbar-width none
+    mask-image linear-gradient(to bottom, transparent, #000 20px, #000, #000 calc(100% - 50px), transparent), linear-gradient(to left, black, transparent 10px)
+    mask-size 100% 100%
+    mask-position 0 0, 100% 0
+    mask-repeat no-repeat, no-repeat
 
     &::-webkit-scrollbar-track
-      margin 0
+      margin 15px 0
 
     .item
       display flex
@@ -185,8 +188,7 @@ const handelEmoticonClick = (item: Emoticon) => {
     overflow-y hidden
     overflow-x auto
     scrollbar-width none
-    box-shadow 0px -20px 25px 20px rgba(255, 255, 255, 0.95)
-    background #fff
+    padding-top 20px
 
     &::-webkit-scrollbar
       height 0

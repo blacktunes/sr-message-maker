@@ -237,14 +237,18 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
     &:hover
       filter brightness(1.05)
 
+  :deep(.content)
+    mask-image linear-gradient(to bottom, #000 calc(100% - 60px), transparent), linear-gradient(to left, black, transparent 50px) !important
+
 .list
+  $border-width = 4px
   display flex
   flex-wrap wrap
   justify-content flex-start
   overflow-x hidden
   height 500px
   width 1200px
-  padding-bottom 60px
+  padding-bottom 20px
   user-select none
 
   .avatar, .add
@@ -252,14 +256,17 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
     width 190px
     height 190px
     border-radius 50%
-    margin 40px 30px 10px 10px
+    margin 40px 25px 10px 15px
+    border $border-width solid transparent
 
     &:hover
       filter brightness(1.05)
 
   .avatar
+    display flex
+    align-items center
+    justify-content center
     position relative
-    background #c3b7a9
     cursor pointer
 
     &:hover
@@ -267,11 +274,11 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
         opacity 1
 
     img
-      width 100%
-      height 100%
+      width 190px - $border-width * 2
+      height 190px - $border-width * 2
       object-fit contain
       border-radius 50%
-      clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
+      background #c3b7a9
       user-select none
       pointer-events none
 
@@ -294,14 +301,18 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
 
 .highlight
   cursor auto !important
+  border-color #fff !important
+
+  &:hover
+    filter none !important
 
   &:after
     content ''
     position absolute
     left 50%
     bottom 50%
-    height 120%
-    width 120%
+    height 130%
+    width 130%
     border-radius 50%
     transform translate(-50%, 50%)
     background v-bind(border)
@@ -309,29 +320,30 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
     animation highlight-rotate 30s linear infinite
 
   &:before
+    z-index 1
     content ''
     position absolute
     left 50%
-    top -70px
-    height 30%
-    width 25%
+    top -60px
+    height 45px
+    width 40px
     transform translate(-50%, 50%)
     background v-bind(icon)
     background-size 100%
     background-repeat no-repeat
-    animation highlight-icon 0.5s linear alternate infinite
+    animation highlight-icon 0.8s linear alternate infinite
 
 @keyframes highlight-rotate
   from
     transform translate(-50%, 50%) rotate(0deg)
 
   to
-    transform translate(-50%, 50%) rotate(-360deg)
+    transform translate(-50%, 50%) rotate(360deg)
 
 @keyframes highlight-icon
   from
-    top -70px
+    transform translate(-50%, 50%)
 
   to
-    top -75px
+    transform translate(-50%, 50% + 20px)
 </style>

@@ -84,7 +84,7 @@ defineProps<{
     .avatar
       img
         width 100%
-        height calc(700px - 50px)
+        height 700px - 50px
         user-select none
         pointer-events none
 
