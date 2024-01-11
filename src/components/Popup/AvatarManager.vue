@@ -246,9 +246,9 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
   flex-wrap wrap
   justify-content flex-start
   overflow-x hidden
-  height 500px
+  height 520px
   width 1200px
-  padding-bottom 20px
+  padding-bottom 40px
   user-select none
 
   .avatar, .add
@@ -256,7 +256,7 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
     width 190px
     height 190px
     border-radius 50%
-    margin 40px 25px 10px 15px
+    margin 30px 25px 5px 15px
     border $border-width solid transparent
 
     &:hover
@@ -306,7 +306,7 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
   &:hover
     filter none !important
 
-  &:after
+  &:before
     content ''
     position absolute
     left 50%
@@ -318,16 +318,16 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
     background v-bind(border)
     background-size 100%
     animation highlight-rotate 30s linear infinite
+    pointer-events none
 
-  &:before
-    z-index 1
+  &:after
     content ''
     position absolute
     left 50%
     top -60px
     height 45px
     width 40px
-    transform translate(-50%, 50%)
+    transform translate(-50%, 55%)
     background v-bind(icon)
     background-size 100%
     background-repeat no-repeat
@@ -342,8 +342,8 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
 
 @keyframes highlight-icon
   from
-    transform translate(-50%, 50%)
+    transform translate(-50%, 55%)
 
   to
-    transform translate(-50%, 50% + 20px)
+    transform translate(-50%, 75%)
 </style>
