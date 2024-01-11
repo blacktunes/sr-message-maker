@@ -17,7 +17,7 @@
         <div class="btn-list">
           <div
             class="btn"
-            @click="addNewMessage"
+            @click="handelMessageClick"
           >
             <div class="icon">
               <Icon
@@ -117,6 +117,14 @@ const list = computed(() => {
 
   return temp
 })
+
+const handelMessageClick = () => {
+  addNewMessage(
+    list.value.some((i) => i.list.some((j) => j.title === setting.select))
+      ? setting.select
+      : undefined
+  )
+}
 
 const handelScreenshotClick = () => {
   if (setting.preview) return

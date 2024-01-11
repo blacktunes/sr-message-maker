@@ -8,15 +8,16 @@ export const message = reactive<{
   list: []
 })
 
-export const addNewMessage = () => {
+export const addNewMessage = (title?: string) => {
   const time = Date.now()
   message.list.unshift({
     id: time,
+    title,
     time,
     list: []
   })
   setting.index = time
-  setting.select = '未命名短信'
+  setting.select = title || '未命名短信'
 }
 
 const setWatch = () => {
