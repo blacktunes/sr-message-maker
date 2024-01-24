@@ -10,7 +10,7 @@
         <div style="margin-top: 20px">短信数量: {{ message.list.length }}{{ messageUsage }}</div>
         <div>消息数量: {{ messageNum }}</div>
         <div>自定义角色数量: {{ Object.keys(character.custom).length }}{{ characterUsage }}</div>
-        <div>自定义头像数量: {{ character.customAvatar.length }}{{ customAvatarUsage }}</div>
+        <div>自定义头像数量: {{ avatar.custom.length }}{{ customAvatarUsage }}</div>
       </div>
       <div class="box">
         <Btn
@@ -75,6 +75,7 @@ import { setting } from '@/store/setting'
 import { character } from '@/store/character'
 import { messageIndex } from '@/components/Message/Message'
 import { zhLocale, setLocale, Parameter } from '@ckpack/parameter'
+import { avatar } from '@/store/avatar'
 
 function countStrToSize(str: string) {
   let count = 0
@@ -111,7 +112,7 @@ const updateCharacterUsage = () => {
 }
 
 const updateCustomAvatarUsage = () => {
-  customAvatarUsage.value = ` (${countStrToSize(JSON.stringify(character.customAvatar))})`
+  customAvatarUsage.value = ` (${countStrToSize(JSON.stringify(avatar.custom))})`
 }
 
 watch(

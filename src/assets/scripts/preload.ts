@@ -3,6 +3,7 @@ import { reactive, toRef } from 'vue'
 import { compressImage } from './image'
 import { emoticon } from '../data/emoticon'
 import { bubbles } from '../data/bubbles'
+import { avatar } from '@/store/avatar'
 
 export const progress = reactive([0, 0])
 export const assets: { [name: string]: string } = reactive({})
@@ -53,9 +54,9 @@ const characterPreload = () => {
       character.other[i].avatar = res
     })
   }
-  for (const i in character.avatar) {
-    getCache(character.avatar[i].avatar).then((res) => {
-      character.avatar[i].avatar = res
+  for (const i in avatar.game) {
+    getCache(avatar.game[i].avatar).then((res) => {
+      avatar.game[i].avatar = res
     })
   }
 }

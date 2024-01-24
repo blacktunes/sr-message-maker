@@ -60,7 +60,7 @@ const loadOldDB = () => {
 
               db.transaction('data', 'readonly').objectStore('data').get(1).onsuccess = (e) => {
                 const data = (e.target as IDBRequest).result?.data
-                character.customAvatar = data || []
+                avatar.custom = data || []
                 if (++flag === 2) resolve()
               }
             } else {

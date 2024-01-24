@@ -11,7 +11,7 @@
     >
       <div
         class="avatar"
-        v-for="(item, key) in character.avatar"
+        v-for="(item, key) in avatar.game"
         :key="key"
         :class="{ highlight: avatarData.index === key }"
         @click="onAvatarClick(key)"
@@ -23,7 +23,7 @@
       </div>
       <div
         class="avatar"
-        v-for="(url, key) in character.customAvatar"
+        v-for="(url, key) in avatar.custom"
         :key="key"
         :class="{ highlight: avatarData.index === key }"
         @click="avatarData.index = key"
@@ -100,6 +100,7 @@ import { input } from '@/store/input'
 import { character } from '@/store/character'
 import { getAssets } from '@/assets/scripts/preload'
 import { compressImage } from '@/assets/scripts/image'
+import { avatar } from '@/store/avatar'
 
 const listDom = ref<HTMLElement | null>(null)
 
@@ -109,11 +110,11 @@ watch(
     if (popup.avatar) {
       if (
         (typeof setting.avatar === 'string' &&
-          !character.avatar[setting.avatar] &&
+          !avatar.game[setting.avatar] &&
           !character.game[setting.avatar] &&
           !character.other[setting.avatar] &&
           !character.custom[setting.avatar]) ||
-        (typeof setting.avatar === 'number' && !character.customAvatar[setting.avatar])
+        (typeof setting.avatar === 'number' && !avatar.custom[setting.avatar])
       ) {
         setAvatar()
       }
@@ -137,8 +138,8 @@ watch(
 
 const imgUrl = computed(() => {
   if (typeof avatarData.index === 'string') {
-    if (character.avatar[avatarData.index]) {
-      return character.avatar[avatarData.index].avatar
+    if (avatar.game[avatarData.index]) {
+      return avatar.game[avatarData.index].avatar
     }
     if (character.game[avatarData.index]) {
       return character.game[avatarData.index].avatar
@@ -151,7 +152,7 @@ const imgUrl = computed(() => {
     }
   }
   if (typeof avatarData.index === 'number') {
-    return character.customAvatar[avatarData.index]
+    return avatar.custom[avatarData.index]
   }
   return ''
 })
@@ -161,7 +162,7 @@ const handelDelClick = (key: number) => {
     title: '删除头像',
     text: ['是否删除该头像'],
     fn: () => {
-      character.customAvatar.splice(key, 1)
+      avatar.custom.splice(key, 1)
       if (key === setting.avatar) {
         avatarData.index = DEFAULT_AVATAR
         setAvatar(avatarData.index)
@@ -178,11 +179,11 @@ const addCustom = () => {
   el.accept = 'image/*'
   el.onchange = async () => {
     if (el.files?.[0]) {
-      const avatar = await compressImage(el.files[0])
+      const img = await compressImage(el.files[0])
       cropperOpen(
-        avatar,
+        img,
         (res) => {
-          character.customAvatar.push(res)
+          avatar.custom.push(res)
         },
         {
           aspectRatio: 1,

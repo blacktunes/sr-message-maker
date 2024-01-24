@@ -118,7 +118,8 @@
 <script lang="ts" setup>
 import { onMounted, ref, watch } from 'vue'
 import { getCharaterAvatar } from '@/assets/scripts/avatar'
-import { character, userData } from '@/store/character'
+import { character } from '@/store/character'
+import { userData } from '@/store/avatar'
 import { input } from '@/store/input'
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'

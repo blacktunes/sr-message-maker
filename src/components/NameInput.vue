@@ -24,7 +24,7 @@
 
 <script lang="ts" setup>
 import { setName, setting } from '@/store/setting'
-import { userData } from '@/store/character'
+import { userData } from '@/store/avatar'
 import { openWindow, showInput } from '@/store/popup'
 
 const handelNameClick = async () => {

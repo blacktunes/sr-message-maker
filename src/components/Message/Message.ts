@@ -1,5 +1,6 @@
 import { getNames, getTitle } from '@/assets/scripts/header'
-import { character, userData } from '@/store/character'
+import { character } from '@/store/character'
+import { userData } from '@/store/avatar'
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
 import { computed, nextTick } from 'vue'
