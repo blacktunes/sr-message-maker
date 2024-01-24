@@ -23,9 +23,11 @@ const getCache = (url: string, base64?: boolean) => {
       progress[0] += 1
 
       fetch(url).then((res) =>
-        res.blob().then(async (blob) => {
+        res.blob().then((blob) => {
           if (base64) {
-            resolve(await compressImage(blob))
+            compressImage(blob).then((img) => {
+              resolve(img)
+            })
           } else {
             resolve(URL.createObjectURL(blob))
           }
@@ -79,7 +81,7 @@ const bubblesPreload = () => {
   }
 }
 
-const preload = () => {
+const preload = async () => {
   const list = import.meta.glob<string>(
     [
       // 预加载素材

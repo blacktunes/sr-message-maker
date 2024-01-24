@@ -1,7 +1,7 @@
 import avatar from '@/assets/images/avatar/穹_毁灭.webp'
 import card from '@/assets/images/avatar/星_毁灭_card.webp'
 
-export const user: { [name: string]: UserAvatar } = {
+export const gameAvatar: { [name: string]: UserAvatar } = {
   无: {
     avatar: 'https://patchwiki.biligame.com/images/sr/a/a8/1qtsu8eokug9uhap13026hk2yvdk8zb.png'
   },

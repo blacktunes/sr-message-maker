@@ -1,8 +1,7 @@
-import { gameCharacter, otherCharacter, user } from '@/assets/data/gameData'
-import { setLoadingType } from '@/assets/scripts/setup'
-import { computed, nextTick, reactive, toRaw, watch } from 'vue'
-import { setting } from './setting'
+import { gameCharacter, otherCharacter, gameAvatar } from '@/assets/data/gameData'
 import defaultAvatar from '@/assets/images/avatar/私聊.webp'
+import { computed, reactive } from 'vue'
+import { setting } from './setting'
 
 const character = reactive<{
   game: { [name: string]: Character }
@@ -14,7 +13,7 @@ const character = reactive<{
   game: gameCharacter,
   other: otherCharacter,
   custom: {},
-  avatar: user,
+  avatar: gameAvatar,
   customAvatar: []
 })
 
@@ -53,91 +52,5 @@ const userData = computed(() => {
     card: character.avatar[DEFAULT_AVATAR].card
   }
 })
-
-const setCustomWatch = () => {
-  setLoadingType('character')
-  watch(character.custom, () => {
-    nextTick(() => {
-      updateDB(0, toRaw(character.custom))
-    })
-  })
-}
-
-const setAvatarWatch = () => {
-  setLoadingType('avatar')
-  watch(character.customAvatar, () => {
-    nextTick(() => {
-      updateDB(1, toRaw(character.customAvatar))
-    })
-  })
-}
-
-// https://github.com/blacktunes/sr-light-cone/blob/master/src/assets/scripts/indexedDB.ts
-let hasDB = true
-let db: IDBDatabase
-
-interface UpdateDB {
-  (id: 0, data: { [name: string]: CustomCharacter }): void
-  (id: 1, data: string[]): void
-}
-
-export const updateDB: UpdateDB = (id, data) => {
-  db.transaction('data', 'readwrite').objectStore('data').put({
-    id,
-    data
-  })
-}
-
-export const getDB = () => {
-  console.log('正在加载自定义角色/头像数据库...')
-  const _db = window.indexedDB.open('sr-custom')
-  _db.onsuccess = (event) => {
-    db = (event.target as IDBOpenDBRequest).result
-    if (hasDB) {
-      db.transaction('data', 'readonly').objectStore('data').get(0).onsuccess = (e) => {
-        try {
-          const data = (e.target as IDBRequest).result?.data
-          if (typeof data === 'string') {
-            character.custom = JSON.parse(data)
-          } else {
-            character.custom = data || {}
-          }
-        } finally {
-          setCustomWatch()
-        }
-      }
-
-      db.transaction('data', 'readonly').objectStore('data').get(1).onsuccess = (e) => {
-        try {
-          const data = (e.target as IDBRequest).result?.data
-          character.customAvatar = data || []
-        } finally {
-          setAvatarWatch()
-        }
-      }
-    } else {
-      updateDB(0, toRaw(character.custom))
-      updateDB(1, toRaw(character.customAvatar))
-      setCustomWatch()
-      setAvatarWatch()
-    }
-  }
-
-  _db.onupgradeneeded = (event) => {
-    db = (event.target as IDBOpenDBRequest).result
-    if (!db.objectStoreNames.contains('data')) {
-      hasDB = false
-      db.createObjectStore('data', { keyPath: 'id' })
-    }
-  }
-}
-
-try {
-  getDB()
-} catch (err) {
-  console.error(err)
-  setLoadingType('character', true)
-  setLoadingType('avatar', true)
-}
 
 export { character, userData }
