@@ -1,4 +1,5 @@
 import Avatar from '@/components/Popup/Avatar/Avatar.vue'
+import ChangeLogVue from '@/components/Popup/ChangeLog.vue'
 import { inputClose, inputOpen } from '@/components/Popup/Input'
 import InputVue from '@/components/Popup/Input/Input.vue'
 import SettingVue from '@/components/Popup/Setting.vue'
@@ -7,7 +8,8 @@ import { computed, markRaw, reactive, ref, type Component, type ComputedRef } fr
 const components = {
   setting: SettingVue,
   input: InputVue,
-  avatar: Avatar
+  avatar: Avatar,
+  log: ChangeLogVue
 }
 
 const callbacks = {

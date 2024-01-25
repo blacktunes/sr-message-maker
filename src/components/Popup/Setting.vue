@@ -31,7 +31,7 @@
           <div
             class="setting-btn"
             title="字体设置"
-            @click.stop="openWindow('font')"
+            @click.stop="open('font')"
           >
             <Icon
               name="font"
@@ -42,7 +42,7 @@
           <div
             class="setting-btn"
             title="数据管理"
-            @click.stop="openWindow('data')"
+            @click.stop="open('data')"
           >
             <Icon name="data" />
           </div>
@@ -81,8 +81,8 @@ import Icon from '@/components/Common/Icon.vue'
 import Preview from '@/components/Common/Preview.vue'
 import { watch, ref, computed } from 'vue'
 import { setting } from '@/store/setting'
-import { openWindow } from '@/store/popup'
-import { enterCallback } from '@/assets/scripts/popup'
+import { openWindow as open } from '@/store/popup'
+import { enterCallback, openWindow } from '@/assets/scripts/popup'
 import { bubbles } from '@/assets/data/bubbles'
 
 const props = defineProps<{

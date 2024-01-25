@@ -3,7 +3,9 @@ import { character } from '@/store/character'
 import { message } from '@/store/message'
 import { showConfirm } from '@/store/popup'
 import { setting } from '@/store/setting'
+import log from '../data/log'
 import { IndexedDB } from './indexedDB'
+import { openWindow } from './popup'
 
 // 旧数据库兼容
 const loadOldDB = () => {
@@ -123,3 +125,12 @@ loadOldDB().finally(() => {
       })
     })
 })
+
+const lastUpdate = new Date(log[0].time).getTime()
+const localLastUpdate = Number(localStorage.getItem('sr-message-time'))
+if (lastUpdate) {
+  if (lastUpdate > localLastUpdate) {
+    openWindow('log')
+    localStorage.setItem('sr-message-time', JSON.stringify(lastUpdate))
+  }
+}

@@ -1,80 +1,73 @@
 <template>
-  <window
-    title="更新记录"
-    width="40%"
-    height="90%"
-    :show="popup.log"
-    @close="popup.log = false"
-  >
-    <div
-      class="item"
-      :class="{
-        highlight: index === 0
-      }"
-      v-for="(item, index) in changeLog"
-      :key="`time-${index}`"
+  <Popup :index="props.index">
+    <window
+      title="更新记录"
+      width="40%"
+      height="90%"
+      @close="close"
     >
-      <div class="time">{{ item.time }}</div>
-      <ul>
-        <li
-          class="text"
-          v-for="(text, key) in item.text"
-          :key="`text-${index}-${key}`"
-        >
-          {{ text.text }}
-          <template v-if="text.author">
-            <a
-              target="_blank"
-              :href="text.url"
-            >
-              @{{ text.author }}
-            </a>
-          </template>
-          <template v-if="text.info">
-            <template v-if="Array.isArray(text.info)">
-              <div
-                v-for="(info, infoKey) in text.info"
-                :key="infoKey"
-                class="info"
+      <div
+        class="item"
+        :class="{
+          highlight: index === 0
+        }"
+        v-for="(item, index) in log"
+        :key="`time-${index}`"
+      >
+        <div class="time">{{ item.time }}</div>
+        <ul>
+          <li
+            class="text"
+            v-for="(text, key) in item.text"
+            :key="`text-${index}-${key}`"
+          >
+            {{ text.text }}
+            <template v-if="text.author">
+              <a
+                target="_blank"
+                :href="text.url"
               >
-                {{ info }}
-              </div>
+                @{{ text.author }}
+              </a>
             </template>
-            <template v-else>
-              <div class="info">{{ text.info }}</div>
+            <template v-if="text.info">
+              <template v-if="Array.isArray(text.info)">
+                <div
+                  v-for="(info, infoKey) in text.info"
+                  :key="infoKey"
+                  class="info"
+                >
+                  {{ info }}
+                </div>
+              </template>
+              <template v-else>
+                <div class="info">{{ text.info }}</div>
+              </template>
             </template>
-          </template>
-        </li>
-      </ul>
-    </div>
-  </window>
+          </li>
+        </ul>
+      </div>
+    </window>
+  </Popup>
 </template>
 
 <script lang="ts" setup>
+import Popup from '../Common/Popup.vue'
 import Window from '@/components/Common/Window.vue'
-import { openWindow, popup } from '@/store/popup'
-import log from '@/assets/data/log.json'
+import log from '@/assets/data/log'
 
-const changeLog: {
-  time: string
-  text: {
-    text: string
-    info?: string | string[]
-    author?: string
-    url?: string
-  }[]
-}[] = log
+const props = defineProps<{
+  name: string
+  index: number
+}>()
 
-const checkUpdate = () => {
-  const lastUpdate = new Date(changeLog[0].time).getTime()
-  const localLastUpdate = Number(localStorage.getItem('sr-message-time'))
-  if (lastUpdate) {
-    if (lastUpdate <= localLastUpdate) return
-  }
-  openWindow('log')
-  localStorage.setItem('sr-message-time', JSON.stringify(lastUpdate))
+const emits = defineEmits<{
+  (event: 'close', name: string): void
+}>()
+
+const close = () => {
+  emits('close', props.name)
 }
-checkUpdate()
 </script>
 
 <style lang="stylus" scoped>
