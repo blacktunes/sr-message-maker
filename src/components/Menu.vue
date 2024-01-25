@@ -69,14 +69,14 @@
 </template>
 
 <script lang="ts" setup>
-import { emitter } from '@/assets/scripts/event'
-import { addNewMessage, message } from '@/store/message'
-import { setting } from '@/store/setting'
-import { computed } from 'vue'
 import Icon from './Common/Icon.vue'
 import MessageGroup from './Menu/MessageGroup.vue'
+import { setting } from '@/store/setting'
+import { addNewMessage, message } from '@/store/message'
+import { emitter } from '@/assets/scripts/event'
 import { getNames, getTitle } from '@/assets/scripts/header'
-import { openWindow } from '@/store/popup'
+import { openWindow } from '@/assets/scripts/popup'
+import { computed } from 'vue'
 
 interface MenuItem {
   time: number

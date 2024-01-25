@@ -1,89 +1,105 @@
 <template>
-  <Window
-    style="z-index: 90"
-    :show="popup.setting"
-    title="更换对话框"
-  >
-    <div class="select">
-      <div
-        class="item"
-        v-for="(item, key) in bubbles"
-        :key="key"
-        :class="{ highlight: index === key }"
-        @click="index = key"
-      >
-        <img
-          :src="item.img"
-          :alt="item.name"
+  <Transition name="fade">
+    <Window
+      v-if="props.index !== -1"
+      :style="{ zIndex: 10 + index }"
+      title="更换对话框"
+    >
+      <div class="select">
+        <div
+          class="item"
+          v-for="(item, key) in bubbles"
+          :key="key"
+          :class="{ highlight: index === key }"
+          @click="index = key"
+        >
+          <img
+            :src="item.img"
+            :alt="item.name"
+          />
+        </div>
+      </div>
+      <template #outside>
+        <div class="other-setting">
+          <div
+            class="setting-btn"
+            title="更新记录"
+            @click.stop="openWindow('log')"
+          >
+            <Icon
+              name="log"
+              width="50"
+              height="50"
+            />
+          </div>
+          <div
+            class="setting-btn"
+            title="字体设置"
+            @click.stop="openWindow('font')"
+          >
+            <Icon
+              name="font"
+              width="60"
+              height="60"
+            />
+          </div>
+          <div
+            class="setting-btn"
+            title="数据管理"
+            @click.stop="openWindow('data')"
+          >
+            <Icon name="data" />
+          </div>
+        </div>
+      </template>
+      <template #left>
+        <Preview
+          :img="bubbles[index].preview"
+          :name="name"
         />
-      </div>
-    </div>
-    <template #outside>
-      <div class="other-setting">
-        <div
-          class="setting-btn"
-          title="更新记录"
-          @click.stop="openWindow('log')"
-        >
-          <Icon
-            name="log"
-            width="50"
-            height="50"
-          />
-        </div>
-        <div
-          class="setting-btn"
-          title="字体设置"
-          @click.stop="openWindow('font')"
-        >
-          <Icon
-            name="font"
-            width="60"
-            height="60"
-          />
-        </div>
-        <div
-          class="setting-btn"
-          title="数据管理"
-          @click.stop="openWindow('data')"
-        >
-          <Icon name="data" />
-        </div>
-      </div>
-    </template>
-    <template #left>
-      <Preview
-        :img="bubbles[index].preview"
-        :name="name"
-      />
-    </template>
-    <template #footer>
-      <Btn
-        class="win-btn"
-        name="取消"
-        type="wrong"
-        @click="popup.setting = false"
-      />
-      <Btn
-        class="win-btn"
-        name="确认"
-        type="check"
-        :disable="index === setting.bubbles"
-        @click="onBtnClick"
-      />
-    </template>
-  </Window>
+      </template>
+      <template #footer>
+        <Btn
+          class="win-btn"
+          name="取消"
+          type="wrong"
+          @click="close"
+        />
+        <Btn
+          class="win-btn"
+          name="确认"
+          type="check"
+          :disable="index === setting.bubbles"
+          @click="onBtnClick"
+        />
+      </template>
+    </Window>
+  </Transition>
 </template>
 
 <script lang="ts" setup>
 import { watch, ref, computed } from 'vue'
 import { bubbles } from '@/assets/data/bubbles'
 import { setting } from '@/store/setting'
-import { openWindow, popup, popupCallbalk } from '@/store/popup'
+import { openWindow } from '@/store/popup'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
 import Icon from '@/components/Common/Icon.vue'
 import Preview from '@/components/Common/Preview.vue'
+import { enterCallback } from '@/assets/scripts/popup'
+
+const props = defineProps<{
+  name: string
+  index: number
+}>()
+
+const emits = defineEmits<{
+  (event: 'close', name: string): void
+}>()
+
+const close = () => {
+  emits('close', props.name)
+}
 
 const index = ref(0)
 
@@ -97,9 +113,9 @@ const name = computed(() => {
 })
 
 watch(
-  () => popup.setting,
+  () => props.index,
   () => {
-    if (popup.setting) {
+    if (props.index !== -1) {
       index.value = setting.bubbles
     }
   }
@@ -107,13 +123,13 @@ watch(
 
 const onBtnClick = () => {
   if (setting.bubbles === index.value) return false
-  popup.setting = false
+  close()
   setting.bubbles = index.value
   localStorage.setItem('sr-message-bubbles', JSON.stringify(setting.bubbles))
   return true
 }
 
-popupCallbalk.setting = onBtnClick
+enterCallback.setting = onBtnClick
 </script>
 
 <style lang="stylus" scoped>

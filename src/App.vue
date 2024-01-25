@@ -19,6 +19,14 @@
         :key="index"
         :is="item"
       />
+      <Component
+        v-for="(item, key) in popupComponents"
+        :index="item.index"
+        :name="key"
+        :is="item.compontnt"
+        :key="key"
+        @close="closeWindow"
+      />
     </div>
   </div>
   <Tip :show="shouldHorizontal" />
@@ -26,10 +34,10 @@
 </template>
 
 <script lang="ts" setup>
-import { defineComponent, ref } from 'vue'
-import type { Component } from 'vue'
+import { defineComponent, ref, type Component } from 'vue'
 import Tip from './components/Tip.vue'
 import ImageCropper from './components/ImageCropper.vue'
+import { closeWindow, popupComponents } from './assets/scripts/popup'
 
 // 动态加载所有组件
 const components: Component[] = []
@@ -40,7 +48,7 @@ const modules = {
       './components/*.vue',
       '!./components/Tip.vue',
       '!./components/ImageCropper.vue',
-      './components/Popup/*.vue'
+      // './components/Popup/*.vue'
     ],
     {
       eager: true,

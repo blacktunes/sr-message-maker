@@ -11,7 +11,7 @@
     </div>
     <div
       class="avatar"
-      @click.stop="openWindow('avatar')"
+      @click.stop="open('avatar')"
       title="修改头像"
     >
       <img
@@ -25,10 +25,11 @@
 <script lang="ts" setup>
 import { setName, setting } from '@/store/setting'
 import { userData } from '@/store/avatar'
-import { openWindow, showInput } from '@/store/popup'
+import { openWindow } from '@/assets/scripts/popup'
+import { openWindow as open } from '@/store/popup'
 
 const handelNameClick = async () => {
-  const name: string = await showInput({
+  const name: string = await openWindow('input', {
     title: '修改昵称',
     tip: '建议不要使用过长的昵称',
     required: false,
