@@ -1,11 +1,13 @@
-import InputVue from '@/components/Popup/Input/Input.vue'
+import Avatar from '@/components/Popup/Avatar/Avatar.vue'
 import { inputClose, inputOpen } from '@/components/Popup/Input'
-import { computed, markRaw, reactive, ref, type Component, type ComputedRef } from 'vue'
+import InputVue from '@/components/Popup/Input/Input.vue'
 import SettingVue from '@/components/Popup/Setting.vue'
+import { computed, markRaw, reactive, ref, type Component, type ComputedRef } from 'vue'
 
 const components = {
   setting: SettingVue,
-  input: InputVue
+  input: InputVue,
+  avatar: Avatar
 }
 
 const callbacks = {

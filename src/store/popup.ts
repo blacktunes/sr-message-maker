@@ -41,52 +41,6 @@ export const showConfirm = (config: {
   openWindow('confirm')
 }
 
-export const inputData = reactive<{
-  title: string
-  tip?: string
-  required: boolean
-  text: string
-  placeholder?: string
-  fn?: (str: string) => void
-}>({
-  title: '',
-  tip: undefined,
-  required: true,
-  text: '',
-  placeholder: undefined,
-  fn: undefined
-})
-
-export const showInput = (config: {
-  title: string
-  tip?: string
-  required?: boolean
-  defaultText?: string
-  placeholder?: string
-}) => {
-  return new Promise<string>((resolve) => {
-    inputData.title = config.title
-    inputData.tip = config.tip
-    inputData.required = config.required === undefined ? true : config.required
-    if (config.defaultText) {
-      inputData.text = config.defaultText
-    }
-    inputData.placeholder = config.placeholder
-    openWindow('input')
-    inputData.fn = (str: string) => {
-      resolve(str)
-    }
-  })
-}
-
-export const avatarData = reactive<{
-  index: string | number
-  name?: string
-}>({
-  index: 0,
-  name: undefined
-})
-
 export const messageData = reactive<{
   key?: number
 }>({

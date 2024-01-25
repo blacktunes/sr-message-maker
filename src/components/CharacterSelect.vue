@@ -127,8 +127,10 @@ import CharacterCard from './Character/CharacterCard.vue'
 import Icon from './Common/Icon.vue'
 import { compressImage } from '@/assets/scripts/image'
 import { cropperOpen } from '@/store/cropper'
-import { avatarData, showConfirm, showInput } from '@/store/popup'
+import { showConfirm } from '@/store/popup'
 import { emitter } from '@/assets/scripts/event'
+import { openWindow } from '@/assets/scripts/popup'
+import { avatarData } from './Popup/Avatar'
 
 const game = ref<HTMLElement | null>(null)
 const other = ref<HTMLElement | null>(null)
@@ -230,10 +232,14 @@ const handelcharacterClick = (key: string, name: string) => {
 }
 
 const addCustom = async () => {
-  const name: string = await showInput({ title: '请输入角色名' })
+  const name: string = await openWindow('input', { title: '请输入角色名' })
   if (!name) return
 
-  const info = await showInput({ title: '请输入角色签名', tip: '非必要选项', required: false })
+  const info = await openWindow('input', {
+    title: '请输入角色签名',
+    tip: '非必要选项',
+    required: false
+  })
   const key = Date.now()
 
   setTimeout(() => {

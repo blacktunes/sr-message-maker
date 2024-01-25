@@ -99,7 +99,6 @@ const close = () => {
 @import './Window.styl'
 
 .window
-  z-index 99
   display flex
   justify-content center
   align-items center

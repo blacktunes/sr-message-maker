@@ -1,89 +1,90 @@
 <template>
-  <Window
-    class="window"
-    style="z-index: 90"
-    :show="popup.avatar"
-    title="更换头像"
-  >
-    <div
-      class="list"
-      ref="listDom"
+  <Popup :index="props.index">
+    <Window
+      class="window"
+      title="更换头像"
     >
       <div
-        class="avatar"
-        v-for="(item, key) in avatar.game"
-        :key="key"
-        :class="{ highlight: avatarData.index === key }"
-        @click="onAvatarClick(key)"
+        class="list"
+        ref="listDom"
       >
-        <img
-          :src="item.avatar"
-          alt=""
-        />
-      </div>
-      <div
-        class="avatar"
-        v-for="(url, key) in avatar.custom"
-        :key="key"
-        :class="{ highlight: avatarData.index === key }"
-        @click="avatarData.index = key"
-      >
-        <img
-          :src="url"
-          alt=""
-        />
         <div
-          class="del"
-          @click.stop="handelDelClick(key)"
+          class="avatar"
+          v-for="(item, key) in avatar.game"
+          :key="key"
+          :class="{ highlight: avatarData.index === key }"
+          @click="onAvatarClick(key)"
         >
-          <Icon
-            name="delete"
-            width="25"
-            height="25"
+          <img
+            :src="item.avatar"
+            alt=""
           />
         </div>
+        <div
+          class="avatar"
+          v-for="(url, key) in avatar.custom"
+          :key="key"
+          :class="{ highlight: avatarData.index === key }"
+          @click="avatarData.index = key"
+        >
+          <img
+            :src="url"
+            alt=""
+          />
+          <div
+            class="del"
+            @click.stop="handelDelClick(key)"
+          >
+            <Icon
+              name="delete"
+              width="25"
+              height="25"
+            />
+          </div>
+        </div>
+        <div
+          class="add"
+          title="上传头像"
+          @click.stop="addCustom"
+        >
+          <Icon name="add" />
+        </div>
       </div>
-      <div
-        class="add"
-        title="上传头像"
-        @click.stop="addCustom"
-      >
-        <Icon name="add" />
-      </div>
-    </div>
-    <template #left>
-      <Preview
-        style="margin-top: 45px"
-        :img="imgUrl"
-        :name="name"
-        width="350px"
-        color="#333"
-        bg-color="linear-gradient(to top, #bcb2a2, #cac2b7, transparent)"
-        font-size="40px"
-        title="切换为游戏角色"
-        circle
-        @click="changeTOGameCharacter"
-      />
-    </template>
-    <template #footer>
-      <Btn
-        class="win-btn"
-        name="取消"
-        type="wrong"
-        @click="popup.avatar = false"
-      />
-      <Btn
-        class="win-btn"
-        name="确认"
-        type="check"
-        :disable="avatarData.index === setting.avatar"
-        @click="onBtnClick"
-      />
-    </template>
-  </Window>
+      <template #left>
+        <Preview
+          style="margin-top: 45px"
+          :img="imgUrl"
+          :name="name"
+          width="350px"
+          color="#333"
+          bg-color="linear-gradient(to top, #bcb2a2, #cac2b7, transparent)"
+          font-size="40px"
+          title="切换为游戏角色"
+          circle
+          @click="changeTOGameCharacter"
+        />
+      </template>
+      <template #footer>
+        <Btn
+          class="win-btn"
+          name="取消"
+          type="wrong"
+          @click="close"
+        />
+        <Btn
+          class="win-btn"
+          name="确认"
+          type="check"
+          :disable="avatarData.index === setting.avatar"
+          @click="onBtnClick"
+        />
+      </template>
+    </Window>
+  </Popup>
 </template>
 
 <script lang="ts" setup>
+import Popup from '@/components/Common/Popup.vue'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
 import Icon from '@/components/Common/Icon.vue'
@@ -93,7 +94,6 @@ import iconUrl from '@/assets/images/avatar/图标.webp'
 import defaultAvatar from '@/assets/images/avatar/私聊.webp'
 import { watch, ref, computed, nextTick } from 'vue'
 import { setAvatar, setName, setting } from '@/store/setting'
-import { popup, popupCallbalk, avatarData } from '@/store/popup'
 import { cropperOpen } from '@/store/cropper'
 import { showConfirm } from '@/store/popup'
 import { input } from '@/store/input'
@@ -101,13 +101,28 @@ import { character } from '@/store/character'
 import { getAssets } from '@/assets/scripts/preload'
 import { compressImage } from '@/assets/scripts/image'
 import { avatar } from '@/store/avatar'
+import { enterCallback } from '@/assets/scripts/popup'
+import { avatarData } from './'
 
 const listDom = ref<HTMLElement | null>(null)
 
+const props = defineProps<{
+  name: string
+  index: number
+}>()
+
+const emits = defineEmits<{
+  (event: 'close', name: string): void
+}>()
+
+const close = () => {
+  emits('close', props.name)
+}
+
 watch(
-  () => popup.avatar,
+  () => props.index,
   () => {
-    if (popup.avatar) {
+    if (props.index !== -1) {
       if (
         (typeof setting.avatar === 'string' &&
           !avatar.game[setting.avatar] &&
@@ -209,7 +224,7 @@ const onAvatarClick = (key: string | number) => {
 
 const onBtnClick = () => {
   if (setting.avatar === avatarData.index) return false
-  popup.avatar = false
+  close()
   if (avatarData.name) {
     setName(avatarData.name)
   }
@@ -217,7 +232,7 @@ const onBtnClick = () => {
   return true
 }
 
-popupCallbalk.avatar = onBtnClick
+enterCallback.avatar = onBtnClick
 
 const changeTOGameCharacter = () => {
   input.index = [-1, -1]

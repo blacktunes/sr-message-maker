@@ -63,18 +63,19 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
 import { message } from '@/store/message'
-import { messageData, popup, showInput } from '@/store/popup'
+import { messageData, popup } from '@/store/popup'
 import { messageIndex } from '../Message/Message'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
 import Slider from '../Common/Slider.vue'
 import Icon from '../Common/Icon.vue'
+import { openWindow } from '@/assets/scripts/popup'
 
 // 修改昵称
 const handelChangeName = async () => {
   if (messageData.key !== undefined && message.list[messageIndex.value].list[messageData.key]) {
     if (message.list[messageIndex.value].list[messageData.key].key !== '开拓者') {
-      const name: string = await showInput({
+      const name: string = await openWindow('input', {
         title: '修改昵称',
         tip: '建议不要使用过长的昵称',
         required: false,

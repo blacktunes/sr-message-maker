@@ -1,5 +1,5 @@
 <template>
-  <Transition name="fade">
+  <Popup :index="props.index">
     <window
       v-if="props.index !== -1"
       :style="{ zIndex: 10 + index }"
@@ -38,10 +38,11 @@
         />
       </template>
     </window>
-  </Transition>
+  </Popup>
 </template>
 
 <script lang="ts" setup>
+import Popup from '@/components/Common/Popup.vue'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
 import { inputData } from './'

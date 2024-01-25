@@ -1,10 +1,6 @@
 <template>
-  <Transition name="fade">
-    <Window
-      v-if="props.index !== -1"
-      :style="{ zIndex: 10 + index }"
-      title="更换对话框"
-    >
+  <Popup :index="props.index">
+    <Window title="更换对话框">
       <div class="select">
         <div
           class="item"
@@ -74,19 +70,20 @@
         />
       </template>
     </Window>
-  </Transition>
+  </Popup>
 </template>
 
 <script lang="ts" setup>
-import { watch, ref, computed } from 'vue'
-import { bubbles } from '@/assets/data/bubbles'
-import { setting } from '@/store/setting'
-import { openWindow } from '@/store/popup'
+import Popup from '../Common/Popup.vue'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
 import Icon from '@/components/Common/Icon.vue'
 import Preview from '@/components/Common/Preview.vue'
+import { watch, ref, computed } from 'vue'
+import { setting } from '@/store/setting'
+import { openWindow } from '@/store/popup'
 import { enterCallback } from '@/assets/scripts/popup'
+import { bubbles } from '@/assets/data/bubbles'
 
 const props = defineProps<{
   name: string
