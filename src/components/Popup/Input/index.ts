@@ -6,7 +6,7 @@ export const inputData = reactive<{
   required: boolean
   text: string
   placeholder?: string
-  fn?: (str: string) => void
+  fn?: (str: string | null) => void
 }>({
   title: '',
   tip: undefined,
@@ -23,7 +23,7 @@ export const inputOpen = (config: {
   defaultText?: string
   placeholder?: string
 }) => {
-  return new Promise<string>((resolve) => {
+  return new Promise<string | null>((resolve) => {
     inputData.title = config.title
     inputData.tip = config.tip
     inputData.required = config.required === undefined ? true : config.required
@@ -31,14 +31,14 @@ export const inputOpen = (config: {
       inputData.text = config.defaultText
     }
     inputData.placeholder = config.placeholder
-    inputData.fn = (str: string) => {
+    inputData.fn = (str) => {
       resolve(str)
     }
   })
 }
 
 export const inputClose = () => {
-  inputData.fn?.('')
+  inputData.fn?.(null)
   inputData.title = ''
   inputData.tip = undefined
   inputData.required = true

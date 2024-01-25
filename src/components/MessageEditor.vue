@@ -276,12 +276,10 @@ const handelImageClick = async (emoticon: boolean, key: number) => {
     input.emoticon = true
     input.index = [messageIndex.value, key]
   } else {
-    setTimeout(() => {
-      openWindow('cropper', { maxWidth: 1280 }).then(({ base64 }) => {
-        message.list[messageIndex.value].list[key].img = base64
-        message.list[messageIndex.value].time = Date.now()
-      })
-    }, 0)
+    openWindow('cropper', { maxWidth: 1280 }).then(({ base64 }) => {
+      message.list[messageIndex.value].list[key].img = base64
+      message.list[messageIndex.value].time = Date.now()
+    })
   }
 }
 const handelDelClick = (key: number) => {

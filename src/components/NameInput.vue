@@ -28,14 +28,16 @@ import { userData } from '@/store/avatar'
 import { openWindow } from '@/assets/scripts/popup'
 
 const handelNameClick = async () => {
-  const name: string = await openWindow('input', {
+  const name = await openWindow('input', {
     title: '修改昵称',
     tip: '建议不要使用过长的昵称',
     required: false,
     defaultText: setting.name,
     placeholder: '开拓者'
   })
-  setName(name)
+  if (name !== null) {
+    setName(name)
+  }
 }
 </script>
 

@@ -231,28 +231,27 @@ const handelcharacterClick = (key: string, name: string) => {
 }
 
 const addCustom = async () => {
-  const name: string = await openWindow('input', { title: '请输入角色名' })
-  if (!name) return
+  const name = await openWindow('input', { title: '请输入角色名' })
+  if (name === null) return
 
-  const info = await openWindow('input', {
-    title: '请输入角色签名',
-    tip: '非必要选项',
-    required: false
-  })
+  const info =
+    (await openWindow('input', {
+      title: '请输入角色签名',
+      tip: '非必要选项',
+      required: false
+    })) ?? ''
   const key = Date.now()
 
-  setTimeout(() => {
-    openWindow('cropper', {
-      aspectRatio: 1,
-      maxWidth: 500
-    }).then(({ base64 }) => {
-      character.custom[key] = {
-        name,
-        avatar: base64,
-        info,
-        custom: true
-      }
-    })
+  openWindow('cropper', {
+    aspectRatio: 1,
+    maxWidth: 500
+  }).then(({ base64 }) => {
+    character.custom[key] = {
+      name,
+      avatar: base64,
+      info,
+      custom: true
+    }
   })
 }
 
