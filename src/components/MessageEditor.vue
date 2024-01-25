@@ -40,7 +40,7 @@
               @avatar="handelAvatarClick(index)"
               @image="handelImageClick($event, index)"
               @delete="handelDelClick(index)"
-              @config="showMessageManager(index)"
+              @config="openWindow('message', index)"
             />
           </template>
         </draggable>
@@ -148,7 +148,7 @@ import MessageItem from './Message/MessageItem.vue'
 import { compressImage } from '@/assets/scripts/image'
 import { cropperOpen } from '@/store/cropper'
 import { emitter } from '@/assets/scripts/event'
-import { showMessageManager } from '@/store/popup'
+import { openWindow } from '@/assets/scripts/popup'
 
 const appearTransition = ref('slide-left')
 

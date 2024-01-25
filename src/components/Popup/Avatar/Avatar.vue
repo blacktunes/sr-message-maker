@@ -231,7 +231,7 @@ const onBtnClick = () => {
   return true
 }
 
-enterCallback.avatar = onBtnClick
+enterCallback[props.name] =  onBtnClick
 
 const changeTOGameCharacter = () => {
   input.index = [-1, -1]

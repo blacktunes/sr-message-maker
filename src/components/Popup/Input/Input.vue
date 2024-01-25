@@ -1,8 +1,6 @@
 <template>
   <Popup :index="props.index">
     <window
-      v-if="props.index !== -1"
-      :style="{ zIndex: 10 + index }"
       confirm
       :title="inputData.title"
       width="55%"
@@ -83,7 +81,7 @@ const onConfirmlClick = () => {
   return true
 }
 
-enterCallback.input = onConfirmlClick
+enterCallback[props.name] = onConfirmlClick
 </script>
 
 <style lang="stylus" scoped>

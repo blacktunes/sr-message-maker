@@ -6,6 +6,8 @@ import DataManagerVue from '@/components/Popup/DataManager.vue'
 import FontManagerVue from '@/components/Popup/FontManager.vue'
 import { inputClose, inputOpen } from '@/components/Popup/Input'
 import InputVue from '@/components/Popup/Input/Input.vue'
+import { messageManagerClose, messageManagerOpen } from '@/components/Popup/Message'
+import MessageManagerVue from '@/components/Popup/Message/MessageManager.vue'
 import SettingVue from '@/components/Popup/Setting.vue'
 import { computed, markRaw, reactive, ref, type Component, type ComputedRef } from 'vue'
 
@@ -16,17 +18,20 @@ const components = {
   avatar: Avatar,
   log: ChangeLogVue,
   font: FontManagerVue,
-  data: DataManagerVue
+  data: DataManagerVue,
+  message: MessageManagerVue
 }
 
 const callbacks = {
   open: {
     input: inputOpen,
-    confirm: confirmOpen
+    confirm: confirmOpen,
+    message: messageManagerOpen
   },
   close: {
     input: inputClose,
-    confirm: confirmClose
+    confirm: confirmClose,
+    message: messageManagerClose
   },
   enter: {}
 }
@@ -50,8 +55,9 @@ export const currentComponent = computed<ComponentKeys | undefined>(
   () => _popup.value[_popup.value.length - 1]
 )
 // 组件的确认事件
-export const enterCallback: Partial<Record<ComponentKeys, () => boolean | Promise<boolean>>> =
-  callbacks.enter
+export const enterCallback: Partial<
+  Record<ComponentKeys | string, () => (boolean | void) | Promise<boolean | void>>
+> = callbacks.enter
 
 let i: ComponentKeys
 for (i in components) {

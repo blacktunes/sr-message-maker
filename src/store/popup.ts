@@ -16,17 +16,6 @@ export const popupCallbalk = reactive<{
   [key in keyof typeof popup]?: () => boolean | undefined
 }>({})
 
-export const messageData = reactive<{
-  key?: number
-}>({
-  key: undefined
-})
-
-export const showMessageManager = (key: number) => {
-  messageData.key = key
-  openWindow('message')
-}
-
 export const popupList: (keyof typeof popup)[] = []
 
 export const openWindow = (key: keyof typeof popup) => {

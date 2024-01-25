@@ -70,7 +70,7 @@ const onConfirml = () => {
   return true
 }
 
-enterCallback.confirm = onConfirml
+enterCallback[props.name] =  onConfirml
 </script>
 
 <style lang="stylus" scoped>

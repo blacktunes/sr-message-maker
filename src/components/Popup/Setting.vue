@@ -125,7 +125,7 @@ const onBtnClick = () => {
   return true
 }
 
-enterCallback.setting = onBtnClick
+enterCallback[props.name] = onBtnClick
 </script>
 
 <style lang="stylus" scoped>

@@ -2,6 +2,7 @@
   <Transition name="fade">
     <template v-if="props.show">
       <div
+        class="popup"
         v-show="props.index !== -1"
         :style="{ zIndex: 10 + index }"
       >
@@ -10,6 +11,7 @@
     </template>
     <template v-else>
       <div
+        class="popup"
         v-if="props.index !== -1"
         :style="{ zIndex: 10 + index }"
       >
@@ -31,3 +33,12 @@ const props = withDefaults(
   }
 )
 </script>
+
+<style lang="stylus" scoped>
+.popup
+  position absolute
+  top 0
+  right 0
+  bottom 0
+  left 0
+</style>
