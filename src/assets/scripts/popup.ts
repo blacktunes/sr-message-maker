@@ -1,5 +1,7 @@
 import Avatar from '@/components/Popup/Avatar/Avatar.vue'
 import ChangeLogVue from '@/components/Popup/ChangeLog.vue'
+import { characterClose, characterOpen } from '@/components/Popup/Character'
+import CharacterVue from '@/components/Popup/Character/Character.vue'
 import { confirmClose, confirmOpen } from '@/components/Popup/Confirm'
 import ConfirmVue from '@/components/Popup/Confirm/Confirm.vue'
 import DataManagerVue from '@/components/Popup/DataManager.vue'
@@ -19,19 +21,22 @@ const components = {
   log: ChangeLogVue,
   font: FontManagerVue,
   data: DataManagerVue,
-  message: MessageManagerVue
+  message: MessageManagerVue,
+  character: CharacterVue
 }
 
 const callbacks = {
   open: {
     input: inputOpen,
     confirm: confirmOpen,
-    message: messageManagerOpen
+    message: messageManagerOpen,
+    character: characterOpen
   },
   close: {
     input: inputClose,
     confirm: confirmClose,
-    message: messageManagerClose
+    message: messageManagerClose,
+    character: characterClose
   },
   enter: {}
 }

@@ -9,10 +9,10 @@ import { addNewMessage } from '@/store/message'
 const handelBack = () => {
   if (closeWindow()) return
 
-  if (input.select) {
-    input.select = false
-    return
-  }
+  // if (input.select) {
+  //   input.select = false
+  //   return
+  // }
 
   if (input.emoticon) {
     input.emoticon = false
@@ -36,7 +36,7 @@ document.addEventListener('click', (e) => {
 
 const hasPopup = (except: ('select' | 'autoPlay' | 'preview')[] = []) => {
   if (!except.includes('select')) {
-    if (input.select) return true
+    // if (input.select) return true
   }
   if (!except.includes('autoPlay')) {
     if (autoPlaySetting.flag) return true
@@ -70,7 +70,7 @@ document.addEventListener('keydown', (e) => {
     case 'Tab':
       e.preventDefault()
       if (messageIndex.value !== -1 && !hasPopup(['select'])) {
-        input.select = !input.select
+        // input.select = !input.select
       }
       return
     case 'Enter':

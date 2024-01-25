@@ -95,7 +95,6 @@ import defaultAvatar from '@/assets/images/avatar/私聊.webp'
 import { watch, ref, computed, nextTick } from 'vue'
 import { setAvatar, setName, setting } from '@/store/setting'
 import { cropperOpen } from '@/store/cropper'
-import { input } from '@/store/input'
 import { character } from '@/store/character'
 import { getAssets } from '@/assets/scripts/preload'
 import { compressImage } from '@/assets/scripts/image'
@@ -231,11 +230,10 @@ const onBtnClick = () => {
   return true
 }
 
-enterCallback[props.name] =  onBtnClick
+enterCallback[props.name] = onBtnClick
 
 const changeTOGameCharacter = () => {
-  input.index = [-1, -1]
-  input.select = true
+  openWindow('character', [-1, -1])
 }
 
 const border = computed(() => `url('${getAssets(borderUrl).value}`)

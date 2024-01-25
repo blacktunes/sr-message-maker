@@ -1,5 +1,4 @@
 import { reactive } from 'vue'
-import { input } from './input'
 
 export const popup = reactive({
   setting: false,
@@ -29,10 +28,6 @@ export const closeWindow = (confirm?: boolean) => {
   const key = popupList.pop()
   if (key) {
     if (popup[key]) {
-      if (key === 'avatar' && input.select) {
-        popupList.push(key)
-        return
-      }
       if (confirm) {
         if (!popupCallbalk?.[key]?.()) {
           popupList.push(key)

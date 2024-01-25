@@ -270,8 +270,7 @@ const updateText = (key: number, data: string) => {
 }
 
 const handelAvatarClick = (key: number) => {
-  input.index = [messageIndex.value, key]
-  input.select = true
+  openWindow('character', [messageIndex.value, key])
 }
 
 const handelImageClick = async (emoticon: boolean, key: number) => {
@@ -309,7 +308,7 @@ const handelDelClick = (key: number) => {
 }
 
 const handelSelectClick = () => {
-  input.select = true
+  openWindow('character')
 }
 
 emitter.on('focus', () => {
