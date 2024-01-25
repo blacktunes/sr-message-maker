@@ -145,8 +145,6 @@ import Emoticon from './Message/Emoticon.vue'
 import { getAvatar, info, messageIndex, scrollToBottom, title } from './Message/Message'
 import MessageBox from './Message/MessageBox.vue'
 import MessageItem from './Message/MessageItem.vue'
-import { compressImage } from '@/assets/scripts/image'
-import { cropperOpen } from '@/store/cropper'
 import { emitter } from '@/assets/scripts/event'
 import { openWindow } from '@/assets/scripts/popup'
 
@@ -279,23 +277,10 @@ const handelImageClick = async (emoticon: boolean, key: number) => {
     input.index = [messageIndex.value, key]
   } else {
     setTimeout(() => {
-      const el = document.createElement('input')
-      el.type = 'file'
-      el.accept = 'image/*'
-      el.onchange = async () => {
-        if (el.files?.[0]) {
-          const img = await compressImage(el.files[0])
-          cropperOpen(
-            img,
-            (res) => {
-              message.list[messageIndex.value].list[key].img = res
-              message.list[messageIndex.value].time = Date.now()
-            },
-            { maxWidth: 1280 }
-          )
-        }
-      }
-      el.click()
+      openWindow('cropper', { maxWidth: 1280 }).then(({ base64 }) => {
+        message.list[messageIndex.value].list[key].img = base64
+        message.list[messageIndex.value].time = Date.now()
+      })
     }, 0)
   }
 }
@@ -354,29 +339,16 @@ const handelMissionClick = () => {
   inputFocus()
 }
 
-const handelImageAddClick = async () => {
-  const el = document.createElement('input')
-  el.type = 'file'
-  el.accept = 'image/*'
-  el.onchange = async () => {
-    if (el.files?.[0]) {
-      const img = await compressImage(el.files[0])
-      cropperOpen(
-        img,
-        (res) => {
-          message.list[messageIndex.value].list.push({
-            ...getCharacter(),
-            text: '',
-            img: res
-          })
-          message.list[messageIndex.value].time = Date.now()
-          scrollToBottom(boxRef.value?.listDom)
-        },
-        { maxWidth: 1280 }
-      )
-    }
-  }
-  el.click()
+const handelImageAddClick = () => {
+  openWindow('cropper', { maxWidth: 1280 }).then(({ base64 }) => {
+    message.list[messageIndex.value].list.push({
+      ...getCharacter(),
+      text: '',
+      img: base64
+    })
+    message.list[messageIndex.value].time = Date.now()
+    scrollToBottom(boxRef.value?.listDom)
+  })
 }
 
 const handelEmoticonClick = () => {

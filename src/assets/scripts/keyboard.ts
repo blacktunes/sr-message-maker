@@ -2,7 +2,6 @@ import { input } from '@/store/input'
 import { closeWindow, popup } from '@/store/popup'
 import { autoPlaySetting, setting } from '@/store/setting'
 import { emitter } from './event'
-import { cropper, cropperClose } from '@/store/cropper'
 import { messageIndex } from '@/components/Message/Message'
 import { addNewMessage } from '@/store/message'
 
@@ -93,10 +92,6 @@ document.addEventListener('keydown', (e) => {
       }
       return
     case 'Escape':
-      if (cropper.show) {
-        cropperClose()
-        return
-      }
       handelBack()
   }
 })

@@ -129,8 +129,6 @@ import { userData } from '@/store/avatar'
 import { input } from '@/store/input'
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
-import { compressImage } from '@/assets/scripts/image'
-import { cropperOpen } from '@/store/cropper'
 import { openWindow } from '@/assets/scripts/popup'
 import { characterData } from './'
 
@@ -244,39 +242,18 @@ const addCustom = async () => {
   const key = Date.now()
 
   setTimeout(() => {
-    const input = document.createElement('input')
-    input.type = 'file'
-    input.accept = 'image/*'
-    input.onchange = async () => {
-      if (input.files?.[0]) {
-        const avatar = await compressImage(input.files[0])
-        cropperOpen(
-          avatar,
-          (res) => {
-            character.custom[key] = {
-              name,
-              avatar: res,
-              info,
-              custom: true
-            }
-          },
-          {
-            aspectRatio: 1,
-            maxWidth: 500
-          }
-        )
-      }
-    }
-    input.oncancel = () => {
+    openWindow('cropper', {
+      aspectRatio: 1,
+      maxWidth: 500
+    }).then(({ base64 }) => {
       character.custom[key] = {
         name,
-        avatar: '',
+        avatar: base64,
         info,
         custom: true
       }
-    }
-    input.click()
-  }, 0)
+    })
+  })
 }
 
 const handelDelClick = (key: string, name: string) => {

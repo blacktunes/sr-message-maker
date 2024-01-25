@@ -4,6 +4,8 @@ import { characterClose, characterOpen } from '@/components/Popup/Character'
 import CharacterVue from '@/components/Popup/Character/Character.vue'
 import { confirmClose, confirmOpen } from '@/components/Popup/Confirm'
 import ConfirmVue from '@/components/Popup/Confirm/Confirm.vue'
+import { cropperClose, cropperOpen } from '@/components/Popup/Cropper'
+import CropperVue from '@/components/Popup/Cropper/Cropper.vue'
 import DataManagerVue from '@/components/Popup/DataManager.vue'
 import FontManagerVue from '@/components/Popup/FontManager.vue'
 import { inputClose, inputOpen } from '@/components/Popup/Input'
@@ -22,7 +24,8 @@ const components = {
   font: FontManagerVue,
   data: DataManagerVue,
   message: MessageManagerVue,
-  character: CharacterVue
+  character: CharacterVue,
+  cropper: CropperVue
 }
 
 const callbacks = {
@@ -30,13 +33,15 @@ const callbacks = {
     input: inputOpen,
     confirm: confirmOpen,
     message: messageManagerOpen,
-    character: characterOpen
+    character: characterOpen,
+    cropper: cropperOpen
   },
   close: {
     input: inputClose,
     confirm: confirmClose,
     message: messageManagerClose,
-    character: characterClose
+    character: characterClose,
+    cropper: cropperClose
   },
   enter: {}
 }

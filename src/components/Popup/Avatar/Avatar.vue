@@ -94,10 +94,8 @@ import iconUrl from '@/assets/images/avatar/图标.webp'
 import defaultAvatar from '@/assets/images/avatar/私聊.webp'
 import { watch, ref, computed, nextTick } from 'vue'
 import { setAvatar, setName, setting } from '@/store/setting'
-import { cropperOpen } from '@/store/cropper'
 import { character } from '@/store/character'
 import { getAssets } from '@/assets/scripts/preload'
-import { compressImage } from '@/assets/scripts/image'
 import { avatar } from '@/store/avatar'
 import { enterCallback, openWindow } from '@/assets/scripts/popup'
 import { avatarData } from './'
@@ -187,25 +185,12 @@ const handelDelClick = (key: number) => {
 }
 
 const addCustom = () => {
-  const el = document.createElement('input')
-  el.type = 'file'
-  el.accept = 'image/*'
-  el.onchange = async () => {
-    if (el.files?.[0]) {
-      const img = await compressImage(el.files[0])
-      cropperOpen(
-        img,
-        (res) => {
-          avatar.custom.push(res)
-        },
-        {
-          aspectRatio: 1,
-          maxWidth: 500
-        }
-      )
-    }
-  }
-  el.click()
+  openWindow('cropper', {
+    aspectRatio: 1,
+    maxWidth: 500
+  }).then(({ base64 }) => {
+    avatar.custom.push(base64)
+  })
 }
 
 const name = computed(() => {

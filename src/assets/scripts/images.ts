@@ -1,4 +1,4 @@
-export const compressImage = (file: File | Blob, width?: number) => {
+export const imageCompress = (file: File | Blob, maxWidth?: number) => {
   return new Promise<string>((resolve) => {
     if (file.type === 'image/gif') {
       const reader = new FileReader()
@@ -18,9 +18,9 @@ export const compressImage = (file: File | Blob, width?: number) => {
           return
         }
 
-        width = width ? (img.width < width ? img.width : width) : img.width
-        canvas.width = width
-        canvas.height = width * (img.height / img.width)
+        maxWidth = maxWidth ? (img.width < maxWidth ? img.width : maxWidth) : img.width
+        canvas.width = maxWidth
+        canvas.height = maxWidth * (img.height / img.width)
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
         resolve(canvas.toDataURL('image/webp'))
         URL.revokeObjectURL(src)

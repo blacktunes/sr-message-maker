@@ -1,6 +1,6 @@
 import { character } from '@/store/character'
 import { reactive, toRef } from 'vue'
-import { compressImage } from './image'
+import { imageCompress } from './images'
 import { emoticon } from '../data/emoticon'
 import { bubbles } from '../data/bubbles'
 import { avatar } from '@/store/avatar'
@@ -26,7 +26,7 @@ const getCache = (url: string, base64?: boolean) => {
       fetch(url).then((res) =>
         res.blob().then((blob) => {
           if (base64) {
-            compressImage(blob).then((img) => {
+            imageCompress(blob).then((img) => {
               resolve(img)
             })
           } else {
