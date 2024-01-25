@@ -64,6 +64,7 @@ const _popup = computed(() => Array.from(popup.value))
 export const currentComponent = computed<ComponentKeys | undefined>(
   () => _popup.value[_popup.value.length - 1]
 )
+export const hasPopup = () => popup.value.size > 0
 // 组件的确认事件
 export const enterCallback: Partial<
   Record<ComponentKeys | string, () => (boolean | void) | Promise<boolean | void>>
@@ -122,4 +123,16 @@ export const closeWindow = async <T extends ComponentKeys>(
     res = await (callbacks.close[key as Close.keys] as (...args: any[]) => any)(...args)
   }
   return res
+}
+
+export const closeCurrentWindow = () => {
+  if (currentComponent.value) {
+    closeWindow(currentComponent.value)
+  }
+}
+
+export const currentCallback = () => {
+  if (currentComponent.value && enterCallback[currentComponent.value]) {
+    return enterCallback[currentComponent.value]?.()
+  }
 }
