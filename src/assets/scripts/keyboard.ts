@@ -1,14 +1,12 @@
-import { input } from '@/store/input'
-import { autoPlaySetting, setting } from '@/store/setting'
-import { emitter } from './event'
+import { emoticonClose } from '@/components/Message/Emoticon'
 import { messageIndex } from '@/components/Message/Message'
 import { addNewMessage } from '@/store/message'
+import { autoPlaySetting, setting } from '@/store/setting'
+import { emitter } from './event'
 import { closeCurrentWindow, currentCallback, hasPopup, openWindow } from './popup'
 
 const handelBack = () => {
-  if (input.emoticon) {
-    input.emoticon = false
-  }
+  emoticonClose()
 
   if (autoPlaySetting.flag) {
     emitter.emit('stopplay')

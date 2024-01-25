@@ -59,7 +59,7 @@
         </div>
         <div
           class="bubbles-btn"
-          @click.stop="openWindow('setting')"
+          @click.stop=";[emoticonClose(), openWindow('setting')]"
         >
           <Icon name="setting" />
         </div>
@@ -77,6 +77,7 @@ import { emitter } from '@/assets/scripts/event'
 import { getNames, getTitle } from '@/assets/scripts/header'
 import { openWindow } from '@/assets/scripts/popup'
 import { computed } from 'vue'
+import { emoticonClose } from '@/components/Message/Emoticon'
 
 interface MenuItem {
   time: number
@@ -128,11 +129,13 @@ const handelMessageClick = () => {
 
 const handelScreenshotClick = () => {
   if (setting.preview) return
+  emoticonClose()
   emitter.emit('screenshot')
 }
 
 const handelAutoPlayClick = () => {
   if (setting.preview) return
+  emoticonClose()
   emitter.emit('autoplay')
 }
 </script>

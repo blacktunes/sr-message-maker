@@ -40,7 +40,7 @@
               @avatar="handelAvatarClick(index)"
               @image="handelImageClick($event, index)"
               @delete="handelDelClick(index)"
-              @config="openWindow('message', index)"
+              @config=";[emoticonClose(), openWindow('message', index)]"
             />
           </template>
         </draggable>
@@ -59,7 +59,7 @@
             <input
               type="text"
               class="input"
-              v-model="input.input"
+              v-model="input.text"
               @keydown.enter.prevent.stop="onEnter"
               @keydown.tab="inputFocus(false)"
               @keydown.escape="inputFocus(false)"
@@ -98,8 +98,8 @@
               class="btn"
               style="border-radius: 0 50px 50px 0"
               :style="{
-                background: input.emoticon ? '#575B66' : '',
-                color: input.emoticon ? '#e8e8e8' : ''
+                background: emoticonData.show ? '#575B66' : '',
+                color: emoticonData.show ? '#e8e8e8' : ''
               }"
               @click.stop="handelEmoticonClick"
               title="发送表情"
@@ -134,19 +134,20 @@
 </template>
 
 <script lang="ts" setup>
+import Icon from './Common/Icon.vue'
+import Emoticon from './Message/Emoticon/Emoticon.vue'
+import MessageBox from './Message/MessageBox.vue'
+import MessageItem from './Message/MessageItem.vue'
+import draggable from '@marshallswain/vuedraggable'
 import { getCharaterAvatar } from '@/assets/scripts/avatar'
 import { input } from '@/store/input'
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
-import draggable from '@marshallswain/vuedraggable'
 import { computed, nextTick, ref, watch } from 'vue'
-import Icon from './Common/Icon.vue'
-import Emoticon from './Message/Emoticon.vue'
 import { getAvatar, info, messageIndex, scrollToBottom, title } from './Message/Message'
-import MessageBox from './Message/MessageBox.vue'
-import MessageItem from './Message/MessageItem.vue'
 import { emitter } from '@/assets/scripts/event'
 import { openWindow } from '@/assets/scripts/popup'
+import { emoticonClose, emoticonOpen, emoticonData } from './Message/Emoticon'
 
 const appearTransition = ref('slide-left')
 
@@ -268,13 +269,14 @@ const updateText = (key: number, data: string) => {
 }
 
 const handelAvatarClick = (key: number) => {
+  emoticonClose()
   openWindow('character', [messageIndex.value, key])
 }
 
 const handelImageClick = async (emoticon: boolean, key: number) => {
+  emoticonClose()
   if (emoticon) {
-    input.emoticon = true
-    input.index = [messageIndex.value, key]
+    emoticonOpen([messageIndex.value, key])
   } else {
     openWindow('cropper', { maxWidth: 1280 }).then(({ base64 }) => {
       message.list[messageIndex.value].list[key].img = base64
@@ -291,6 +293,7 @@ const handelDelClick = (key: number) => {
 }
 
 const handelSelectClick = () => {
+  emoticonClose()
   openWindow('character')
 }
 
@@ -311,11 +314,11 @@ const handelOptionClick = () => {
     key: '开拓者',
     name: '',
     avatar: '',
-    text: input.input || DEFAULT_TEXT,
+    text: input.text || DEFAULT_TEXT,
     option: [false]
   })
   message.list[messageIndex.value].time = Date.now()
-  input.input = ''
+  input.text = ''
   scrollToBottom(boxRef.value?.listDom)
   inputFocus()
 }
@@ -325,19 +328,20 @@ const handelMissionClick = () => {
     key: '开拓者',
     name: '',
     avatar: '',
-    text: input.input || DEFAULT_TEXT,
+    text: input.text || DEFAULT_TEXT,
     mission: {
       type: 0,
       state: 0
     }
   })
   message.list[messageIndex.value].time = Date.now()
-  input.input = ''
+  input.text = ''
   scrollToBottom(boxRef.value?.listDom)
   inputFocus()
 }
 
 const handelImageAddClick = () => {
+  emoticonClose()
   openWindow('cropper', { maxWidth: 1280 }).then(({ base64 }) => {
     message.list[messageIndex.value].list.push({
       ...getCharacter(),
@@ -350,13 +354,17 @@ const handelImageAddClick = () => {
 }
 
 const handelEmoticonClick = () => {
-  input.emoticon = !input.emoticon
+  if (emoticonData.show) {
+    emoticonClose()
+  } else {
+    emoticonOpen()
+  }
 }
 
 const setEmoticon = (url: string, name: string) => {
-  if (input.index) {
-    message.list[messageIndex.value].list[input.index[1]].img = url
-    message.list[messageIndex.value].list[input.index[1]].emoticon = name
+  if (emoticonData.key) {
+    message.list[messageIndex.value].list[emoticonData.key[1]].img = url
+    message.list[messageIndex.value].list[emoticonData.key[1]].emoticon = name
     message.list[messageIndex.value].time = Date.now()
   } else {
     message.list[messageIndex.value].list.push({
@@ -366,10 +374,10 @@ const setEmoticon = (url: string, name: string) => {
       emoticon: name
     })
     message.list[messageIndex.value].time = Date.now()
-    input.emoticon = false
+    emoticonData.show = false
     scrollToBottom(boxRef.value?.listDom)
   }
-  input.emoticon = false
+  emoticonData.show = false
 }
 
 const handelNoticeClick = () => {
@@ -377,11 +385,11 @@ const handelNoticeClick = () => {
     key: '开拓者',
     name: '',
     avatar: '',
-    text: input.input || DEFAULT_TEXT,
+    text: input.text || DEFAULT_TEXT,
     notice: true
   })
   message.list[messageIndex.value].time = Date.now()
-  input.input = ''
+  input.text = ''
   scrollToBottom(boxRef.value?.listDom)
   inputFocus()
 }
@@ -389,11 +397,11 @@ const handelNoticeClick = () => {
 const handelAddClick = (img?: string) => {
   message.list[messageIndex.value].list.push({
     ...getCharacter(),
-    text: input.input || DEFAULT_TEXT,
+    text: input.text || DEFAULT_TEXT,
     img
   })
   message.list[messageIndex.value].time = Date.now()
-  input.input = ''
+  input.text = ''
   scrollToBottom(boxRef.value?.listDom)
   inputFocus()
 }
@@ -423,6 +431,7 @@ const onEnter = (e: KeyboardEvent) => {
 let isMove = false
 
 const onChoose = () => {
+  emoticonClose()
   setting.transition = false
 }
 
