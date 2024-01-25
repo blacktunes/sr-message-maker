@@ -1,7 +1,6 @@
 import { avatar } from '@/store/avatar'
 import { character } from '@/store/character'
 import { message } from '@/store/message'
-import { showConfirm } from '@/store/popup'
 import { setting } from '@/store/setting'
 import log from '../data/log'
 import { IndexedDB } from './indexedDB'
@@ -78,7 +77,7 @@ const loadOldDB = () => {
 }
 
 const timeout = setTimeout(() => {
-  showConfirm({
+  openWindow('confirm', {
     title: '数据库加载异常',
     tip: '如果持续出现这种情况可以尝试在数据管理里重置数据库',
     text: [
@@ -119,7 +118,7 @@ loadOldDB().finally(() => {
     .catch((err) => {
       console.error(err)
 
-      showConfirm({
+      openWindow('confirm', {
         title: '数据库初始化失败',
         text: ['短信编辑器可以正常使用', '但数据可能丢失且不会被保存']
       })

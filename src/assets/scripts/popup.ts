@@ -1,23 +1,32 @@
 import Avatar from '@/components/Popup/Avatar/Avatar.vue'
 import ChangeLogVue from '@/components/Popup/ChangeLog.vue'
+import { confirmClose, confirmOpen } from '@/components/Popup/Confirm'
+import ConfirmVue from '@/components/Popup/Confirm/Confirm.vue'
+import DataManagerVue from '@/components/Popup/DataManager.vue'
+import FontManagerVue from '@/components/Popup/FontManager.vue'
 import { inputClose, inputOpen } from '@/components/Popup/Input'
 import InputVue from '@/components/Popup/Input/Input.vue'
 import SettingVue from '@/components/Popup/Setting.vue'
 import { computed, markRaw, reactive, ref, type Component, type ComputedRef } from 'vue'
 
 const components = {
-  setting: SettingVue,
   input: InputVue,
+  confirm: ConfirmVue,
+  setting: SettingVue,
   avatar: Avatar,
-  log: ChangeLogVue
+  log: ChangeLogVue,
+  font: FontManagerVue,
+  data: DataManagerVue
 }
 
 const callbacks = {
   open: {
-    input: inputOpen
+    input: inputOpen,
+    confirm: confirmOpen
   },
   close: {
-    input: inputClose
+    input: inputClose,
+    confirm: confirmClose
   },
   enter: {}
 }

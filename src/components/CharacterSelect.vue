@@ -127,7 +127,6 @@ import CharacterCard from './Character/CharacterCard.vue'
 import Icon from './Common/Icon.vue'
 import { compressImage } from '@/assets/scripts/image'
 import { cropperOpen } from '@/store/cropper'
-import { showConfirm } from '@/store/popup'
 import { emitter } from '@/assets/scripts/event'
 import { openWindow } from '@/assets/scripts/popup'
 import { avatarData } from './Popup/Avatar'
@@ -279,7 +278,7 @@ const addCustom = async () => {
 }
 
 const handelDelClick = (key: string, name: string) => {
-  showConfirm({
+  openWindow('confirm', {
     title: '删除角色',
     text: [`是否删除${name}？`],
     fn: () => {

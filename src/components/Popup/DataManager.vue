@@ -1,72 +1,73 @@
 <template>
-  <Window
-    :show="popup.data"
-    title="数据管理"
-    @close="popup.data = false"
-  >
-    <div class="data">
-      <div class="info">
-        <div>当前短信ID: {{ setting.index || '-' }}</div>
-        <div style="margin-top: 20px">短信数量: {{ message.list.length }}{{ messageUsage }}</div>
-        <div>消息数量: {{ messageNum }}</div>
-        <div>自定义角色数量: {{ Object.keys(character.custom).length }}{{ characterUsage }}</div>
-        <div>自定义头像数量: {{ avatar.custom.length }}{{ customAvatarUsage }}</div>
+  <Popup :index="props.index">
+    <Window
+      title="数据管理"
+      @close="close"
+    >
+      <div class="data">
+        <div class="info">
+          <div>当前短信ID: {{ setting.index || '-' }}</div>
+          <div style="margin-top: 20px">短信数量: {{ message.list.length }}{{ messageUsage }}</div>
+          <div>消息数量: {{ messageNum }}</div>
+          <div>自定义角色数量: {{ Object.keys(character.custom).length }}{{ characterUsage }}</div>
+          <div>自定义头像数量: {{ avatar.custom.length }}{{ customAvatarUsage }}</div>
+        </div>
+        <div class="box">
+          <Btn
+            class="btn"
+            name="导出当前短信"
+            :disable="!setting.index"
+            @click="downloadData"
+          />
+          <Btn
+            class="btn"
+            name="导出全部短信"
+            :disable="!hasData"
+            @click="downloadAllData"
+          />
+          <Btn
+            class="btn"
+            name="导入短信数据"
+            @click="uploadDate"
+          />
+          <Btn
+            class="btn"
+            name="删除所有短信"
+            :disable="!hasData"
+            @click="deleteData"
+          />
+          <div class="line"></div>
+          <Btn
+            class="btn"
+            name="导出自定义角色"
+            :disable="!hasCharacter"
+            @click="downloadCharacter"
+          />
+          <Btn
+            class="btn"
+            name="导入自定义角色"
+            @click="uploadCharacter"
+          />
+          <Btn
+            class="btn"
+            name="删除自定义角色"
+            :disable="!hasCharacter"
+            @click="deleteCharacter"
+          />
+          <div class="line"></div>
+          <Btn
+            class="btn"
+            name="重置数据库"
+            @click="reserDatabase"
+          />
+        </div>
       </div>
-      <div class="box">
-        <Btn
-          class="btn"
-          name="导出当前短信"
-          :disable="!setting.index"
-          @click="downloadData"
-        />
-        <Btn
-          class="btn"
-          name="导出全部短信"
-          :disable="!hasData"
-          @click="downloadAllData"
-        />
-        <Btn
-          class="btn"
-          name="导入短信数据"
-          @click="uploadDate"
-        />
-        <Btn
-          class="btn"
-          name="删除所有短信"
-          :disable="!hasData"
-          @click="deleteData"
-        />
-        <div class="line"></div>
-        <Btn
-          class="btn"
-          name="导出自定义角色"
-          :disable="!hasCharacter"
-          @click="downloadCharacter"
-        />
-        <Btn
-          class="btn"
-          name="导入自定义角色"
-          @click="uploadCharacter"
-        />
-        <Btn
-          class="btn"
-          name="删除自定义角色"
-          :disable="!hasCharacter"
-          @click="deleteCharacter"
-        />
-        <div class="line"></div>
-        <Btn
-          class="btn"
-          name="重置数据库"
-          @click="reserDatabase"
-        />
-      </div>
-    </div>
-  </Window>
+    </Window>
+  </Popup>
 </template>
 
 <script lang="ts" setup>
-import { popup, showConfirm } from '@/store/popup'
+import Popup from '@/components/Common/Popup.vue'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
 import { computed, ref, toRaw, watch } from 'vue'
@@ -76,8 +77,22 @@ import { character } from '@/store/character'
 import { messageIndex } from '@/components/Message/Message'
 import { zhLocale, setLocale, Parameter } from '@ckpack/parameter'
 import { avatar } from '@/store/avatar'
+import { openWindow } from '@/assets/scripts/popup'
 
-function countStrToSize(str: string) {
+const props = defineProps<{
+  name: string
+  index: number
+}>()
+
+const emits = defineEmits<{
+  (event: 'close', name: string): void
+}>()
+
+const close = () => {
+  emits('close', props.name)
+}
+
+const countStrToSize = (str: string) => {
   let count = 0
   for (let i = 0; i < str.length; i++) {
     count += Math.ceil(str.charCodeAt(i).toString(2).length / 8)
@@ -116,9 +131,9 @@ const updateCustomAvatarUsage = () => {
 }
 
 watch(
-  () => popup.data,
+  () => props.index,
   async () => {
-    if (popup.data) {
+    if (props.index !== -1) {
       updateMessageUsage()
       updateCharacterUsage()
       updateCustomAvatarUsage()
@@ -235,19 +250,19 @@ const uploadDate = async () => {
             }
           }
           if (num === 0) {
-            showConfirm({
+            openWindow('confirm', {
               title: '短信导入失败',
               text: ['请检查文件格式是否正确']
             })
           } else if (num < data.length) {
-            showConfirm({
+            openWindow('confirm', {
               title: '短信导入失败',
               text: ['部分短信导入失败', '请检查文件格式是否正确']
             })
           }
           updateMessageUsage()
         } catch (err) {
-          showConfirm({
+          openWindow('confirm', {
             title: '短信导入失败',
             text: [String(err)]
           })
@@ -261,7 +276,7 @@ const uploadDate = async () => {
 const deleteData = () => {
   if (!hasData.value) return
 
-  showConfirm({
+  openWindow('confirm', {
     title: '删除短信',
     text: ['确定删除所有短信吗？'],
     fn: () => {
@@ -318,19 +333,19 @@ const uploadCharacter = async () => {
             }
           }
           if (num === 0) {
-            showConfirm({
+            openWindow('confirm', {
               title: '自定义导角色入失败',
               text: ['请检查文件格式是否正确']
             })
           } else if (num < Object.keys(data).length) {
-            showConfirm({
+            openWindow('confirm', {
               title: '自定义导角色入失败',
               text: ['部分自定义导角色入失败', '请检查文件格式是否正确']
             })
           }
           updateCharacterUsage()
         } catch (err) {
-          showConfirm({
+          openWindow('confirm', {
             title: '自定义导角色入失败',
             text: [String(err)]
           })
@@ -344,7 +359,7 @@ const uploadCharacter = async () => {
 const deleteCharacter = () => {
   if (!hasCharacter.value) return
 
-  showConfirm({
+  openWindow('confirm', {
     title: '删除角色',
     text: ['确定删除所有自定义角色吗？'],
     fn: () => {
@@ -357,7 +372,7 @@ const deleteCharacter = () => {
 }
 
 const reserDatabase = () => {
-  showConfirm({
+  openWindow('confirm', {
     title: '重置数据库',
     tip: '该操作会清除所有短信/头像/自定义角色',
     text: ['确定重置数据库吗？'],

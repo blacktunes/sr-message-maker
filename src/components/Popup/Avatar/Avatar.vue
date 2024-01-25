@@ -95,13 +95,12 @@ import defaultAvatar from '@/assets/images/avatar/私聊.webp'
 import { watch, ref, computed, nextTick } from 'vue'
 import { setAvatar, setName, setting } from '@/store/setting'
 import { cropperOpen } from '@/store/cropper'
-import { showConfirm } from '@/store/popup'
 import { input } from '@/store/input'
 import { character } from '@/store/character'
 import { getAssets } from '@/assets/scripts/preload'
 import { compressImage } from '@/assets/scripts/image'
 import { avatar } from '@/store/avatar'
-import { enterCallback } from '@/assets/scripts/popup'
+import { enterCallback, openWindow } from '@/assets/scripts/popup'
 import { avatarData } from './'
 
 const listDom = ref<HTMLElement | null>(null)
@@ -173,7 +172,7 @@ const imgUrl = computed(() => {
 })
 
 const handelDelClick = (key: number) => {
-  showConfirm({
+  openWindow('confirm', {
     title: '删除头像',
     text: ['是否删除该头像'],
     fn: () => {
