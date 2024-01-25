@@ -1,13 +1,21 @@
 import { reactive } from 'vue'
 
 export const setting = reactive<{
+  /** 是否显示Loading页 */
   loading: boolean
+  /** 用户名 */
   name: string
+  /** 用户头像 */
   avatar: string | number
+  /** 当前短信ID */
   index?: number
-  preview?: boolean
+  /** 是否预览 */
+  preview: boolean
+  /** 当前选择的短信分组 */
   select?: string
+  /** 对话气泡 */
   bubbles: number
+  /** 是否显示短信的过渡动画 */
   transition: boolean
 }>({
   loading: true,
@@ -41,13 +49,3 @@ try {
   setting.avatar = DEFAULT_AVATAR
 }
 setting.bubbles = Number(localStorage.getItem('sr-message-bubbles')) || 0
-
-export const autoPlaySetting = reactive<{
-  flag: boolean
-  list: Message[]
-  option: Message[]
-}>({
-  flag: false,
-  list: [],
-  option: []
-})

@@ -1,14 +1,15 @@
 import { emoticonClose } from '@/components/Message/Emoticon'
 import { messageIndex } from '@/components/Message/Message'
+import { autoPlay } from '@/store/autoPlay'
 import { addNewMessage } from '@/store/message'
-import { autoPlaySetting, setting } from '@/store/setting'
+import { setting } from '@/store/setting'
 import { emitter } from './event'
 import { closeCurrentWindow, currentCallback, hasPopup, openWindow } from './popup'
 
 const handelBack = () => {
   emoticonClose()
 
-  if (autoPlaySetting.flag) {
+  if (autoPlay.flag) {
     emitter.emit('stopplay')
     return
   }
@@ -22,6 +23,7 @@ const handelBack = () => {
 }
 
 document.addEventListener('click', (e) => {
+  if (setting.loading) return
   if ((e.target as HTMLElement).tagName.toLowerCase() === 'a') return
   handelBack()
 })
@@ -34,7 +36,7 @@ document.addEventListener('keydown', (e) => {
       if (!e.ctrlKey) return
       e.preventDefault()
       if (messageIndex.value !== -1 && !hasPopup()) {
-        if (!autoPlaySetting.flag) {
+        if (!autoPlay.flag) {
           emitter.emit('screenshot')
         }
       }
@@ -47,7 +49,7 @@ document.addEventListener('keydown', (e) => {
       }
       return
     case 'Enter':
-      if (autoPlaySetting.flag) {
+      if (autoPlay.flag) {
         emitter.emit('stopplay')
         return
       }
