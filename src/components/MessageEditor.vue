@@ -89,7 +89,7 @@
             </div>
             <div
               class="btn"
-              @click="handelImageAddClick"
+              @click.stop="handelImageAddClick"
               title="发送图片"
             >
               <Icon name="image" />

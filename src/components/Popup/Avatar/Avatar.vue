@@ -26,6 +26,7 @@
           :key="key"
           :class="{ highlight: avatarData.index === key }"
           @click="avatarData.index = key"
+          @contextmenu.prevent.stop="handelDelClick(key)"
         >
           <img
             :src="url"

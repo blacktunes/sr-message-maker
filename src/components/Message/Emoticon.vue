@@ -35,7 +35,7 @@
       </transition>
       <div
         class="group"
-        @wheel="onWheel"
+        @wheel.prevent.stop="onWheel"
         ref="group"
       >
         <div
@@ -76,9 +76,6 @@ const changePage = (page: number) => {
 const group = ref<HTMLElement | null>(null)
 
 const onWheel = (e: WheelEvent) => {
-  if (listDom.value) {
-    listDom.value.scrollTop = 0
-  }
   if (group.value) {
     group.value.scrollLeft += e.deltaY
   }
