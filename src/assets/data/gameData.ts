@@ -167,6 +167,12 @@ export const gameCharacter: { [name: string]: Character } = {
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/4d5ac247ca1460b34b3f73244afbb0f6_8390343856757982675.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: '可以不喝水，但不能没咖啡'
   },
+  '真理医生': {
+    name: '真理医生',
+    avatar: 'https://patchwiki.biligame.com/images/sr/e/e8/qvg0nhlfw8qsaz4pjdqiofgb8di3ngv.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/01/06/75216984/7c3c2cbfb43afac42c439edeceb470b1_3744116827297196928.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '「不急」'
+  },
   银枝: {
     name: '银枝',
     avatar: 'https://patchwiki.biligame.com/images/sr/d/d8/25koyev56amcbvilazmtmclya7yorh5.png',
