@@ -1,7 +1,10 @@
 import { watch, nextTick, toRaw } from 'vue'
 
 export class IndexedDB {
-  constructor(public readonly name: string, public readonly alias = '') {}
+  constructor(
+    public readonly name: string,
+    public readonly alias = ''
+  ) {}
   private DBList: Record<
     string,
     {
@@ -81,6 +84,7 @@ export class IndexedDB {
     console.log(`正在加${this.alias}数据库...`)
 
     return new Promise<void>((resolve, reject) => {
+      this.cb = () => resolve()
       try {
         const _db = window.indexedDB.open(this.name)
         _db.onsuccess = (event) => {
@@ -90,14 +94,11 @@ export class IndexedDB {
               this.db.transaction('data', 'readonly').objectStore('data').get(key).onsuccess = (
                 res
               ) => {
-                try {
-                  const data = (res.target as IDBRequest).result
-                  if (data) {
-                    this.DBList[key].data[this.DBList[key].key] = data
-                  }
-                } finally {
-                  this.setWatch(key)
+                const data = (res.target as IDBRequest).result
+                if (data) {
+                  this.DBList[key].data[this.DBList[key].key] = data
                 }
+                this.setWatch(key)
               }
             }
           } else {
@@ -106,7 +107,6 @@ export class IndexedDB {
               this.setWatch(key)
             }
           }
-          this.cb = () => resolve()
         }
 
         _db.onupgradeneeded = (event) => {
