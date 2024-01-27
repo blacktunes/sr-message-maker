@@ -57,19 +57,35 @@ export const popupComponents: Record<
     index: ComputedRef<number>
   }
 > = reactive({})
-// 正在显示的组件
+
+/** 正在显示的组件 */
 export const popup = ref<Set<ComponentKeys>>(new Set())
 const _popup = computed(() => Array.from(popup.value))
-// 最后打开的组件
+
+/** 是否有组件显示 */
+export const hasPopup = () => popup.value.size > 0
+
+/** 最后打开的组件 */
 export const currentComponent = computed<ComponentKeys | undefined>(
   () => _popup.value[_popup.value.length - 1]
 )
-export const hasPopup = () => popup.value.size > 0
-// 组件的确认事件
+/** 关闭最后打开的组件 */
+export const closeCurrentWindow = () => {
+  if (currentComponent.value) {
+    closeWindow(currentComponent.value)
+  }
+}
+
+/** 组件的确认事件 */
 export const enterCallback: Partial<
   Record<ComponentKeys | string, () => (boolean | void) | Promise<boolean | void>>
 > = callbacks.enter
-
+/** 执行最后打开组件的确认事件 */
+export const currentCallback = () => {
+  if (currentComponent.value && enterCallback[currentComponent.value]) {
+    return enterCallback[currentComponent.value]?.()
+  }
+}
 let i: ComponentKeys
 for (i in components) {
   const key = i
@@ -123,16 +139,4 @@ export const closeWindow = async <T extends ComponentKeys>(
     res = await (callbacks.close[key as Close.keys] as (...args: any[]) => any)(...args)
   }
   return res
-}
-
-export const closeCurrentWindow = () => {
-  if (currentComponent.value) {
-    closeWindow(currentComponent.value)
-  }
-}
-
-export const currentCallback = () => {
-  if (currentComponent.value && enterCallback[currentComponent.value]) {
-    return enterCallback[currentComponent.value]?.()
-  }
 }
