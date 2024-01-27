@@ -5,6 +5,7 @@ import { setting } from '@/store/setting'
 import log from '../data/log'
 import { IndexedDB } from './indexedDB'
 import { openWindow } from './popup'
+import { preload } from './preload'
 
 // 旧数据库兼容
 const loadOldDB = () => {
@@ -133,3 +134,5 @@ if (lastUpdate) {
     localStorage.setItem('sr-message-time', JSON.stringify(lastUpdate))
   }
 }
+
+preload()

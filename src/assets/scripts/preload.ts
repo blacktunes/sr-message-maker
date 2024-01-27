@@ -82,7 +82,7 @@ const bubblesPreload = () => {
   }
 }
 
-const preload = async () => {
+export const preload = async () => {
   const list = import.meta.glob<string>(
     [
       // 预加载素材
@@ -105,5 +105,3 @@ const preload = async () => {
 
   console.log(`正在预加载图片...[${progress[0]}]`)
 }
-
-preload()
