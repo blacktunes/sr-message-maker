@@ -55,7 +55,7 @@
         <Preview
           style="margin-top: 45px"
           :img="imgUrl"
-          :name="name"
+          :name="avatarName"
           width="350px"
           color="#333"
           bg-color="linear-gradient(to top, #bcb2a2, #cac2b7, transparent)"
@@ -148,6 +148,16 @@ watch(
   }
 )
 
+const avatarName = computed(() => {
+  if (typeof avatarData.index === 'string' && !Number(avatarData.index)) {
+    if (avatarData.index.startsWith('开拓者•星轨')) {
+      return `${setting.name}•星轨`
+    }
+    return avatarData.index
+  }
+  return ''
+})
+
 const imgUrl = computed(() => {
   if (typeof avatarData.index === 'string') {
     if (avatar.game[avatarData.index]) {
@@ -193,13 +203,6 @@ const addCustom = () => {
     avatar.custom.push(base64)
   })
 }
-
-const name = computed(() => {
-  if (typeof avatarData.index === 'string' && !Number(avatarData.index)) {
-    return avatarData.index
-  }
-  return ''
-})
 
 const onAvatarClick = (key: string | number) => {
   avatarData.name = undefined
