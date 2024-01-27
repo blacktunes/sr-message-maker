@@ -1,3 +1,4 @@
+import { avatarClose, avatarOpen } from '@/components/Popup/Avatar'
 import Avatar from '@/components/Popup/Avatar/Avatar.vue'
 import ChangeLogVue from '@/components/Popup/ChangeLog.vue'
 import { characterClose, characterOpen } from '@/components/Popup/Character'
@@ -32,6 +33,7 @@ const callbacks = {
   open: {
     input: inputOpen,
     confirm: confirmOpen,
+    avatar: avatarOpen,
     message: messageManagerOpen,
     character: characterOpen,
     cropper: cropperOpen
@@ -39,6 +41,7 @@ const callbacks = {
   close: {
     input: inputClose,
     confirm: confirmClose,
+    avatar: avatarClose,
     message: messageManagerClose,
     character: characterClose,
     cropper: cropperClose

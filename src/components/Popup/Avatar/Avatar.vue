@@ -6,13 +6,12 @@
     >
       <div
         class="list"
-        ref="listDom"
       >
         <div
           class="avatar"
           v-for="(item, key) in avatar.game"
           :key="key"
-          :class="{ highlight: avatarData.index === key }"
+          :class="{ 'avatar_highlight': avatarData.index === key }"
           @click="onAvatarClick(key)"
         >
           <img
@@ -24,7 +23,7 @@
           class="avatar"
           v-for="(url, key) in avatar.custom"
           :key="key"
-          :class="{ highlight: avatarData.index === key }"
+          :class="{ 'avatar_highlight': avatarData.index === key }"
           @click="avatarData.index = key"
           @contextmenu.prevent.stop="handelDelClick(key)"
         >
@@ -93,15 +92,13 @@ import Preview from '@/components/Common/Preview.vue'
 import borderUrl from '@/assets/images/avatar/边框.webp'
 import iconUrl from '@/assets/images/avatar/图标.webp'
 import defaultAvatar from '@/assets/images/avatar/私聊.webp'
-import { watch, ref, computed, nextTick } from 'vue'
+import { computed } from 'vue'
 import { setAvatar, setName, setting } from '@/store/setting'
 import { character } from '@/store/character'
 import { getAssets } from '@/assets/scripts/preload'
 import { avatar } from '@/store/avatar'
 import { enterCallback, openWindow } from '@/assets/scripts/popup'
 import { avatarData } from './'
-
-const listDom = ref<HTMLElement | null>(null)
 
 const props = defineProps<{
   name: string
@@ -115,38 +112,6 @@ const emits = defineEmits<{
 const close = () => {
   emits('close', props.name)
 }
-
-watch(
-  () => props.index,
-  () => {
-    if (props.index !== -1) {
-      if (
-        (typeof setting.avatar === 'string' &&
-          !avatar.game[setting.avatar] &&
-          !character.game[setting.avatar] &&
-          !character.other[setting.avatar] &&
-          !character.custom[setting.avatar]) ||
-        (typeof setting.avatar === 'number' && !avatar.custom[setting.avatar])
-      ) {
-        setAvatar()
-      }
-      avatarData.index = setting.avatar
-
-      nextTick(() => {
-        if (listDom.value) {
-          listDom.value.querySelector('.highlight')?.scrollIntoView({
-            block: 'center'
-          })
-        }
-      })
-    } else {
-      avatarData.name = undefined
-    }
-  },
-  {
-    immediate: true
-  }
-)
 
 const avatarName = computed(() => {
   if (typeof avatarData.index === 'string' && !Number(avatarData.index)) {
@@ -301,7 +266,7 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
     border 8px solid #afafaf
     cursor pointer
 
-.highlight
+.avatar_highlight
   cursor auto !important
   border-color #fff !important
 
