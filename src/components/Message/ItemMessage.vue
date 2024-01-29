@@ -44,7 +44,7 @@
         appear
       >
         <div
-          v-if="autoPlaySetting.flag && item.loading"
+          v-if="autoPlay.flag && item.loading"
           class="loading"
         >
           <div></div>
@@ -89,8 +89,9 @@
 </template>
 
 <script lang="ts" setup>
-import { autoPlaySetting, setting } from '@/store/setting'
 import Icon from '../Common/Icon.vue'
+import { setting } from '@/store/setting'
+import { autoPlay } from '@/store/autoPlay'
 import { getAvatar } from './Message'
 import { bubbles } from '@/assets/data/bubbles'
 

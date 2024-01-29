@@ -1,9 +1,8 @@
 <template>
+  <Popup :index="props.index">
   <window
-    style="z-index: 999"
     confirm
     :title="confirmData.title"
-    :show="popup.confirm"
     min-width="50%"
   >
     <div class="text">
@@ -24,14 +23,14 @@
         v-if="!confirmData.fn"
         class="win-btn"
         name="知道了"
-        @click="popup.confirm = false"
+        @click="close"
       />
       <template v-else>
         <Btn
           class="win-btn"
           name="取消"
           type="wrong"
-          @click="popup.confirm = false"
+          @click="close"
         />
         <Btn
           class="win-btn"
@@ -42,37 +41,36 @@
       </template>
     </template>
   </window>
+</Popup>
 </template>
 
 <script lang="ts" setup>
+import Popup from '@/components/Common/Popup.vue'
 import Window from '@/components/Common/Window.vue'
-import { confirmData, popup, popupCallbalk } from '@/store/popup'
 import Btn from '@/components/Common/Btn.vue'
-import { watch } from 'vue'
+import { confirmData } from './'
+import { enterCallback } from '@/assets/scripts/popup'
 
-watch(
-  () => popup.confirm,
-  () => {
-    if (!popup.confirm) {
-      reset()
-    }
-  }
-)
+const props = defineProps<{
+  name: string
+  index: number
+}>()
 
-const reset = () => {
-  confirmData.title = ''
-  confirmData.tip = undefined
-  confirmData.text = []
-  confirmData.fn = undefined
+const emits = defineEmits<{
+  (event: 'close', name: string): void
+}>()
+
+const close = () => {
+  emits('close', props.name)
 }
 
 const onConfirml = () => {
   confirmData.fn?.()
-  popup.confirm = false
+  close()
   return true
 }
 
-popupCallbalk.confirm = onConfirml
+enterCallback[props.name] =  onConfirml
 </script>
 
 <style lang="stylus" scoped>

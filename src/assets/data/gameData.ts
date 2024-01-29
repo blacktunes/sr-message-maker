@@ -1,7 +1,7 @@
 import avatar from '@/assets/images/avatar/穹_毁灭.webp'
 import card from '@/assets/images/avatar/星_毁灭_card.webp'
 
-export const user: { [name: string]: UserAvatar } = {
+export const gameAvatar: { [name: string]: UserAvatar } = {
   无: {
     avatar: 'https://patchwiki.biligame.com/images/sr/a/a8/1qtsu8eokug9uhap13026hk2yvdk8zb.png'
   },
@@ -166,6 +166,12 @@ export const gameCharacter: { [name: string]: Character } = {
     avatar: 'https://patchwiki.biligame.com/images/sr/7/73/cx1pu6pl7h4z5b5e86fxmb2gfyqewr9.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/4d5ac247ca1460b34b3f73244afbb0f6_8390343856757982675.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: '可以不喝水，但不能没咖啡'
+  },
+  '真理医生': {
+    name: '真理医生',
+    avatar: 'https://patchwiki.biligame.com/images/sr/e/e8/qvg0nhlfw8qsaz4pjdqiofgb8di3ngv.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/01/06/75216984/7c3c2cbfb43afac42c439edeceb470b1_3744116827297196928.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '「不急」'
   },
   银枝: {
     name: '银枝',

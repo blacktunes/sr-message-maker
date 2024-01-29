@@ -19,17 +19,22 @@
         :key="index"
         :is="item"
       />
+      <Component
+        v-for="(item, key) in popupComponents"
+        :index="item.index"
+        :name="key"
+        :is="item.compontnt"
+        :key="key"
+        @close="closeWindow"
+      />
     </div>
   </div>
-  <Tip :show="shouldHorizontal" />
-  <ImageCropper :scale="scale" />
 </template>
 
 <script lang="ts" setup>
-import { defineComponent, ref } from 'vue'
-import type { Component } from 'vue'
-import Tip from './components/Tip.vue'
-import ImageCropper from './components/ImageCropper.vue'
+import { defineComponent, toRef, type Component } from 'vue'
+import viewport from './store/viewport'
+import { closeWindow, popupComponents } from './assets/scripts/popup'
 
 // 动态加载所有组件
 const components: Component[] = []
@@ -37,10 +42,7 @@ const modules = {
   ...import.meta.glob<{ default: Component }>(
     [
       // 组件位置
-      './components/*.vue',
-      '!./components/Tip.vue',
-      '!./components/ImageCropper.vue',
-      './components/Popup/*.vue'
+      './components/*.vue'
     ],
     {
       eager: true,
@@ -56,13 +58,11 @@ for (const i in modules) {
 const width = 3200
 const height = (width / 16) * 9
 const bottom = 100
-const scale = ref(1)
-
-const shouldHorizontal = ref(false)
+const scale = toRef(viewport, 'scale')
 
 const setSize = () => {
-  shouldHorizontal.value = window.innerWidth <= 550 && window.innerWidth < window.innerHeight
-  scale.value = Math.min(window.innerWidth / width, window.innerHeight / (height + bottom))
+  viewport.horizontal = window.innerWidth <= 550 && window.innerWidth < window.innerHeight
+  viewport.scale = Math.min(window.innerWidth / width, window.innerHeight / (height + bottom))
 }
 setSize()
 

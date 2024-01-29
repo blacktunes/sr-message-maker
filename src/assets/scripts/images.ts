@@ -1,9 +1,9 @@
-export const compressImage = (file: File | Blob, width?: number) => {
-  return new Promise<string>((reslove) => {
+export const imageCompress = (file: File | Blob, maxWidth?: number) => {
+  return new Promise<string>((resolve) => {
     if (file.type === 'image/gif') {
       const reader = new FileReader()
       reader.onload = (e) => {
-        reslove((e.target?.result as string) || '')
+        resolve((e.target?.result as string) || '')
       }
       reader.readAsDataURL(file)
     } else {
@@ -14,15 +14,15 @@ export const compressImage = (file: File | Blob, width?: number) => {
         const canvas = document.createElement('canvas')
         const ctx = canvas.getContext('2d')
         if (!ctx) {
-          reslove('')
+          resolve('')
           return
         }
 
-        width = width ? (img.width < width ? img.width : width) : img.width
-        canvas.width = width
-        canvas.height = width * (img.height / img.width)
+        maxWidth = maxWidth ? (img.width < maxWidth ? img.width : maxWidth) : img.width
+        canvas.width = maxWidth
+        canvas.height = maxWidth * (img.height / img.width)
         ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
-        reslove(canvas.toDataURL('image/webp'))
+        resolve(canvas.toDataURL('image/webp'))
         URL.revokeObjectURL(src)
       }
     }

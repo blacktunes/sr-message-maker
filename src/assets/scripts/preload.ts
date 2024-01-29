@@ -1,8 +1,9 @@
 import { character } from '@/store/character'
 import { reactive, toRef } from 'vue'
-import { compressImage } from './image'
+import { imageCompress } from './images'
 import { emoticon } from '../data/emoticon'
 import { bubbles } from '../data/bubbles'
+import { avatar } from '@/store/avatar'
 
 export const progress = reactive([0, 0])
 export const assets: { [name: string]: string } = reactive({})
@@ -23,9 +24,11 @@ const getCache = (url: string, base64?: boolean) => {
       progress[0] += 1
 
       fetch(url).then((res) =>
-        res.blob().then(async (blob) => {
+        res.blob().then((blob) => {
           if (base64) {
-            resolve(await compressImage(blob))
+            imageCompress(blob).then((img) => {
+              resolve(img)
+            })
           } else {
             resolve(URL.createObjectURL(blob))
           }
@@ -51,9 +54,9 @@ const characterPreload = () => {
       character.other[i].avatar = res
     })
   }
-  for (const i in character.avatar) {
-    getCache(character.avatar[i].avatar).then((res) => {
-      character.avatar[i].avatar = res
+  for (const i in avatar.game) {
+    getCache(avatar.game[i].avatar).then((res) => {
+      avatar.game[i].avatar = res
     })
   }
 }
@@ -79,7 +82,7 @@ const bubblesPreload = () => {
   }
 }
 
-const preload = () => {
+export const preload = async () => {
   const list = import.meta.glob<string>(
     [
       // 预加载素材
@@ -102,5 +105,3 @@ const preload = () => {
 
   console.log(`正在预加载图片...[${progress[0]}]`)
 }
-
-preload()

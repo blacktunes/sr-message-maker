@@ -75,7 +75,8 @@ import avatar_0 from '@/assets/images/avatar/一家人.webp'
 import avatar_1 from '@/assets/images/avatar/私聊.webp'
 import avatar_2 from '@/assets/images/avatar/群聊.webp'
 import { getAssets } from '@/assets/scripts/preload'
-import { showConfirm } from '@/store/popup'
+import { openWindow } from '@/assets/scripts/popup'
+import { emoticonClose } from '@/components/Message/Emoticon'
 
 const props = defineProps<{
   title?: string
@@ -161,8 +162,9 @@ const deleteMessage = (index: number) => {
 }
 
 const handelDelClick = (index: number, length: number) => {
+  emoticonClose()
   if (length > 0) {
-    showConfirm({
+    openWindow('confirm', {
       title: '删除短信',
       text: ['是否删除该短信？'],
       fn: () => {

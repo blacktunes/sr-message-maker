@@ -31,9 +31,9 @@
         :index="messageIndex"
         :title="title"
         :info="info"
-        :playing="autoPlaySetting.flag"
+        :playing="autoPlay.flag"
         preview
-        @click.stop="autoPlaySetting.flag ? stopPlay() : undefined"
+        @click.stop="autoPlay.flag ? stopPlay() : undefined"
         ref="boxRef"
       >
         <MessageItem
@@ -51,11 +51,11 @@
             <div
               class="option-box"
               @click.stop
-              v-if="autoPlaySetting.flag && autoPlaySetting.option.length > 0"
+              v-if="autoPlay.flag && autoPlay.option.length > 0"
             >
               <div
                 class="option"
-                v-for="(item, key) in autoPlaySetting.option"
+                v-for="(item, key) in autoPlay.option"
                 :key="key"
                 @click.stop="handelOptionClick(item)"
               >
@@ -72,11 +72,12 @@
 <script lang="ts" setup>
 import { emitter } from '@/assets/scripts/event'
 import { screenshot } from '@/assets/scripts/screenshot'
-import { message } from '@/store/message'
-import { autoPlaySetting, setting } from '@/store/setting'
+import { messageIndex, currentMessage } from '@/store/message'
+import { setting } from '@/store/setting'
+import { autoPlay } from '@/store/autoPlay'
 import { computed, nextTick, ref } from 'vue'
 import Icon from './Common/Icon.vue'
-import { info, messageIndex, scrollToBottom, title } from './Message/Message'
+import { info, scrollToBottom, title } from './Message/Message'
 import MessageBox from './Message/MessageBox.vue'
 import MessageItem from './Message/MessageItem.vue'
 
@@ -84,10 +85,11 @@ const boxRef = ref<InstanceType<typeof MessageBox>>()
 
 // 要显示的数据
 const dataList = computed(() => {
-  if (autoPlaySetting.flag || autoPlaySetting.list.length > 0) return autoPlaySetting.list
+  if (!currentMessage.value) return []
+  if (autoPlay.flag || autoPlay.list.length > 0) return autoPlay.list
 
   const list: (Message & { default?: [boolean] })[] = []
-  message.list[messageIndex.value].list.forEach((item) => {
+  currentMessage.value.list.forEach((item) => {
     if (item.option) {
       if (!list[list.length - 1] || !list[list.length - 1].default) {
         list.push({
@@ -114,22 +116,22 @@ let autoPlayIndex = -1
 const reset = () => {
   optionIndex = 0
   autoPlayIndex = -1
-  autoPlaySetting.list = []
-  autoPlaySetting.option = []
+  autoPlay.list = []
+  autoPlay.option = []
 }
 
 let timer: number
 emitter.on('autoplay', () => {
-  if (autoPlaySetting.flag) return
+  if (autoPlay.flag) return
 
   isGreenScreen.value = JSON.parse(localStorage.getItem('sr-message-screen') || 'false')
   setting.preview = true
   reset()
-  autoPlaySetting.flag = true
+  autoPlay.flag = true
 
   timer = setTimeout(() => {
     nextTick(() => {
-      autoPlay(0, true)
+      next(0, true)
     })
   }, 1000)
 })
@@ -139,76 +141,71 @@ const onOptionShow = () => {
 }
 
 const handelOptionClick = (item: Message) => {
-  autoPlaySetting.option = []
-  autoPlaySetting.list.push({ ...item, option: undefined })
+  autoPlay.option = []
+  autoPlay.list.push({ ...item, option: undefined })
   setTimeout(() => {
-    autoPlay(optionIndex, true)
+    next(optionIndex, true)
   }, 1500)
 }
 
-const autoPlay = (i: number, loading: boolean) => {
-  if (!autoPlaySetting.flag) return
-  if (!message.list[messageIndex.value].list?.[i]) {
-    autoPlaySetting.flag = false
+const next = (i: number, loading: boolean) => {
+  if (!autoPlay.flag) return
+  if (!currentMessage.value) return
+
+  if (!currentMessage.value.list[i]) {
+    autoPlay.flag = false
     return
   }
 
-  if (message.list[messageIndex.value].list[i].option) {
+  if (currentMessage.value.list[i].option) {
     optionIndex = i + 1
-    autoPlaySetting.option.push(message.list[messageIndex.value].list[i])
-    if (
-      message.list[messageIndex.value].list?.[optionIndex] &&
-      message.list[messageIndex.value].list[optionIndex].option
-    ) {
+    autoPlay.option.push(currentMessage.value.list[i])
+    if (currentMessage.value.list[optionIndex] && currentMessage.value.list[optionIndex].option) {
       autoPlayIndex = optionIndex
-      autoPlay(optionIndex, true)
+      next(optionIndex, true)
     }
     return
   }
   autoPlayIndex = i
 
-  if (
-    message.list[messageIndex.value].list[i].key === '开拓者' ||
-    message.list[messageIndex.value].list[i].notice
-  ) {
+  if (currentMessage.value.list[i].key === '开拓者' || currentMessage.value.list[i].notice) {
     loading = false
-    autoPlaySetting.list.push(message.list[messageIndex.value].list[i])
+    autoPlay.list.push(currentMessage.value.list[i])
   } else {
     if (loading) {
-      autoPlaySetting.list.push({
-        ...message.list[messageIndex.value].list[i],
+      autoPlay.list.push({
+        ...currentMessage.value.list[i],
         loading: true
       })
     } else {
-      autoPlaySetting.list[autoPlaySetting.list.length - 1].loading = false
+      autoPlay.list[autoPlay.list.length - 1].loading = false
     }
   }
 
   nextTick(() => {
+    if (!currentMessage.value) return
+
     scrollToBottom(boxRef.value?.listDom)
 
     if (loading) {
-      const time = Math.min(
-        Math.max(message.list[messageIndex.value].list[i].text.length * 50, 1000),
-        3000
-      )
+      const time = Math.min(Math.max(currentMessage.value.list[i].text.length * 50, 1000), 3000)
 
       clearTimeout(timer)
       timer = setTimeout(() => {
-        autoPlay(i, false)
+        next(i, false)
       }, time)
     } else {
-      if (message.list[messageIndex.value].list[i + 1]) {
-        let time = message.list[messageIndex.value].list[i + 1].interval
+      if (currentMessage.value.list[i + 1]) {
+        let time = currentMessage.value.list[i + 1].interval
         if (time === undefined || time < 1000) {
-          time = message.list[messageIndex.value].list[i + 1].key === '开拓者' ? 2000 : 1500
+          time = currentMessage.value.list[i + 1].key === '开拓者' ? 2000 : 1500
         }
         clearTimeout(timer)
         timer = setTimeout(() => {
-          autoPlay(i + 1, true)
+          next(i + 1, true)
         }, time)
       } else {
-        autoPlaySetting.flag = false
+        autoPlay.flag = false
       }
     }
   })
@@ -219,31 +216,29 @@ emitter.on('stopplay', () => stopPlay())
 // 取消播放
 const stopPlay = () => {
   clearTimeout(timer)
+  if (!currentMessage.value) return
 
-  autoPlaySetting.flag = false
+  autoPlay.flag = false
   const list: (Message & { default?: [boolean] })[] = []
-  for (let j = autoPlayIndex + 1; j < message.list[messageIndex.value].list.length; j++) {
-    if (message.list[messageIndex.value].list[j].option) {
+  for (let j = autoPlayIndex + 1; j < currentMessage.value.list.length; j++) {
+    if (currentMessage.value.list[j].option) {
       if (!list[list.length - 1] || !list[list.length - 1].default) {
         list.push({
-          ...message.list[messageIndex.value].list[j],
-          default: [!!message.list[messageIndex.value].list[j].option?.[0]],
+          ...currentMessage.value.list[j],
+          default: [!!currentMessage.value.list[j].option?.[0]],
           option: undefined
         })
       } else {
-        if (
-          !list[list.length - 1].default?.[0] &&
-          message.list[messageIndex.value].list[j].option?.[0]
-        ) {
-          list[list.length - 1].text = message.list[messageIndex.value].list[j].text
-          list[list.length - 1].default = [!!message.list[messageIndex.value].list[j].option?.[0]]
+        if (!list[list.length - 1].default?.[0] && currentMessage.value.list[j].option?.[0]) {
+          list[list.length - 1].text = currentMessage.value.list[j].text
+          list[list.length - 1].default = [!!currentMessage.value.list[j].option?.[0]]
         }
       }
     } else {
-      list.push(message.list[messageIndex.value].list[j])
+      list.push(currentMessage.value.list[j])
     }
   }
-  autoPlaySetting.list = [...autoPlaySetting.list, ...list]
+  autoPlay.list = [...autoPlay.list, ...list]
   scrollToBottom(boxRef.value?.listDom)
 }
 

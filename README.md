@@ -1,4 +1,5 @@
-<h1 align="center">星穹铁道短信生成器</h1>
+<h1 align="center">星穹铁道短信编辑器</h1>
+<h3 align="center">崩坏:星穹铁道短信生成网站</h3>
 
 ![预览图](readme/screenshot.jpg)
 
@@ -82,6 +83,16 @@
     </td>
   </tr>
 </table>
+
+## 相关项目
+- 崩坏:星穹铁道光锥生成网站
+  - https://github.com/blacktunes/sr-light-cone
+  - https://light.shenmedouyou.top/
+- 崩坏:星穹铁道罗浮杂俎生成网站
+  - https://github.com/blacktunes/sr-ghostly-grove
+  - https://ghostly.shenmedouyou.top/
+- 绝区零 - 绳网生成网站
+  - https://github.com/blacktunes/interknot
 
 ## 支持
 如果你喜欢这个项目，可以给个⭐️或者[请我喝杯柠檬水](https://afdian.net/a/blacktune)

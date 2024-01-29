@@ -129,7 +129,7 @@ $bar-height = 12px
       width 45px
       height 45px
       background #fff
-      border 'calc(%s * 0.7) solid #f19839' % $bar-height
+      border $bar-height * 0.7 solid #f19839
       border-radius 50%
       transform 'translate(-50%, calc(-50% + %s / 2))' % $bar-height
       cursor pointer

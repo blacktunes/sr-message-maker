@@ -1,37 +1,51 @@
 <template>
-  <Window
-    :show="popup.font"
-    title="字体设置"
-    @close="popup.font = false"
-  >
-    <div class="font">
-      <div class="preview">愿此行，终抵群星</div>
-      <div class="font">{{ font }}</div>
-      <div class="line"></div>
-      <Btn
-        class="btn"
-        name="默认字体"
-        @click="resetFont"
-      />
-      <Btn
-        class="btn"
-        name="系统字体"
-        @click="setFont('')"
-      />
-      <Btn
-        class="btn"
-        name="上传字体"
-        @click="setCustomFont"
-      />
-    </div>
-  </Window>
+  <Popup :index="props.index">
+    <Window
+      title="字体设置"
+      @close="close"
+    >
+      <div class="font">
+        <div class="preview">愿此行，终抵群星</div>
+        <div class="font">{{ font }}</div>
+        <div class="line"></div>
+        <Btn
+          class="btn"
+          name="默认字体"
+          @click="resetFont"
+        />
+        <Btn
+          class="btn"
+          name="系统字体"
+          @click="setFont('')"
+        />
+        <Btn
+          class="btn"
+          name="上传字体"
+          @click="setCustomFont"
+        />
+      </div>
+    </Window>
+  </Popup>
 </template>
 
 <script lang="ts" setup>
-import { popup } from '@/store/popup'
+import Popup from '@/components/Common/Popup.vue'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
 import { ref } from 'vue'
+
+const props = defineProps<{
+  name: string
+  index: number
+}>()
+
+const emits = defineEmits<{
+  (event: 'close', name: string): void
+}>()
+
+const close = () => {
+  emits('close', props.name)
+}
 
 const defaultFont = "* { font-family: 'Noto Sans SC'; }"
 

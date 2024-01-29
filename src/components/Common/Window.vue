@@ -68,16 +68,21 @@
 <script lang="ts" setup>
 import Close from './Close.vue'
 
-defineProps<{
-  show: boolean
-  confirm?: boolean
-  title: string
-  width?: string
-  minWidth?: string
-  height?: string
-  minHeight?: string
-  onClose?: () => void
-}>()
+withDefaults(
+  defineProps<{
+    show?: boolean
+    confirm?: boolean
+    title: string
+    width?: string
+    minWidth?: string
+    height?: string
+    minHeight?: string
+    onClose?: () => void
+  }>(),
+  {
+    show: true
+  }
+)
 
 const slot = defineSlots()
 
@@ -94,7 +99,6 @@ const close = () => {
 @import './Window.styl'
 
 .window
-  z-index 99
   display flex
   justify-content center
   align-items center

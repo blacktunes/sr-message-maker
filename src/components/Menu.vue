@@ -17,7 +17,7 @@
         <div class="btn-list">
           <div
             class="btn"
-            @click="addNewMessage"
+            @click="handelMessageClick"
           >
             <div class="icon">
               <Icon
@@ -59,7 +59,7 @@
         </div>
         <div
           class="bubbles-btn"
-          @click.stop="openWindow('setting')"
+          @click.stop=";[emoticonClose(), openWindow('setting')]"
         >
           <Icon name="setting" />
         </div>
@@ -69,14 +69,15 @@
 </template>
 
 <script lang="ts" setup>
-import { emitter } from '@/assets/scripts/event'
-import { addNewMessage, message } from '@/store/message'
-import { setting } from '@/store/setting'
-import { computed } from 'vue'
 import Icon from './Common/Icon.vue'
 import MessageGroup from './Menu/MessageGroup.vue'
+import { setting } from '@/store/setting'
+import { addNewMessage, message } from '@/store/message'
+import { emitter } from '@/assets/scripts/event'
 import { getNames, getTitle } from '@/assets/scripts/header'
-import { openWindow } from '@/store/popup'
+import { openWindow } from '@/assets/scripts/popup'
+import { computed } from 'vue'
+import { emoticonClose } from '@/components/Message/Emoticon'
 
 interface MenuItem {
   time: number
@@ -118,13 +119,23 @@ const list = computed(() => {
   return temp
 })
 
+const handelMessageClick = () => {
+  addNewMessage(
+    list.value.some((i) => i.list.some((j) => j.title === setting.select))
+      ? setting.select
+      : undefined
+  )
+}
+
 const handelScreenshotClick = () => {
   if (setting.preview) return
+  emoticonClose()
   emitter.emit('screenshot')
 }
 
 const handelAutoPlayClick = () => {
   if (setting.preview) return
+  emoticonClose()
   emitter.emit('autoplay')
 }
 </script>

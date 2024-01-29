@@ -15,14 +15,14 @@
       >
         <div
           v-if="!preview"
-          @click.stop="handelTypeClick(mission.type)"
+          @click="handelTypeClick(mission.type)"
           class="icon"
           title="修改任务类型"
         ></div>
         <div
           class="tip"
-          @click.stop="preview ? undefined : handeStateClick(mission.state)"
-          title="修改任状态"
+          @click="preview ? undefined : handeStateClick(mission.state)"
+          title="修改任务状态"
         >
           {{ missionState }}
         </div>
@@ -43,7 +43,7 @@
         />
         <div
           class="state"
-          @click.stop="preview ? undefined : handeStateClick(mission.state)"
+          @click="preview ? undefined : handeStateClick(mission.state)"
           title="修改任状态"
         >
           <Icon
