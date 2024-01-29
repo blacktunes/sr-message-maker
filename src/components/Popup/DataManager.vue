@@ -17,13 +17,13 @@
             class="btn"
             name="导出当前短信"
             :disable="!setting.index"
-            @click="downloadData"
+            @click="downloadMessage"
           />
           <Btn
             class="btn"
             name="导出全部短信"
             :disable="!hasData"
-            @click="downloadAllData"
+            @click="downloadAllMessage"
           />
           <Btn
             class="btn"
@@ -77,6 +77,7 @@ import { character } from '@/store/character'
 import { zhLocale, setLocale, Parameter } from '@ckpack/parameter'
 import { avatar } from '@/store/avatar'
 import { openWindow } from '@/assets/scripts/popup'
+import { compressToUint8Array, decompressFromUint8Array } from 'lz-string'
 
 const props = defineProps<{
   name: string
@@ -139,6 +140,24 @@ watch(
     }
   }
 )
+
+enum Accept {
+  message = '.srm',
+  character = '.src',
+  avatar = '.sra'
+}
+
+const downloadData = (data: any, type: Accept) => {
+  const str = JSON.stringify(data, null, 2)
+  const blob = new Blob([compressToUint8Array(str)], { type: 'application/octet-stream' })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = `SR-${new Date().toLocaleString()}${type}`
+  a.click()
+  a.remove()
+  URL.revokeObjectURL(url)
+}
 
 setLocale(zhLocale)
 const parameter = new Parameter()
@@ -205,68 +224,69 @@ const dataRule = {
 
 const hasData = computed(() => message.list.length > 0)
 
-const downloadData = () => {
+const downloadMessage = () => {
   if (!setting.index || !currentMessage.value) return
 
-  const a = document.createElement('a')
-  a.href = `data:,${JSON.stringify([toRaw(currentMessage.value)], null, 2)}`
-  a.download = `SR-${new Date().toLocaleString()}.json`
-  a.click()
+  downloadData([toRaw(currentMessage.value)], Accept.message)
 }
 
-const downloadAllData = () => {
+const downloadAllMessage = () => {
   if (!hasData.value) return
 
-  const a = document.createElement('a')
-  a.href = `data:,${JSON.stringify(toRaw(message.list), null, 2)}`
-  a.download = `SR-${new Date().toLocaleString()}.json`
-  a.click()
+  downloadData(toRaw(message.list), Accept.message)
 }
 
 const uploadDate = async () => {
   const el = document.createElement('input')
   el.type = 'file'
-  el.accept = '.json'
+  el.accept = Accept.message
   el.onchange = () => {
     if (el.files?.[0]) {
       const file = new FileReader()
-      file.readAsText(el.files[0])
+      file.readAsArrayBuffer(el.files[0])
       file.onload = (e) => {
-        try {
-          const data: MessageListItem[] = JSON.parse(e.target?.result as string)
-          let time = Date.now()
-          let num = 0
-          for (const i in data) {
-            data[i].time = time
-            data[i].id = time++
-            const val = parameter.validate(dataRule, data[i])
-            if (!val) {
-              message.list.unshift(data[i])
-              num += 1
+        if (e.target?.result) {
+          try {
+            const data: MessageListItem[] = JSON.parse(
+              decompressFromUint8Array(new Uint8Array(e.target.result as ArrayBuffer))
+            )
+            let time = Date.now()
+            let num = 0
+            for (const i in data) {
+              data[i].time = time
+              data[i].id = time++
+              const val = parameter.validate(dataRule, data[i])
+              if (val) {
+                console.warn(val)
+              } else {
+                message.list.unshift(data[i])
+                num += 1
+              }
             }
-          }
-          if (num === 0) {
+            if (num === 0) {
+              openWindow('confirm', {
+                title: '短信导入失败',
+                text: ['请检查文件格式是否正确']
+              })
+            } else if (num < data.length) {
+              openWindow('confirm', {
+                title: '短信导入失败',
+                text: ['部分短信导入失败', '请检查文件格式是否正确']
+              })
+            }
+            updateMessageUsage()
+          } catch (err) {
             openWindow('confirm', {
               title: '短信导入失败',
-              text: ['请检查文件格式是否正确']
-            })
-          } else if (num < data.length) {
-            openWindow('confirm', {
-              title: '短信导入失败',
-              text: ['部分短信导入失败', '请检查文件格式是否正确']
+              text: [String(err)]
             })
           }
-          updateMessageUsage()
-        } catch (err) {
-          openWindow('confirm', {
-            title: '短信导入失败',
-            text: [String(err)]
-          })
         }
       }
     }
   }
   el.click()
+  el.remove()
 }
 
 const deleteData = () => {
@@ -303,48 +323,52 @@ const hasCharacter = computed(() => Object.keys(character.custom).length > 0)
 const downloadCharacter = () => {
   if (!hasCharacter.value) return
 
-  const a = document.createElement('a')
-  a.href = `data:,${JSON.stringify(toRaw(character.custom), null, 2)}`
-  a.download = `SR-character-${new Date().toLocaleString()}.json`
-  a.click()
+  downloadData(toRaw(character.custom), Accept.character)
 }
 
 const uploadCharacter = async () => {
   const el = document.createElement('input')
   el.type = 'file'
-  el.accept = '.json'
+  el.accept = Accept.character
   el.onchange = () => {
     if (el.files?.[0]) {
       const file = new FileReader()
-      file.readAsText(el.files[0])
+      file.readAsArrayBuffer(el.files[0])
       file.onload = (e) => {
-        try {
-          const data: { [key: string]: CustomCharacter } = JSON.parse(e.target?.result as string)
-          let time = Date.now()
-          let num = 0
-          for (const i in data) {
-            if (!parameter.validate(characterRule, data[i])) {
-              character.custom[time++] = data[i]
-              num += 1
+        if (e.target?.result) {
+          try {
+            const data: { [key: string]: CustomCharacter } = JSON.parse(
+              decompressFromUint8Array(new Uint8Array(e.target.result as ArrayBuffer))
+            )
+            let time = Date.now()
+            let num = 0
+            for (const i in data) {
+              const val = parameter.validate(characterRule, data[i])
+              if (val) {
+                console.warn(val)
+              } else {
+                character.custom[time++] = data[i]
+                num += 1
+              }
             }
-          }
-          if (num === 0) {
+            if (num === 0) {
+              openWindow('confirm', {
+                title: '自定义导角色入失败',
+                text: ['请检查文件格式是否正确']
+              })
+            } else if (num < Object.keys(data).length) {
+              openWindow('confirm', {
+                title: '自定义导角色入失败',
+                text: ['部分自定义导角色入失败', '请检查文件格式是否正确']
+              })
+            }
+            updateCharacterUsage()
+          } catch (err) {
             openWindow('confirm', {
               title: '自定义导角色入失败',
-              text: ['请检查文件格式是否正确']
-            })
-          } else if (num < Object.keys(data).length) {
-            openWindow('confirm', {
-              title: '自定义导角色入失败',
-              text: ['部分自定义导角色入失败', '请检查文件格式是否正确']
+              text: [String(err)]
             })
           }
-          updateCharacterUsage()
-        } catch (err) {
-          openWindow('confirm', {
-            title: '自定义导角色入失败',
-            text: [String(err)]
-          })
         }
       }
     }
@@ -374,13 +398,10 @@ const reserDatabase = () => {
     text: ['确定重置数据库吗？'],
     fn: () => {
       setting.loading = true
-      const promise = [
-        indexedDB.deleteDatabase('sr-custom'),
-        indexedDB.deleteDatabase('sr-message')
-      ]
-      Promise.all(promise).then(() => {
+      const request = indexedDB.deleteDatabase('sr-message-v2')
+      request.onsuccess = () => {
         location.reload()
-      })
+      }
     }
   })
 }
