@@ -72,12 +72,12 @@
 <script lang="ts" setup>
 import { emitter } from '@/assets/scripts/event'
 import { screenshot } from '@/assets/scripts/screenshot'
-import { message } from '@/store/message'
+import { messageIndex, currentMessage } from '@/store/message'
 import { setting } from '@/store/setting'
 import { autoPlay } from '@/store/autoPlay'
 import { computed, nextTick, ref } from 'vue'
 import Icon from './Common/Icon.vue'
-import { info, messageIndex, scrollToBottom, title } from './Message/Message'
+import { info, scrollToBottom, title } from './Message/Message'
 import MessageBox from './Message/MessageBox.vue'
 import MessageItem from './Message/MessageItem.vue'
 
@@ -85,10 +85,11 @@ const boxRef = ref<InstanceType<typeof MessageBox>>()
 
 // 要显示的数据
 const dataList = computed(() => {
+  if (!currentMessage.value) return []
   if (autoPlay.flag || autoPlay.list.length > 0) return autoPlay.list
 
   const list: (Message & { default?: [boolean] })[] = []
-  message.list[messageIndex.value].list.forEach((item) => {
+  currentMessage.value.list.forEach((item) => {
     if (item.option) {
       if (!list[list.length - 1] || !list[list.length - 1].default) {
         list.push({
@@ -149,18 +150,17 @@ const handelOptionClick = (item: Message) => {
 
 const next = (i: number, loading: boolean) => {
   if (!autoPlay.flag) return
-  if (!message.list[messageIndex.value].list?.[i]) {
+  if (!currentMessage.value) return
+
+  if (!currentMessage.value.list[i]) {
     autoPlay.flag = false
     return
   }
 
-  if (message.list[messageIndex.value].list[i].option) {
+  if (currentMessage.value.list[i].option) {
     optionIndex = i + 1
-    autoPlay.option.push(message.list[messageIndex.value].list[i])
-    if (
-      message.list[messageIndex.value].list?.[optionIndex] &&
-      message.list[messageIndex.value].list[optionIndex].option
-    ) {
+    autoPlay.option.push(currentMessage.value.list[i])
+    if (currentMessage.value.list[optionIndex] && currentMessage.value.list[optionIndex].option) {
       autoPlayIndex = optionIndex
       next(optionIndex, true)
     }
@@ -168,16 +168,13 @@ const next = (i: number, loading: boolean) => {
   }
   autoPlayIndex = i
 
-  if (
-    message.list[messageIndex.value].list[i].key === '开拓者' ||
-    message.list[messageIndex.value].list[i].notice
-  ) {
+  if (currentMessage.value.list[i].key === '开拓者' || currentMessage.value.list[i].notice) {
     loading = false
-    autoPlay.list.push(message.list[messageIndex.value].list[i])
+    autoPlay.list.push(currentMessage.value.list[i])
   } else {
     if (loading) {
       autoPlay.list.push({
-        ...message.list[messageIndex.value].list[i],
+        ...currentMessage.value.list[i],
         loading: true
       })
     } else {
@@ -186,23 +183,22 @@ const next = (i: number, loading: boolean) => {
   }
 
   nextTick(() => {
+    if (!currentMessage.value) return
+
     scrollToBottom(boxRef.value?.listDom)
 
     if (loading) {
-      const time = Math.min(
-        Math.max(message.list[messageIndex.value].list[i].text.length * 50, 1000),
-        3000
-      )
+      const time = Math.min(Math.max(currentMessage.value.list[i].text.length * 50, 1000), 3000)
 
       clearTimeout(timer)
       timer = setTimeout(() => {
         next(i, false)
       }, time)
     } else {
-      if (message.list[messageIndex.value].list[i + 1]) {
-        let time = message.list[messageIndex.value].list[i + 1].interval
+      if (currentMessage.value.list[i + 1]) {
+        let time = currentMessage.value.list[i + 1].interval
         if (time === undefined || time < 1000) {
-          time = message.list[messageIndex.value].list[i + 1].key === '开拓者' ? 2000 : 1500
+          time = currentMessage.value.list[i + 1].key === '开拓者' ? 2000 : 1500
         }
         clearTimeout(timer)
         timer = setTimeout(() => {
@@ -220,28 +216,26 @@ emitter.on('stopplay', () => stopPlay())
 // 取消播放
 const stopPlay = () => {
   clearTimeout(timer)
+  if (!currentMessage.value) return
 
   autoPlay.flag = false
   const list: (Message & { default?: [boolean] })[] = []
-  for (let j = autoPlayIndex + 1; j < message.list[messageIndex.value].list.length; j++) {
-    if (message.list[messageIndex.value].list[j].option) {
+  for (let j = autoPlayIndex + 1; j < currentMessage.value.list.length; j++) {
+    if (currentMessage.value.list[j].option) {
       if (!list[list.length - 1] || !list[list.length - 1].default) {
         list.push({
-          ...message.list[messageIndex.value].list[j],
-          default: [!!message.list[messageIndex.value].list[j].option?.[0]],
+          ...currentMessage.value.list[j],
+          default: [!!currentMessage.value.list[j].option?.[0]],
           option: undefined
         })
       } else {
-        if (
-          !list[list.length - 1].default?.[0] &&
-          message.list[messageIndex.value].list[j].option?.[0]
-        ) {
-          list[list.length - 1].text = message.list[messageIndex.value].list[j].text
-          list[list.length - 1].default = [!!message.list[messageIndex.value].list[j].option?.[0]]
+        if (!list[list.length - 1].default?.[0] && currentMessage.value.list[j].option?.[0]) {
+          list[list.length - 1].text = currentMessage.value.list[j].text
+          list[list.length - 1].default = [!!currentMessage.value.list[j].option?.[0]]
         }
       }
     } else {
-      list.push(message.list[messageIndex.value].list[j])
+      list.push(currentMessage.value.list[j])
     }
   }
   autoPlay.list = [...autoPlay.list, ...list]

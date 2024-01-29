@@ -1,38 +1,30 @@
-import { getNames, getTitle } from '@/assets/scripts/header'
-import { character } from '@/store/character'
-import { userData } from '@/store/avatar'
-import { message } from '@/store/message'
-import { setting } from '@/store/setting'
-import { computed, nextTick } from 'vue'
 import defaultAvatar from '@/assets/images/avatar/私聊.webp'
+import { getNames, getTitle } from '@/assets/scripts/header'
+import { userData } from '@/store/avatar'
+import { character } from '@/store/character'
+import { currentMessage } from '@/store/message'
+import { computed, nextTick } from 'vue'
 
-export const messageIndex = computed(() => {
-  if (setting.index) {
-    return message.list.findIndex((item) => {
-      return item.id === setting.index
-    })
-  } else {
-    return -1
-  }
-})
+const names = computed<[string[], string]>(() => {
+  if (!currentMessage.value) return [[], '']
 
-const names = computed(() => {
-  return getNames(message.list[messageIndex.value].list)
+  return getNames(currentMessage.value.list)
 })
 
 const customTitle = computed(() => {
-  if (message.list[messageIndex.value].title) return message.list[messageIndex.value].title
-  return undefined
+  if (!currentMessage.value) return
+
+  return currentMessage.value.title ?? undefined
 })
 
 export const title = computed(() => {
-  if (messageIndex.value === -1) return ''
+  if (!currentMessage.value) return ''
 
   return customTitle.value || getTitle(names.value[0])
 })
 
 export const info = computed(() => {
-  if (messageIndex.value === -1) return
+  if (!currentMessage.value) return
   if (customTitle.value) return
 
   if (names.value[0].length === 1) {

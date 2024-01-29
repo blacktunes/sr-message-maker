@@ -8,7 +8,7 @@
         <table class="table">
           <tr
             class="line"
-            v-if="message.list[messageIndex].list?.[messageData.key || -1]?.key !== '开拓者'"
+            v-if="currentMessage?.list?.[messageData.key || -1]?.key !== '开拓者'"
           >
             <td class="left">修改昵称</td>
             <td class="right">
@@ -68,9 +68,8 @@ import Btn from '@/components/Common/Btn.vue'
 import Slider from '@/components/Common/Slider.vue'
 import Icon from '@/components//Common/Icon.vue'
 import { openWindow } from '@/assets/scripts/popup'
-import { message } from '@/store/message'
+import { currentMessage } from '@/store/message'
 import { messageData } from './'
-import { messageIndex } from '@/components/Message/Message'
 import { enterCallback } from '@/assets/scripts/popup'
 
 const props = defineProps<{
@@ -88,29 +87,32 @@ const close = () => {
 
 // 修改昵称
 const handelChangeName = async () => {
-  if (messageData.key !== undefined && message.list[messageIndex.value].list[messageData.key]) {
-    if (message.list[messageIndex.value].list[messageData.key].key !== '开拓者') {
+  if (!currentMessage.value) return
+
+  if (messageData.key !== undefined && currentMessage.value.list[messageData.key]) {
+    if (currentMessage.value.list[messageData.key].key !== '开拓者') {
       const name = await openWindow('input', {
         title: '修改昵称',
         tip: '建议不要使用过长的昵称',
         required: false,
-        defaultText: message.list[messageIndex.value].list[messageData.key].name,
-        placeholder: message.list[messageIndex.value].list[messageData.key].name
+        defaultText: currentMessage.value.list[messageData.key].name,
+        placeholder: currentMessage.value.list[messageData.key].name
       })
       if (name !== null) {
-        message.list[messageIndex.value].list[messageData.key].name = name
+        currentMessage.value.list[messageData.key].name = name
       }
     }
   }
 }
 
 const onConfirml = () => {
+  if (!currentMessage.value) return
   if (
     messageData.interval > 0 &&
     messageData.key !== undefined &&
-    message.list[messageIndex.value].list[messageData.key]
+    currentMessage.value.list[messageData.key]
   ) {
-    message.list[messageIndex.value].list[messageData.key].interval = messageData.interval * 1000
+    currentMessage.value.list[messageData.key].interval = messageData.interval * 1000
   }
   close()
 }

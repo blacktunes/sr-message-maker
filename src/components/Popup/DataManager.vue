@@ -71,10 +71,9 @@ import Popup from '@/components/Common/Popup.vue'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
 import { computed, ref, toRaw, watch } from 'vue'
-import { message } from '@/store/message'
+import { currentMessage, message } from '@/store/message'
 import { setting } from '@/store/setting'
 import { character } from '@/store/character'
-import { messageIndex } from '@/components/Message/Message'
 import { zhLocale, setLocale, Parameter } from '@ckpack/parameter'
 import { avatar } from '@/store/avatar'
 import { openWindow } from '@/assets/scripts/popup'
@@ -207,15 +206,12 @@ const dataRule = {
 const hasData = computed(() => message.list.length > 0)
 
 const downloadData = () => {
-  if (!setting.index) return
+  if (!setting.index || !currentMessage.value) return
 
-  const data = message.list[messageIndex.value]
-  if (data) {
-    const a = document.createElement('a')
-    a.href = `data:,${JSON.stringify([toRaw(data)], null, 2)}`
-    a.download = `SR-${new Date().toLocaleString()}.json`
-    a.click()
-  }
+  const a = document.createElement('a')
+  a.href = `data:,${JSON.stringify([toRaw(currentMessage.value)], null, 2)}`
+  a.download = `SR-${new Date().toLocaleString()}.json`
+  a.click()
 }
 
 const downloadAllData = () => {

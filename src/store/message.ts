@@ -1,4 +1,4 @@
-import { reactive } from 'vue'
+import { reactive, computed } from 'vue'
 import { setting } from './setting'
 
 export const message = reactive<{
@@ -18,3 +18,17 @@ export const addNewMessage = (title?: string) => {
   setting.index = time
   setting.select = title || '未命名短信'
 }
+
+export const messageIndex = computed(() => {
+  if (setting.index) {
+    return message.list.findIndex((item) => {
+      return item.id === setting.index
+    })
+  } else {
+    return -1
+  }
+})
+
+export const currentMessage = computed<MessageListItem | undefined>(
+  () => message.list[messageIndex.value]
+)

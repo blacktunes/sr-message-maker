@@ -1,5 +1,4 @@
-import { messageIndex } from '@/components/Message/Message'
-import { message } from '@/store/message'
+import { currentMessage } from '@/store/message'
 import { reactive } from 'vue'
 
 export const messageData = reactive<{
@@ -12,8 +11,7 @@ export const messageData = reactive<{
 
 export const messageManagerOpen = (key: number) => {
   messageData.key = key
-  messageData.interval =
-    (message.list[messageIndex.value].list?.[messageData.key].interval || 0) / 1000
+  messageData.interval = (currentMessage.value?.list?.[messageData.key].interval || 0) / 1000
 }
 
 export const messageManagerClose = () => {

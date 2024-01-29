@@ -1,5 +1,5 @@
 <template>
-  <template v-if="setting.index">
+  <template v-if="setting.index && currentMessage">
     <transition
       name="fade"
       appear
@@ -13,7 +13,7 @@
         ref="boxRef"
       >
         <draggable
-          v-model="message.list[messageIndex].list"
+          v-model="currentMessage.list"
           :item-key="(item: Message) => getKey(item)"
           animation="100"
           delay="100"
@@ -141,10 +141,10 @@ import MessageItem from './Message/MessageItem.vue'
 import draggable from '@marshallswain/vuedraggable'
 import { getCharaterAvatar } from '@/assets/scripts/avatar'
 import { input } from '@/store/input'
-import { message } from '@/store/message'
+import { messageIndex, currentMessage, message } from '@/store/message'
 import { setting } from '@/store/setting'
 import { computed, nextTick, ref, watch } from 'vue'
-import { getAvatar, info, messageIndex, scrollToBottom, title } from './Message/Message'
+import { getAvatar, info, scrollToBottom, title } from './Message/Message'
 import { emitter } from '@/assets/scripts/event'
 import { openWindow } from '@/assets/scripts/popup'
 import { emoticonClose, emoticonOpen, emoticonData } from './Message/Emoticon'
@@ -164,10 +164,13 @@ const getRandomKey = (): number => {
 }
 
 const getKey = (item: Message) => {
-  const index = message.list[messageIndex.value].list.indexOf(item)
-  return `${message.list[messageIndex.value].id}-${index}-${randomKey}`
+  if (!currentMessage.value) return
+
+  const index = currentMessage.value.list.indexOf(item)
+  return `${currentMessage.value.id}-${index}-${randomKey}`
 }
 
+// 自动滚动到底部
 watch(messageIndex, () => {
   if (messageIndex.value === -1) {
     setting.index = undefined
@@ -180,22 +183,24 @@ watch(messageIndex, () => {
   }
 })
 
-const messageList = computed(() => message.list[messageIndex.value]?.list || [])
+// 检查选项是否默认
 watch(
-  messageList,
+  () => currentMessage.value?.list,
   () => {
-    let index = message.list[messageIndex.value]?.list.length || 0
-    for (const i in message.list[messageIndex.value]?.list) {
-      if (message.list[messageIndex.value].list[Number(i)].option) {
-        if (message.list[messageIndex.value].list[Number(i)].option?.[0]) {
+    if (!currentMessage.value?.list) return
+
+    let index = currentMessage.value.list.length || 0
+    for (const i in currentMessage.value.list) {
+      if (currentMessage.value.list[Number(i)].option) {
+        if (currentMessage.value.list[Number(i)].option?.[0]) {
           if (Number(i) > index) {
-            message.list[messageIndex.value].list[Number(i)].option = [false]
+            currentMessage.value.list[Number(i)].option = [false]
           } else {
             index = Number(i)
           }
         }
       } else {
-        index = message.list[messageIndex.value].list.length
+        index = currentMessage.value.list.length
       }
     }
   },
@@ -204,26 +209,21 @@ watch(
   }
 )
 
-const getCharacter = () => {
-  return {
-    key: input.character.key,
-    name: input.character.name,
-    avatar: getCharaterAvatar(input.character.key)
-  }
-}
-
+// 调整选项样式
 const setMessageStyle = (key: number) => {
+  if (!currentMessage.value) return
+
   return {
     marginTop:
-      message.list[messageIndex.value].list?.[key]?.option &&
-      message.list[messageIndex.value].list?.[key - 1] &&
-      !message.list[messageIndex.value].list?.[key - 1]?.option
+      currentMessage.value.list[key].option &&
+      currentMessage.value.list[key - 1] &&
+      !currentMessage.value.list[key - 1]?.option
         ? '100px'
         : '',
     marginBottom:
-      message.list[messageIndex.value].list?.[key]?.option &&
-      message.list[messageIndex.value].list?.[key + 1] &&
-      !message.list[messageIndex.value].list?.[key + 1]?.option
+      currentMessage.value.list[key]?.option &&
+      currentMessage.value.list[key + 1] &&
+      !currentMessage.value.list[key + 1]?.option
         ? '100px'
         : ''
   }
@@ -234,35 +234,44 @@ watch(title, () => {
 })
 
 const updateTitle = (data: string) => {
-  message.list[messageIndex.value].title = data
+  if (!currentMessage.value) return
+
+  currentMessage.value.title = data
 }
 
 const updateOption = (key: number, next: boolean) => {
-  if (message.list[messageIndex.value].list?.[key]?.option) {
-    message.list[messageIndex.value].list[key].option = [false]
+  if (!currentMessage.value) return
+
+  if (currentMessage.value.list[key]?.option) {
+    currentMessage.value.list[key].option = [false]
     updateOption(next ? key + 1 : key - 1, next)
   }
 }
 
 const handelOptionChange = (key: number) => {
-  if (!message.list[messageIndex.value].list[key].option) return
+  if (!currentMessage.value) return
+  if (!currentMessage.value.list[key].option) return
 
-  if (message.list[messageIndex.value].list[key].option?.[0]) {
-    message.list[messageIndex.value].list[key].option = [false]
+  if (currentMessage.value.list[key].option?.[0]) {
+    currentMessage.value.list[key].option = [false]
   } else {
-    message.list[messageIndex.value].list[key].option = [true]
+    currentMessage.value.list[key].option = [true]
     updateOption(key + 1, true)
     updateOption(key - 1, false)
   }
 }
 
 const updateMission = (key: number, data: Mission) => {
-  message.list[messageIndex.value].list[key].mission = data
+  if (!currentMessage.value) return
+
+  currentMessage.value.list[key].mission = data
 }
 
 const updateText = (key: number, data: string) => {
-  message.list[messageIndex.value].list[key].text = data
-  message.list[messageIndex.value].time = Date.now()
+  if (!currentMessage.value) return
+
+  currentMessage.value.list[key].text = data
+  currentMessage.value.time = Date.now()
   nextTick(() => {
     boxRef.value?.updateArrow()
   })
@@ -279,14 +288,18 @@ const handelImageClick = async (emoticon: boolean, key: number) => {
     emoticonOpen([messageIndex.value, key])
   } else {
     openWindow('cropper', { maxWidth: 1280 }).then(({ base64 }) => {
-      message.list[messageIndex.value].list[key].img = base64
-      message.list[messageIndex.value].time = Date.now()
+      if (!currentMessage.value) return
+
+      currentMessage.value.list[key].img = base64
+      currentMessage.value.time = Date.now()
     })
   }
 }
 const handelDelClick = (key: number) => {
-  message.list[messageIndex.value].list.splice(key, 1)
-  message.list[messageIndex.value].time = Date.now()
+  if (!currentMessage.value) return
+
+  currentMessage.value.list.splice(key, 1)
+  currentMessage.value.time = Date.now()
   nextTick(() => {
     boxRef.value?.updateArrow()
   })
@@ -310,21 +323,25 @@ const inputFocus = (flag = true) => {
 }
 
 const handelOptionClick = () => {
-  message.list[messageIndex.value].list.push({
+  if (!currentMessage.value) return
+
+  currentMessage.value.list.push({
     key: '开拓者',
     name: '',
     avatar: '',
     text: input.text || DEFAULT_TEXT,
     option: [false]
   })
-  message.list[messageIndex.value].time = Date.now()
+  currentMessage.value.time = Date.now()
   input.text = ''
   scrollToBottom(boxRef.value?.listDom)
   inputFocus()
 }
 
 const handelMissionClick = () => {
-  message.list[messageIndex.value].list.push({
+  if (!currentMessage.value) return
+
+  currentMessage.value.list.push({
     key: '开拓者',
     name: '',
     avatar: '',
@@ -334,21 +351,31 @@ const handelMissionClick = () => {
       state: 0
     }
   })
-  message.list[messageIndex.value].time = Date.now()
+  currentMessage.value.time = Date.now()
   input.text = ''
   scrollToBottom(boxRef.value?.listDom)
   inputFocus()
 }
 
+const getCharacter = () => {
+  return {
+    key: input.character.key,
+    name: input.character.name,
+    avatar: getCharaterAvatar(input.character.key)
+  }
+}
+
 const handelImageAddClick = () => {
   emoticonClose()
   openWindow('cropper', { maxWidth: 1280 }).then(({ base64 }) => {
-    message.list[messageIndex.value].list.push({
+    if (!currentMessage.value) return
+
+    currentMessage.value.list.push({
       ...getCharacter(),
       text: '',
       img: base64
     })
-    message.list[messageIndex.value].time = Date.now()
+    currentMessage.value.time = Date.now()
     scrollToBottom(boxRef.value?.listDom)
   })
 }
@@ -362,18 +389,20 @@ const handelEmoticonClick = () => {
 }
 
 const setEmoticon = (url: string, name: string) => {
+  if (!currentMessage.value) return
+
   if (emoticonData.key) {
-    message.list[messageIndex.value].list[emoticonData.key[1]].img = url
-    message.list[messageIndex.value].list[emoticonData.key[1]].emoticon = name
-    message.list[messageIndex.value].time = Date.now()
+    currentMessage.value.list[emoticonData.key[1]].img = url
+    currentMessage.value.list[emoticonData.key[1]].emoticon = name
+    currentMessage.value.time = Date.now()
   } else {
-    message.list[messageIndex.value].list.push({
+    currentMessage.value.list.push({
       ...getCharacter(),
       text: '',
       img: url,
       emoticon: name
     })
-    message.list[messageIndex.value].time = Date.now()
+    currentMessage.value.time = Date.now()
     emoticonData.show = false
     scrollToBottom(boxRef.value?.listDom)
   }
@@ -381,38 +410,44 @@ const setEmoticon = (url: string, name: string) => {
 }
 
 const handelNoticeClick = () => {
-  message.list[messageIndex.value].list.push({
+  if (!currentMessage.value) return
+
+  currentMessage.value.list.push({
     key: '开拓者',
     name: '',
     avatar: '',
     text: input.text || DEFAULT_TEXT,
     notice: true
   })
-  message.list[messageIndex.value].time = Date.now()
+  currentMessage.value.time = Date.now()
   input.text = ''
   scrollToBottom(boxRef.value?.listDom)
   inputFocus()
 }
 
 const handelAddClick = (img?: string) => {
-  message.list[messageIndex.value].list.push({
+  if (!currentMessage.value) return
+
+  currentMessage.value.list.push({
     ...getCharacter(),
     text: input.text || DEFAULT_TEXT,
     img
   })
-  message.list[messageIndex.value].time = Date.now()
+  currentMessage.value.time = Date.now()
   input.text = ''
   scrollToBottom(boxRef.value?.listDom)
   inputFocus()
 }
 
 const getName = (index: number) => {
+  if (!currentMessage.value) return
+
   if (index < 0) {
     input.character.key = '开拓者'
     input.character.name = ''
     return
   }
-  const prev = message.list[messageIndex.value].list[index]
+  const prev = currentMessage.value.list[index]
   if (prev.key === input.character.key) {
     getName(index - 1)
   } else {
@@ -422,9 +457,11 @@ const getName = (index: number) => {
 }
 
 const onEnter = (e: KeyboardEvent) => {
+  if (!currentMessage.value) return
+
   handelAddClick()
   if (e.ctrlKey) {
-    getName(message.list[messageIndex.value].list.length - 2)
+    getName(currentMessage.value.list.length - 2)
   }
 }
 
@@ -451,7 +488,9 @@ const onMoveEnd = () => {
 }
 
 const onChange = () => {
-  message.list[messageIndex.value].time = Date.now()
+  if (!currentMessage.value) return
+
+  currentMessage.value.time = Date.now()
 }
 
 const opacity = computed(() => (setting.transition ? 1 : 0))

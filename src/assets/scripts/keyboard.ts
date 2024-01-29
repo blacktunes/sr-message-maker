@@ -1,7 +1,6 @@
 import { emoticonClose } from '@/components/Message/Emoticon'
-import { messageIndex } from '@/components/Message/Message'
 import { autoPlay } from '@/store/autoPlay'
-import { addNewMessage } from '@/store/message'
+import { addNewMessage, currentMessage } from '@/store/message'
 import { setting } from '@/store/setting'
 import { emitter } from './event'
 import { closeCurrentWindow, currentCallback, hasPopup, openWindow } from './popup'
@@ -35,16 +34,14 @@ document.addEventListener('keydown', (e) => {
     case 's':
       if (!e.ctrlKey) return
       e.preventDefault()
-      if (messageIndex.value !== -1 && !hasPopup()) {
-        if (!autoPlay.flag) {
-          emitter.emit('screenshot')
-        }
+      if (currentMessage.value && !hasPopup() && !autoPlay.flag) {
+        emitter.emit('screenshot')
       }
       return
     // 打开角色选择
     case 'Tab':
       e.preventDefault()
-      if (messageIndex.value !== -1 && !hasPopup()) {
+      if (currentMessage.value && !hasPopup()) {
         openWindow('character')
       }
       return
@@ -60,7 +57,7 @@ document.addEventListener('keydown', (e) => {
         return
       }
       // 聚焦输入框
-      if (messageIndex.value !== -1 && !hasPopup()) {
+      if (currentMessage.value && !hasPopup()) {
         e.preventDefault()
         emitter.emit('focus')
       }
