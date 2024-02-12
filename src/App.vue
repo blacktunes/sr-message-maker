@@ -51,7 +51,7 @@ const modules = {
   )
 }
 for (const i in modules) {
-  components.push(defineComponent(modules[i]))
+  components.push(defineComponent<{}>(modules[i]))
 }
 
 // 计算窗口尺寸

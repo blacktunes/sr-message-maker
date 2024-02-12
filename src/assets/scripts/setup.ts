@@ -4,77 +4,73 @@ import { message } from '@/store/message'
 import { setting } from '@/store/setting'
 import log from '../data/log'
 import { IndexedDB } from './indexedDB'
-import { openWindow } from './popup'
+import { closeWindow, openWindow } from './popup'
 import { preload } from './preload'
 
 // 旧数据库兼容
-const loadOldDB = () => {
+const loadOldDB = async () => {
   const promises: Promise<any>[] = []
 
-  window.indexedDB.databases().then((database) => {
-    if (database.find((item) => item.name === 'sr-message')) {
-      promises.push(
-        new Promise<void>((resolve) => {
-          window.indexedDB.open('sr-message').onsuccess = (event) => {
-            const db = (event.target as IDBOpenDBRequest).result
-            if (db.objectStoreNames[0] === 'data') {
-              db.transaction('data', 'readonly').objectStore('data').get(0).onsuccess = (e) => {
-                try {
-                  const data = (e.target as IDBRequest).result?.data
-                  if (typeof data === 'string') {
-                    message.list = JSON.parse(data)
-                  } else {
-                    message.list = data || {}
-                  }
-                } finally {
-                  resolve()
-                }
+  promises.push(
+    new Promise<void>((resolve) => {
+      window.indexedDB.open('sr-message').onsuccess = (event) => {
+        const db = (event.target as IDBOpenDBRequest).result
+        if (db.objectStoreNames.contains('data')) {
+          db.transaction('data', 'readonly').objectStore('data').get(0).onsuccess = (e) => {
+            try {
+              const data = (e.target as IDBRequest).result?.data
+              if (typeof data === 'string') {
+                message.list = JSON.parse(data)
+              } else {
+                message.list = data || {}
               }
-            } else {
+            } finally {
               resolve()
             }
           }
-        })
-      )
-    }
+        } else {
+          resolve()
+        }
+      }
+    })
+  )
 
-    if (database.find((item) => item.name === 'sr-custom')) {
-      promises.push(
-        new Promise<void>((resolve) => {
-          const _db = window.indexedDB.open('sr-custom')
-          _db.onsuccess = (event) => {
-            let flag = 0
+  promises.push(
+    new Promise<void>((resolve) => {
+      const _db = window.indexedDB.open('sr-custom')
+      _db.onsuccess = (event) => {
+        let flag = 0
 
-            const db = (event.target as IDBOpenDBRequest).result
-            if (db.objectStoreNames[0] === 'data') {
-              db.transaction('data', 'readonly').objectStore('data').get(0).onsuccess = (e) => {
-                try {
-                  const data = (e.target as IDBRequest).result?.data
-                  if (typeof data === 'string') {
-                    character.custom = JSON.parse(data)
-                  } else {
-                    character.custom = data || {}
-                  }
-                } finally {
-                  if (++flag === 2) resolve()
-                }
+        const db = (event.target as IDBOpenDBRequest).result
+        if (db.objectStoreNames.contains('data')) {
+          db.transaction('data', 'readonly').objectStore('data').get(0).onsuccess = (e) => {
+            try {
+              const data = (e.target as IDBRequest).result?.data
+              if (typeof data === 'string') {
+                character.custom = JSON.parse(data)
+              } else {
+                character.custom = data || {}
               }
-
-              db.transaction('data', 'readonly').objectStore('data').get(1).onsuccess = (e) => {
-                const data = (e.target as IDBRequest).result?.data
-                avatar.custom = data || []
-                if (++flag === 2) resolve()
-              }
-            } else {
-              resolve()
+            } finally {
+              if (++flag === 2) resolve()
             }
           }
-        })
-      )
-    }
-  })
 
-  return Promise.all(promises)
+          db.transaction('data', 'readonly').objectStore('data').get(1).onsuccess = (e) => {
+            const data = (e.target as IDBRequest).result?.data
+            avatar.custom = data || []
+            if (++flag === 2) resolve()
+          }
+        } else {
+          resolve()
+        }
+      }
+    })
+  )
+
+  await Promise.all(promises)
+  window.indexedDB.deleteDatabase('sr-message')
+  window.indexedDB.deleteDatabase('sr-custom')
 }
 
 const timeout = setTimeout(() => {
@@ -94,7 +90,7 @@ const timeout = setTimeout(() => {
 const done = () => {
   setting.loading = false
   clearTimeout(timeout)
-  // closeWindow('confirm')
+  closeWindow('confirm')
 }
 
 loadOldDB().finally(() => {

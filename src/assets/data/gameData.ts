@@ -53,6 +53,12 @@ export const gameAvatar: { [name: string]: UserAvatar } = {
   '阮•梅•教研': {
     avatar: 'https://patchwiki.biligame.com/images/sr/d/de/lm1tx0rny8w287kfr5nidt7k6q71oqx.png'
   },
+  '桑博•幻象': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/5/53/bf3y8393ywr2zfdbxul8x5rwuadqvt0.png'
+  },
+  '花火•幻象': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/a/a6/gxeii3ssa89oa3q8tqvyn9y1qe8xzxf.png'
+  },
   菌菌: {
     avatar: 'https://patchwiki.biligame.com/images/sr/1/1f/4un48lwd7xrd4jehzxfnc2n8hykb205.png'
   },
@@ -95,6 +101,12 @@ export const gameAvatar: { [name: string]: UserAvatar } = {
 }
 
 export const gameCharacter: { [name: string]: Character } = {
+  '黑天鹅': {
+    name: '黑天鹅',
+    avatar: 'https://patchwiki.biligame.com/images/sr/b/b8/660mwtozc1se2rk3cuqyz6fegarrrx1.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/02/04/75216984/a12b3fc3b2820e5c91465f25c5d02298_9049043823737802831.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '记忆是柔软的琥珀'
+  },
   '阮·梅': {
     name: '阮·梅',
     avatar: 'https://patchwiki.biligame.com/images/sr/7/7e/pv7j3qorhg8vioxa5m9ys5kl7wly7ep.png',
@@ -314,6 +326,12 @@ export const gameCharacter: { [name: string]: Character } = {
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/6a4bd3468e9dbd577f26dbf8757f0b03_924968634176225322.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: '今天也是三月七~'
   },
+  米沙: {
+    name: '米沙',
+    avatar: 'https://patchwiki.biligame.com/images/sr/b/b4/0oxd8z3m1pe5mdu6uc6hv4cshamankm.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/02/05/75216984/5de7e3a2d91929cd16584e6f7809c5a9_8694940866699474554.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '加油！马上就能去新世界啦'
+  },
   卢卡: {
     name: '卢卡',
     avatar: 'https://patchwiki.biligame.com/images/sr/3/3a/p12qkd10ugjkhchm4f34q3j2imxh323.png',
@@ -388,6 +406,10 @@ export const otherCharacter: { [name: string]: OtherCharacter } = {
     name: '温明德',
     avatar: 'https://patchwiki.biligame.com/images/sr/9/98/lbhpyb9vcaa9ob8mn362rv6f8ewaca3.png',
     info: '奇物再收容小队时刻准备着'
+  },
+  界种科科员: {
+    name: '界种科科员',
+    avatar: 'https://patchwiki.biligame.com/images/sr/7/77/95osxbkmbq6rx3yf14lbhldtj9miu1w.png'
   },
   维修工程师: {
     name: '维修工程师',
