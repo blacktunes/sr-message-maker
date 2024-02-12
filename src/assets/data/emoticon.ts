@@ -8,70 +8,69 @@ export const emoticon: {
     title: '米游社',
     list: [
       {
-        title: '阮•梅 吃点心',
-        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/004eaecffcc6755e116a4ebb3101bcb8_7432375174838127293.png'
+        title: '黑天鹅 飞牌',
+        url: 'https://bbs-static.miyoushe.com/static/2024/01/31/b7427b7d3fcee7fc4bf1450b934e1853_170315594194334836.png'
       },
       {
-        title: '阮•梅 敷衍',
-        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/abc1d862d82b1912a7eb8415114b50c0_8979430960975794253.png'
+        title: '黑天鹅 比心',
+        url: 'https://bbs-static.miyoushe.com/static/2024/01/31/f88460a43c35c65ffe0c70ef55f9183b_6083363424593931680.png'
       },
       {
-        title: '阮•梅 什么事',
-        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/f27af9aaef413086389d667227ffb503_3846603955709511018.png'
+        title: '黑天鹅 占卜',
+        url: 'https://bbs-static.miyoushe.com/static/2024/01/31/e19e2d4c03eacaa41521a4824e34cc79_986599818503465171.png'
       },
       {
-        title: '阮•梅 真棒',
-        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/fbe2d2e2861f1d23bf928661e9fdfcf6_90135467997125628.png'
+        title: '黑天鹅 照镜子',
+        url: 'https://bbs-static.miyoushe.com/static/2024/01/31/203be5eb6471824d3bbd1db578760c7b_8876988920975765785.png'
       },
       {
-        title: '真理医生 不屑',
-        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/b934a1717d07d7994b602e47fa656747_5381268646061041341.png'
+        title: '花火 略略略',
+        url: 'https://bbs-static.miyoushe.com/static/2024/01/31/42b5ef8bab5a58fbdd74f17c21c12420_2665774360840406961.png'
       },
       {
-        title: '真理医生 扔粉笔',
-        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/00e238908f0bbd4fda084181baa1cb1d_3060234326794407271.png'
+        title: '花火 嘿嘿',
+        url: 'https://bbs-static.miyoushe.com/static/2024/01/31/cf527198a404a4db566dc4a9d68befc3_2947652818567379105.png'
       },
       {
-        title: '真理医生 计算中',
-        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/e0b413ade715eb75aba2731c839bb724_6900592663590997950.png'
+        title: '花火 点火',
+        url: 'https://bbs-static.miyoushe.com/static/2024/01/31/f8a6716e3f0ab4d3235fbb8fd50e481f_2873815640813891077.png'
       },
       {
-        title: '真理医生 裂开',
-        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/190b724e523a106f66501b78daded09d_1307672139121863195.png'
+        title: '花火 我来啦',
+        url: 'https://bbs-static.miyoushe.com/static/2024/01/31/a065264ccf369d43f39162320393d9bf_5251148779871794599.png'
       },
       {
-        title: '雪衣 无言',
-        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/ecfc14f48484637539d7eecfb48b1178_5785018828453527028.png'
+        title: '米沙 导游',
+        url: 'https://bbs-static.miyoushe.com/static/2024/01/31/463642855013778f2c577d71a7551863_7178192013784551474.png'
       },
       {
-        title: '雪衣 到点了',
-        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/7db55ffd8c3471e8d5b7189eff570b93_6666268496367522363.png'
+        title: '米沙 自闭',
+        url: 'https://bbs-static.miyoushe.com/static/2024/01/31/5cc3b07992e564dc8389bb6403dfc115_1913269177686026716.png'
       },
       {
-        title: '雪衣 逮捕',
-        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/2f3dbb500f3e7f78d9c32f577a155c62_2550392836154570910.png'
+        title: '米沙 欢迎光临',
+        url: 'https://bbs-static.miyoushe.com/static/2024/01/31/dffeccb78933dab435b0bbcbbf6f48d2_7706288330150845458.png'
       },
       {
-        title: '姬子 喝杯热水',
-        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/1223681a2483d22883bd7d9761020c09_5684454427826272188.png'
+        title: '桑博 哈啾',
+        url: 'https://bbs-static.miyoushe.com/static/2024/01/31/8d13183bf72d8eee0336e5682146d5f3_6284535133899357964.png'
       },
       {
-        title: '佩佩 递茶',
-        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/31a1b38428cdcc037c03adce19abffbe_4299725472634554597.png'
+        title: '钟表小子 开始',
+        url: 'https://bbs-static.miyoushe.com/static/2024/01/31/2cfa6aea574f8b86066113210fdc4a86_1218351302292029892.png'
       },
       {
-        title: '螺丝咕姆 宕机',
-        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/53a316bdef4a16e29dc8d5bb8a0be976_1706072813871686262.png'
+        title: '王下一桶 注意',
+        url: 'https://bbs-static.miyoushe.com/static/2024/01/31/8ebe812dbd3b3d0a8d41d254eb0a9f48_519576380870141726.png'
       },
       {
-        title: '黑塔 噗嗤',
-        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/b1a8be09685f1e00953ca2b8d9461bb6_938336862456557086.png'
+        title: '广告牌 疑问',
+        url: 'https://bbs-static.miyoushe.com/static/2024/01/31/3028f1520e7d1c92b483bb386d440826_5445914943637144336.png'
       },
       {
-        title: '阮•梅造物 贴贴',
-        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/944d14d2a7f8f9049fba6e1b25392ee0_5147753172740263035.png'
+        title: '苏乐达 干杯',
+        url: 'https://bbs-static.miyoushe.com/static/2024/01/31/3c60033ca3e18b4424f7fd56acf1442b_3290708715699172359.png'
       },
-
       {
         title: '姬子 计算',
         url: 'https://bbs-static.miyoushe.com/static/2023/05/31/919c110ea2f23f33557b2d630971193c_1208672549796794648.png'
@@ -80,7 +79,6 @@ export const emoticon: {
         title: '杰帕德 开门',
         url: 'https://bbs-static.miyoushe.com/static/2023/05/31/b230c88688140975ac490bbcc1cf198d_4276013326525000853.png'
       },
-
       {
         title: '帕姆 奋斗',
         url: 'https://img-static.mihoyo.com/communityweb/upload/fe751e28e2c19713409703ff8ede5991.png'
@@ -841,6 +839,85 @@ export const emoticon: {
       {
         title: '桂乃芬 看透',
         url: 'https://bbs-static.miyoushe.com/static/2023/11/07/871f79b8ddee2245852b71444a65bba5_6286795372259014652.png'
+      }
+    ]
+  },
+  {
+    title: '帕姆展览馆第11弹',
+    list: [
+      {
+        title: '阮•梅 吃点心',
+        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/004eaecffcc6755e116a4ebb3101bcb8_7432375174838127293.png'
+      },
+      {
+        title: '阮•梅 敷衍',
+        name: '叹气',
+        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/abc1d862d82b1912a7eb8415114b50c0_8979430960975794253.png'
+      },
+      {
+        title: '阮•梅 什么事',
+        name: '疑惑',
+        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/f27af9aaef413086389d667227ffb503_3846603955709511018.png'
+      },
+      {
+        title: '阮•梅 真棒',
+        name: '拜托',
+        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/fbe2d2e2861f1d23bf928661e9fdfcf6_90135467997125628.png'
+      },
+      {
+        title: '佩佩 递茶',
+        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/31a1b38428cdcc037c03adce19abffbe_4299725472634554597.png'
+      },
+      {
+        title: '阮•梅造物 贴贴',
+        name: '叠高高',
+        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/944d14d2a7f8f9049fba6e1b25392ee0_5147753172740263035.png'
+      },
+      {
+        title: '真理医生 不屑',
+        name: '切',
+        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/b934a1717d07d7994b602e47fa656747_5381268646061041341.png'
+      },
+      {
+        title: '真理医生 扔粉笔',
+        name: '丢',
+        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/00e238908f0bbd4fda084181baa1cb1d_3060234326794407271.png'
+      },
+      {
+        title: '真理医生 计算中',
+        name: '思考',
+        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/e0b413ade715eb75aba2731c839bb724_6900592663590997950.png'
+      },
+      {
+        title: '真理医生 裂开',
+        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/190b724e523a106f66501b78daded09d_1307672139121863195.png'
+      },
+      {
+        title: '雪衣 无言',
+        name: '无语',
+        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/ecfc14f48484637539d7eecfb48b1178_5785018828453527028.png'
+      },
+      {
+        title: '雪衣 到点了',
+        name: '下班',
+        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/7db55ffd8c3471e8d5b7189eff570b93_6666268496367522363.png'
+      },
+      {
+        title: '雪衣 逮捕',
+        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/2f3dbb500f3e7f78d9c32f577a155c62_2550392836154570910.png'
+      },
+      {
+        title: '姬子 喝杯热水',
+        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/1223681a2483d22883bd7d9761020c09_5684454427826272188.png'
+      },
+      {
+        title: '螺丝咕姆 宕机',
+        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/53a316bdef4a16e29dc8d5bb8a0be976_1706072813871686262.png'
+      },
+      {
+        title: '黑塔 噗嗤',
+        name: '噗',
+        url: 'https://bbs-static.miyoushe.com/static/2023/12/19/b1a8be09685f1e00953ca2b8d9461bb6_938336862456557086.png'
       }
     ]
   },
