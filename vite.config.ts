@@ -12,11 +12,7 @@ export default defineConfig({
     DEFAULT_AVATAR: JSON.stringify('星·存护')
   },
   plugins: [
-    vue({
-      script: {
-        defineModel: true
-      }
-    }),
+    vue(),
     vueJsx(),
     splitVendorChunkPlugin()
   ],
