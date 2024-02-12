@@ -1,10 +1,23 @@
 import { watch, nextTick, toRaw } from 'vue'
 
+const isEmpty = (value: any) => {
+  if (value === null || value === undefined) {
+    return true
+  }
+
+  if (Array.isArray(value) && value.length === 0) {
+    return true
+  }
+
+  if (typeof value === 'object' && Object.keys(value).length === 0) {
+    return true
+  }
+
+  return false
+}
+
 export class IndexedDB {
-  constructor(
-    public readonly name: string,
-    public readonly alias = ''
-  ) {}
+  constructor(public readonly name: string, public readonly alias = '') {}
   private DBList: Record<
     string,
     {
@@ -30,11 +43,17 @@ export class IndexedDB {
   private setWatch = (key: string) => {
     this.doneCheck(key)
     this.DBList[key]?.cb?.()
-    watch(this.DBList[key].data[this.DBList[key].key], () => {
-      nextTick(() => {
-        this.updateDB(key)
-      })
-    })
+    watch(
+      this.DBList[key].data[this.DBList[key].key],
+      () => {
+        nextTick(() => {
+          this.updateDB(key)
+        })
+      },
+      {
+        immediate: true
+      }
+    )
   }
 
   private updateDB = (key: string) => {
@@ -95,7 +114,7 @@ export class IndexedDB {
                 res
               ) => {
                 const data = (res.target as IDBRequest).result
-                if (data) {
+                if (!isEmpty(data)) {
                   this.DBList[key].data[this.DBList[key].key] = data
                 }
                 this.setWatch(key)
