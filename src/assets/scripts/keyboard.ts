@@ -5,7 +5,7 @@ import { setting } from '@/store/setting'
 import { emitter } from './event'
 import { closeCurrentWindow, currentCallback, hasPopup, openWindow } from './popup'
 
-const handelBack = () => {
+const handleBack = () => {
   emoticonClose()
 
   if (autoPlay.flag) {
@@ -24,7 +24,7 @@ const handelBack = () => {
 document.addEventListener('click', (e) => {
   if (setting.loading) return
   if ((e.target as HTMLElement).tagName.toLowerCase() === 'a') return
-  handelBack()
+  handleBack()
 })
 
 document.addEventListener('keydown', (e) => {
@@ -70,6 +70,6 @@ document.addEventListener('keydown', (e) => {
       }
       return
     case 'Escape':
-      handelBack()
+      handleBack()
   }
 })

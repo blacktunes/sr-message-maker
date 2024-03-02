@@ -101,6 +101,11 @@ export const gameAvatar: { [name: string]: UserAvatar } = {
 }
 
 export const gameCharacter: { [name: string]: Character } = {
+  '花火': {
+    name: '花火',
+    avatar: 'https://patchwiki.biligame.com/images/sr/9/90/o5noo1t924ab8a246rqhwymia9wjzme.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/02/29/75216984/19acae33948fa008a7e7483234899b80_1021450901129575807.png?x-oss-process=image/quality,q_75/resize,s_280',
+  },
   '黑天鹅': {
     name: '黑天鹅',
     avatar: 'https://patchwiki.biligame.com/images/sr/b/b8/660mwtozc1se2rk3cuqyz6fegarrrx1.png',

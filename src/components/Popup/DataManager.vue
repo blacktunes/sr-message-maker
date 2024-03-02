@@ -399,6 +399,9 @@ const reserDatabase = () => {
     fn: () => {
       setting.loading = true
       const request = indexedDB.deleteDatabase('sr-message-v2')
+      request.onblocked = () => {
+        location.reload()
+      }
       request.onsuccess = () => {
         location.reload()
       }

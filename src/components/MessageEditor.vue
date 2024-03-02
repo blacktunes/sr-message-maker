@@ -34,12 +34,12 @@
               :style="setMessageStyle(index)"
               :item="element"
               :index="index"
-              @option="handelOptionChange(index)"
+              @option="handleOptionChange(index)"
               @mission="(data) => updateMission(index, data)"
               @text="(data) => updateText(index, data)"
-              @avatar="handelAvatarClick(index)"
-              @image="handelImageClick($event, index)"
-              @delete="handelDelClick(index)"
+              @avatar="handleAvatarClick(index)"
+              @image="handleImageClick($event, index)"
+              @delete="handleDelClick(index)"
               @config=";[emoticonClose(), openWindow('message', index)]"
             />
           </template>
@@ -48,7 +48,7 @@
           <div class="bottom">
             <div
               class="avatar"
-              @click.stop="handelSelectClick"
+              @click.stop="handleSelectClick"
               title="选择角色"
             >
               <img
@@ -68,28 +68,28 @@
             />
             <div
               class="btn"
-              @click="handelMissionClick"
+              @click="handleMissionClick"
               title="创建任务"
             >
               <Icon name="mission" />
             </div>
             <div
               class="btn"
-              @click="handelOptionClick"
+              @click="handleOptionClick"
               title="创建选项"
             >
               <Icon name="option" />
             </div>
             <div
               class="btn"
-              @click="handelNoticeClick"
+              @click="handleNoticeClick"
               title="发送通知"
             >
               <Icon name="notice" />
             </div>
             <div
               class="btn"
-              @click.stop="handelImageAddClick"
+              @click.stop="handleImageAddClick"
               title="发送图片"
             >
               <Icon name="image" />
@@ -101,14 +101,14 @@
                 background: emoticonData.show ? '#575B66' : '',
                 color: emoticonData.show ? '#e8e8e8' : ''
               }"
-              @click.stop="handelEmoticonClick"
+              @click.stop="handleEmoticonClick"
               title="发送表情"
             >
               <Icon name="emoticon" />
             </div>
             <div
               class="btn right"
-              @click="handelAddClick()"
+              @click="handleAddClick()"
               title="发送消息"
             >
               <Icon name="send" />
@@ -248,7 +248,7 @@ const updateOption = (key: number, next: boolean) => {
   }
 }
 
-const handelOptionChange = (key: number) => {
+const handleOptionChange = (key: number) => {
   if (!currentMessage.value) return
   if (!currentMessage.value.list[key].option) return
 
@@ -277,12 +277,12 @@ const updateText = (key: number, data: string) => {
   })
 }
 
-const handelAvatarClick = (key: number) => {
+const handleAvatarClick = (key: number) => {
   emoticonClose()
   openWindow('character', [messageIndex.value, key])
 }
 
-const handelImageClick = async (emoticon: boolean, key: number) => {
+const handleImageClick = async (emoticon: boolean, key: number) => {
   emoticonClose()
   if (emoticon) {
     emoticonOpen([messageIndex.value, key])
@@ -295,7 +295,7 @@ const handelImageClick = async (emoticon: boolean, key: number) => {
     })
   }
 }
-const handelDelClick = (key: number) => {
+const handleDelClick = (key: number) => {
   if (!currentMessage.value) return
 
   currentMessage.value.list.splice(key, 1)
@@ -305,7 +305,7 @@ const handelDelClick = (key: number) => {
   })
 }
 
-const handelSelectClick = () => {
+const handleSelectClick = () => {
   emoticonClose()
   openWindow('character')
 }
@@ -322,7 +322,7 @@ const inputFocus = (flag = true) => {
   }
 }
 
-const handelOptionClick = () => {
+const handleOptionClick = () => {
   if (!currentMessage.value) return
 
   currentMessage.value.list.push({
@@ -338,7 +338,7 @@ const handelOptionClick = () => {
   inputFocus()
 }
 
-const handelMissionClick = () => {
+const handleMissionClick = () => {
   if (!currentMessage.value) return
 
   currentMessage.value.list.push({
@@ -365,7 +365,7 @@ const getCharacter = () => {
   }
 }
 
-const handelImageAddClick = () => {
+const handleImageAddClick = () => {
   emoticonClose()
   openWindow('cropper', { maxWidth: 1280 }).then(({ base64 }) => {
     if (!currentMessage.value) return
@@ -380,7 +380,7 @@ const handelImageAddClick = () => {
   })
 }
 
-const handelEmoticonClick = () => {
+const handleEmoticonClick = () => {
   if (emoticonData.show) {
     emoticonClose()
   } else {
@@ -409,7 +409,7 @@ const setEmoticon = (url: string, name: string) => {
   emoticonData.show = false
 }
 
-const handelNoticeClick = () => {
+const handleNoticeClick = () => {
   if (!currentMessage.value) return
 
   currentMessage.value.list.push({
@@ -425,7 +425,7 @@ const handelNoticeClick = () => {
   inputFocus()
 }
 
-const handelAddClick = (img?: string) => {
+const handleAddClick = (img?: string) => {
   if (!currentMessage.value) return
 
   currentMessage.value.list.push({
@@ -459,7 +459,7 @@ const getName = (index: number) => {
 const onEnter = (e: KeyboardEvent) => {
   if (!currentMessage.value) return
 
-  handelAddClick()
+  handleAddClick()
   if (e.ctrlKey) {
     getName(currentMessage.value.list.length - 2)
   }

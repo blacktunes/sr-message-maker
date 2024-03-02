@@ -14,7 +14,7 @@
             <td class="right">
               <div
                 class="link"
-                @click.stop="handelChangeName"
+                @click.stop="handleChangeName"
               >
                 <span>点击修改</span>
                 <Icon
@@ -86,7 +86,7 @@ const close = () => {
 }
 
 // 修改昵称
-const handelChangeName = async () => {
+const handleChangeName = async () => {
   if (!currentMessage.value) return
 
   if (messageData.key !== undefined && currentMessage.value.list[messageData.key]) {

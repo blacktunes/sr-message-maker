@@ -5,7 +5,7 @@
       :class="{
         highlight: setting.select === title
       }"
-      @click="handelItemClick"
+      @click="handleItemClick"
     >
       <div class="avatar">
         <img
@@ -34,8 +34,8 @@
         }"
         v-for="(item, index) in showList"
         :key="`title-${index}`"
-        @click="handelMessageClick(item.id)"
-        @contextmenu.prevent.stop="handelDelClick(item.id, item.length)"
+        @click="handleMessageClick(item.id)"
+        @contextmenu.prevent.stop="handleDelClick(item.id, item.length)"
       >
         <div class="icon">
           <Icon
@@ -57,7 +57,7 @@
         <div class="text">{{ item.msg }}</div>
         <div
           class="del"
-          @click.stop="handelDelClick(item.id, item.length)"
+          @click.stop="handleDelClick(item.id, item.length)"
         >
           <Icon name="delete" />
         </div>
@@ -140,7 +140,7 @@ const getLastMsg = (index: number) => {
 
 const height = computed(() => `${props.list.length * 165}px`)
 
-const handelItemClick = () => {
+const handleItemClick = () => {
   if (setting.select === props.title) {
     setting.select = ''
   } else {
@@ -148,7 +148,7 @@ const handelItemClick = () => {
   }
 }
 
-const handelMessageClick = (index: number) => {
+const handleMessageClick = (index: number) => {
   setting.index = index
 }
 
@@ -161,7 +161,7 @@ const deleteMessage = (index: number) => {
   }
 }
 
-const handelDelClick = (index: number, length: number) => {
+const handleDelClick = (index: number, length: number) => {
   emoticonClose()
   if (length > 0) {
     openWindow('confirm', {
