@@ -25,7 +25,7 @@
           :key="key"
           :class="{ 'avatar_highlight': avatarData.index === key }"
           @click="avatarData.index = key"
-          @contextmenu.prevent.stop="handelDelClick(key)"
+          @contextmenu.prevent.stop="handleDelClick(key)"
         >
           <img
             :src="url"
@@ -33,7 +33,7 @@
           />
           <div
             class="del"
-            @click.stop="handelDelClick(key)"
+            @click.stop="handleDelClick(key)"
           >
             <Icon
               name="delete"
@@ -144,7 +144,7 @@ const imgUrl = computed(() => {
   return ''
 })
 
-const handelDelClick = (key: number) => {
+const handleDelClick = (key: number) => {
   openWindow('confirm', {
     title: '删除头像',
     text: ['是否删除该头像'],

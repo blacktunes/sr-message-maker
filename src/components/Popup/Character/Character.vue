@@ -47,7 +47,7 @@
               :avatar="userData.card || userData.avatar"
               :level="!userData.card ? 5 : undefined"
               title="开拓者"
-              @click="handelcharacterClick('开拓者', '')"
+              @click="handlecharacterClick('开拓者', '')"
             />
             <CharacterCard
               v-for="(item, key) in character.game"
@@ -56,7 +56,7 @@
               :name="item.name"
               :info="item.info"
               :avatar="item.card"
-              @click="handelcharacterClick(String(key), item.name)"
+              @click="handlecharacterClick(String(key), item.name)"
             />
           </div>
           <div
@@ -73,7 +73,7 @@
               :info="item.info"
               :avatar="item.avatar"
               :level="item.gold ? 5 : undefined"
-              @click="handelcharacterClick(String(key), item.name)"
+              @click="handlecharacterClick(String(key), item.name)"
             />
           </div>
 
@@ -90,12 +90,12 @@
               :name="item.name"
               :info="item.info"
               :avatar="item.avatar"
-              @click="handelcharacterClick(String(key), item.name)"
-              @contextmenu.prevent.stop="handelDelClick(String(key), item.name)"
+              @click="handlecharacterClick(String(key), item.name)"
+              @contextmenu.prevent.stop="handleDelClick(String(key), item.name)"
             >
               <div
                 class="del"
-                @click.stop="handelDelClick(String(key), item.name)"
+                @click.stop="handleDelClick(String(key), item.name)"
               >
                 <Icon
                   name="delete"
@@ -208,7 +208,7 @@ const changePage = (page: number) => {
   }
 }
 
-const handelcharacterClick = (key: string, name: string) => {
+const handlecharacterClick = (key: string, name: string) => {
   if (characterData.key) {
     if (characterData.key[0] === -1) {
       if (key !== '开拓者') {
@@ -255,7 +255,7 @@ const addCustom = async () => {
   })
 }
 
-const handelDelClick = (key: string, name: string) => {
+const handleDelClick = (key: string, name: string) => {
   openWindow('confirm', {
     title: '删除角色',
     text: [`是否删除${name}？`],

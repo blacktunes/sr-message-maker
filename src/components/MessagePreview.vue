@@ -57,7 +57,7 @@
                 class="option"
                 v-for="(item, key) in autoPlay.option"
                 :key="key"
-                @click.stop="handelOptionClick(item)"
+                @click.stop="handleOptionClick(item)"
               >
                 {{ item.text }}
               </div>
@@ -140,7 +140,7 @@ const onOptionShow = () => {
   scrollToBottom(boxRef.value?.listDom, true)
 }
 
-const handelOptionClick = (item: Message) => {
+const handleOptionClick = (item: Message) => {
   autoPlay.option = []
   autoPlay.list.push({ ...item, option: undefined })
   setTimeout(() => {

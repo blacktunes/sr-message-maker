@@ -4,7 +4,7 @@
       <div
         class="text"
         title="修改昵称"
-        @click.stop="handelNameClick"
+        @click.stop="handleNameClick"
       >
         {{ setting.name }}
       </div>
@@ -28,7 +28,7 @@ import { userData } from '@/store/avatar'
 import { openWindow } from '@/assets/scripts/popup'
 import { emoticonClose } from '@/components/Message/Emoticon'
 
-const handelNameClick = async () => {
+const handleNameClick = async () => {
   emoticonClose()
   const name = await openWindow('input', {
     title: '修改昵称',

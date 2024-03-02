@@ -15,7 +15,7 @@
       >
         <div
           v-if="!preview"
-          @click="handelTypeClick(mission.type)"
+          @click="handleTypeClick(mission.type)"
           class="icon"
           title="修改任务类型"
         ></div>
@@ -118,7 +118,7 @@ const backgroundUrl = computed(() => {
   return `url(${getAssets(image_0).value})`
 })
 
-const handelTypeClick = (type: number) => {
+const handleTypeClick = (type: number) => {
   type += 1
   if (type > 4) type = 0
 

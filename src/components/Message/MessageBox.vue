@@ -46,7 +46,7 @@
       <div
         class="message-list"
         ref="listDom"
-        @scroll="handelScroll($event.target as HTMLElement)"
+        @scroll="handleScroll($event.target as HTMLElement)"
       >
         <slot></slot>
       </div>
@@ -86,13 +86,13 @@ const listDom = ref<HTMLElement | null>(null)
 
 const scrollTip = ref(false)
 
-const handelScroll = (el: HTMLElement) => {
+const handleScroll = (el: HTMLElement) => {
   scrollTip.value = el.scrollHeight - (el.scrollTop + el.clientHeight) > 250
 }
 
 const updateArrow = () => {
   if (listDom.value) {
-    handelScroll(listDom.value)
+    handleScroll(listDom.value)
   }
 }
 

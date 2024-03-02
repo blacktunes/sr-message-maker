@@ -19,7 +19,7 @@
             class="item"
             v-for="(item, key) in emoticon[emoticonPage]?.list"
             :key="`emoticon-${key}`"
-            @click="handelEmoticonClick(item)"
+            @click="handleEmoticonClick(item)"
           >
             <div class="img">
               <img
@@ -86,7 +86,7 @@ const emit = defineEmits<{
   (event: 'emoticon', url: string, name: string): void
 }>()
 
-const handelEmoticonClick = (item: Emoticon) => {
+const handleEmoticonClick = (item: Emoticon) => {
   emit('emoticon', item.url, item.title)
 }
 </script>

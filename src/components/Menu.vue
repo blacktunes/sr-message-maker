@@ -17,7 +17,7 @@
         <div class="btn-list">
           <div
             class="btn"
-            @click="handelMessageClick"
+            @click="handleMessageClick"
           >
             <div class="icon">
               <Icon
@@ -31,7 +31,7 @@
           <div
             class="btn"
             v-if="setting.index"
-            @click.stop="handelScreenshotClick"
+            @click.stop="handleScreenshotClick"
           >
             <div class="icon">
               <Icon
@@ -45,7 +45,7 @@
           <div
             class="btn"
             v-if="setting.index"
-            @click.stop="handelAutoPlayClick"
+            @click.stop="handleAutoPlayClick"
           >
             <div class="icon">
               <Icon
@@ -119,7 +119,7 @@ const list = computed(() => {
   return temp
 })
 
-const handelMessageClick = () => {
+const handleMessageClick = () => {
   addNewMessage(
     list.value.some((i) => i.list.some((j) => j.title === setting.select))
       ? setting.select
@@ -127,13 +127,13 @@ const handelMessageClick = () => {
   )
 }
 
-const handelScreenshotClick = () => {
+const handleScreenshotClick = () => {
   if (setting.preview) return
   emoticonClose()
   emitter.emit('screenshot')
 }
 
-const handelAutoPlayClick = () => {
+const handleAutoPlayClick = () => {
   if (setting.preview) return
   emoticonClose()
   emitter.emit('autoplay')
