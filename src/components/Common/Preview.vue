@@ -11,7 +11,9 @@
       <div class="point-2"></div>
       <div class="point-3"></div>
       <div class="line"></div>
+      <slot></slot>
       <img
+        v-if="!$slots.default && img"
         @click.stop="onClick ? emit('click') : undefined"
         :style="{ cursor: onClick ? 'pointer' : undefined }"
         :class="{ img_circle: circle }"
@@ -27,8 +29,8 @@
 <script lang="ts" setup>
 withDefaults(
   defineProps<{
-    img: string
     name: string
+    img?: string
     width?: string
     circle?: boolean
     color?: string

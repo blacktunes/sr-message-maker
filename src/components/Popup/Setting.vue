@@ -9,10 +9,11 @@
           :class="{ highlight: index === key }"
           @click="index = key"
         >
-          <img
-            :src="item.img"
-            :alt="item.name"
-          />
+          <div :class="`bubbles-${key}`">
+            <div class="text-box">
+              <div class="text">你好</div>
+            </div>
+          </div>
         </div>
       </div>
       <template #outside>
@@ -49,10 +50,18 @@
         </div>
       </template>
       <template #left>
-        <Preview
-          :img="bubbles[index].preview"
-          :name="name"
-        />
+        <Preview :name="name">
+          <div class="preview-text-box">
+            <div :class="`bubbles-${index}`">
+              <div class="text-box">
+                <div class="text">
+                  <span>———</span>
+                  <span>——</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Preview>
       </template>
       <template #footer>
         <Btn
@@ -129,6 +138,41 @@ enterCallback[props.name] = onBtnClick
 </script>
 
 <style lang="stylus" scoped>
+@import '../Message/Message.styl'
+@import '../Message/Bubbles.styl'
+
+.text-box
+  box()
+
+.preview-text-box
+  .text-box
+    transform scale(0.9)
+
+    .text
+      display flex !important
+      flex-direction column
+
+      span
+        overflow hidden
+        max-width 125px
+        font-weight bold
+        line-height 40px
+        word-break break-all
+
+  .bubbles-0
+    .text
+      padding 25px 40px !important
+
+  .bubbles-1, .bubbles-2
+    .text
+      padding 0px !important
+
+  .bubbles-3
+    margin-left 15px
+
+    .text
+      padding 15px 5px !important
+
 .other-setting
   .setting-btn
     box-sizing border-box
@@ -177,8 +221,20 @@ enterCallback[props.name] = onBtnClick
     &:hover
       background #d7d7d7
 
-    img
-      width 100%
+    .text-box
+      transform scale(0.8)
+
+    .bubbles-0
+      .text
+        padding 25px 50px !important
+
+    .bubbles-1, .bubbles-2
+      .text
+        padding 1px 8px !important
+
+    .bubbles-3
+      .text
+        padding 10px !important
 
 .highlight
   border 4px solid #14120d !important

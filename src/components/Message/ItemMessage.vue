@@ -139,7 +139,7 @@ const updateMessage = (e: Event) => {
 
 <style lang="stylus" scoped>
 @import './Message.styl'
-@import './BubblesImage.styl'
+@import './Bubbles.styl'
 
 $del-pos = -100px
 
@@ -242,23 +242,7 @@ $del-pos = -100px
         cursor pointer
 
     .text-box
-      position relative
-      margin-bottom 10px
-
-      .text
-        display block
-        background #ebebeb
-        min-width 20px
-        width -moz-fit-content
-        width fit-content
-        min-height 65px
-        padding 35px
-        margin-top 15px
-        font-size 45px
-        color var(--text-color)
-        border-radius 0 25px 25px 25px
-        word-break break-word
-        box-shadow -2px 4px #9d9f9f
+      box()
 
       .bg-icon
         z-index 1
@@ -292,62 +276,6 @@ $del-pos = -100px
   .del
     left $del-pos
     right unset !important
-
-.bubbles-0
-  .text-box
-    .text
-      background #d3bb8b !important
-
-bubbles()
-  .text-box
-    margin 30px 40px !important
-    border 1px solid transparent
-    border-image-repeat stretch
-
-    .text
-      background none !important
-      border-radius 0 !important
-      box-shadow none !important
-      padding 5px !important
-
-.bubbles-1
-  bubbles()
-
-  .text-box
-    border-image-source $bubbles-1
-    border-image-slice 70 85 45 110 fill
-    border-image-width 70px 85px 45px 110px
-    border-image-outset 35px 60px 25px 65px
-
-    .text
-      margin 30px 0 15px 15px !important
-      color #fffafb !important
-
-.bubbles-2
-  bubbles()
-
-  .text-box
-    border-image-source $bubbles-2
-    border-image-slice 75 85 60 110 fill
-    border-image-width 75px 85px 60px 110px
-    border-image-outset 25px 60px 10px 65px
-
-    .text
-      margin 35px 0 15px 15px !important
-      color #fffafb !important
-
-.bubbles-3
-  bubbles()
-
-  .text-box
-    border-image-source $bubbles-3
-    border-image-slice 86 100 86 100 fill
-    border-image-width 86px 100px 86px 100px
-    border-image-outset 25px 55px 10px 60px
-
-    .text
-      margin 10px 0 20px -5px !important
-      color #fffafb !important
 
 .avatar-enter-active
   animation avatar 0.5s ease
