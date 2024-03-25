@@ -60,15 +60,49 @@ const height = (width / 16) * 9
 const bottom = 100
 const scale = toRef(viewport, 'scale')
 
+let isInputFocus = false
 const setSize = () => {
+  document.documentElement.style.setProperty('--window-w', `${window.innerWidth}px`)
+  document.documentElement.style.setProperty('--window-h', `${window.innerHeight}px`)
+
   viewport.horizontal = window.innerWidth <= 550 && window.innerWidth < window.innerHeight
   viewport.scale = Math.min(window.innerWidth / width, window.innerHeight / (height + bottom))
 }
+
 setSize()
 
+document.addEventListener(
+  'focus',
+  function (event) {
+    const targetElement = event.target as HTMLElement
+    if (targetElement.tagName.toLowerCase() === 'input') {
+      isInputFocus = true
+    }
+  },
+  true
+)
+
+document.addEventListener(
+  'blur',
+  function (event) {
+    const targetElement = event.target as HTMLElement
+    if (targetElement.tagName.toLowerCase() === 'input') {
+      isInputFocus = false
+    }
+  },
+  true
+)
+
 window.onresize = () => {
-  setSize()
+  if (!isInputFocus) {
+    setSize()
+  }
 }
+
+const match = window.matchMedia('(orientation:portrait)')
+match.addEventListener('change', () => {
+  setSize()
+})
 </script>
 
 <style lang="stylus" scoped>
