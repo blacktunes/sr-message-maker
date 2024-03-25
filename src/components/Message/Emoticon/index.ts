@@ -1,5 +1,3 @@
-import { reactive } from 'vue'
-
 export const emoticonData = reactive<{
   show: boolean
   key?: [number, number]

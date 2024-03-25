@@ -45,7 +45,6 @@ import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
 import { inputData } from './'
 import { enterCallback } from '@/assets/scripts/popup'
-import { ref, nextTick, watch } from 'vue'
 
 const inputDom = ref<HTMLInputElement | null>(null)
 

@@ -3,7 +3,6 @@ import { getNames, getTitle } from '@/assets/scripts/header'
 import { userData } from '@/store/avatar'
 import { character } from '@/store/character'
 import { currentMessage } from '@/store/message'
-import { computed, nextTick } from 'vue'
 
 const names = computed<[string[], string]>(() => {
   if (!currentMessage.value) return [[], '']

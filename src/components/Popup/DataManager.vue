@@ -70,7 +70,6 @@
 import Popup from '@/components/Common/Popup.vue'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
-import { computed, ref, toRaw, watch } from 'vue'
 import { currentMessage, message } from '@/store/message'
 import { setting } from '@/store/setting'
 import { character } from '@/store/character'

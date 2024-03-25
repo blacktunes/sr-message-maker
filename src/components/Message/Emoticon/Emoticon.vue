@@ -59,7 +59,6 @@
 
 <script lang="ts" setup>
 import { emoticon } from '@/assets/data/emoticon'
-import { nextTick, ref } from 'vue'
 import { emoticonData } from './'
 
 const listDom = ref<HTMLElement | null>(null)

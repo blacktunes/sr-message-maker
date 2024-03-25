@@ -76,7 +76,6 @@ import { addNewMessage, message } from '@/store/message'
 import { emitter } from '@/assets/scripts/event'
 import { getNames, getTitle } from '@/assets/scripts/header'
 import { openWindow } from '@/assets/scripts/popup'
-import { computed } from 'vue'
 import { emoticonClose } from '@/components/Message/Emoticon'
 
 interface MenuItem {

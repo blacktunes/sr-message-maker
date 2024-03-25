@@ -1,5 +1,3 @@
-import { reactive } from 'vue'
-
 export const input = reactive<{
   /** 编辑器输入框文字 */
   text: string

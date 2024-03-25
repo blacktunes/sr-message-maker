@@ -32,7 +32,6 @@
 import Popup from '@/components/Common/Popup.vue'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
-import { ref } from 'vue'
 
 const props = defineProps<{
   name: string

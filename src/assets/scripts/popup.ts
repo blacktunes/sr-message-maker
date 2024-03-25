@@ -14,7 +14,7 @@ import InputVue from '@/components/Popup/Input/Input.vue'
 import { messageManagerClose, messageManagerOpen } from '@/components/Popup/Message'
 import MessageManagerVue from '@/components/Popup/Message/MessageManager.vue'
 import SettingVue from '@/components/Popup/Setting.vue'
-import { computed, markRaw, reactive, ref, type Component, type ComputedRef } from 'vue'
+import type { Component, ComputedRef } from 'vue'
 
 const components = {
   input: InputVue,

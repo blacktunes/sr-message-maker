@@ -66,7 +66,6 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
 import Icon from '../Common/Icon.vue'
 
 defineProps<{

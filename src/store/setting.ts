@@ -1,5 +1,3 @@
-import { reactive } from 'vue'
-
 export const setting = reactive<{
   /** 是否显示Loading页 */
   loading: boolean

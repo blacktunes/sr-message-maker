@@ -1,6 +1,5 @@
 import { imageCompress } from '@/assets/scripts/images'
 import { SuperImageCropper } from 'super-image-cropper'
-import { reactive } from 'vue'
 
 export const imageCropper = new SuperImageCropper()
 

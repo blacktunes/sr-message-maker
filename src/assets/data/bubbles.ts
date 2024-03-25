@@ -1,5 +1,3 @@
-import { reactive } from 'vue'
-
 export const bubbles = reactive([
   {
     name: '语言的艺术'

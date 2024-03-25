@@ -1,5 +1,3 @@
-import { reactive } from 'vue'
-
 export const autoPlay = reactive<{
   flag: boolean
   list: Message[]

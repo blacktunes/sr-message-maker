@@ -69,7 +69,6 @@
 <script lang="ts" setup>
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
-import { computed } from 'vue'
 import Icon from '../Common/Icon.vue'
 import avatar_0 from '@/assets/images/avatar/一家人.webp'
 import avatar_1 from '@/assets/images/avatar/私聊.webp'

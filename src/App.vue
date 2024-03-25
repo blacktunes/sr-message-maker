@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineComponent, toRef, type Component } from 'vue'
+import type { Component } from 'vue'
 import viewport from './store/viewport'
 import { closeWindow, popupComponents } from './assets/scripts/popup'
 
