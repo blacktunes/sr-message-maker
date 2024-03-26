@@ -4,7 +4,7 @@
     :class="getBubbles(item.key)"
   >
     <transition
-      :name="!preview ? (setting.transition ? 'fade-in' : undefined) : 'avatar'"
+      :name="!preview ? (!setting.drag ? 'fade-in' : undefined) : 'avatar'"
       appear
     >
       <div
@@ -19,7 +19,7 @@
     </transition>
     <div class="message-item">
       <transition
-        :name="!preview ? (setting.transition ? 'fade-in' : undefined) : 'message'"
+        :name="!preview ? (!setting.drag ? 'fade-in' : undefined) : 'message'"
         appear
       >
         <div class="name">
@@ -40,7 +40,7 @@
         </div>
       </transition>
       <transition
-        :name="!preview ? (setting.transition ? 'fade-in' : undefined) : 'message'"
+        :name="!preview ? (!setting.drag ? 'fade-in' : undefined) : 'message'"
         appear
       >
         <div

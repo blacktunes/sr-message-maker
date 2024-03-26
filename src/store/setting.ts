@@ -13,8 +13,8 @@ export const setting = reactive<{
   select?: string
   /** 对话气泡 */
   bubbles: number
-  /** 是否显示短信的过渡动画 */
-  transition: boolean
+  /** 是否正在拖动元素 */
+  drag: boolean
 }>({
   loading: true,
   name: '开拓者',
@@ -23,7 +23,7 @@ export const setting = reactive<{
   preview: false,
   select: '',
   bubbles: 0,
-  transition: true
+  drag: false
 })
 
 export const setName = (name: string) => {

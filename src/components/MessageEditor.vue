@@ -28,7 +28,7 @@
           @end="onMoveEnd"
           @change="onChange"
         >
-          <template #item="{ element, index }: { element: Message, index: number }">
+          <template #item="{ element, index }: { element: Message; index: number }">
             <MessageItem
               class="message-item"
               :style="setMessageStyle(index)"
@@ -468,12 +468,14 @@ let isMove = false
 
 const onChoose = () => {
   emoticonClose()
-  setting.transition = false
+  setting.drag = true
+  document.body.className = 'grabbing'
 }
 
 const onUnChoose = () => {
   if (isMove) return
-  setting.transition = true
+  setting.drag = false
+  document.body.className = ''
 }
 
 const onMoveStart = () => {
@@ -482,8 +484,9 @@ const onMoveStart = () => {
 }
 
 const onMoveEnd = () => {
-  setting.transition = true
+  setting.drag = false
   isMove = false
+  document.body.className = ''
 }
 
 const onChange = () => {
@@ -492,7 +495,7 @@ const onChange = () => {
   currentMessage.value.time = Date.now()
 }
 
-const opacity = computed(() => (setting.transition ? 1 : 0))
+const opacity = computed(() => (setting.drag ? 0 : 1))
 </script>
 
 <style lang="stylus" scoped>
@@ -617,7 +620,6 @@ box()
   display none !important
 
 .chosen
-  cursor grabbing
   background var(--message-item-background-color) !important
 
   &:before
