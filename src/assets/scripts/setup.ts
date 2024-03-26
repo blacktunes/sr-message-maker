@@ -1,7 +1,6 @@
 import { avatar } from '@/store/avatar'
 import { character } from '@/store/character'
 import { message } from '@/store/message'
-import { setting } from '@/store/setting'
 import log from '../data/log'
 import { IndexedDB } from './indexedDB'
 import { closeWindow, openWindow } from './popup'
@@ -139,7 +138,7 @@ const updateCheck = () => {
             text: ['是否立刻更新？'],
             fn: () => {
               openWindow('loading')
-              updateServiceWorker()
+              updateServiceWorker(true)
             }
           })
         }

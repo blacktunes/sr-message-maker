@@ -1,8 +1,12 @@
 /// <reference types="vite/client" />
 /// <reference types="vite-plugin-pwa/vue" />
 
+interface Window {
+  BUILD_TIME: Date
+}
+
 /** 构建时间 */
-declare let BUILD_TIME: Date | number
+declare const BUILD_TIME: number
 /** 默认文本 */
 declare const DEFAULT_TEXT: string
 /** 默认头像 */

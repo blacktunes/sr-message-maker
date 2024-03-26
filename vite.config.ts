@@ -23,6 +23,7 @@ export default defineConfig({
     VitePWA({
       mode: 'production',
       injectRegister: 'auto',
+      registerType: 'prompt',
       manifest: {
         id: '/',
         name: '崩坏:星穹铁道 - 短信',
@@ -66,7 +67,8 @@ export default defineConfig({
         ]
       },
       devOptions: {
-        enabled: true
+        enabled: true,
+        suppressWarnings: true
       }
     })
   ],

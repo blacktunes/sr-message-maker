@@ -6,6 +6,6 @@ import '@/assets/scripts/analytics'
 import '@/assets/scripts/keyboard'
 import '@/assets/scripts/setup'
 
-BUILD_TIME = new Date(BUILD_TIME)
+window.BUILD_TIME = new Date(BUILD_TIME)
 
 createApp(App).mount('#app')
