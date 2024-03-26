@@ -37,38 +37,47 @@ document.addEventListener('keydown', (e) => {
       if (currentMessage.value && !hasPopup() && !autoPlay.flag) {
         emitter.emit('screenshot')
       }
-      return
+
+      break
     // 打开角色选择
     case 'Tab':
       e.preventDefault()
-      if (currentMessage.value && !hasPopup()) {
+      if (currentMessage.value && !hasPopup() && !setting.preview) {
         openWindow('character')
       }
-      return
+
+      break
     case 'Enter':
       if (autoPlay.flag) {
         emitter.emit('stopplay')
         return
       }
+
+      if (setting.preview) return
+
       // 确认窗口
       if (hasPopup()) {
         currentCallback()
         e.preventDefault()
         return
       }
+
       // 聚焦输入框
       if (currentMessage.value && !hasPopup()) {
         e.preventDefault()
         emitter.emit('focus')
+        return
       }
-      return
+
+      break
     // 新短信
     case 'Insert':
-      if (!hasPopup()) {
-        e.preventDefault()
+      e.preventDefault()
+      if (!hasPopup() && !setting.preview) {
         addNewMessage()
       }
-      return
+
+      break
     case 'Escape':
       handleBack()
   }
