@@ -1,4 +1,5 @@
 /// <reference types="vite/client" />
+/// <reference types="vite-plugin-pwa/vue" />
 
 /** 构建时间 */
 declare let BUILD_TIME: Date | number
