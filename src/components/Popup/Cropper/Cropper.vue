@@ -46,7 +46,7 @@
 </template>
 
 <script lang="ts" setup>
-import viewport from '@/store/viewport'
+import { viewport } from '@/store/viewport'
 import Btn from '@/components/Common/Btn.vue'
 import VuePictureCropper, { cropper } from 'vue-picture-cropper'
 import { enterCallback } from '@/assets/scripts/popup'
