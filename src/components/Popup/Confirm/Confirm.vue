@@ -1,5 +1,8 @@
 <template>
-  <Popup :index="props.index">
+  <Popup
+    :base-index="200"
+    :index="props.index"
+  >
     <window
       confirm
       :title="confirmData.title"

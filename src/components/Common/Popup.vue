@@ -13,7 +13,7 @@
       <div
         class="popup"
         v-if="props.index !== -1"
-        :style="{ zIndex: 10 + index }"
+        :style="{ zIndex: baseIndex + index }"
       >
         <slot></slot>
       </div>

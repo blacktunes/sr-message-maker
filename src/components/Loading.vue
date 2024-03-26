@@ -31,7 +31,7 @@ import { setting } from '@/store/setting'
   position fixed
   top 0
   left 0
-  z-index 999
+  z-index 200
   display flex
   justify-content center
   align-items center
