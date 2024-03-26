@@ -58,34 +58,36 @@ $border-color = #b9babf
 .preview
   display flex
   flex-direction column
-  align-items center
   justify-content center
+  align-items center
+  padding 0 60px 0 150px
   width v-bind(width)
   height 100%
-  padding 0 60px 0 150px
   user-select none
 
   .circle
-    // 倒影
-    // -webkit-box-reflect below 5px linear-gradient(transparent, rgba(0, 0, 0, 0.1))
+    //倒影
+    //-webkit-box-reflect below 5px linear-gradient(transparent, rgba(0, 0, 0, 0.1))
     position relative
     display flex
     justify-content center
     align-items center
     width v-bind(width)
     height v-bind(width)
-    background v-bind(bgColor)
     border-radius 50%
+    background v-bind(bgColor)
 
     img
       width 80%
 
-    .circle-1, .circle-2, .circle-3
+    .circle-1
+    .circle-2
+    .circle-3
       position absolute
-      left 50%
       bottom -5px
-      transform translate(-50%)
+      left 50%
       border-radius 50%
+      transform translate(-50%)
 
     .circle-1
       width 117%
@@ -103,12 +105,14 @@ $border-color = #b9babf
       border 2px solid $border-color
       opacity 0.5
 
-    .circle-4, .circle-5, .circle-6
+    .circle-4
+    .circle-5
+    .circle-6
       position absolute
-      left 50%
       top -50%
-      transform translate(-50%, -50%)
+      left 50%
       border-radius 50%
+      transform translate(-50%, -50%)
 
     .circle-4
       width 100%
@@ -128,14 +132,16 @@ $border-color = #b9babf
       border 2px solid $border-color
       opacity 0.4
 
-    .point-1, .point-2, .point-3
+    .point-1
+    .point-2
+    .point-3
       position absolute
       width 14px
       height 14px
       border-radius 50%
-      transform translate(-50%, -50%)
       background $border-color
       opacity 0.3
+      transform translate(-50%, -50%)
 
     .point-1
       top -17%
@@ -151,22 +157,22 @@ $border-color = #b9babf
 
     .line
       position absolute
-      left 50%
       top -50%
-      transform translate(-50%, -50%)
-      height 100%
+      left 50%
       width 2px
+      height 100%
       background $border-color
       opacity 0.3
+      transform translate(-50%, -50%)
 
     .name
       position absolute
       bottom -65px
-      font-size v-bind(fontSize)
-      font-weight bold
       color v-bind(color)
-      white-space nowrap
       text-overflow ellipsis
+      white-space nowrap
+      font-weight bold
+      font-size v-bind(fontSize)
 
 .img_circle
   border-radius 50%

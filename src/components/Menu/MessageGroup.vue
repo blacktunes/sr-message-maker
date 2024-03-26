@@ -195,9 +195,9 @@ const avatarUrl = computed(() => {
 
 <style lang="stylus" scoped>
 .message-item
+  margin-bottom 35px
   color var(--menu-text-color)
   user-select none
-  margin-bottom 35px
 
   .item
     position relative
@@ -211,27 +211,27 @@ const avatarUrl = computed(() => {
     transition all 0.2s
 
     &:before
-      z-index -1
-      content ''
       position absolute
       top 0
       right 0
       bottom 0
       left 0
+      z-index -1
       background url('@/assets/images/对话背景.webp')
-      background-repeat no-repeat
       background-position right
+      background-repeat no-repeat
+      content ''
       opacity 0.15
 
     &:after
-      z-index -2
-      content ''
       position absolute
       top 0
       right 0
       bottom 0
       left 0
+      z-index -2
       background linear-gradient(to right, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) 60%, rgba(255, 255, 255, 0.1))
+      content ''
       opacity 0.5
 
     &:hover
@@ -242,51 +242,51 @@ const avatarUrl = computed(() => {
 
     .avatar
       overflow hidden
+      margin-left 30px
       width 115px
       height 115px
-      margin-left 30px
       border-radius 50%
 
       img
         width 100%
         height 100%
         border-radius 50%
-        object-fit contain
-        background var(--avatar-background)
         border-radius 50%
-        clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
-        user-select none
+        background var(--avatar-background)
         pointer-events none
+        user-select none
+        object-fit contain
+        clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
 
     .name
-      width 480px
-      margin-left 30px
-      font-size 46px
-      font-weight bold
       overflow hidden
-      white-space nowrap
+      margin-left 30px
+      width 480px
       text-overflow ellipsis
+      white-space nowrap
+      font-weight bold
+      font-size 46px
 
     svg
       transition all 0.2s
 
   .message-list
-    overflow hidden
     display flex
     flex-direction column
     align-items center
+    overflow hidden
     max-height 0
     transition max-height 0.2s
 
     .message
       position relative
-      box-sizing border-box
       display flex
       align-items center
-      height 115px
-      width 95%
+      box-sizing border-box
+      margin 25px 10px 0
       padding 30px 35px 30px 50px
-      margin 25px 10px 0 10px
+      width 95%
+      height 115px
       border var(--menu-border)
       background rgba(0, 0, 0, 0.4)
       cursor pointer
@@ -296,8 +296,8 @@ const avatarUrl = computed(() => {
         transition all 0.2s
 
       &:hover
-        color var(--message-text-hover-color)
         background #bab9be
+        color var(--message-text-hover-color)
 
         :deep(path)
           fill var(--message-icon-hover-color)
@@ -307,26 +307,26 @@ const avatarUrl = computed(() => {
 
       .icon
         display flex
-        align-items center
         justify-content center
+        align-items center
         width 50px
         height 100%
 
       .text
-        margin-left 35px
-        font-size 40px
         overflow hidden
-        white-space nowrap
-        text-overflow ellipsis
-        word-break break-word
         margin-bottom 5px
+        margin-left 35px
+        text-overflow ellipsis
+        white-space nowrap
+        word-break break-word
+        font-size 40px
 
       .del
-        display flex
-        align-items center
-        justify-content center
         position absolute
         right 10px
+        display flex
+        justify-content center
+        align-items center
         width 80px
         height 80px
         opacity 0
@@ -342,10 +342,10 @@ const avatarUrl = computed(() => {
   max-height v-bind(height) !important
 
 .message-highlight
-  color var(--message-text-hover-color) !important
-  background #eaeaea !important
   border var(--menu-border-highlight) !important
+  background #eaeaea !important
   box-shadow var(--meni-icon-shadow)
+  color var(--message-text-hover-color) !important
 
   :deep(path)
     fill var(--message-icon-hover-color) !important

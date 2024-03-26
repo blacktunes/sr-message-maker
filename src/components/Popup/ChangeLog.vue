@@ -76,29 +76,29 @@ ul
 
 .item
   margin 20px 20px 20px 0
-  padding 10px 20px 20px 20px
+  padding 10px 20px 20px
 
   .time
-    font-size 50px
     font-weight bold
+    font-size 50px
 
   .text
-    font-size 36px
     margin-top 5px
+    font-size 36px
 
     a
-      font-weight bold
       color #1F2328
       text-decoration none
+      font-weight bold
 
       &:hover
         text-decoration underline
 
     .info
-      font-size 32px
       color #666
+      font-size 32px
 
 .highlight
-  background #ccc
   border-radius 5px
+  background #ccc
 </style>

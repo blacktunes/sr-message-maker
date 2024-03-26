@@ -411,21 +411,21 @@ const reserDatabase = () => {
 
 <style lang="stylus" scoped>
 .data
-  width 1000px
   margin 40px 0
+  width 1000px
 
   .info
-    font-size 36px
-    padding 30px 50px
     margin-bottom 40px
+    padding 30px 50px
     border 2px solid rgba(0, 0, 0, 0.2)
     border-radius 10px
+    font-size 36px
 
   .box
     width 100%
 
     .btn
-      margin 10px 0 0 0
+      margin 10px 0 0
       height 100px
       font-size 42px
 
@@ -439,13 +439,13 @@ const reserDatabase = () => {
     display none
 
     .line
-      width 100%
       margin 20px 0
+      width 100%
       border-bottom 5px solid rgba(150, 150, 150, 0.5)
 
   .tip
-    font-size 28px
-    font-weight bold
     text-align center
+    font-weight bold
+    font-size 28px
     user-select none
 </style>

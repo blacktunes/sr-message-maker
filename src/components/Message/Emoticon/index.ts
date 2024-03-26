@@ -2,7 +2,7 @@ export const emoticonData = reactive<{
   show: boolean
   key?: [number, number]
 }>({
-  show: false,
+  show: false
 })
 
 export const emoticonOpen = (key?: [number, number]) => {

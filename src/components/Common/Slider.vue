@@ -34,7 +34,9 @@ const props = withDefaults(
 
 const data = defineModel<number>({ default: 0 })
 
-const percentage = ref(((Math.min(Math.max(data.value, props.min), props.max)) - props.min) / (props.max - props.min))
+const percentage = ref(
+  (Math.min(Math.max(data.value, props.min), props.max) - props.min) / (props.max - props.min)
+)
 const track = ref<HTMLElement | null>(null)
 
 const onTouchstart = (e: TouchEvent) => {
@@ -97,15 +99,15 @@ $bar-height = 12px
 
 .slider
   display flex
-  align-items center
   justify-content center
+  align-items center
   -webkit-user-drag none
   user-drag none
 
   .track
+    position relative
     flex 1
     box-sizing border-box
-    position relative
     height $bar-height
     background-color #bcc0c3
     cursor pointer
@@ -120,15 +122,15 @@ $bar-height = 12px
       pointer-events none
 
     .thumb
-      box-sizing border-box
       position absolute
       top 0
       left 0
+      box-sizing border-box
       width 45px
       height 45px
-      background #fff
-      border $bar-height * 0.7 solid #f19839
+      border: $bar-height * 0.7 solid #f19839
       border-radius 50%
-      transform 'translate(-50%, calc(-50% + %s / 2))' % $bar-height
+      background #fff
       cursor pointer
+      transform 'translate(-50%, calc(-50% + %s / 2))' % $bar-height
 </style>

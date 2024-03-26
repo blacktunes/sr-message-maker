@@ -70,9 +70,9 @@ devDependencies:
   prettier:
     specifier: ^3.2.5
     version: 3.2.5
-  prettier-plugin-stylus-supremacy:
-    specifier: ^1.0.4
-    version: 1.0.4(prettier@3.2.5)
+  prettier-plugin-stylus-format:
+    specifier: ^1.0.0
+    version: 1.0.0(prettier@3.2.5)
   stylus:
     specifier: ^0.63.0
     version: 0.63.0
@@ -2354,6 +2354,12 @@ packages:
     engines: {node: '>= 4.0.0'}
     dev: true
 
+  /atob@2.1.2:
+    resolution: {integrity: sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==}
+    engines: {node: '>= 4.5.0'}
+    hasBin: true
+    dev: true
+
   /available-typed-arrays@1.0.7:
     resolution: {integrity: sha512-wvUjBtSGN7+7SjNpq/9M2Tg350UZD3q62IFZLbRAR1bSMlCo1ZaeW+BJ+D090e4hIIZLBcTDWe4Mh4jvUDajzQ==}
     engines: {node: '>= 0.4'}
@@ -2636,6 +2642,14 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /css@3.0.0:
+    resolution: {integrity: sha512-DG9pFfwOrzc+hawpmqX/dHYHJG+Bsdb0klhyi1sDneOgGOXy9wQIC8hzyVp1e4NRYDBdxcylvywPkkXCHAzTyQ==}
+    dependencies:
+      inherits: 2.0.4
+      source-map: 0.6.1
+      source-map-resolve: 0.6.0
+    dev: true
+
   /cssesc@3.0.0:
     resolution: {integrity: sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==}
     engines: {node: '>=4'}
@@ -2691,6 +2705,11 @@ packages:
   /decamelize@1.2.0:
     resolution: {integrity: sha512-z2S+W9X73hAUUki+N+9Za2lBlun89zigOyGrsax+KUQ6wKW4ZoWpEYBkGhQjwAjjDCkWxhY0VKEhk8wzY7F5cA==}
     engines: {node: '>=0.10.0'}
+    dev: true
+
+  /decode-uri-component@0.2.2:
+    resolution: {integrity: sha512-FqUYQ+8o158GyGTrMFJms9qh3CqTKvAqgqsTnkLI8sKu0028orqBhxNMFkFen0zGyg6epACD32pjVk58ngIErQ==}
+    engines: {node: '>=0.10'}
     dev: true
 
   /deep-is@0.1.4:
@@ -4183,12 +4202,13 @@ packages:
       fast-diff: 1.3.0
     dev: true
 
-  /prettier-plugin-stylus-supremacy@1.0.4(prettier@3.2.5):
-    resolution: {integrity: sha512-IFJDUWii+p96ru8MwYvqOT9tfxVXbuSpttV7Kwp7RxPA2bPhJw0l6gmaLK97agfjt8fQk3QcviuPry2IRRXV2g==}
+  /prettier-plugin-stylus-format@1.0.0(prettier@3.2.5):
+    resolution: {integrity: sha512-XFCQ7Q9RjQfPrQISjLg70kGbEs5e670rtb1cQ2uSJqQPim+VpIXmqoHzJf3cWBRIjn0ruvaangewRbyvtz6MZA==, tarball: https://registry.npmjs.org/prettier-plugin-stylus-format/-/prettier-plugin-stylus-format-1.0.0.tgz}
     peerDependencies:
-      prettier: ^2.0.0
+      prettier: '*'
     dependencies:
       prettier: 3.2.5
+      stylus: 0.57.0
       stylus-supremacy: 2.17.5
     transitivePeerDependencies:
       - supports-color
@@ -4411,6 +4431,10 @@ packages:
       is-regex: 1.1.4
     dev: true
 
+  /safer-buffer@2.1.2:
+    resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
+    dev: true
+
   /sax@1.2.4:
     resolution: {integrity: sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==}
     dev: true
@@ -4523,6 +4547,14 @@ packages:
   /source-map-js@1.2.0:
     resolution: {integrity: sha512-itJW8lvSA0TXEphiRoawsCksnlf8SyvmFzIhltqAHluXd88pkCd+cXJVHTDwdCr0IzwptSm035IHQktUu1QUMg==}
     engines: {node: '>=0.10.0'}
+
+  /source-map-resolve@0.6.0:
+    resolution: {integrity: sha512-KXBr9d/fO/bWo97NXsPIAW1bFSBOuCnjbNTBMO7N59hsv5i9yzRDfcYwwt0l04+VqnKC+EwzvJZIP/qkuMgR/w==}
+    deprecated: See https://github.com/lydell/source-map-resolve#deprecated
+    dependencies:
+      atob: 2.1.2
+      decode-uri-component: 0.2.2
+    dev: true
 
   /source-map-support@0.5.21:
     resolution: {integrity: sha512-uBHU3L3czsIyYXKX88fdrGovxdSCoTGDRZ6SYXtSRxLZUzHg5P/66Ht6uoUlHu9EZod+inXhKo3qQgwXUT/y1w==}
@@ -4728,6 +4760,20 @@ packages:
       lodash: 4.17.21
       stylint: 2.0.0
       stylus: 0.59.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /stylus@0.57.0:
+    resolution: {integrity: sha512-yOI6G8WYfr0q8v8rRvE91wbxFU+rJPo760Va4MF6K0I6BZjO4r+xSynkvyPBP9tV1CIEUeRsiidjIs2rzb1CnQ==}
+    hasBin: true
+    dependencies:
+      css: 3.0.0
+      debug: 4.3.4
+      glob: 7.2.3
+      safer-buffer: 2.1.2
+      sax: 1.2.4
+      source-map: 0.7.4
     transitivePeerDependencies:
       - supports-color
     dev: true

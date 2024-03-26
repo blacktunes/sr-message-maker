@@ -101,12 +101,12 @@ export const gameAvatar: { [name: string]: UserAvatar } = {
 }
 
 export const gameCharacter: { [name: string]: Character } = {
-  '花火': {
+  花火: {
     name: '花火',
     avatar: 'https://patchwiki.biligame.com/images/sr/9/90/o5noo1t924ab8a246rqhwymia9wjzme.png',
-    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/02/29/75216984/19acae33948fa008a7e7483234899b80_1021450901129575807.png?x-oss-process=image/quality,q_75/resize,s_280',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/02/29/75216984/19acae33948fa008a7e7483234899b80_1021450901129575807.png?x-oss-process=image/quality,q_75/resize,s_280'
   },
-  '黑天鹅': {
+  黑天鹅: {
     name: '黑天鹅',
     avatar: 'https://patchwiki.biligame.com/images/sr/b/b8/660mwtozc1se2rk3cuqyz6fegarrrx1.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2024/02/04/75216984/a12b3fc3b2820e5c91465f25c5d02298_9049043823737802831.png?x-oss-process=image/quality,q_75/resize,s_280',
@@ -184,7 +184,7 @@ export const gameCharacter: { [name: string]: Character } = {
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/4d5ac247ca1460b34b3f73244afbb0f6_8390343856757982675.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: '可以不喝水，但不能没咖啡'
   },
-  '真理医生': {
+  真理医生: {
     name: '真理医生',
     avatar: 'https://patchwiki.biligame.com/images/sr/e/e8/qvg0nhlfw8qsaz4pjdqiofgb8di3ngv.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2024/01/06/75216984/7c3c2cbfb43afac42c439edeceb470b1_3744116827297196928.png?x-oss-process=image/quality,q_75/resize,s_280',

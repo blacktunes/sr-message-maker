@@ -154,15 +154,16 @@ enterCallback[props.name] = onBtnClick
       span
         overflow hidden
         max-width 125px
+        word-break break-all
         font-weight bold
         line-height 40px
-        word-break break-all
 
   .bubbles-0
     .text
       padding 25px 40px !important
 
-  .bubbles-1, .bubbles-2
+  .bubbles-1
+  .bubbles-2
     .text
       padding 0px !important
 
@@ -174,16 +175,16 @@ enterCallback[props.name] = onBtnClick
 
 .other-setting
   .setting-btn
-    box-sizing border-box
-    width 90px
-    height 90px
     display flex
     justify-content center
     align-items center
-    background rgba(255, 255, 255, 0.8)
-    border-radius 50%
-    border 5px solid #767479
+    box-sizing border-box
     margin-bottom 30px
+    width 90px
+    height 90px
+    border 5px solid #767479
+    border-radius 50%
+    background rgba(255, 255, 255, 0.8)
     cursor pointer
 
     :deep(path)
@@ -197,24 +198,24 @@ enterCallback[props.name] = onBtnClick
   flex-wrap wrap
   justify-content flex-start
   overflow-x hidden
-  height 450px
-  width 1200px
   margin-bottom 30px
   padding-right 10px
+  width 1200px
+  height 450px
   user-select none
 
   .item
+    position relative
     display flex
     justify-content center
     align-items center
     overflow hidden
-    position relative
     box-sizing border-box
+    margin 30px 10px 0 0
     width 385px
     height 200px
-    margin 30px 10px 0 0
-    background #c5c6ca
     border 4px solid #a7a8aa
+    background #c5c6ca
     cursor pointer
 
     &:hover
@@ -227,7 +228,8 @@ enterCallback[props.name] = onBtnClick
       .text
         padding 25px 50px !important
 
-    .bubbles-1, .bubbles-2
+    .bubbles-1
+    .bubbles-2
       .text
         padding 1px 8px !important
 
@@ -240,16 +242,16 @@ enterCallback[props.name] = onBtnClick
   cursor auto !important
 
   &:after
-    content '使用中'
     position absolute
-    left 0
     bottom 0
+    left 0
     display flex
     justify-content center
     align-items center
-    background #e7c57e
-    height 38px
     width 100%
+    height 38px
+    background #e7c57e
+    content '使用中'
     font-size 28px
 
   &:hover

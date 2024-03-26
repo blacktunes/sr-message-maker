@@ -33,15 +33,15 @@
 
   span
     margin 0 0 15px 20px
-    font-size 46px
     color #ddd
+    font-size 46px
 
 .img
-  z-index -1
-  overflow hidden
   position absolute
   top 30px
   left 30px
+  z-index -1
+  overflow hidden
   width 650px
   height 470px
   opacity 0.5
@@ -50,7 +50,7 @@
 
   img
     position absolute
-    bottom 0
     right 0
+    bottom 0
     animation rotate 60s linear infinite
 </style>

@@ -28,13 +28,13 @@ import { setting } from '@/store/setting'
 
 <style lang="stylus" scoped>
 .loading
+  position fixed
+  top 0
+  left 0
   z-index 999
   display flex
   justify-content center
   align-items center
-  position fixed
-  top 0
-  left 0
   width 100%
   height 100%
   background rgba(0, 0, 0, 0.6)
@@ -46,7 +46,8 @@ import { setting } from '@/store/setting'
     animation spin 6s infinite cubic-bezier(0.55, 0.09, 0.68, 0.53)
     animation-delay 1s
 
-    .circle-group-1, .circle-group-2
+    .circle-group-1
+    .circle-group-2
       position absolute
       top 0
       left 0
@@ -70,8 +71,8 @@ import { setting } from '@/store/setting'
           transform translateX(-50%)
 
         &:nth-child(2)
-          left 0
           top 50%
+          left 0
           transform translateY(-50%)
           animation-delay 0.25s
 
@@ -82,8 +83,8 @@ import { setting } from '@/store/setting'
           animation-delay 0.5s
 
         &:nth-child(4)
-          right 0
           top 50%
+          right 0
           transform translateY(-50%)
           animation-delay 0.75s
 
@@ -107,8 +108,8 @@ import { setting } from '@/store/setting'
           animation-delay 0.125s
 
         &:nth-child(3)
-          bottom 20%
           right 20%
+          bottom 20%
           animation-delay 0.875s
 
         &:nth-child(4)

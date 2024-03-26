@@ -74,18 +74,19 @@ const blur = (e: KeyboardEvent) => {
   padding 15px 0
   item()
 
-  .change, .del
-    display flex
-    align-items center
-    justify-content center
+  .change
+  .del
     position absolute
     top 50%
+    display flex
+    justify-content center
+    align-items center
     width 60px
     height 60px
-    transform translateY(-50%)
     opacity 0
-    transition opacity 0.2s
     cursor pointer
+    transition opacity 0.2s
+    transform translateY(-50%)
 
     :deep(path)
       fill var(--message-item-name-color)

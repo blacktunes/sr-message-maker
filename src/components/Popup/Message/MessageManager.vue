@@ -122,8 +122,8 @@ enterCallback[props.name] = onConfirml
 
 <style lang="stylus" scoped>
 .config
-  width 1600px
   padding 60px 0
+  width 1600px
   user-select none
 
   .table
@@ -134,7 +134,8 @@ enterCallback[props.name] = onConfirml
       height 120px
       border 1px solid #000
 
-      .left, .right
+      .left
+      .right
         box-sizing border-box
         padding 5px 40px
 

@@ -271,13 +271,13 @@ const handleDelClick = (key: string, name: string) => {
 $character-item-width = 387px
 
 .character-select
+  position absolute
+  top 0
+  left 0
   z-index 99
   display flex
   justify-content center
   align-items center
-  position absolute
-  top 0
-  left 0
   width 100%
   height 100%
   user-select none
@@ -288,9 +288,9 @@ $character-item-width = 387px
     flex-direction column
     justify-content center
     align-items center
+    padding 20px 65px
     width 90%
     height 90%
-    padding 20px 65px
     background var(--box-background-color)
     cursor default
     message()
@@ -301,9 +301,9 @@ $character-item-width = 387px
       width 100%
 
       .tab
-        font-size 60px
-        font-weight bold
         margin 0 20px 25px 5px
+        font-weight bold
+        font-size 60px
         opacity 0.5
         cursor pointer
 
@@ -312,10 +312,10 @@ $character-item-width = 387px
 
     .list
       overflow overlay
+      margin 15px 0
+      padding 0 30px 0 20px
       width 100%
       height 100%
-      padding 0 30px 0 20px
-      margin 15px 0
 
       .character-list
         display flex
@@ -329,38 +329,38 @@ $character-item-width = 387px
               opacity 1
 
         .add
-          box-sizing border-box
-          width $character-item-width
-          height 645px
-          margin 10px
           display flex
+          flex-direction column
           justify-content center
           align-items center
-          flex-direction column
+          box-sizing border-box
+          margin 10px
+          width $character-item-width
+          height 645px
           border 5px solid #afafaf
           cursor pointer
 
 .highlight
-  opacity 1 !important
   position relative
+  opacity 1 !important
 
   &:after
-    content ''
     position absolute
-    left 0
     bottom -10px
+    left 0
     width 100%
     height 5px
     background #121212
+    content ''
     animation open 0.3s forwards
 
 .del
-  display flex
-  align-items center
-  justify-content center
   position absolute
-  right 0
   top 0
+  right 0
+  display flex
+  justify-content center
+  align-items center
   width 80px
   height 80px
   font-size 50px

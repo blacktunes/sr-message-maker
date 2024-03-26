@@ -4,14 +4,12 @@
       class="window"
       title="更换头像"
     >
-      <div
-        class="list"
-      >
+      <div class="list">
         <div
           class="avatar"
           v-for="(item, key) in avatar.game"
           :key="key"
-          :class="{ 'avatar_highlight': avatarData.index === key }"
+          :class="{ avatar_highlight: avatarData.index === key }"
           @click="onAvatarClick(key)"
         >
           <img
@@ -23,7 +21,7 @@
           class="avatar"
           v-for="(url, key) in avatar.custom"
           :key="key"
-          :class="{ 'avatar_highlight': avatarData.index === key }"
+          :class="{ avatar_highlight: avatarData.index === key }"
           @click="avatarData.index = key"
           @contextmenu.prevent.stop="handleDelClick(key)"
         >
@@ -212,27 +210,28 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
   flex-wrap wrap
   justify-content flex-start
   overflow-x hidden
-  height 520px
-  width 1200px
   padding-bottom 40px
+  width 1200px
+  height 520px
   user-select none
 
-  .avatar, .add
+  .avatar
+  .add
     box-sizing border-box
+    margin 30px 25px 5px 15px
     width 190px
     height 190px
-    border-radius 50%
-    margin 30px 25px 5px 15px
     border $border-width solid transparent
+    border-radius 50%
 
     &:hover
       filter brightness(1.05)
 
   .avatar
-    display flex
-    align-items center
-    justify-content center
     position relative
+    display flex
+    justify-content center
+    align-items center
     cursor pointer
 
     &:hover
@@ -242,16 +241,16 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
     img
       width 190px - $border-width * 2
       height 190px - $border-width * 2
-      object-fit contain
       border-radius 50%
       background #c3b7a9
-      user-select none
       pointer-events none
+      user-select none
+      object-fit contain
 
     .del
       position absolute
-      right -20px
       top -20px
+      right -20px
       opacity 0
       cursor pointer
 
@@ -260,43 +259,43 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
 
   .add
     display flex
-    align-items center
     justify-content center
+    align-items center
     border 8px solid #afafaf
     cursor pointer
 
 .avatar_highlight
-  cursor auto !important
   border-color #fff !important
+  cursor auto !important
 
   &:hover
     filter none !important
 
   &:before
-    content ''
     position absolute
-    left 50%
     bottom 50%
-    height 130%
+    left 50%
     width 130%
+    height 130%
     border-radius 50%
-    transform translate(-50%, 50%)
     background v-bind(border)
     background-size 100%
+    content ''
+    transform translate(-50%, 50%)
     animation highlight-rotate 30s linear infinite
     pointer-events none
 
   &:after
-    content ''
     position absolute
-    left 50%
     top -60px
-    height 45px
+    left 50%
     width 40px
-    transform translate(-50%, 55%)
+    height 45px
     background v-bind(icon)
     background-size 100%
     background-repeat no-repeat
+    content ''
+    transform translate(-50%, 55%)
     animation highlight-icon 0.8s linear alternate infinite
 
 @keyframes highlight-rotate

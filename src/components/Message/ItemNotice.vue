@@ -61,32 +61,32 @@ const updateMessage = (e: Event) => {
   justify-content center
   align-items center
   item()
-  height 60px
   margin-top 60px
-  padding 20px 0 20px 0
-  font-size 30px
+  padding 20px 0
+  height 60px
   color var(--notice-color)
+  font-size 30px
 
   img
     user-select none
 
   span
-    max-width 80%
-    margin-left 20px
     overflow hidden
-    white-space nowrap
+    margin-left 20px
+    max-width 80%
     text-overflow ellipsis
+    white-space nowrap
 
   div
     position relative
     height 100%
 
     .del
-      display flex
-      align-items center
-      justify-content center
       position absolute
       right -100px
+      display flex
+      justify-content center
+      align-items center
       width 60px
       height 60px
       opacity 0

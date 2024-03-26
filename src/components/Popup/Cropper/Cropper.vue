@@ -84,10 +84,10 @@ enterCallback[props.name] = onCropper
 
 <style lang="stylus" scoped>
 :deep(.vue--picture-cropper__wrap)
-  background url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA3NCSVQICAjb4U/gAAAABlBMVEXMzMz////TjRV2AAAACXBIWXMAAArrAAAK6wGCiw1aAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAABFJREFUCJlj+M/AgBVhF/0PAH6/D/HkDxOGAAAAAElFTkSuQmCC')
   display flex
   justify-content center
   align-items center
+  background url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA3NCSVQICAjb4U/gAAAABlBMVEXMzMz////TjRV2AAAACXBIWXMAAArrAAAK6wGCiw1aAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAABFJREFUCJlj+M/AgBVhF/0PAH6/D/HkDxOGAAAAAElFTkSuQmCC')
 
 .cropper
   position fixed
@@ -97,10 +97,10 @@ enterCallback[props.name] = onCropper
   left 0
 
 .btn-list
-  display flex
   position fixed
   bottom 15px
   left 50%
+  display flex
   width auto
   transform-origin 0 bottom 0px
 

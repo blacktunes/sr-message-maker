@@ -85,25 +85,25 @@ enterCallback[props.name] = onConfirmlClick
 
 <style lang="stylus" scoped>
 .text
-  flex 1
   display flex
+  flex 1
   justify-content center
   align-items center
   margin 80px 110px
 
   input
-    box-sizing border-box
     flex 1
-    font-size 50px
-    height 90px
+    box-sizing border-box
     padding 5px 60px
-    background #c7c7c7
+    height 90px
+    outline none
     border 2px solid #666
     border-radius 45px
-    outline none
+    background #c7c7c7
+    font-size 50px
 
 .tip
-  text-align center
-  background #b4b4b4
   padding 10px
+  background #b4b4b4
+  text-align center
 </style>

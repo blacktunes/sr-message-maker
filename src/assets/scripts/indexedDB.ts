@@ -15,7 +15,10 @@ const isEmpty = (value: any) => {
 }
 
 export class IndexedDB {
-  constructor(public readonly name: string, public readonly alias = '') {}
+  constructor(
+    public readonly name: string,
+    public readonly alias = ''
+  ) {}
   private DBList: Record<
     string,
     {

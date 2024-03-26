@@ -27,8 +27,8 @@
   --avatar-image-clip-path-bilibiliwiki-only circle(46%)
 
 html
-  scrollbar-width none
   font-size 40px
+  scrollbar-width none
 
   &::-webkit-scrollbar
     width 0
@@ -46,24 +46,24 @@ img
   height 8px
 
 ::-webkit-scrollbar-track
-  background #c6c6c6
   margin 20px 0
+  background #c6c6c6
 
 ::-webkit-scrollbar-thumb
   background #545454
 
 #app
+  display flex
+  justify-content center
+  align-items center
   overflow hidden
   width 100vw
   width var(--window-w)
   height 100vh
   height var(--window-h)
-  display flex
-  justify-content center
-  align-items center
   background url('@/assets/images/主背景.webp')
-  background-size cover
   background-position center
+  background-size cover
 
 .del
   transition opacity 0.2s
@@ -88,13 +88,16 @@ img
 .fade-out-leave-to
   opacity 0
 
-.fade-enter-active, .fade-leave-active
+.fade-enter-active
+.fade-leave-active
   transition all 0.2s
 
-.fade-enter-from, .fade-leave-to
+.fade-enter-from
+.fade-leave-to
   opacity 0
 
-.fade-enter-to, .fade-leave-from
+.fade-enter-to
+.fade-leave-from
   opacity 1
 
 .slide-left-enter-active

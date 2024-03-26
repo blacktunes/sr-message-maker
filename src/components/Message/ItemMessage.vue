@@ -144,61 +144,61 @@ const updateMessage = (e: Event) => {
 $del-pos = -100px
 
 .message
-  box-sizing border-box
   display flex
+  box-sizing border-box
+  padding 5px 30px 15px
   height -moz-fit-content
   height fit-content
-  padding 5px 30px 15px 30px
   item()
 
   .avatar
     flex-shrink 0
     overflow hidden
+    margin 0 var(--message-item-avatar-margin) 0 0
     width var(--message-item-avatar-width)
     height var(--message-item-avatar-width)
-    margin 0 var(--message-item-avatar-margin) 0 0
     cursor pointer
 
     img
       width 100%
       height 100%
-      object-fit contain
-      background var(--avatar-background)
-      user-select none
       border-radius 50%
-      clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
-      user-select none
+      background var(--avatar-background)
       pointer-events none
+      user-select none
+      user-select none
+      object-fit contain
+      clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
 
   .message-item
-    flex 1
     display flex
+    flex 1
     flex-direction column
     align-items flex-start
     max-width calc(100% - var(--message-item-avatar-width) - var(--message-item-avatar-margin))
 
     .name
       position relative
-      color var(--message-item-name-color)
-      font-size 45px
+      max-width calc(100% - var(--message-item-avatar-width) - var(--message-item-avatar-margin) - 160px)
       width -moz-fit-content
       width fit-content
-      max-width calc(100% - var(--message-item-avatar-width) - var(--message-item-avatar-margin) - 160px)
+      color var(--message-item-name-color)
+      font-size 45px
       cursor pointer
 
       span
         display block
         overflow hidden
-        white-space nowrap
         text-overflow ellipsis
+        white-space nowrap
 
       .del
-        display flex
-        align-items center
-        justify-content center
         position absolute
-        right $del-pos
         top 0
+        right $del-pos
+        display flex
+        justify-content center
+        align-items center
         width 60px
         height 60px
         opacity 0
@@ -211,19 +211,19 @@ $del-pos = -100px
           opacity 1
 
     .loading
-      box-sizing border-box
-      height 145px
       display inline-flex
+      box-sizing border-box
       padding 35px 0 35px 10px
+      height 145px
 
       div
+        margin 0 5px
         width 20px
         height 20px
-        margin 0 5px
-        background #222
         border-radius 50%
-        animation circle 2s linear infinite
+        background #222
         opacity 0
+        animation circle 2s linear infinite
 
       & div:nth-child(2)
         animation-delay 0.2s
@@ -232,9 +232,9 @@ $del-pos = -100px
         animation-delay 0.4s
 
     .img
-      max-width 600px
+      margin 40px 40px 0
       min-width var(--message-item-img-width)
-      margin 40px 40px 0 40px
+      max-width 600px
       user-select none
 
       img
@@ -245,10 +245,10 @@ $del-pos = -100px
       box()
 
       .bg-icon
-        z-index 1
         position absolute
-        left 50%
         bottom 10px
+        left 50%
+        z-index 1
         height 100px
         transform translateX(-50%)
         pointer-events none
@@ -274,20 +274,20 @@ $del-pos = -100px
         box-shadow 2px 4px #9d9f9f
 
   .del
-    left $del-pos
     right unset !important
+    left $del-pos
 
 .avatar-enter-active
   animation avatar 0.5s ease
 
 @keyframes avatar
   0%
-    transform translateY(50%)
     opacity 0
+    transform translateY(50%)
 
   80%
-    transform translateY(-5%)
     opacity 1
+    transform translateY(-5%)
 
   100%
     transform translateY(0)
@@ -309,9 +309,9 @@ $del-pos = -100px
   transition all 0.5s
 
 .message-leave-active
-  transition all 0s
-  opacity 0
   position absolute
+  opacity 0
+  transition all 0s
 
 .message-enter-from
   opacity 0
