@@ -1,8 +1,5 @@
 <template>
-  <Popup
-    :base-index="200"
-    :index="props.index"
-  >
+  <Popup :index="props.index">
     <window
       confirm
       :title="confirmData.title"
@@ -52,7 +49,7 @@ import Popup from '@/components/Common/Popup.vue'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
 import { confirmData } from './'
-import { enterCallback } from '@/assets/scripts/popup'
+import { confirmCallback } from '@/assets/scripts/popup'
 
 const props = defineProps<{
   name: string
@@ -73,7 +70,7 @@ const onConfirml = () => {
   return true
 }
 
-enterCallback[props.name] = onConfirml
+confirmCallback[props.name] = onConfirml
 </script>
 
 <style lang="stylus" scoped>

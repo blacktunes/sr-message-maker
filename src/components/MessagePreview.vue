@@ -79,6 +79,7 @@ import Icon from './Common/Icon.vue'
 import { info, scrollToBottom, title } from './Message/Message'
 import MessageBox from './Message/MessageBox.vue'
 import MessageItem from './Message/MessageItem.vue'
+import { closeWindow, isLoading, openWindow } from '@/assets/scripts/popup'
 
 const boxRef = ref<InstanceType<typeof MessageBox>>()
 
@@ -242,17 +243,17 @@ const stopPlay = () => {
 }
 
 emitter.on('screenshot', () => {
-  if (setting.loading) return
+  if (isLoading()) return
   reset()
 
   isGreenScreen.value = false
   setting.preview = true
-  setting.loading = true
+  openWindow('loading')
   nextTick(async () => {
     if (boxRef.value?.boxDom && boxRef.value?.listDom && setting.preview) {
       await screenshot(boxRef.value.boxDom, undefined, boxRef.value.listDom.scrollHeight + 185)
     }
-    setting.loading = false
+    closeWindow('loading')
   })
 })
 

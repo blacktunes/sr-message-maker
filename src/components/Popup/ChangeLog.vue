@@ -1,8 +1,5 @@
 <template>
-  <Popup
-    :base-index="200"
-    :index="props.index"
-  >
+  <Popup :index="props.index">
     <window
       title="更新记录"
       width="40%"

@@ -94,7 +94,7 @@ import { setAvatar, setName, setting } from '@/store/setting'
 import { character } from '@/store/character'
 import { getAssets } from '@/assets/scripts/preload'
 import { avatar } from '@/store/avatar'
-import { enterCallback, openWindow } from '@/assets/scripts/popup'
+import { confirmCallback, openWindow } from '@/assets/scripts/popup'
 import { avatarData } from './'
 
 const props = defineProps<{
@@ -181,7 +181,7 @@ const onBtnClick = () => {
   return true
 }
 
-enterCallback[props.name] = onBtnClick
+confirmCallback[props.name] = onBtnClick
 
 const changeTOGameCharacter = () => {
   openWindow('character', [-1, -1])

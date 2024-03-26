@@ -1,6 +1,4 @@
 export const setting = reactive<{
-  /** 是否显示Loading页 */
-  loading: boolean
   /** 用户名 */
   name: string
   /** 用户头像 */
@@ -16,7 +14,6 @@ export const setting = reactive<{
   /** 是否正在拖动元素 */
   drag: boolean
 }>({
-  loading: true,
   name: '开拓者',
   avatar: DEFAULT_AVATAR,
   index: undefined,

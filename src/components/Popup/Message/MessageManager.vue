@@ -70,7 +70,7 @@ import Icon from '@/components//Common/Icon.vue'
 import { openWindow } from '@/assets/scripts/popup'
 import { currentMessage } from '@/store/message'
 import { messageData } from './'
-import { enterCallback } from '@/assets/scripts/popup'
+import { confirmCallback } from '@/assets/scripts/popup'
 
 const props = defineProps<{
   name: string
@@ -117,7 +117,7 @@ const onConfirml = () => {
   close()
 }
 
-enterCallback[props.name] = onConfirml
+confirmCallback[props.name] = onConfirml
 </script>
 
 <style lang="stylus" scoped>

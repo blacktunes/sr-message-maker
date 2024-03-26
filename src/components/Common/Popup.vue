@@ -4,7 +4,7 @@
       <div
         class="popup"
         v-show="props.index !== -1"
-        :style="{ zIndex: 10 + index }"
+        :style="{ zIndex: baseIndex + index }"
       >
         <slot></slot>
       </div>
@@ -29,7 +29,7 @@ const props = withDefaults(
     show?: boolean
   }>(),
   {
-    baseIndex: 10
+    baseIndex: 20
   }
 )
 </script>

@@ -89,7 +89,7 @@ import Btn from '@/components/Common/Btn.vue'
 import Icon from '@/components/Common/Icon.vue'
 import Preview from '@/components/Common/Preview.vue'
 import { setting } from '@/store/setting'
-import { enterCallback, openWindow } from '@/assets/scripts/popup'
+import { confirmCallback, openWindow } from '@/assets/scripts/popup'
 import { bubbles } from '@/assets/data/bubbles'
 
 const props = defineProps<{
@@ -133,7 +133,7 @@ const onBtnClick = () => {
   return true
 }
 
-enterCallback[props.name] = onBtnClick
+confirmCallback[props.name] = onBtnClick
 </script>
 
 <style lang="stylus" scoped>

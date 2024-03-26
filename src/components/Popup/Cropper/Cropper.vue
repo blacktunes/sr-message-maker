@@ -49,7 +49,7 @@
 import { viewport } from '@/store/viewport'
 import Btn from '@/components/Common/Btn.vue'
 import VuePictureCropper, { cropper } from 'vue-picture-cropper'
-import { enterCallback } from '@/assets/scripts/popup'
+import { confirmCallback } from '@/assets/scripts/popup'
 import { imageCropper, cropperSetting } from './'
 
 const props = defineProps<{
@@ -79,7 +79,7 @@ const onCropper = async () => {
   return true
 }
 
-enterCallback[props.name] = onCropper
+confirmCallback[props.name] = onCropper
 </script>
 
 <style lang="stylus" scoped>

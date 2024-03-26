@@ -396,7 +396,7 @@ const reserDatabase = () => {
     tip: '该操作会清除所有短信/头像/自定义角色',
     text: ['确定重置数据库吗？'],
     fn: () => {
-      setting.loading = true
+      openWindow('loading')
       const request = indexedDB.deleteDatabase('sr-message-v2')
       request.onblocked = () => {
         location.reload()

@@ -3,7 +3,7 @@ import { autoPlay } from '@/store/autoPlay'
 import { addNewMessage, currentMessage } from '@/store/message'
 import { setting } from '@/store/setting'
 import { emitter } from './event'
-import { closeCurrentWindow, currentCallback, hasPopup, openWindow } from './popup'
+import { closeCurrentComponent, currentComponentCallback, isLoading, hasPopup, openWindow } from './popup'
 
 const handleBack = () => {
   emoticonClose()
@@ -18,17 +18,17 @@ const handleBack = () => {
     return
   }
 
-  closeCurrentWindow()
+  closeCurrentComponent()
 }
 
 document.addEventListener('click', (e) => {
-  if (setting.loading) return
+  if (isLoading()) return
   if ((e.target as HTMLElement).tagName.toLowerCase() === 'a') return
   handleBack()
 })
 
 document.addEventListener('keydown', (e) => {
-  if (setting.loading) return
+  if (isLoading()) return
   switch (e.key) {
     // 保存截图
     case 's':
@@ -57,7 +57,7 @@ document.addEventListener('keydown', (e) => {
 
       // 确认窗口
       if (hasPopup()) {
-        currentCallback()
+        currentComponentCallback()
         e.preventDefault()
         return
       }
