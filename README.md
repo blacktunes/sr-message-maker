@@ -1,7 +1,7 @@
 <h1 align="center">星穹铁道短信编辑器</h1>
 <h3 align="center">崩坏:星穹铁道短信生成网站</h3>
 
-![预览图](readme/screenshot.jpg)
+![预览图](public/preview.webp)
 
 <h4 align="center">
   <a href="https://sr.shenmedouyou.top">https://sr.shenmedouyou.top</a>
@@ -34,7 +34,6 @@
 - [x] 已发送图片修改
 - [ ] 表情回复选项
 - [x] 单独的设置页
-- [ ] 对话预览底部分割线
 
 ## 素材来源
 
