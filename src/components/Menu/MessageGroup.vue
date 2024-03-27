@@ -302,9 +302,6 @@ const avatarUrl = computed(() => {
         :deep(path)
           fill var(--message-icon-hover-color)
 
-        .del
-          opacity 1
-
       .icon
         display flex
         justify-content center
@@ -329,8 +326,11 @@ const avatarUrl = computed(() => {
         align-items center
         width 80px
         height 80px
+        border-radius 10px
+        background rgba(255, 255, 255, 0.1)
         opacity 0
         cursor pointer
+        backdrop-filter blur(10px)
 
         &:hover
           opacity 1

@@ -1,7 +1,6 @@
 import { character } from '@/store/character'
 import { imageCompress } from './images'
 import { emoticon } from '../data/emoticon'
-import { bubbles } from '../data/bubbles'
 import { avatar } from '@/store/avatar'
 
 export const progress = reactive([0, 0])

@@ -61,8 +61,7 @@ const updateMessage = (e: Event) => {
   justify-content center
   align-items center
   item()
-  margin-top 60px
-  padding 20px 0
+  padding 40px 0
   height 60px
   color var(--notice-color)
   font-size 30px

@@ -152,8 +152,7 @@ const blur = (e: KeyboardEvent) => {
   display flex
   justify-content center
   align-items center
-  margin 80px 0
-  padding 20px 0
+  padding 50px 0
   item()
 
   .bg

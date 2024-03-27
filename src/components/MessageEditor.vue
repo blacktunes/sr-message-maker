@@ -31,7 +31,7 @@
           <template #item="{ element, index }: { element: Message; index: number }">
             <MessageItem
               class="message-item"
-              :style="setMessageStyle(index)"
+              :class="setMessageClass(index)"
               :item="element"
               :index="index"
               @option="handleOptionChange(index)"
@@ -209,22 +209,18 @@ watch(
 )
 
 // 调整选项样式
-const setMessageStyle = (key: number) => {
+const setMessageClass = (key: number) => {
   if (!currentMessage.value) return
 
   return {
-    marginTop:
-      currentMessage.value.list[key].option &&
-      currentMessage.value.list[key - 1] &&
-      !currentMessage.value.list[key - 1]?.option
-        ? '100px'
-        : '',
-    marginBottom:
-      currentMessage.value.list[key]?.option &&
+    'above-option':
+      !currentMessage.value.list[key].option &&
       currentMessage.value.list[key + 1] &&
-      !currentMessage.value.list[key + 1]?.option
-        ? '100px'
-        : ''
+      currentMessage.value.list[key + 1].option,
+    'below-option':
+      !currentMessage.value.list[key].option &&
+      currentMessage.value.list[key - 1] &&
+      currentMessage.value.list[key - 1].option
   }
 }
 
@@ -634,4 +630,10 @@ box()
     border 3px solid rgba(0, 0, 0, 0.2)
     border-radius 10px
     content ''
+
+.above-option
+  padding-bottom 60px
+
+.below-option
+  padding-top 60px
 </style>

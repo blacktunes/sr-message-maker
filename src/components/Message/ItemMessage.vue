@@ -146,7 +146,7 @@ $del-pos = -100px
 .message
   display flex
   box-sizing border-box
-  padding 5px 30px 15px
+  padding 15px 30px
   height -moz-fit-content
   height fit-content
   item()
