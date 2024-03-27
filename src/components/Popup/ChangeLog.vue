@@ -18,10 +18,13 @@
         <ul>
           <li
             class="text"
+            :class="{ 'text-highlight': text.highlight }"
             v-for="(text, key) in item.text"
             :key="`text-${index}-${key}`"
           >
-            {{ text.text }}
+            <span class="title">
+              {{ text.text }}
+            </span>
             <template v-if="text.author">
               <a
                 target="_blank"
@@ -37,11 +40,17 @@
                   :key="infoKey"
                   class="info"
                 >
-                  {{ info }}
+                  <span>
+                    {{ info }}
+                  </span>
                 </div>
               </template>
               <template v-else>
-                <div class="info">{{ text.info }}</div>
+                <div class="info">
+                  <span>
+                    {{ text.info }}
+                  </span>
+                </div>
               </template>
             </template>
           </li>
@@ -84,7 +93,9 @@ ul
 
   .text
     margin-top 5px
-    font-size 36px
+
+    .title
+      font-size 38px
 
     a
       color #1F2328
@@ -96,9 +107,19 @@ ul
 
     .info
       color #666
-      font-size 32px
+      font-size 34px
 
 .highlight
   border-radius 5px
   background #ccc
+
+.text-highlight
+  .title
+    font-weight bold
+
+  .info
+    color #333 !important
+
+  span
+    background #e4c680
 </style>

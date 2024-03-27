@@ -80,5 +80,6 @@ interface Log {
     info?: string | string[]
     author?: string
     url?: string
+    highlight?: boolean
   }[]
 }
