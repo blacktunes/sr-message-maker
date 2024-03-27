@@ -935,6 +935,7 @@ export const emoticon: {
 ])
 
 for (const i in emoticon) {
+  if (emoticon[i].title === '布洛妮娅') continue
   for (const j in emoticon[i].list) {
     if (emoticon[i].list[j].name) {
       emoticon[i].list[j].title = emoticon[i].list[j].name as string
