@@ -101,6 +101,11 @@ export const gameAvatar: { [name: string]: UserAvatar } = {
 }
 
 export const gameCharacter: { [name: string]: Character } = {
+  黄泉: {
+    name: '黄泉',
+    avatar: 'https://patchwiki.biligame.com/images/sr/e/e8/joho8jkwl2caelu155puktvr7qevzmx.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/03/27/75216984/c218e57d31059dda7c12c9782d78f8e3_2071613700825001486.png?x-oss-process=image/quality,q_75/resize,s_280'
+  },
   花火: {
     name: '花火',
     avatar: 'https://patchwiki.biligame.com/images/sr/9/90/o5noo1t924ab8a246rqhwymia9wjzme.png',
@@ -331,6 +336,12 @@ export const gameCharacter: { [name: string]: Character } = {
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/6a4bd3468e9dbd577f26dbf8757f0b03_924968634176225322.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: '今天也是三月七~'
   },
+  加拉赫: {
+    name: '加拉赫',
+    avatar: 'https://patchwiki.biligame.com/images/sr/4/45/grtdkd7go8hulql0dzi4rsaemjodlws.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/03/27/75216984/7dc975ed90ee1eb00085046fa052d370_3418752390196037190.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '匹诺康尼的狗'
+  },
   米沙: {
     name: '米沙',
     avatar: 'https://patchwiki.biligame.com/images/sr/b/b4/0oxd8z3m1pe5mdu6uc6hv4cshamankm.png',
@@ -467,6 +478,11 @@ export const otherCharacter: { [name: string]: OtherCharacter } = {
     name: '铁卫调查员',
     avatar: 'https://patchwiki.biligame.com/images/sr/3/35/akctqefvnpxs42jitrctn8ny5ako356.png'
   },
+  '「星际和平家电」': {
+    name: '「星际和平家电」',
+    avatar: '',
+    info: '纪中大促，可领大额优惠券'
+  },
   丹枢: {
     name: '丹枢',
     avatar: 'https://patchwiki.biligame.com/images/sr/8/82/4jtycvcqrd56w1wcnodzu7o7gm36ulw.png'
@@ -575,6 +591,17 @@ export const otherCharacter: { [name: string]: OtherCharacter } = {
     avatar: '',
     info: '枘凿六合，其乐无穷啦'
   },
+  爱德华医生: {
+    name: '爱德华医生',
+    avatar: 'https://patchwiki.biligame.com/images/sr/c/c5/9h20ro3apgrissfegcfb0sz4yrhq1ie.png',
+    info: '无意识就是大他者的话语。'
+  },
+  // 匹诺康尼奢侈品
+  // 美梦报社
+  钟表餐厅: {
+    name: '钟表餐厅',
+    avatar: 'https://patchwiki.biligame.com/images/sr/a/a1/hh8bmqsoj02xp2jjof57xq8duayy30e.png'
+  },
   乔瓦尼: {
     name: '乔瓦尼',
     avatar: 'https://patchwiki.biligame.com/images/sr/5/58/tswywi0vuo7h7lgeka0q1k4jiuzoazp.png',
@@ -584,10 +611,5 @@ export const otherCharacter: { [name: string]: OtherCharacter } = {
     name: '维尔德',
     avatar: 'https://patchwiki.biligame.com/images/sr/a/a3/t901diqrgvgodgh2gng57imc5gvmjfk.png',
     info: '上班开会，下班上班'
-  },
-  '「星际和平家电」': {
-    name: '「星际和平家电」',
-    avatar: '',
-    info: '纪中大促，可领大额优惠券'
   }
 }
