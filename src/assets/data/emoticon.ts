@@ -923,11 +923,11 @@ export const emoticon: {
     title: '布洛妮娅',
     list: [
       {
-        title: '中年人_早上好',
+        title: '早上好',
         url: 'https://patchwiki.biligame.com/images/sr/c/cc/r1g235z2gp3hgqq6n4opu5gt8xonn60.png'
       },
       {
-        title: '中年人_干杯',
+        title: '干杯',
         url: 'https://patchwiki.biligame.com/images/sr/0/00/o6q5i3bzyvwh658jq1ylqlbnyunejo9.png'
       }
     ]
@@ -935,7 +935,6 @@ export const emoticon: {
 ])
 
 for (const i in emoticon) {
-  if (emoticon[i].title === '布洛妮娅') continue
   for (const j in emoticon[i].list) {
     if (emoticon[i].list[j].name) {
       emoticon[i].list[j].title = emoticon[i].list[j].name as string

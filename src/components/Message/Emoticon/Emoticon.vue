@@ -19,7 +19,13 @@
             class="item"
             v-for="(item, key) in emoticon[emoticonPage]?.list"
             :key="`emoticon-${key}`"
-            @click="handleEmoticonClick(item)"
+            @click="
+              $emit(
+                'emoticon',
+                item.url,
+                emoticon[emoticonPage]?.title === '布洛妮娅' ? '中年人' : item.title
+              )
+            "
           >
             <div class="img">
               <img
@@ -61,6 +67,10 @@
 import { emoticon } from '@/assets/data/emoticon'
 import { emoticonData } from './'
 
+defineEmits<{
+  (event: 'emoticon', url: string, name: string): void
+}>()
+
 const listDom = ref<HTMLElement | null>(null)
 const emoticonPage = ref(0)
 
@@ -79,14 +89,6 @@ const onWheel = (e: WheelEvent) => {
   if (group.value) {
     group.value.scrollLeft += e.deltaY
   }
-}
-
-const emit = defineEmits<{
-  (event: 'emoticon', url: string, name: string): void
-}>()
-
-const handleEmoticonClick = (item: Emoticon) => {
-  emit('emoticon', item.url, item.title)
 }
 </script>
 
