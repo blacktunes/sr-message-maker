@@ -40,31 +40,31 @@ import { progress } from '@/assets/scripts/preload'
   color #ddd
 
   .progress
-    box-sizing border-box
+    position absolute
+    bottom 0
+    left 180px
     display flex
     justify-content center
     align-items center
-    position absolute
-    left 180px
-    bottom 0
+    box-sizing border-box
     height 75px
-    font-size 38px
     color rgba(255, 255, 255, 0.3)
+    font-size 38px
     user-select none
 
   .sep
+    margin 0 25px
     width 10px
     height 10px
-    background-color #666
     border-radius 50%
-    margin 0 25px
+    background-color #666
 
   a
     color #ddd
-    font-size 50px
-    user-select none
     text-decoration none
+    font-size 50px
     opacity 0.25
+    user-select none
 
     &:hover
       opacity 9

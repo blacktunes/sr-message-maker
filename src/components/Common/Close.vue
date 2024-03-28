@@ -24,9 +24,9 @@
     position absolute
     width 45%
     height 8%
-    transform-origin center
-    transition all 0.2s
     border-radius 2px
+    transition all 0.2s
+    transform-origin center
 
   .line-1
     top 23%
@@ -44,8 +44,8 @@
     transform rotate(-45deg) translate(0, 60%)
 
   .line-4
-    bottom 23%
     right -2%
+    bottom 23%
     transform rotate(45deg) translate(0, 60%)
 
   .circle
@@ -55,8 +55,8 @@
     width 12%
     height 12%
     border-radius 50%
-    transform translate(-50%, -50%)
     transition all 0.2s
+    transform translate(-50%, -50%)
 
   &:hover
     div
@@ -78,8 +78,8 @@
       left -5%
 
     .line-4
-      bottom 20%
       right -5%
+      bottom 20%
 
     .circle
       width 18%
@@ -105,8 +105,8 @@
       left 8%
 
     .line-4
-      bottom 33%
       right 8%
+      bottom 33%
 
     .circle
       width 5%

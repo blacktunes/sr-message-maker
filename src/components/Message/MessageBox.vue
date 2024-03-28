@@ -66,7 +66,6 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
 import Icon from '../Common/Icon.vue'
 
 defineProps<{
@@ -128,91 +127,91 @@ defineExpose({ boxDom, listDom, updateArrow })
   flex-direction column
   width 100%
   height 100%
+  border-radius 0 50px 0 0
   background var(--box-background-color)
   box-shadow 0 0 20px 5px rgba(0, 0, 0, 0.3)
-  border-radius 0 50px 0 0
 
   &:before
-    content ''
     position absolute
-    box-sizing border-box
-    left 15px
     top 0
+    left 15px
+    box-sizing border-box
     width 0
     height 350px
     border-left 5px solid rgba(180, 180, 180, 0.5)
+    content ''
     pointer-events none
 
   &:after
-    content ''
     position absolute
-    box-sizing border-box
-    left -15px
     top 15px
+    left -15px
+    box-sizing border-box
     width 350px
     height 0
     border-top 5px solid rgba(180, 180, 180, 0.5)
+    content ''
     pointer-events none
 
   .circle
-    overflow hidden
     position absolute
+    overflow hidden
     box-sizing border-box
     width 150px
     height 150px
     pointer-events none
 
     div
-      z-index 1
-      border 5px solid rgba(180, 180, 180, 0.5)
       position absolute
       top -45px
       left -40px
+      z-index 1
       width 120%
       height 120%
+      border 5px solid rgba(180, 180, 180, 0.5)
       border-radius 50%
 
   .header
+    position relative
     z-index 2
     display flex
     flex-direction column
     justify-content center
     box-sizing border-box
-    position relative
+    padding 0 70px
     width 100%
     height 185px
-    padding 0 70px
     border-bottom 5px solid rgba(150, 150, 150, 0.5)
     box-shadow 0px 40px 20px -20px rgba(210, 210, 210, 0.5)
 
     .title
-      width 100%
-      color var(--title-color)
-      font-size 50px
-      font-weight bold
       overflow hidden
-      white-space nowrap
-      text-overflow ellipsis
-      background transparent
+      width 100%
       border none
+      background transparent
+      color var(--title-color)
+      text-overflow ellipsis
+      white-space nowrap
+      font-weight bold
+      font-size 50px
 
     .info
-      color var(--info-color)
-      font-size 40px
       overflow hidden
-      white-space nowrap
+      color var(--info-color)
       text-overflow ellipsis
+      white-space nowrap
+      font-size 40px
 
   .message-list
+    display flex
+    flex 1
+    flex-direction column
+    overflow-x hidden
     overflow-y auto
     overflow-y overlay
-    overflow-x hidden
-    scrollbar-gutter stable
-    flex 1
-    display flex
-    flex-direction column
     margin 0 70px 0 50px
     padding 30px 0
+    scrollbar-gutter stable
     mask-image linear-gradient(to bottom, transparent, #000 60px, #000, #000 calc(100% - 60px), transparent), linear-gradient(to left, black, transparent 50px)
     mask-size 100% 100%
     mask-position 0 0, 100% 0
@@ -237,8 +236,8 @@ defineExpose({ boxDom, listDom, updateArrow })
   transition all 0.5s ease-out
 
 .header-fade-leave-active
-  opacity 0
   position absolute
+  opacity 0
 
 .header-fade-enter-from
   opacity 0
@@ -247,14 +246,15 @@ defineExpose({ boxDom, listDom, updateArrow })
   transition all 0.25s ease-out
 
 .slide-left-leave-active
-  opacity 0
   position absolute
+  opacity 0
 
 .slide-left-enter-from
   opacity 0
   transform translateX(100px)
 
-.arrow-fade-enter-active, .arrow-fade-leave-active
+.arrow-fade-enter-active
+.arrow-fade-leave-active
   transition all 0.2s ease-out
 
 .arrow-fade-enter-from

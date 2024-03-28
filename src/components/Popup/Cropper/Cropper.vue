@@ -46,10 +46,10 @@
 </template>
 
 <script lang="ts" setup>
-import viewport from '@/store/viewport'
+import { viewport } from '@/store/viewport'
 import Btn from '@/components/Common/Btn.vue'
 import VuePictureCropper, { cropper } from 'vue-picture-cropper'
-import { enterCallback } from '@/assets/scripts/popup'
+import { confirmCallback } from '@/assets/scripts/popup'
 import { imageCropper, cropperSetting } from './'
 
 const props = defineProps<{
@@ -79,15 +79,15 @@ const onCropper = async () => {
   return true
 }
 
-enterCallback[props.name] = onCropper
+confirmCallback[props.name] = onCropper
 </script>
 
 <style lang="stylus" scoped>
 :deep(.vue--picture-cropper__wrap)
-  background url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA3NCSVQICAjb4U/gAAAABlBMVEXMzMz////TjRV2AAAACXBIWXMAAArrAAAK6wGCiw1aAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAABFJREFUCJlj+M/AgBVhF/0PAH6/D/HkDxOGAAAAAElFTkSuQmCC')
   display flex
   justify-content center
   align-items center
+  background url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA3NCSVQICAjb4U/gAAAABlBMVEXMzMz////TjRV2AAAACXBIWXMAAArrAAAK6wGCiw1aAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAABFJREFUCJlj+M/AgBVhF/0PAH6/D/HkDxOGAAAAAElFTkSuQmCC')
 
 .cropper
   position fixed
@@ -97,10 +97,10 @@ enterCallback[props.name] = onCropper
   left 0
 
 .btn-list
-  display flex
   position fixed
   bottom 15px
   left 50%
+  display flex
   width auto
   transform-origin 0 bottom 0px
 

@@ -1,7 +1,6 @@
 import { avatar } from '@/store/avatar'
 import { character } from '@/store/character'
 import { setAvatar, setting } from '@/store/setting'
-import { nextTick, reactive } from 'vue'
 
 export const avatarData = reactive<{
   index: string | number

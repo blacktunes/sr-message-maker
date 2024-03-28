@@ -9,10 +9,11 @@
           :class="{ highlight: index === key }"
           @click="index = key"
         >
-          <img
-            :src="item.img"
-            :alt="item.name"
-          />
+          <div :class="`bubbles-${key}`">
+            <div class="text-box">
+              <div class="text">你好</div>
+            </div>
+          </div>
         </div>
       </div>
       <template #outside>
@@ -49,10 +50,18 @@
         </div>
       </template>
       <template #left>
-        <Preview
-          :img="bubbles[index].preview"
-          :name="name"
-        />
+        <Preview :name="name">
+          <div class="preview-text-box">
+            <div :class="`bubbles-${index}`">
+              <div class="text-box">
+                <div class="text">
+                  <span>———</span>
+                  <span>——</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Preview>
       </template>
       <template #footer>
         <Btn
@@ -79,9 +88,8 @@ import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
 import Icon from '@/components/Common/Icon.vue'
 import Preview from '@/components/Common/Preview.vue'
-import { watch, ref, computed } from 'vue'
 import { setting } from '@/store/setting'
-import { enterCallback, openWindow } from '@/assets/scripts/popup'
+import { confirmCallback, openWindow } from '@/assets/scripts/popup'
 import { bubbles } from '@/assets/data/bubbles'
 
 const props = defineProps<{
@@ -125,22 +133,58 @@ const onBtnClick = () => {
   return true
 }
 
-enterCallback[props.name] = onBtnClick
+confirmCallback[props.name] = onBtnClick
 </script>
 
 <style lang="stylus" scoped>
+@import '../Message/Message.styl'
+@import '../Message/Bubbles.styl'
+
+.text-box
+  box()
+
+.preview-text-box
+  .text-box
+    transform scale(0.9)
+
+    .text
+      display flex !important
+      flex-direction column
+
+      span
+        overflow hidden
+        max-width 125px
+        word-break break-all
+        font-weight bold
+        line-height 40px
+
+  .bubbles-0
+    .text
+      padding 25px 40px !important
+
+  .bubbles-1
+  .bubbles-2
+    .text
+      padding 0px !important
+
+  .bubbles-3
+    margin-left 15px
+
+    .text
+      padding 15px 5px !important
+
 .other-setting
   .setting-btn
-    box-sizing border-box
-    width 90px
-    height 90px
     display flex
     justify-content center
     align-items center
-    background rgba(255, 255, 255, 0.8)
-    border-radius 50%
-    border 5px solid #767479
+    box-sizing border-box
     margin-bottom 30px
+    width 90px
+    height 90px
+    border 5px solid #767479
+    border-radius 50%
+    background rgba(255, 255, 255, 0.8)
     cursor pointer
 
     :deep(path)
@@ -154,47 +198,60 @@ enterCallback[props.name] = onBtnClick
   flex-wrap wrap
   justify-content flex-start
   overflow-x hidden
-  height 450px
-  width 1200px
   margin-bottom 30px
   padding-right 10px
+  width 1200px
+  height 450px
   user-select none
 
   .item
+    position relative
     display flex
     justify-content center
     align-items center
     overflow hidden
-    position relative
     box-sizing border-box
+    margin 30px 10px 0 0
     width 385px
     height 200px
-    margin 30px 10px 0 0
-    background #c5c6ca
     border 4px solid #a7a8aa
+    background #c5c6ca
     cursor pointer
 
     &:hover
       background #d7d7d7
 
-    img
-      width 100%
+    .text-box
+      transform scale(0.8)
+
+    .bubbles-0
+      .text
+        padding 25px 50px !important
+
+    .bubbles-1
+    .bubbles-2
+      .text
+        padding 1px 8px !important
+
+    .bubbles-3
+      .text
+        padding 10px !important
 
 .highlight
   border 4px solid #14120d !important
   cursor auto !important
 
   &:after
-    content '使用中'
     position absolute
-    left 0
     bottom 0
+    left 0
     display flex
     justify-content center
     align-items center
-    background #e7c57e
-    height 38px
     width 100%
+    height 38px
+    background #e7c57e
+    content '使用中'
     font-size 28px
 
   &:hover

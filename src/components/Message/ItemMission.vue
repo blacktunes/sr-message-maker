@@ -1,7 +1,7 @@
 <template>
   <div class="mission">
     <transition
-      :name="setting.transition ? 'fade-in' : undefined"
+      :name="!setting.drag ? 'fade-in' : undefined"
       appear
     >
       <div
@@ -78,7 +78,6 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
 import { setting } from '@/store/setting'
 import Icon from '../Common/Icon.vue'
 import image_0 from '@/assets/images/mission/同行任务.webp'
@@ -153,17 +152,16 @@ const blur = (e: KeyboardEvent) => {
   display flex
   justify-content center
   align-items center
-  margin 80px 0
-  padding 20px 0
+  padding 50px 0
   item()
 
   .bg
     position relative
     height 180px
-    background-repeat no-repeat
+    border-top-right-radius 50px
     background-position top left
     background-size cover
-    border-top-right-radius 50px
+    background-repeat no-repeat
 
     .icon
       position absolute
@@ -171,59 +169,59 @@ const blur = (e: KeyboardEvent) => {
       left 35px
       width 120px
       height 175px
-      user-select none
       cursor pointer
+      user-select none
 
     .tip
       position absolute
       top 10px
       left 180px
+      height 45px
       color #fff
       font-size 30px
-      height 45px
       line-height 45px
-      user-select none
       cursor pointer
+      user-select none
 
     .text
       position absolute
       top 55px
       left 180px
+      overflow hidden
+      width 80%
+      height 100px
+      border none
+      background transparent
       color #000
+      text-overflow ellipsis
+      white-space nowrap
       font-size 45px
       line-height 100px
-      height 100px
-      width 80%
-      overflow hidden
-      white-space nowrap
-      text-overflow ellipsis
-      background transparent
-      border none
 
     .state
-      display flex
-      justify-content center
-      align-items center
       position absolute
       right 0
       bottom 15px
+      display flex
+      justify-content center
+      align-items center
       width 120px
       height 120px
-      user-select none
       cursor pointer
+      user-select none
 
     .del
-      display flex
-      align-items center
-      justify-content center
       position absolute
-      right -100px
       top 50%
+      right -100px
+      display flex
+      justify-content center
+      align-items center
       width 60px
       height 60px
-      transform translateY(-50%)
       opacity 0
       cursor pointer
+      transform translateY(-50%)
 
       :deep(path)
         fill var(--message-item-name-color)

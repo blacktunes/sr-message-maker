@@ -76,7 +76,6 @@ import { addNewMessage, message } from '@/store/message'
 import { emitter } from '@/assets/scripts/event'
 import { getNames, getTitle } from '@/assets/scripts/header'
 import { openWindow } from '@/assets/scripts/popup'
-import { computed } from 'vue'
 import { emoticonClose } from '@/components/Message/Emoticon'
 
 interface MenuItem {
@@ -152,19 +151,19 @@ $btn-height = 255px
   height 'calc(100% - %s)' % $pos
 
   .list
+    overflow-x hidden
     overflow-y auto
     overflow-y overlay
-    overflow-x hidden
-    scrollbar-gutter stable
     box-sizing border-box
+    padding-right 25px
     width 100%
     height 'calc(100% - %s)' % $btn-height
-    padding-right 25px
+    scrollbar-gutter stable
     scrollbar-width none
 
     &::-webkit-scrollbar-track
+      margin 15px 0 5px
       background #3c3f46
-      margin 15px 0 5px 0
 
     &::-webkit-scrollbar-thumb
       background #9ea0a4
@@ -173,25 +172,25 @@ $btn-height = 255px
     display flex
     align-items center
     box-sizing border-box
+    margin-top 15px
+    padding-top 35px
     width 100%
     height 125px
     border-top var(--menu-border)
-    padding-top 35px
-    margin-top 15px
 
     .btn-list
-      width 90%
       display flex
       align-items center
+      width 90%
 
       .btn
-        flex 0 0 25%
         display flex
+        flex 0 0 25%
         align-items center
-        color var(--menu-text-color)
         margin-right 20px
-        user-select none
+        color var(--menu-text-color)
         cursor pointer
+        user-select none
 
         &:hover
           color var(--menu-btn-hover)
@@ -200,34 +199,34 @@ $btn-height = 255px
             box-shadow var(--meni-icon-shadow)
 
         .icon
-          flex-shrink 0
           position relative
-          background var(--menu-icon-background-color)
-          border-radius 50%
-          width 80px
-          height 80px
           display flex
+          flex-shrink 0
           justify-content center
           align-items center
+          width 80px
+          height 80px
+          border-radius 50%
+          background var(--menu-icon-background-color)
 
           .ring
             position absolute
 
         span
           margin-left 20px
-          font-size 30px
           font-weight bold
+          font-size 30px
 
     .bubbles-btn
-      box-sizing border-box
-      width 85px
-      height 85px
       display flex
       justify-content center
       align-items center
-      background rgba(0, 0, 0, 0.5)
-      border-radius 50%
+      box-sizing border-box
+      width 85px
+      height 85px
       border 5px solid #767479
+      border-radius 50%
+      background rgba(0, 0, 0, 0.5)
       cursor pointer
 
       &:hover

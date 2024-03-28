@@ -1,5 +1,3 @@
-import { watch, nextTick, toRaw } from 'vue'
-
 const isEmpty = (value: any) => {
   if (value === null || value === undefined) {
     return true
@@ -17,7 +15,10 @@ const isEmpty = (value: any) => {
 }
 
 export class IndexedDB {
-  constructor(public readonly name: string, public readonly alias = '') {}
+  constructor(
+    public readonly name: string,
+    public readonly alias = ''
+  ) {}
   private DBList: Record<
     string,
     {

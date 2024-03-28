@@ -70,7 +70,7 @@ import Icon from '@/components//Common/Icon.vue'
 import { openWindow } from '@/assets/scripts/popup'
 import { currentMessage } from '@/store/message'
 import { messageData } from './'
-import { enterCallback } from '@/assets/scripts/popup'
+import { confirmCallback } from '@/assets/scripts/popup'
 
 const props = defineProps<{
   name: string
@@ -117,13 +117,13 @@ const onConfirml = () => {
   close()
 }
 
-enterCallback[props.name] = onConfirml
+confirmCallback[props.name] = onConfirml
 </script>
 
 <style lang="stylus" scoped>
 .config
-  width 1600px
   padding 60px 0
+  width 1600px
   user-select none
 
   .table
@@ -134,7 +134,8 @@ enterCallback[props.name] = onConfirml
       height 120px
       border 1px solid #000
 
-      .left, .right
+      .left
+      .right
         box-sizing border-box
         padding 5px 40px
 

@@ -32,7 +32,6 @@
 import Popup from '@/components/Common/Popup.vue'
 import Window from '@/components/Common/Window.vue'
 import Btn from '@/components/Common/Btn.vue'
-import { ref } from 'vue'
 
 const props = defineProps<{
   name: string
@@ -92,28 +91,28 @@ const setCustomFont = async () => {
   margin 40px 0
 
   .preview
-    font-size 100px
-    text-align center
     padding 50px
     border 2px solid rgba(0, 0, 0, 0.2)
     border-radius 10px
+    text-align center
+    font-size 100px
     user-select none
 
   .font
-    font-size 40px
-    text-align center
     margin-top 20px
+    text-align center
+    font-size 40px
     user-select none
 
   .btn
-    margin 10px 0 0 0
+    margin 10px 0 0
     height 100px
     font-size 42px
 
   .line
     box-sizing border-box
-    width 100%
+    margin 30px 0 20px
     padding 0 10px
-    margin 30px 0 20px 0
+    width 100%
     border-bottom 3px solid rgba(150, 150, 150, 0.5)
 </style>

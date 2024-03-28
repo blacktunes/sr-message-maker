@@ -99,41 +99,41 @@ const close = () => {
 @import './Window.styl'
 
 .window
-  display flex
-  justify-content center
-  align-items center
   position absolute
   top 0
   left 0
+  display flex
+  justify-content center
+  align-items center
   width 100%
   height 100%
+  background rgba(0, 0, 0, 0.2)
   backdrop-filter blur(10px)
   -webkit-backdrop-filter blur(10px)
-  background rgba(0, 0, 0, 0.2)
 
   .box
     position relative
     display flex
     flex-direction column
+    max-width 90%
+    max-height 90%
     width fit-content
     width -moz-fit-content
-    max-width 90%
     height fit-content
     height -moz-fit-content
-    max-height 90%
     background var(--box-background-color)
     message()
 
     .outside
       position absolute
-      left -150px
       top 0
+      left -150px
 
     .wrapper
-      flex 1
-      overflow hidden
       display flex
+      flex 1
       align-items center
+      overflow hidden
       width 100%
       border-radius 0 50px 0 0
 
@@ -141,38 +141,37 @@ const close = () => {
         padding 20px
 
       .right
-        flex 1
-        height 100%
         display flex
+        flex 1
         flex-direction column
+        height 100%
 
         .title
           display flex
-          align-items flex-end
           justify-content space-between
-          height 85px
-          font-size 56px
-          font-weight bold
-          border-bottom 5px solid rgba(150, 150, 150, 0.5)
+          align-items flex-end
           margin 0 80px
-          padding 30px 0 20px 0
+          padding 30px 0 20px
+          height 85px
+          border-bottom 5px solid rgba(150, 150, 150, 0.5)
+          font-weight bold
+          font-size 56px
           user-select none
 
           .close
             margin-left 20px
 
         .content
-          flex 1
-          overflow auto
           display flex
+          flex 1
           flex-direction column
+          overflow auto
           margin 0 80px
           height 100%
           mask-image linear-gradient(to bottom, transparent, #000 60px, #000, #000 calc(100% - 60px), transparent), linear-gradient(to left, black, transparent 50px)
           mask-size 100% 100%
           mask-position 0 0, 100% 0
           mask-repeat no-repeat, no-repeat
-          
 
           ::-webkit-scrollbar
             width 8px
@@ -184,8 +183,8 @@ const close = () => {
     .footer
       position relative
       display flex
-      align-content center
       justify-content center
+      align-content center
       padding 30px 80px
       background var(--box-background-color)
 
@@ -195,19 +194,19 @@ const close = () => {
         right 0
         bottom 0
         left 0
+        display flex
+        justify-content center
+        align-content center
         background #262626
         background-image url('@/assets/images/菜单背景.webp')
         background-position center
         background-size auto 100%
         background-repeat no-repeat
-        display flex
-        align-content center
-        justify-content center
 
       .btn-list
         display flex
-        align-content center
         justify-content center
+        align-content center
 
 .window-enter-active
   transition all 0.3s
@@ -215,16 +214,20 @@ const close = () => {
 .window-leave-active
   transition all 0.25s
 
-.window-enter-from, .window-leave-to
+.window-enter-from
+.window-leave-to
   opacity 0
 
-.window-enter-active .box, .window-leave-active .box
+.window-enter-active .box
+.window-leave-active .box
   transition all 0.2s ease-out
 
-.window-enter-from .box, .window-leave-to .box
+.window-enter-from .box
+.window-leave-to .box
   transform translateY(10%)
 
-.window-enter-active .bg, .window-leave-active .bg
+.window-enter-active .bg
+.window-leave-active .bg
   transition all 0.25s
   transition-delay 0.05s
   transform-origin bottom

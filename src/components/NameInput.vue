@@ -45,11 +45,11 @@ const handleNameClick = async () => {
 
 <style lang="stylus" scoped>
 .name
+  position absolute
+  top 50px
+  right 105px
   display flex
   align-items center
-  position absolute
-  right 105px
-  top 50px
   color #ddd
   font-size 50px
 
@@ -58,27 +58,27 @@ const handleNameClick = async () => {
 
   .text
     box-sizing border-box
-    white-space nowrap
-    text-overflow ellipsis
-    text-align center
     min-width 100px
     max-width 1000px
     height 85px
+    text-align center
+    text-overflow ellipsis
+    white-space nowrap
     cursor pointer
 
     &:hover
       color var(--menu-btn-hover)
 
   .avatar
-    user-select none
-    box-sizing border-box
     overflow hidden
-    border-radius 50%
+    box-sizing border-box
+    margin-left 20px
     width 110px
     height 110px
-    margin-left 20px
+    border-radius 50%
     background rgba(255, 255, 255, 0.1)
     cursor pointer
+    user-select none
 
     &:hover
       box-shadow 0 0 0px 5px rgba(255, 255, 255, 0.3)
@@ -86,24 +86,24 @@ const handleNameClick = async () => {
     img
       width 100%
       height 100%
-      object-fit contain
       border-radius 50%
       background var(--avatar-background)
-      clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
-      user-select none
       pointer-events none
+      user-select none
+      object-fit contain
+      clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
 
   .change
-    user-select none
-    background rgba(255, 255, 255, 0.2)
-    border-radius 5px
-    width 50px
-    height 50px
     display flex
     justify-content center
     align-items center
     margin-right 20px
+    width 50px
+    height 50px
+    border-radius 5px
+    background rgba(255, 255, 255, 0.2)
     cursor pointer
+    user-select none
 
     &:hover
       background rgba(255, 255, 255, 0.8)

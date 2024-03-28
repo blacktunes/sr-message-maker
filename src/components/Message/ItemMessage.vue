@@ -4,7 +4,7 @@
     :class="getBubbles(item.key)"
   >
     <transition
-      :name="!preview ? (setting.transition ? 'fade-in' : undefined) : 'avatar'"
+      :name="!preview ? (!setting.drag ? 'fade-in' : undefined) : 'avatar'"
       appear
     >
       <div
@@ -19,7 +19,7 @@
     </transition>
     <div class="message-item">
       <transition
-        :name="!preview ? (setting.transition ? 'fade-in' : undefined) : 'message'"
+        :name="!preview ? (!setting.drag ? 'fade-in' : undefined) : 'message'"
         appear
       >
         <div class="name">
@@ -40,7 +40,7 @@
         </div>
       </transition>
       <transition
-        :name="!preview ? (setting.transition ? 'fade-in' : undefined) : 'message'"
+        :name="!preview ? (!setting.drag ? 'fade-in' : undefined) : 'message'"
         appear
       >
         <div
@@ -139,66 +139,66 @@ const updateMessage = (e: Event) => {
 
 <style lang="stylus" scoped>
 @import './Message.styl'
-@import './BubblesImage.styl'
+@import './Bubbles.styl'
 
 $del-pos = -100px
 
 .message
-  box-sizing border-box
   display flex
+  box-sizing border-box
+  padding 15px 30px
   height -moz-fit-content
   height fit-content
-  padding 5px 30px 15px 30px
   item()
 
   .avatar
     flex-shrink 0
     overflow hidden
+    margin 0 var(--message-item-avatar-margin) 0 0
     width var(--message-item-avatar-width)
     height var(--message-item-avatar-width)
-    margin 0 var(--message-item-avatar-margin) 0 0
     cursor pointer
 
     img
       width 100%
       height 100%
-      object-fit contain
-      background var(--avatar-background)
-      user-select none
       border-radius 50%
-      clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
-      user-select none
+      background var(--avatar-background)
       pointer-events none
+      user-select none
+      user-select none
+      object-fit contain
+      clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
 
   .message-item
-    flex 1
     display flex
+    flex 1
     flex-direction column
     align-items flex-start
     max-width calc(100% - var(--message-item-avatar-width) - var(--message-item-avatar-margin))
 
     .name
       position relative
-      color var(--message-item-name-color)
-      font-size 45px
+      max-width calc(100% - var(--message-item-avatar-width) - var(--message-item-avatar-margin) - 160px)
       width -moz-fit-content
       width fit-content
-      max-width calc(100% - var(--message-item-avatar-width) - var(--message-item-avatar-margin) - 160px)
+      color var(--message-item-name-color)
+      font-size 45px
       cursor pointer
 
       span
         display block
         overflow hidden
-        white-space nowrap
         text-overflow ellipsis
+        white-space nowrap
 
       .del
-        display flex
-        align-items center
-        justify-content center
         position absolute
-        right $del-pos
         top 0
+        right $del-pos
+        display flex
+        justify-content center
+        align-items center
         width 60px
         height 60px
         opacity 0
@@ -211,19 +211,19 @@ $del-pos = -100px
           opacity 1
 
     .loading
-      box-sizing border-box
-      height 145px
       display inline-flex
+      box-sizing border-box
       padding 35px 0 35px 10px
+      height 145px
 
       div
+        margin 0 5px
         width 20px
         height 20px
-        margin 0 5px
-        background #222
         border-radius 50%
-        animation circle 2s linear infinite
+        background #222
         opacity 0
+        animation circle 2s linear infinite
 
       & div:nth-child(2)
         animation-delay 0.2s
@@ -232,9 +232,9 @@ $del-pos = -100px
         animation-delay 0.4s
 
     .img
-      max-width 600px
+      margin 40px 40px 0
       min-width var(--message-item-img-width)
-      margin 40px 40px 0 40px
+      max-width 600px
       user-select none
 
       img
@@ -242,29 +242,13 @@ $del-pos = -100px
         cursor pointer
 
     .text-box
-      position relative
-      margin-bottom 10px
-
-      .text
-        display block
-        background #ebebeb
-        min-width 20px
-        width -moz-fit-content
-        width fit-content
-        min-height 65px
-        padding 35px
-        margin-top 15px
-        font-size 45px
-        color var(--text-color)
-        border-radius 0 25px 25px 25px
-        word-break break-word
-        box-shadow -2px 4px #9d9f9f
+      box()
 
       .bg-icon
-        z-index 1
         position absolute
-        left 50%
         bottom 10px
+        left 50%
+        z-index 1
         height 100px
         transform translateX(-50%)
         pointer-events none
@@ -290,76 +274,20 @@ $del-pos = -100px
         box-shadow 2px 4px #9d9f9f
 
   .del
-    left $del-pos
     right unset !important
-
-.bubbles-0
-  .text-box
-    .text
-      background #d3bb8b !important
-
-bubbles()
-  .text-box
-    margin 30px 40px !important
-    border 1px solid transparent
-    border-image-repeat stretch
-
-    .text
-      background none !important
-      border-radius 0 !important
-      box-shadow none !important
-      padding 5px !important
-
-.bubbles-1
-  bubbles()
-
-  .text-box
-    border-image-source $bubbles-1
-    border-image-slice 70 85 45 110 fill
-    border-image-width 70px 85px 45px 110px
-    border-image-outset 35px 60px 25px 65px
-
-    .text
-      margin 30px 0 15px 15px !important
-      color #fffafb !important
-
-.bubbles-2
-  bubbles()
-
-  .text-box
-    border-image-source $bubbles-2
-    border-image-slice 75 85 60 110 fill
-    border-image-width 75px 85px 60px 110px
-    border-image-outset 25px 60px 10px 65px
-
-    .text
-      margin 35px 0 15px 15px !important
-      color #fffafb !important
-
-.bubbles-3
-  bubbles()
-
-  .text-box
-    border-image-source $bubbles-3
-    border-image-slice 86 100 86 100 fill
-    border-image-width 86px 100px 86px 100px
-    border-image-outset 25px 55px 10px 60px
-
-    .text
-      margin 10px 0 20px -5px !important
-      color #fffafb !important
+    left $del-pos
 
 .avatar-enter-active
   animation avatar 0.5s ease
 
 @keyframes avatar
   0%
-    transform translateY(50%)
     opacity 0
+    transform translateY(50%)
 
   80%
-    transform translateY(-5%)
     opacity 1
+    transform translateY(-5%)
 
   100%
     transform translateY(0)
@@ -381,9 +309,9 @@ bubbles()
   transition all 0.5s
 
 .message-leave-active
-  transition all 0s
-  opacity 0
   position absolute
+  opacity 0
+  transition all 0s
 
 .message-enter-from
   opacity 0

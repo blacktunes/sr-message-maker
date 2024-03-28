@@ -75,11 +75,11 @@ import { screenshot } from '@/assets/scripts/screenshot'
 import { messageIndex, currentMessage } from '@/store/message'
 import { setting } from '@/store/setting'
 import { autoPlay } from '@/store/autoPlay'
-import { computed, nextTick, ref } from 'vue'
 import Icon from './Common/Icon.vue'
 import { info, scrollToBottom, title } from './Message/Message'
 import MessageBox from './Message/MessageBox.vue'
 import MessageItem from './Message/MessageItem.vue'
+import { closeWindow, isLoading, openWindow } from '@/assets/scripts/popup'
 
 const boxRef = ref<InstanceType<typeof MessageBox>>()
 
@@ -243,17 +243,17 @@ const stopPlay = () => {
 }
 
 emitter.on('screenshot', () => {
-  if (setting.loading) return
+  if (isLoading()) return
   reset()
 
   isGreenScreen.value = false
   setting.preview = true
-  setting.loading = true
+  openWindow('loading')
   nextTick(async () => {
     if (boxRef.value?.boxDom && boxRef.value?.listDom && setting.preview) {
       await screenshot(boxRef.value.boxDom, undefined, boxRef.value.listDom.scrollHeight + 185)
     }
-    setting.loading = false
+    closeWindow('loading')
   })
 })
 
@@ -270,14 +270,14 @@ const toggleGreenScreen = () => {
 @import './Common/Window.styl'
 
 .bg
-  z-index 9
   position absolute
+  z-index 9
   width 100%
   height 100%
   background rgba(0, 0, 0, 0.6)
+  box-shadow 0 0 20px 0px rgba(0, 0, 0, 0.5)
   backdrop-filter blur(20px)
   -webkit-backdrop-filter blur(20px)
-  box-shadow 0 0 20px 0px rgba(0, 0, 0, 0.5)
 
   .green
     position absolute
@@ -286,25 +286,24 @@ const toggleGreenScreen = () => {
     width 95%
     height 95%
     background-color green
-    transform translate(-50%, -50%)
     transition 0.2s
+    transform translate(-50%, -50%)
 
   .green-btn
     position absolute
     right 80px
     bottom -75px
-    border-radius 15px
     display flex
     justify-content center
     align-items center
-    cursor pointer
-    user-select none
+    border-radius 15px
     background #666
+    cursor pointer
     transition background 0.2s
+    user-select none
 
     &:hover
       &:before
-        content ''
         position absolute
         top -10px
         right -10px
@@ -312,15 +311,16 @@ const toggleGreenScreen = () => {
         left -10px
         border 5px solid #666
         border-radius 10px
+        content ''
 
   .highlight
     background none
 
 .message-preview
-  z-index 10
   position absolute
   top 10%
   left 900px
+  z-index 10
   width 1400px
   height 80%
   message()
@@ -330,11 +330,11 @@ const toggleGreenScreen = () => {
 
   .option-box
     z-index 9
+    overflow-y auto
+    padding 10px 50px
     height 90px * 3 + 20px * 4
     border-top var(--menu-border-hover)
     background var(--message-menu-background-color)
-    padding 10px 50px
-    overflow-y auto
     scrollbar-width none
 
     &::-webkit-scrollbar
@@ -347,8 +347,8 @@ const toggleGreenScreen = () => {
       align-items center
       option()
       margin 20px 0
-      user-select none
       cursor pointer !important
+      user-select none
 
 .option-enter-active
   transition all 0.25s
@@ -369,7 +369,8 @@ const toggleGreenScreen = () => {
   transition all 0.3s
   transition-delay 0.5s
 
-.preview-enter-from, .preview-delay-enter-from
+.preview-enter-from
+.preview-delay-enter-from
   opacity 0
   transform scaleY(0)
 </style>

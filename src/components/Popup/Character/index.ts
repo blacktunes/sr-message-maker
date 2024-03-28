@@ -1,5 +1,4 @@
 import { emitter } from '@/assets/scripts/event'
-import { reactive } from 'vue'
 
 export const characterData = reactive<{
   key?: [number, number]

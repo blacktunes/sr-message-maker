@@ -28,10 +28,10 @@
           @end="onMoveEnd"
           @change="onChange"
         >
-          <template #item="{ element, index }: { element: Message, index: number }">
+          <template #item="{ element, index }: { element: Message; index: number }">
             <MessageItem
               class="message-item"
-              :style="setMessageStyle(index)"
+              :class="setMessageClass(index)"
               :item="element"
               :index="index"
               @option="handleOptionChange(index)"
@@ -143,7 +143,6 @@ import { getCharaterAvatar } from '@/assets/scripts/avatar'
 import { input } from '@/store/input'
 import { messageIndex, currentMessage, message } from '@/store/message'
 import { setting } from '@/store/setting'
-import { computed, nextTick, ref, watch } from 'vue'
 import { getAvatar, info, scrollToBottom, title } from './Message/Message'
 import { emitter } from '@/assets/scripts/event'
 import { openWindow } from '@/assets/scripts/popup'
@@ -210,22 +209,18 @@ watch(
 )
 
 // 调整选项样式
-const setMessageStyle = (key: number) => {
+const setMessageClass = (key: number) => {
   if (!currentMessage.value) return
 
   return {
-    marginTop:
-      currentMessage.value.list[key].option &&
-      currentMessage.value.list[key - 1] &&
-      !currentMessage.value.list[key - 1]?.option
-        ? '100px'
-        : '',
-    marginBottom:
-      currentMessage.value.list[key]?.option &&
+    'above-option':
+      !currentMessage.value.list[key].option &&
       currentMessage.value.list[key + 1] &&
-      !currentMessage.value.list[key + 1]?.option
-        ? '100px'
-        : ''
+      currentMessage.value.list[key + 1].option,
+    'below-option':
+      !currentMessage.value.list[key].option &&
+      currentMessage.value.list[key - 1] &&
+      currentMessage.value.list[key - 1].option
   }
 }
 
@@ -469,12 +464,14 @@ let isMove = false
 
 const onChoose = () => {
   emoticonClose()
-  setting.transition = false
+  setting.drag = true
+  document.body.className = 'grabbing'
 }
 
 const onUnChoose = () => {
   if (isMove) return
-  setting.transition = true
+  setting.drag = false
+  document.body.className = ''
 }
 
 const onMoveStart = () => {
@@ -483,8 +480,9 @@ const onMoveStart = () => {
 }
 
 const onMoveEnd = () => {
-  setting.transition = true
+  setting.drag = false
   isMove = false
+  document.body.className = ''
 }
 
 const onChange = () => {
@@ -493,7 +491,7 @@ const onChange = () => {
   currentMessage.value.time = Date.now()
 }
 
-const opacity = computed(() => (setting.transition ? 1 : 0))
+const opacity = computed(() => (setting.drag ? 0 : 1))
 </script>
 
 <style lang="stylus" scoped>
@@ -510,8 +508,8 @@ box()
 .defalut-wrapper
   display flex
   flex-direction column
-  align-items center
   justify-content center
+  align-items center
   background rgba(255, 255, 255, 0.1)
   box()
   message()
@@ -519,10 +517,10 @@ box()
   user-select none
 
   span
+    margin 100px 0 200px
     color #b0aba5
-    user-select none
     font-size 40px
-    margin 100px 0 200px 0
+    user-select none
 
 .message-editor
   box()
@@ -532,7 +530,8 @@ box()
     &:hover
       background var(--message-item-background-color)
 
-      :deep(.change), :deep(.del)
+      :deep(.change)
+      :deep(.del)
         opacity v-bind(opacity) !important
 
   .bottom
@@ -540,26 +539,26 @@ box()
     display flex
     align-items center
     box-sizing border-box
+    padding 0 10px
     width 100%
     height 150px
     border-top var(--menu-border-hover)
     background var(--message-menu-background-color)
-    padding 0 10px
 
     .avatar
       position absolute
-      left 0
       top 50%
-      transform translateY(-50%)
-      user-select none
-      box-sizing border-box
+      left 0
       overflow hidden
-      border-radius 50%
+      box-sizing border-box
+      margin-left 20px
       width 105px
       height 105px
-      margin-left 20px
+      border-radius 50%
       background #c2c2c2
       cursor pointer
+      transform translateY(-50%)
+      user-select none
 
       &:hover
         box-shadow 5px 5px 15px #aaa
@@ -567,28 +566,28 @@ box()
       img
         width 100%
         height 100%
-        object-fit contain
         border-radius 50%
         background var(--avatar-background)
+        object-fit contain
         clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
 
     .right
-      padding 0 10px
       margin 0 20px
+      padding 0 10px
       border-radius 50px
 
     .btn
-      overflow hidden
       display flex
-      align-items center
       justify-content center
+      align-items center
+      overflow hidden
       width 100px
       height 100px
-      cursor pointer
       background #e8e8e8
       color #575B66
-      user-select none
+      cursor pointer
       transition 0.2s
+      user-select none
 
       img
         width 100%
@@ -600,35 +599,41 @@ box()
 
     .input
       flex 1
-      height 100px
-      background #e8e8e8
-      font-size 48px
       margin-left 60px
       padding 0 50px 0 90px
-      text-align center
-      color #121212
-      border none
+      height 100px
       outline none
+      border none
+      background #e8e8e8
+      color #121212
+      text-align center
+      font-size 48px
       transition box-shadow 0.2s
 
-      &:focus, &:hover
+      &:focus
+      &:hover
         box-shadow 5px 5px 15px #aaa
 
 .fallback
   display none !important
 
 .chosen
-  cursor grabbing
   background var(--message-item-background-color) !important
 
   &:before
-    content ''
-    box-sizing border-box
     position absolute
     top 0
     right 0
     bottom 0
     left 0
+    box-sizing border-box
     border 3px solid rgba(0, 0, 0, 0.2)
     border-radius 10px
+    content ''
+
+.above-option
+  padding-bottom 60px
+
+.below-option
+  padding-top 60px
 </style>

@@ -41,16 +41,16 @@ defineProps<{
 
 <style lang="stylus" scoped>
 .gold-border
-  background linear-gradient(to bottom, #373737, #7b715b) !important
   border-bottom 12px solid #ffce6f !important
+  background linear-gradient(to bottom, #373737, #7b715b) !important
 
 .custom-user
   .card
     overflow hidden
     height 635px
-    background linear-gradient(to bottom, #373737, #615a6d)
-    border-top-right-radius 50px
     border-bottom 12px solid #c3c3c3
+    border-top-right-radius 50px
+    background linear-gradient(to bottom, #373737, #615a6d)
 
     .avatar
       overflow hidden
@@ -63,11 +63,11 @@ defineProps<{
         width 100% !important
         height 100% !important
         border-radius 50%
-        object-fit contain
         background var(--avatar-background)
-        clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
-        user-select none
         pointer-events none
+        user-select none
+        object-fit contain
+        clip-path var(--avatar-image-clip-path-bilibiliwiki-only)
 
   .name
     color #555
@@ -75,8 +75,8 @@ defineProps<{
 .character
   position relative
   margin 10px
-  cursor pointer
   height 700px
+  cursor pointer
 
   .card
     position relative
@@ -85,26 +85,27 @@ defineProps<{
       img
         width 100%
         height 700px - 50px
-        user-select none
         pointer-events none
+        user-select none
 
-  .name, .info
-    width 100%
+  .name
+  .info
     overflow hidden
-    white-space nowrap
-    text-overflow ellipsis
+    width 100%
     text-align center
+    text-overflow ellipsis
+    white-space nowrap
 
   .name
     position absolute
     bottom 80px
     color rgba(255, 255, 255, 0.85)
+    text-align center
     font-weight bold
     font-size 40px
-    text-align center
 
   .info
-    font-size 30px
     color var(--info-color)
     text-align center
+    font-size 30px
 </style>

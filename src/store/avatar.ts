@@ -1,6 +1,5 @@
 import { gameAvatar } from '@/assets/data/gameData'
 import defaultAvatar from '@/assets/images/avatar/私聊.webp'
-import { computed, reactive } from 'vue'
 import { setting } from './setting'
 import { character } from './character'
 

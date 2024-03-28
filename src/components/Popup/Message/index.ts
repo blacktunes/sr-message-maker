@@ -1,5 +1,4 @@
 import { currentMessage } from '@/store/message'
-import { reactive } from 'vue'
 
 export const messageData = reactive<{
   key?: number

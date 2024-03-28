@@ -1,8 +1,6 @@
 import { character } from '@/store/character'
-import { reactive, toRef } from 'vue'
 import { imageCompress } from './images'
 import { emoticon } from '../data/emoticon'
-import { bubbles } from '../data/bubbles'
 import { avatar } from '@/store/avatar'
 
 export const progress = reactive([0, 0])
@@ -71,17 +69,6 @@ const emoticonPreload = () => {
   }
 }
 
-const bubblesPreload = () => {
-  for (const i in bubbles) {
-    getCache(bubbles[i].img).then((res) => {
-      bubbles[i].img = res
-    })
-    getCache(bubbles[i].preview).then((res) => {
-      bubbles[i].preview = res
-    })
-  }
-}
-
 export const preload = async () => {
   const list = import.meta.glob<string>(
     [
@@ -97,7 +84,6 @@ export const preload = async () => {
 
   characterPreload()
   emoticonPreload()
-  bubblesPreload()
 
   for (const i in list) {
     getAssets(list[i])
