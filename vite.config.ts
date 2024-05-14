@@ -63,6 +63,13 @@ export default defineConfig({
             options: {
               cacheName: 'image-cache'
             }
+          },
+          {
+            urlPattern: /(.*?)\.(woff2)/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'font-cache'
+            }
           }
         ]
       },
