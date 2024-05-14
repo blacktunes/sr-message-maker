@@ -101,6 +101,12 @@ export const gameAvatar: { [name: string]: UserAvatar } = {
 }
 
 export const gameCharacter: { [name: string]: Character } = {
+  知更鸟: {
+    name: '知更鸟',
+    avatar: 'https://patchwiki.biligame.com/images/sr/4/45/mcybqtbsmow098ik7nu1dq1jmef7bmc.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/05/08/75216984/820d6b16fc443891e37a755f012c0b0c_1499303734531562294.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '让我们把翅膀借给彼此'
+  },
   黄泉: {
     name: '黄泉',
     avatar: 'https://patchwiki.biligame.com/images/sr/e/e8/joho8jkwl2caelu155puktvr7qevzmx.png',
@@ -188,6 +194,12 @@ export const gameCharacter: { [name: string]: Character } = {
     avatar: 'https://patchwiki.biligame.com/images/sr/7/73/cx1pu6pl7h4z5b5e86fxmb2gfyqewr9.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/4d5ac247ca1460b34b3f73244afbb0f6_8390343856757982675.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: '可以不喝水，但不能没咖啡'
+  },
+  砂金: {
+    name: '砂金',
+    avatar: 'https://patchwiki.biligame.com/images/sr/8/81/b88dlc8dr8gocikr1x7gpfke3m2n0q0.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/04/17/279865110/eb312b337eca5a1db61bf3f239c23977_7597105613802293683.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '长期接代抽业务'
   },
   真理医生: {
     name: '真理医生',
