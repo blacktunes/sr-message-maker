@@ -18,19 +18,15 @@
           <div
             class="item"
             v-for="(item, key) in emoticon[emoticonPage]?.list"
+            v-show="!item.error"
             :key="`emoticon-${key}`"
-            @click="
-              $emit(
-                'emoticon',
-                item.url,
-                emoticon[emoticonPage]?.title === '布洛妮娅' ? '中年人' : item.title
-              )
-            "
+            @click="onEmoticonClick(emoticonPage, key)"
           >
             <div class="img">
               <img
                 :src="item.url"
                 :alt="item.title"
+                @error="item.error = true"
               />
             </div>
             <div class="text">
@@ -42,19 +38,23 @@
       <div
         class="group"
         @wheel.prevent.stop="onWheel"
-        ref="group"
+        ref="groupDom"
       >
         <div
           class="group-item"
-          v-for="(group, key) in emoticon"
+          v-for="(group, key) in emoticonGroup"
           :key="`group-${key}`"
           :class="{ highlight: key === emoticonPage }"
           @click="changePage(key)"
+          v-show="group"
         >
-          <div class="img">
+          <div
+            class="img"
+            v-if="group"
+          >
             <img
-              :src="group.list[0].url"
-              :alt="group.list[0].title"
+              :src="group.url"
+              :alt="group.title"
             />
           </div>
         </div>
@@ -65,14 +65,36 @@
 
 <script lang="ts" setup>
 import { emoticon } from '@/assets/data/emoticon'
+import { urlToBase64 } from '@/assets/scripts/loader'
 import { emoticonData } from './'
 
-defineEmits<{
+const emits = defineEmits<{
   (event: 'emoticon', url: string, name: string): void
 }>()
 
 const listDom = ref<HTMLElement | null>(null)
-const emoticonPage = ref(0)
+
+const emoticonGroup = computed(() => {
+  const list: (Emoticon | undefined)[] = []
+  emoticon.forEach((group) => {
+    list.push(group.list.find((item) => !item.error))
+  })
+  return list
+})
+const emoticonPage = ref(emoticonGroup.value.findIndex((item) => item))
+
+const onEmoticonClick = async (index: number, key: number) => {
+  if (emoticon[index].list[key].url.startsWith('http')) {
+    try {
+      emoticon[index].list[key].url = await urlToBase64(emoticon[index].list[key].url, true)
+    } catch {}
+  }
+  emits(
+    'emoticon',
+    emoticon[index].list[key].url,
+    emoticon[index]?.title === '布洛妮娅' ? '中年人' : emoticon[index].list[key].title
+  )
+}
 
 const changePage = (page: number) => {
   emoticonPage.value = page
@@ -83,11 +105,11 @@ const changePage = (page: number) => {
   })
 }
 
-const group = ref<HTMLElement | null>(null)
+const groupDom = ref<HTMLElement | null>(null)
 
 const onWheel = (e: WheelEvent) => {
-  if (group.value) {
-    group.value.scrollLeft += e.deltaY
+  if (groupDom.value) {
+    groupDom.value.scrollLeft += e.deltaY
   }
 }
 </script>
@@ -266,8 +288,6 @@ const onWheel = (e: WheelEvent) => {
 
   75%
     background #fdd073
-
-  95%
     transform scaleX(1)
 
   100%

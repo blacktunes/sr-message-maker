@@ -64,13 +64,11 @@
       </template>
       <template #footer>
         <Btn
-          class="win-btn"
           name="取消"
           type="wrong"
           @click="close"
         />
         <Btn
-          class="win-btn"
           name="确认"
           type="check"
           :disable="data.index === setting.avatar"
@@ -82,11 +80,8 @@
 </template>
 
 <script lang="ts" setup>
-import iconUrl from '@/assets/images/avatar/图标.webp'
 import defaultAvatar from '@/assets/images/avatar/私聊.webp'
-import borderUrl from '@/assets/images/avatar/边框.webp'
 import { popupManager } from '@/assets/scripts/popup'
-import { getAssets } from '@/assets/scripts/preload'
 import Icon from '@/components/Common/Icon.vue'
 import Preview from '@/components/Common/Preview.vue'
 import { avatar } from '@/store/avatar'
@@ -186,9 +181,6 @@ callback.confirm = onBtnClick
 const changeTOGameCharacter = () => {
   popupManager.open('character', [-1, -1])
 }
-
-const border = computed(() => `url('${getAssets(borderUrl).value}`)
-const icon = computed(() => `url('${getAssets(iconUrl).value}`)
 </script>
 
 <style lang="stylus" scoped>
@@ -278,7 +270,7 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
     width 130%
     height 130%
     border-radius 50%
-    background v-bind(border)
+    background url('@/assets/images/avatar/边框.webp')
     background-size 100%
     content ''
     transform translate(-50%, 50%)
@@ -291,7 +283,7 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
     left 50%
     width 40px
     height 45px
-    background v-bind(icon)
+    background url('@/assets/images/avatar/图标.webp')
     background-size 100%
     background-repeat no-repeat
     content ''

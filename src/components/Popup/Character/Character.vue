@@ -118,7 +118,7 @@
 </template>
 
 <script lang="ts" setup>
-import { getCharaterAvatar } from '@/assets/scripts/avatar'
+import { getAvatarBase64 } from '@/assets/scripts/avatar'
 import { popupManager } from '@/assets/scripts/popup'
 import CharacterCard from '@/components/Character/CharacterCard.vue'
 import Icon from '@/components/Common/Icon.vue'
@@ -207,7 +207,7 @@ const changePage = (page: number) => {
   }
 }
 
-const handlecharacterClick = (key: string, name: string) => {
+const handlecharacterClick = async (key: string, name: string) => {
   if (data.key) {
     if (data.key[0] === -1) {
       if (key !== '开拓者') {
@@ -220,7 +220,7 @@ const handlecharacterClick = (key: string, name: string) => {
     } else {
       message.list[data.key[0]].list[data.key[1]].key = key
       message.list[data.key[0]].list[data.key[1]].name = name
-      message.list[data.key[0]].list[data.key[1]].avatar = getCharaterAvatar(key)
+      message.list[data.key[0]].list[data.key[1]].avatar = await getAvatarBase64(key)
     }
   } else {
     input.character.key = key

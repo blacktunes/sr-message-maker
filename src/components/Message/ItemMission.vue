@@ -82,7 +82,6 @@ import image_0 from '@/assets/images/mission/同行任务.webp'
 import image_2 from '@/assets/images/mission/开拓任务.webp'
 import image_4 from '@/assets/images/mission/开拓续闻.webp'
 import image_3 from '@/assets/images/mission/日常任务.webp'
-import { getAssets } from '@/assets/scripts/preload'
 import { setting } from '@/store/setting'
 import Icon from '../Common/Icon.vue'
 import { blur } from './Message'
@@ -110,11 +109,11 @@ const missionState = computed(() => {
 })
 
 const backgroundUrl = computed(() => {
-  if (props.mission?.type === 1) return `url(${getAssets(image_1).value})`
-  if (props.mission?.type === 2) return `url(${getAssets(image_2).value})`
-  if (props.mission?.type === 3) return `url(${getAssets(image_3).value})`
-  if (props.mission?.type === 4) return `url(${getAssets(image_4).value})`
-  return `url(${getAssets(image_0).value})`
+  if (props.mission?.type === 1) return `url(${image_1})`
+  if (props.mission?.type === 2) return `url(${image_2})`
+  if (props.mission?.type === 3) return `url(${image_3})`
+  if (props.mission?.type === 4) return `url(${image_4})`
+  return `url(${image_0})`
 })
 
 const handleTypeClick = (type: number) => {

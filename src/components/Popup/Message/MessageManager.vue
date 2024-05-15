@@ -45,13 +45,11 @@
       </div>
       <template #footer>
         <Btn
-          class="win-btn"
           name="取消"
           type="wrong"
           @click="close"
         />
         <Btn
-          class="win-btn"
           name="确认"
           type="check"
           @click="onConfirml"

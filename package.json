@@ -18,7 +18,7 @@
     "html-to-image": "^1.11.11",
     "lz-string": "^1.5.0",
     "mitt": "^3.0.1",
-    "star-rail-vue": "^1.1.0",
+    "star-rail-vue": "^1.1.1",
     "super-image-cropper": "^1.0.18",
     "vue": "^3.4.27",
     "vue-picture-cropper": "^0.7.0"
@@ -42,6 +42,7 @@
     "unplugin-auto-import": "^0.17.6",
     "vite": "^5.2.11",
     "vite-plugin-pwa": "^0.19.8",
+    "vite-plugin-vue-devtools": "^7.1.3",
     "vue-tsc": "^2.0.17"
   }
 }
