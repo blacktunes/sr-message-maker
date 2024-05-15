@@ -21,4 +21,4 @@ export const popupManager = createPopupManager({
   message
 })
 
-// popupManager.open('loading')
+popupManager.open('loading')

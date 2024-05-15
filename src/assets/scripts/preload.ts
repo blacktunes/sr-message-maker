@@ -1,7 +1,7 @@
-import { character } from '@/store/character'
-import { imageCompress } from './images'
-import { emoticon } from '../data/emoticon'
 import { avatar } from '@/store/avatar'
+import { character } from '@/store/character'
+import { imageCompress } from 'star-rail-vue'
+import { emoticon } from '../data/emoticon'
 
 export const progress = reactive([0, 0])
 export const assets: { [name: string]: string } = reactive({})

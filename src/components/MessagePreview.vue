@@ -72,10 +72,10 @@
 <script lang="ts" setup>
 import { emitter } from '@/assets/scripts/event'
 import { popupManager } from '@/assets/scripts/popup'
-import { screenshot } from '@/assets/scripts/screenshot'
 import { autoPlay } from '@/store/autoPlay'
 import { currentMessage, messageIndex } from '@/store/message'
 import { setting } from '@/store/setting'
+import { screenshot } from 'star-rail-vue'
 import Icon from './Common/Icon.vue'
 import { info, scrollToBottom, title } from './Message/Message'
 import MessageBox from './Message/MessageBox.vue'
@@ -251,7 +251,7 @@ emitter.on('screenshot', () => {
   popupManager.open('loading')
   nextTick(async () => {
     if (boxRef.value?.boxDom && boxRef.value?.listDom && setting.preview) {
-      await screenshot(boxRef.value.boxDom, undefined, boxRef.value.listDom.scrollHeight + 185)
+      await screenshot(boxRef.value.boxDom, { height: boxRef.value.listDom.scrollHeight + 185 })
     }
     popupManager.close('loading')
   })
