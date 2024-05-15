@@ -38,8 +38,7 @@
           :value="text"
           @input="emit('update', ($event.target as HTMLInputElement).value)"
           @blur="updateText(($event.target as HTMLInputElement).value)"
-          @keydown.enter.prevent.stop="blur"
-          @keydown.escape.prevent.stop="blur"
+          @keydown.prevent.stop="blur"
         />
         <div
           class="state"
@@ -78,14 +77,15 @@
 </template>
 
 <script lang="ts" setup>
+import image_1 from '@/assets/images/mission/冒险任务.webp'
+import image_0 from '@/assets/images/mission/同行任务.webp'
+import image_2 from '@/assets/images/mission/开拓任务.webp'
+import image_4 from '@/assets/images/mission/开拓续闻.webp'
+import image_3 from '@/assets/images/mission/日常任务.webp'
+import { getAssets } from '@/assets/scripts/preload'
 import { setting } from '@/store/setting'
 import Icon from '../Common/Icon.vue'
-import image_0 from '@/assets/images/mission/同行任务.webp'
-import image_1 from '@/assets/images/mission/冒险任务.webp'
-import image_2 from '@/assets/images/mission/开拓任务.webp'
-import image_3 from '@/assets/images/mission/日常任务.webp'
-import image_4 from '@/assets/images/mission/开拓续闻.webp'
-import { getAssets } from '@/assets/scripts/preload'
+import { blur } from './Message'
 
 const props = defineProps<{
   text: string
@@ -138,10 +138,6 @@ const handeStateClick = (state: number) => {
 
 const updateText = (text: string) => {
   if (text.length < 1) emit('update', DEFAULT_TEXT)
-}
-
-const blur = (e: KeyboardEvent) => {
-  ;(e.target as HTMLInputElement).blur()
 }
 </script>
 

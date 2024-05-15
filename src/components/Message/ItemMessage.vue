@@ -71,8 +71,7 @@
           <div
             class="text"
             :contenteditable="!preview"
-            @keydown.enter.prevent.stop="preview ? undefined : blur($event)"
-            @keydown.escape.prevent.stop="preview ? undefined : blur($event)"
+            @keydown.prevent.stop="preview ? undefined : blur($event)"
             @blur="preview ? undefined : updateMessage($event)"
           >
             {{ item.text }}
@@ -89,11 +88,11 @@
 </template>
 
 <script lang="ts" setup>
-import Icon from '../Common/Icon.vue'
-import { setting } from '@/store/setting'
-import { autoPlay } from '@/store/autoPlay'
-import { getAvatar } from './Message'
 import { bubbles } from '@/assets/data/bubbles'
+import { autoPlay } from '@/store/autoPlay'
+import { setting } from '@/store/setting'
+import Icon from '../Common/Icon.vue'
+import { blur, getAvatar } from './Message'
 
 defineProps<{
   item: Message
@@ -119,10 +118,6 @@ const getBubbles = (key: string) => {
     }
   }
   return classList
-}
-
-const blur = (e: KeyboardEvent) => {
-  ;(e.target as HTMLInputElement).blur()
 }
 
 const updateMessage = (e: Event) => {

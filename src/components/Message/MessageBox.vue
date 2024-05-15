@@ -34,8 +34,7 @@
               v-else
               class="title"
               :value="title"
-              @keydown.enter.prevent.stop="blur"
-              @keydown.escape.prevent.stop="blur"
+              @keydown.prevent.stop="blur"
               @focus="getTitle"
               @blur="updateTitle"
             />
@@ -67,6 +66,7 @@
 
 <script lang="ts" setup>
 import Icon from '../Common/Icon.vue'
+import { blur } from './Message'
 
 defineProps<{
   index: number
@@ -93,10 +93,6 @@ const updateArrow = () => {
   if (listDom.value) {
     handleScroll(listDom.value)
   }
-}
-
-const blur = (e: KeyboardEvent) => {
-  ;(e.target as HTMLInputElement).blur()
 }
 
 let oldTitle = ''

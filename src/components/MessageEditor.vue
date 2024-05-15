@@ -60,9 +60,7 @@
               type="text"
               class="input"
               v-model="input.text"
-              @keydown.enter.prevent.stop="onEnter"
-              @keydown.tab="inputFocus(false)"
-              @keydown.escape="inputFocus(false)"
+              @keydown.prevent="onKeydown"
               :placeholder="defaultText"
               ref="inputDom"
             />
@@ -451,12 +449,16 @@ const getName = (index: number) => {
   }
 }
 
-const onEnter = (e: KeyboardEvent) => {
+const onKeydown = (e: KeyboardEvent) => {
   if (!currentMessage.value) return
 
-  handleAddClick()
-  if (e.ctrlKey) {
-    getName(currentMessage.value.list.length - 2)
+  if (e.key === 'Tab' || e.key === 'Escape') {
+    inputFocus(false)
+  } else if (e.key === 'Enter') {
+    handleAddClick()
+    if (e.ctrlKey) {
+      getName(currentMessage.value.list.length - 2)
+    }
   }
 }
 
