@@ -13,6 +13,13 @@
     >
       BiliBili
     </a>
+    <div class="sep"></div>
+    <a
+      href="https://light.shenmedouyou.top/"
+      target="_blank"
+    >
+      光锥生成器
+    </a>
   </div>
 </template>
 
