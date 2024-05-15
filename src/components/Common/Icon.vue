@@ -33,6 +33,7 @@ const Icon = computed<JSX.Element>(() => {
     case 'save':
       return (
         <svg
+          style="margin-top: 10px"
           viewBox="0 0 1024 1024"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"
@@ -52,7 +53,7 @@ const Icon = computed<JSX.Element>(() => {
     case 'play':
       return (
         <svg
-          style="margin-left: 5px"
+          style="margin: 10px 0 0 5px"
           viewBox="0 0 1024 1024"
           version="1.1"
           xmlns="http://www.w3.org/2000/svg"

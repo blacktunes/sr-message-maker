@@ -1,16 +1,7 @@
-import { emitter } from '@/assets/scripts/event'
+import Character from './Character.vue'
+import { callback } from './data'
 
-export const characterData = reactive<{
-  key?: [number, number]
-}>({})
-
-export const characterOpen = (key?: [number, number]) => {
-  characterData.key = key
-}
-
-export const characterClose = () => {
-  if (!characterData.key) {
-    emitter.emit('focus')
-  }
-  characterData.key = undefined
+export const character = {
+  component: Character,
+  ...callback
 }

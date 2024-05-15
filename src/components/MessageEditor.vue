@@ -40,7 +40,7 @@
               @avatar="handleAvatarClick(index)"
               @image="handleImageClick($event, index)"
               @delete="handleDelClick(index)"
-              @config=";[emoticonClose(), openWindow('message', index)]"
+              @config=";[emoticonClose(), popupManager.open('message', index)]"
             />
           </template>
         </draggable>
@@ -145,7 +145,7 @@ import { messageIndex, currentMessage, message } from '@/store/message'
 import { setting } from '@/store/setting'
 import { getAvatar, info, scrollToBottom, title } from './Message/Message'
 import { emitter } from '@/assets/scripts/event'
-import { openWindow } from '@/assets/scripts/popup'
+import { popupManager } from '@/assets/scripts/popup'
 import { emoticonClose, emoticonOpen, emoticonData } from './Message/Emoticon'
 
 const appearTransition = ref('slide-left')
@@ -274,7 +274,7 @@ const updateText = (key: number, data: string) => {
 
 const handleAvatarClick = (key: number) => {
   emoticonClose()
-  openWindow('character', [messageIndex.value, key])
+  popupManager.open('character', [messageIndex.value, key])
 }
 
 const handleImageClick = async (emoticon: boolean, key: number) => {
@@ -282,7 +282,7 @@ const handleImageClick = async (emoticon: boolean, key: number) => {
   if (emoticon) {
     emoticonOpen([messageIndex.value, key])
   } else {
-    openWindow('cropper', { maxWidth: 1280 }).then(({ base64 }) => {
+    popupManager.open('cropper', { maxWidth: 1280 }).then(({ base64 }) => {
       if (!currentMessage.value) return
 
       currentMessage.value.list[key].img = base64
@@ -302,7 +302,7 @@ const handleDelClick = (key: number) => {
 
 const handleSelectClick = () => {
   emoticonClose()
-  openWindow('character')
+  popupManager.open('character')
 }
 
 emitter.on('focus', () => {
@@ -362,7 +362,7 @@ const getCharacter = () => {
 
 const handleImageAddClick = () => {
   emoticonClose()
-  openWindow('cropper', { maxWidth: 1280 }).then(({ base64 }) => {
+  popupManager.open('cropper', { maxWidth: 1280 }).then(({ base64 }) => {
     if (!currentMessage.value) return
 
     currentMessage.value.list.push({

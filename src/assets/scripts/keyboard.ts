@@ -3,7 +3,7 @@ import { autoPlay } from '@/store/autoPlay'
 import { addNewMessage, currentMessage } from '@/store/message'
 import { setting } from '@/store/setting'
 import { emitter } from './event'
-import { closeCurrentComponent, currentComponentCallback, isLoading, hasPopup, openWindow } from './popup'
+import { popupManager } from './popup'
 
 const handleBack = () => {
   emoticonClose()
@@ -18,23 +18,23 @@ const handleBack = () => {
     return
   }
 
-  closeCurrentComponent()
+  popupManager.closeCurrentComponent()
 }
 
 document.addEventListener('click', (e) => {
-  if (isLoading()) return
+  if (popupManager.isLoading()) return
   if ((e.target as HTMLElement).tagName.toLowerCase() === 'a') return
   handleBack()
 })
 
 document.addEventListener('keydown', (e) => {
-  if (isLoading()) return
+  if (popupManager.isLoading()) return
   switch (e.key) {
     // 保存截图
     case 's':
       if (!e.ctrlKey) return
       e.preventDefault()
-      if (currentMessage.value && !hasPopup() && !autoPlay.flag) {
+      if (currentMessage.value && !popupManager.hasPopup() && !autoPlay.flag) {
         emitter.emit('screenshot')
       }
 
@@ -42,8 +42,8 @@ document.addEventListener('keydown', (e) => {
     // 打开角色选择
     case 'Tab':
       e.preventDefault()
-      if (currentMessage.value && !hasPopup() && !setting.preview) {
-        openWindow('character')
+      if (currentMessage.value && !popupManager.hasPopup() && !setting.preview) {
+        popupManager.open('character')
       }
 
       break
@@ -56,14 +56,14 @@ document.addEventListener('keydown', (e) => {
       if (setting.preview) return
 
       // 确认窗口
-      if (hasPopup()) {
-        currentComponentCallback()
+      if (popupManager.hasPopup()) {
+        popupManager.currentComponentConfirm()
         e.preventDefault()
         return
       }
 
       // 聚焦输入框
-      if (currentMessage.value && !hasPopup()) {
+      if (currentMessage.value && !popupManager.hasPopup()) {
         e.preventDefault()
         emitter.emit('focus')
         return
@@ -73,7 +73,7 @@ document.addEventListener('keydown', (e) => {
     // 新短信
     case 'Insert':
       e.preventDefault()
-      if (!hasPopup() && !setting.preview) {
+      if (!popupManager.hasPopup() && !setting.preview) {
         addNewMessage()
       }
 

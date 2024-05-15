@@ -8,7 +8,7 @@
         <table class="table">
           <tr
             class="line"
-            v-if="currentMessage?.list?.[messageData.key || -1]?.key !== '开拓者'"
+            v-if="currentMessage?.list?.[data.key || -1]?.key !== '开拓者'"
           >
             <td class="left">修改昵称</td>
             <td class="right">
@@ -33,10 +33,10 @@
                   :min="1"
                   :max="5"
                   :step="0.1"
-                  v-model="messageData.interval"
+                  v-model="data.interval"
                 />
                 <span class="text">
-                  {{ messageData.interval ? messageData.interval + '秒' : '默认' }}
+                  {{ data.interval ? data.interval + '秒' : '默认' }}
                 </span>
               </div>
             </td>
@@ -62,15 +62,12 @@
 </template>
 
 <script lang="ts" setup>
-import Popup from '@/components/Common/Popup.vue'
-import Window from '@/components/Common/Window.vue'
-import Btn from '@/components/Common/Btn.vue'
-import Slider from '@/components/Common/Slider.vue'
+import { popupManager } from '@/assets/scripts/popup'
 import Icon from '@/components//Common/Icon.vue'
-import { openWindow } from '@/assets/scripts/popup'
+import Slider from '@/components/Common/Slider.vue'
 import { currentMessage } from '@/store/message'
-import { messageData } from './'
-import { confirmCallback } from '@/assets/scripts/popup'
+import { Btn, Popup, Window } from 'star-rail-vue'
+import { callback, data } from './data'
 
 const props = defineProps<{
   name: string
@@ -89,17 +86,17 @@ const close = () => {
 const handleChangeName = async () => {
   if (!currentMessage.value) return
 
-  if (messageData.key !== undefined && currentMessage.value.list[messageData.key]) {
-    if (currentMessage.value.list[messageData.key].key !== '开拓者') {
-      const name = await openWindow('input', {
+  if (data.key !== undefined && currentMessage.value.list[data.key]) {
+    if (currentMessage.value.list[data.key].key !== '开拓者') {
+      const name = await popupManager.open('input', {
         title: '修改昵称',
         tip: '建议不要使用过长的昵称',
         required: false,
-        defaultText: currentMessage.value.list[messageData.key].name,
-        placeholder: currentMessage.value.list[messageData.key].name
+        defaultText: currentMessage.value.list[data.key].name,
+        placeholder: currentMessage.value.list[data.key].name
       })
       if (name !== null) {
-        currentMessage.value.list[messageData.key].name = name
+        currentMessage.value.list[data.key].name = name
       }
     }
   }
@@ -107,17 +104,13 @@ const handleChangeName = async () => {
 
 const onConfirml = () => {
   if (!currentMessage.value) return
-  if (
-    messageData.interval > 0 &&
-    messageData.key !== undefined &&
-    currentMessage.value.list[messageData.key]
-  ) {
-    currentMessage.value.list[messageData.key].interval = messageData.interval * 1000
+  if (data.interval > 0 && data.key !== undefined && currentMessage.value.list[data.key]) {
+    currentMessage.value.list[data.key].interval = data.interval * 1000
   }
   close()
 }
 
-confirmCallback[props.name] = onConfirml
+callback.confirm = onConfirml
 </script>
 
 <style lang="stylus" scoped>

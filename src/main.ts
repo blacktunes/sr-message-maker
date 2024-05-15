@@ -1,6 +1,7 @@
+import './main.styl'
+
 import App from './App.vue'
 
-import './main.styl'
 import '@/assets/scripts/window'
 import '@/assets/scripts/analytics'
 import '@/assets/scripts/keyboard'

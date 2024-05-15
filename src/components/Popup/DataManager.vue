@@ -67,15 +67,13 @@
 </template>
 
 <script lang="ts" setup>
-import Popup from '@/components/Common/Popup.vue'
-import Window from '@/components/Common/Window.vue'
-import Btn from '@/components/Common/Btn.vue'
+import { Btn, Popup, Window } from 'star-rail-vue'
 import { currentMessage, message } from '@/store/message'
 import { setting } from '@/store/setting'
 import { character } from '@/store/character'
 import { zhLocale, setLocale, Parameter } from '@ckpack/parameter'
 import { avatar } from '@/store/avatar'
-import { openWindow } from '@/assets/scripts/popup'
+import { popupManager } from '@/assets/scripts/popup'
 import { compressToUint8Array, decompressFromUint8Array } from 'lz-string'
 
 const props = defineProps<{
@@ -263,19 +261,19 @@ const uploadDate = async () => {
               }
             }
             if (num === 0) {
-              openWindow('confirm', {
+              popupManager.open('confirm', {
                 title: '短信导入失败',
                 text: ['请检查文件格式是否正确']
               })
             } else if (num < data.length) {
-              openWindow('confirm', {
+              popupManager.open('confirm', {
                 title: '短信导入失败',
                 text: ['部分短信导入失败', '请检查文件格式是否正确']
               })
             }
             updateMessageUsage()
           } catch (err) {
-            openWindow('confirm', {
+            popupManager.open('confirm', {
               title: '短信导入失败',
               text: [String(err)]
             })
@@ -291,7 +289,7 @@ const uploadDate = async () => {
 const deleteData = () => {
   if (!hasData.value) return
 
-  openWindow('confirm', {
+  popupManager.open('confirm', {
     title: '删除短信',
     text: ['确定删除所有短信吗？'],
     fn: () => {
@@ -351,19 +349,19 @@ const uploadCharacter = async () => {
               }
             }
             if (num === 0) {
-              openWindow('confirm', {
+              popupManager.open('confirm', {
                 title: '自定义导角色入失败',
                 text: ['请检查文件格式是否正确']
               })
             } else if (num < Object.keys(data).length) {
-              openWindow('confirm', {
+              popupManager.open('confirm', {
                 title: '自定义导角色入失败',
                 text: ['部分自定义导角色入失败', '请检查文件格式是否正确']
               })
             }
             updateCharacterUsage()
           } catch (err) {
-            openWindow('confirm', {
+            popupManager.open('confirm', {
               title: '自定义导角色入失败',
               text: [String(err)]
             })
@@ -378,7 +376,7 @@ const uploadCharacter = async () => {
 const deleteCharacter = () => {
   if (!hasCharacter.value) return
 
-  openWindow('confirm', {
+  popupManager.open('confirm', {
     title: '删除角色',
     text: ['确定删除所有自定义角色吗？'],
     fn: () => {
@@ -391,12 +389,12 @@ const deleteCharacter = () => {
 }
 
 const reserDatabase = () => {
-  openWindow('confirm', {
+  popupManager.open('confirm', {
     title: '重置数据库',
     tip: '该操作会清除所有短信/头像/自定义角色',
     text: ['确定重置数据库吗？'],
     fn: () => {
-      openWindow('loading')
+      popupManager.open('loading')
       const request = indexedDB.deleteDatabase('sr-message-v2')
       request.onblocked = () => {
         location.reload()

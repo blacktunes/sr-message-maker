@@ -29,9 +29,7 @@
 </template>
 
 <script lang="ts" setup>
-import Popup from '@/components/Common/Popup.vue'
-import Window from '@/components/Common/Window.vue'
-import Btn from '@/components/Common/Btn.vue'
+import { Btn, Popup, Window } from 'star-rail-vue'
 
 const props = defineProps<{
   name: string

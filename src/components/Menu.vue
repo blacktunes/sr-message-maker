@@ -19,13 +19,13 @@
             class="btn"
             @click="handleMessageClick"
           >
-            <div class="icon">
-              <Icon
-                name="ring"
-                class="ring"
-              />
+            <IconBtn
+              class="icon"
+              :size="80"
+              :transition="false"
+            >
               <Icon name="message" />
-            </div>
+            </IconBtn>
             <span>发送</span>
           </div>
           <div
@@ -33,13 +33,13 @@
             v-if="setting.index"
             @click.stop="handleScreenshotClick"
           >
-            <div class="icon">
-              <Icon
-                name="ring"
-                class="ring"
-              />
+            <IconBtn
+              class="icon"
+              :size="80"
+              :transition="false"
+            >
               <Icon name="save" />
-            </div>
+            </IconBtn>
             <span>保存</span>
           </div>
           <div
@@ -47,19 +47,19 @@
             v-if="setting.index"
             @click.stop="handleAutoPlayClick"
           >
-            <div class="icon">
-              <Icon
-                name="ring"
-                class="ring"
-              />
+            <IconBtn
+              class="icon"
+              :size="80"
+              :transition="false"
+            >
               <Icon name="play" />
-            </div>
+            </IconBtn>
             <span>播放</span>
           </div>
         </div>
         <div
           class="bubbles-btn"
-          @click.stop=";[emoticonClose(), openWindow('setting')]"
+          @click.stop=";[emoticonClose(), popupManager.open('setting')]"
         >
           <Icon name="setting" />
         </div>
@@ -69,14 +69,15 @@
 </template>
 
 <script lang="ts" setup>
-import Icon from './Common/Icon.vue'
-import MessageGroup from './Menu/MessageGroup.vue'
-import { setting } from '@/store/setting'
-import { addNewMessage, message } from '@/store/message'
 import { emitter } from '@/assets/scripts/event'
 import { getNames, getTitle } from '@/assets/scripts/header'
-import { openWindow } from '@/assets/scripts/popup'
+import { popupManager } from '@/assets/scripts/popup'
 import { emoticonClose } from '@/components/Message/Emoticon'
+import { addNewMessage, message } from '@/store/message'
+import { setting } from '@/store/setting'
+import { IconBtn } from 'star-rail-vue'
+import Icon from './Common/Icon.vue'
+import MessageGroup from './Menu/MessageGroup.vue'
 
 interface MenuItem {
   time: number
@@ -204,13 +205,8 @@ $btn-height = 255px
           flex-shrink 0
           justify-content center
           align-items center
-          width 80px
-          height 80px
           border-radius 50%
           background var(--menu-icon-background-color)
-
-          .ring
-            position absolute
 
         span
           margin-left 20px

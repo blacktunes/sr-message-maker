@@ -61,9 +61,8 @@
 </template>
 
 <script lang="ts" setup>
-import Popup from '@/components/Common/Popup.vue'
-import Window from '@/components/Common/Window.vue'
 import log from '@/assets/data/log'
+import { Popup, Window } from 'star-rail-vue'
 
 const props = defineProps<{
   name: string

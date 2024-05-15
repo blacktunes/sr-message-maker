@@ -21,7 +21,7 @@
           <div
             class="setting-btn"
             title="更新记录"
-            @click.stop="openWindow('log')"
+            @click.stop="popupManager.open('log')"
           >
             <Icon
               name="log"
@@ -32,7 +32,7 @@
           <div
             class="setting-btn"
             title="字体设置"
-            @click.stop="openWindow('font')"
+            @click.stop="popupManager.open('font')"
           >
             <Icon
               name="font"
@@ -43,7 +43,7 @@
           <div
             class="setting-btn"
             title="数据管理"
-            @click.stop="openWindow('data')"
+            @click.stop="popupManager.open('data')"
           >
             <Icon name="data" />
           </div>
@@ -83,14 +83,13 @@
 </template>
 
 <script lang="ts" setup>
-import Popup from '../Common/Popup.vue'
-import Window from '@/components/Common/Window.vue'
-import Btn from '@/components/Common/Btn.vue'
+import { bubbles } from '@/assets/data/bubbles'
+import { popupManager } from '@/assets/scripts/popup'
 import Icon from '@/components/Common/Icon.vue'
 import Preview from '@/components/Common/Preview.vue'
 import { setting } from '@/store/setting'
-import { confirmCallback, openWindow } from '@/assets/scripts/popup'
-import { bubbles } from '@/assets/data/bubbles'
+import { Btn, Popup, Window } from 'star-rail-vue'
+import { callback } from './data'
 
 const props = defineProps<{
   name: string
@@ -133,12 +132,12 @@ const onBtnClick = () => {
   return true
 }
 
-confirmCallback[props.name] = onBtnClick
+callback.confirm = onBtnClick
 </script>
 
 <style lang="stylus" scoped>
-@import '../Message/Message.styl'
-@import '../Message/Bubbles.styl'
+@import '../../Message/Message.styl'
+@import '../../Message/Bubbles.styl'
 
 .text-box
   box()
