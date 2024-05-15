@@ -20,9 +20,8 @@ import type { Component } from 'vue'
 import { popupManager } from './assets/scripts/popup'
 
 // 动态加载所有组件
-const components: Component[] = []
-const modules = {
-  ...import.meta.glob<{ default: Component }>(
+const components: Component[] = Object.values(
+  import.meta.glob<{ default: Component }>(
     [
       // 组件位置
       './components/*.vue'
@@ -32,10 +31,7 @@ const modules = {
       import: 'default'
     }
   )
-}
-for (const i in modules) {
-  components.push(defineComponent<{}>(modules[i]))
-}
+).map((i) => defineComponent<{}>(i))
 </script>
 
 <style lang="stylus" scoped>

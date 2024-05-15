@@ -4,7 +4,7 @@
       title="字体设置"
       @close="close"
     >
-      <div class="font">
+      <div class="font-wrapper">
         <div class="preview">愿此行，终抵群星</div>
         <div class="font">{{ font }}</div>
         <div class="line"></div>
@@ -85,7 +85,7 @@ const setCustomFont = async () => {
 </script>
 
 <style lang="stylus" scoped>
-.font
+.font-wrapper
   margin 40px 0
 
   .preview
@@ -106,6 +106,7 @@ const setCustomFont = async () => {
     margin 10px 0 0
     height 100px
     font-size 42px
+    width 100%
 
   .line
     box-sizing border-box

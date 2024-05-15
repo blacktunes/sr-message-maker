@@ -9,7 +9,9 @@
           <div>当前短信ID: {{ setting.index || '-' }}</div>
           <div style="margin-top: 20px">短信数量: {{ message.list.length }}{{ messageUsage }}</div>
           <div>消息数量: {{ messageNum }}</div>
-          <div>自定义角色数量: {{ Object.keys(character.custom).length }}{{ characterUsage }}</div>
+          <div style="margin-top: 20px">
+            自定义角色数量: {{ Object.keys(character.custom).length }}{{ characterUsage }}
+          </div>
           <div>自定义头像数量: {{ avatar.custom.length }}{{ customAvatarUsage }}</div>
         </div>
         <div class="box">
@@ -424,6 +426,7 @@ const reserDatabase = () => {
 
     .btn
       margin 10px 0 0
+      width 100%
       height 100px
       font-size 42px
 
@@ -433,17 +436,8 @@ const reserDatabase = () => {
       &:before
         display block !important
 
-  &:before
-    display none
-
-    .line
-      margin 20px 0
-      width 100%
-      border-bottom 5px solid rgba(150, 150, 150, 0.5)
-
-  .tip
-    text-align center
-    font-weight bold
-    font-size 28px
-    user-select none
+  .line
+    margin 20px 0
+    width 100%
+    border-bottom 2px solid rgba(150, 150, 150, 0.5)
 </style>
