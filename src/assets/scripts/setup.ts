@@ -8,72 +8,6 @@ import { preload } from './preload'
 import { useRegisterSW } from 'virtual:pwa-register/vue'
 import type { WatchStopHandle } from 'vue'
 
-// 旧数据库兼容
-const loadOldDB = async () => {
-  const promises: Promise<any>[] = []
-
-  promises.push(
-    new Promise<void>((resolve) => {
-      window.indexedDB.open('sr-message').onsuccess = (event) => {
-        const db = (event.target as IDBOpenDBRequest).result
-        if (db.objectStoreNames.contains('data')) {
-          db.transaction('data', 'readonly').objectStore('data').get(0).onsuccess = (e) => {
-            try {
-              const data = (e.target as IDBRequest).result?.data
-              if (typeof data === 'string') {
-                message.list = JSON.parse(data)
-              } else {
-                message.list = data || {}
-              }
-            } finally {
-              resolve()
-            }
-          }
-        } else {
-          resolve()
-        }
-      }
-    })
-  )
-
-  promises.push(
-    new Promise<void>((resolve) => {
-      const _db = window.indexedDB.open('sr-custom')
-      _db.onsuccess = (event) => {
-        let flag = 0
-
-        const db = (event.target as IDBOpenDBRequest).result
-        if (db.objectStoreNames.contains('data')) {
-          db.transaction('data', 'readonly').objectStore('data').get(0).onsuccess = (e) => {
-            try {
-              const data = (e.target as IDBRequest).result?.data
-              if (typeof data === 'string') {
-                character.custom = JSON.parse(data)
-              } else {
-                character.custom = data || {}
-              }
-            } finally {
-              if (++flag === 2) resolve()
-            }
-          }
-
-          db.transaction('data', 'readonly').objectStore('data').get(1).onsuccess = (e) => {
-            const data = (e.target as IDBRequest).result?.data
-            avatar.custom = data || []
-            if (++flag === 2) resolve()
-          }
-        } else {
-          resolve()
-        }
-      }
-    })
-  )
-
-  await Promise.all(promises)
-  window.indexedDB.deleteDatabase('sr-message')
-  window.indexedDB.deleteDatabase('sr-custom')
-}
-
 const loadDB = () => {
   new IndexedDB('sr-message-v2')
     .add({
@@ -161,6 +95,6 @@ const logCheck = () => {
 }
 
 openWindow('loading')
-loadOldDB().finally(loadDB)
+loadDB()
 logCheck()
 preload()
