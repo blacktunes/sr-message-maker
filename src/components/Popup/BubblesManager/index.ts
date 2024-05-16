@@ -1,7 +1,7 @@
-import Setting from './Setting.vue'
+import Setting from './BubblesManager.vue'
 import { callback } from './data'
 
-export const setting = {
+export const bubbles = {
   component: Setting,
   ...callback
 }

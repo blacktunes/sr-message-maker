@@ -59,7 +59,7 @@
         </div>
         <div
           class="bubbles-btn"
-          @click.stop=";[emoticonClose(), popupManager.open('setting')]"
+          @click.stop=";[emoticonClose(), popupManager.open('bubbles')]"
         >
           <Icon name="setting" />
         </div>

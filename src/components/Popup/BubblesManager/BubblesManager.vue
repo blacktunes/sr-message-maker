@@ -47,6 +47,13 @@
           >
             <Icon name="data" />
           </div>
+          <div
+            class="setting-btn"
+            title="其它设置"
+            @click.stop="popupManager.open('setting')"
+          >
+            <Icon name="gear" />
+          </div>
         </div>
       </template>
       <template #left>
@@ -126,7 +133,6 @@ const onBtnClick = () => {
   if (setting.bubbles === index.value) return false
   close()
   setting.bubbles = index.value
-  localStorage.setItem('sr-message-bubbles', JSON.stringify(setting.bubbles))
   return true
 }
 

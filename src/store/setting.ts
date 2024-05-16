@@ -13,6 +13,10 @@ export const setting = reactive<{
   bubbles: number
   /** 是否正在拖动元素 */
   drag: boolean
+  /** 是否显示绿幕 */
+  green: boolean
+  /** 是否下载图片 */
+  download: boolean
 }>({
   name: '开拓者',
   avatar: DEFAULT_AVATAR,
@@ -20,7 +24,9 @@ export const setting = reactive<{
   preview: false,
   select: '',
   bubbles: 0,
-  drag: false
+  drag: false,
+  green: false,
+  download: true
 })
 
 export const setName = (name: string) => {
@@ -29,18 +35,49 @@ export const setName = (name: string) => {
   } else {
     setting.name = name
   }
-  localStorage.setItem('sr-message-name', setting.name)
 }
 
 export const setAvatar = (key: string | number = DEFAULT_AVATAR) => {
   setting.avatar = key
-  localStorage.setItem('sr-message-avatar', JSON.stringify(setting.avatar))
 }
 
-setting.name = localStorage.getItem('sr-message-name') || '开拓者'
 try {
-  setting.avatar = JSON.parse(localStorage.getItem('sr-message-avatar') || '')
-} catch {
-  setting.avatar = DEFAULT_AVATAR
+  const _setting = JSON.parse(localStorage.getItem('sr-message-setting') || '{}')
+  if (_setting.name !== undefined) {
+    setting.name = _setting.name
+  }
+  if (_setting.avatar !== undefined) {
+    setting.avatar = _setting.avatar
+  }
+  if (_setting.bubbles !== undefined) {
+    setting.bubbles = Number(_setting.bubbles)
+  }
+  if (_setting.green !== undefined) {
+    setting.green = _setting.green
+  }
+  if (_setting.download !== undefined) {
+    setting.download = _setting.download
+  }
+} finally {
+  watch(
+    [
+      () => setting.name,
+      () => setting.avatar,
+      () => setting.bubbles,
+      () => setting.green,
+      () => setting.download
+    ],
+    () => {
+      localStorage.setItem(
+        'sr-message-setting',
+        JSON.stringify({
+          name: setting.name,
+          avatar: setting.avatar,
+          bubbles: setting.bubbles,
+          green: setting.green,
+          download: setting.download
+        })
+      )
+    }
+  )
 }
-setting.bubbles = Number(localStorage.getItem('sr-message-bubbles')) || 0

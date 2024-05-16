@@ -8,21 +8,21 @@
         <Transition name="fade">
           <div
             class="green"
-            v-show="isGreenScreen"
+            v-show="setting.green"
           ></div>
         </Transition>
         <div
           class="green-btn"
           title="切换背景"
           @click.stop="toggleGreenScreen"
-          :class="{ highlight: isGreenScreen }"
+          :class="{ highlight: setting.green }"
         >
           <Icon name="green" />
         </div>
       </div>
     </Transition>
     <Transition
-      :name="isGreenScreen ? 'preview-delay' : 'preview'"
+      :name="setting.green ? 'preview-delay' : 'preview'"
       appear
     >
       <MessageBox
@@ -124,7 +124,6 @@ let timer: number
 emitter.on('autoplay', () => {
   if (autoPlay.flag) return
 
-  isGreenScreen.value = JSON.parse(localStorage.getItem('sr-message-screen') || 'false')
   setting.preview = true
   reset()
   autoPlay.flag = true
@@ -246,22 +245,32 @@ emitter.on('screenshot', () => {
   if (popupManager.isLoading()) return
   reset()
 
-  isGreenScreen.value = false
   setting.preview = true
   popupManager.open('loading')
-  nextTick(async () => {
+  nextTick(() => {
     if (boxRef.value?.boxDom && boxRef.value?.listDom && setting.preview) {
-      await screenshot(boxRef.value.boxDom, { height: boxRef.value.listDom.scrollHeight + 185 })
+      screenshot(boxRef.value.boxDom, {
+        height: boxRef.value.listDom.scrollHeight + 185,
+        download: setting.download
+      })
+        .catch(() => {
+          popupManager.open('confirm', {
+            title: '图片保存异常',
+            text: ['可能是浏览器拦截了新窗口'],
+            tip: '请尝试在设置中切换下载模式'
+          })
+        })
+        .finally(() => {
+          setTimeout(() => {
+            popupManager.close('loading')
+          }, 1000)
+        })
     }
-    popupManager.close('loading')
   })
 })
 
-const isGreenScreen = ref(false)
-isGreenScreen.value = JSON.parse(localStorage.getItem('sr-message-screen') || 'false')
 const toggleGreenScreen = () => {
-  isGreenScreen.value = !isGreenScreen.value
-  localStorage.setItem('sr-message-screen', JSON.stringify(isGreenScreen.value))
+  setting.green = !setting.green
 }
 </script>
 
