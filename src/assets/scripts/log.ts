@@ -1,5 +1,8 @@
 import log from '@/assets/data/log'
 import { popupManager } from './popup'
+import { setLog } from 'star-rail-vue'
+
+setLog(log)
 
 // 检查更新日志
 export const logCheck = (key: string) => {
