@@ -24,7 +24,7 @@
       }"
       @input="emit('update', ($event.target as HTMLInputElement).value)"
       @blur="updateText(($event.target as HTMLInputElement).value)"
-      @keydown.prevent.stop="blur"
+      @keydown="blur"
     />
     <div
       @click="emit('delete')"

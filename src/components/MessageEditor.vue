@@ -60,7 +60,7 @@
               type="text"
               class="input"
               v-model="input.text"
-              @keydown.prevent="onKeydown"
+              @keydown="onKeydown"
               :placeholder="defaultText"
               ref="inputDom"
             />

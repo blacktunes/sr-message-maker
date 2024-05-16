@@ -71,7 +71,7 @@
           <div
             class="text"
             :contenteditable="!preview"
-            @keydown.prevent.stop="preview ? undefined : blur($event)"
+            @keydown="preview ? undefined : blur($event)"
             @blur="preview ? undefined : updateMessage($event)"
           >
             {{ item.text }}
@@ -117,7 +117,6 @@ const getBubbles = (key: string) => {
       classList.push('bubbles-0')
     }
   }
-  console.log(key, classList)
   return classList
 }
 

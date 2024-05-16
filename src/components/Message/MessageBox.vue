@@ -34,7 +34,7 @@
               v-else
               class="title"
               :value="title"
-              @keydown.prevent.stop="blur"
+              @keydown="blur"
               @focus="getTitle"
               @blur="updateTitle"
             />
