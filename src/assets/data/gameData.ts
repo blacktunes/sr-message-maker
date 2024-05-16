@@ -125,27 +125,27 @@ export const gameAvatar: { [name: string]: UserAvatar } = {
   '波提欧•暗袭': {
     avatar: 'https://patchwiki.biligame.com/images/sr/2/28/ttp0fi735kzjhpmcbiginu4ioc54p53.png'
   },
-  '星·毁灭': {
+  '星•毁灭': {
     avatar: 'https://patchwiki.biligame.com/images/sr/5/52/rhgkx12fxucnesllif85tatcmhxqex3.png',
     card: 星_毁灭_card
   },
-  '穹·毁灭': {
+  '穹•毁灭': {
     avatar: 穹_毁灭,
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/26/288909604/bb5959b4a67a0637f6862b2c8ba163ed_3921856926987798793.png?x-oss-process=image/quality,q_75/resize,s_280'
   },
-  '星·存护': {
+  '星•存护': {
     avatar: 'https://patchwiki.biligame.com/images/sr/7/71/sg4gsfp901hyfd1huaipfsbcm8p85j2.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/1d351a764ae64aeed744296503bc6266_9196637429550074047.png?x-oss-process=image/quality,q_75/resize,s_280'
   },
-  '穹·存护': {
+  '穹•存护': {
     avatar: 穹_存护,
     card: 穹_存护_card
   },
-  '星·同谐': {
+  '星•同谐': {
     avatar: 星_同谐,
     card: 星_同谐_card
   },
-  '穹·同谐': {
+  '穹•同谐': {
     avatar: 穹_同谐,
     card: 穹_同谐_card
   }

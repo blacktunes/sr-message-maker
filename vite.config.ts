@@ -12,7 +12,7 @@ export default defineConfig({
   define: {
     BUILD_TIME: Date.now(),
     DEFAULT_TEXT: JSON.stringify('愿此行，终抵群星'),
-    DEFAULT_AVATAR: JSON.stringify('星·毁灭')
+    DEFAULT_AVATAR: JSON.stringify('星•毁灭')
   },
   plugins: [
     vue(),

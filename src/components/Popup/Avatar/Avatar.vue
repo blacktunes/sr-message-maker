@@ -111,6 +111,9 @@ const avatarName = computed(() => {
     if (data.index.startsWith('开拓者•星轨')) {
       return `${setting.name}•星轨`
     }
+    if (data.index.startsWith('星•') || data.index.startsWith('穹•')) {
+      return data.index.replace(/星|穹/, setting.name)
+    }
     return data.index
   }
   return ''
