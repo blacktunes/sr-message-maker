@@ -1,5 +1,8 @@
 <template>
-  <Popup :index="props.index">
+  <Popup
+    :index="props.index"
+    show
+  >
     <Window
       class="window"
       title="更换头像"

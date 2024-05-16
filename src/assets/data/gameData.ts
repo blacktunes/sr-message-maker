@@ -1,102 +1,153 @@
-import avatar from '@/assets/images/avatar/穹_毁灭.webp'
-import card from '@/assets/images/avatar/星_毁灭_card.webp'
+import 穹_毁灭 from '@/assets/images/avatar/穹_毁灭.webp'
+import 星_毁灭_card from '@/assets/images/avatar/星_毁灭_card.webp'
+import 穹_存护 from '@/assets/images/avatar/穹_存护.webp'
+import 穹_存护_card from '@/assets/images/avatar/穹_存护_card.webp'
+import 星_同谐 from '@/assets/images/avatar/星_同谐.webp'
+import 星_同谐_card from '@/assets/images/avatar/星_同谐_card.webp'
+import 穹_同谐 from '@/assets/images/avatar/穹_同谐.webp'
+import 穹_同谐_card from '@/assets/images/avatar/穹_同谐_card.webp'
 
 export const gameAvatar: { [name: string]: UserAvatar } = {
   无: {
     avatar: 'https://patchwiki.biligame.com/images/sr/a/a8/1qtsu8eokug9uhap13026hk2yvdk8zb.png'
   },
   '开拓者•迎新（星）': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/a/ad/nchbvcsw6xwt2lbgltdcighm7b9y0jq.png'
+    avatar: 'https://patchwiki.biligame.com/images/sr/a/ad/53b7a66znkb1efk4vb8v405e85qi8lw.png'
   },
   '开拓者•迎新（穹）': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/c/c4/jxonipo79e7jw3alj2wr8ijjvfexdyl.png'
-  },
-  '姬子•迎新': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/e/ef/k5z5p8gihx7t3e7lf0rcihmcddqjk5g.png'
+    avatar: 'https://patchwiki.biligame.com/images/sr/c/c4/l21rxquyam27vh6vjuy9rcftm7w2ny6.png'
   },
   '瓦尔特•迎新': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/a/a6/hn0xpu06nb5jfgxritpske6jl61vysr.png'
+    avatar: 'https://patchwiki.biligame.com/images/sr/a/a6/cf2jk7hjevd0fs1f3juchgy91kqjhgz.png'
+  },
+  '姬子•迎新': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/e/ef/7qehy108wc0n9s66bczwir5sugr2wgd.png'
+  },
+  '丹恒•迎新': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/2/26/4hpguat6rx47npkozvfm9h6grx00pa7.png'
   },
   '三月七•迎新': {
     avatar: 'https://patchwiki.biligame.com/images/sr/9/92/96zt43mky1thz9ckk4nrzvltrk97394.png'
   },
-  '丹恒•迎新': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/2/26/t9lpgudwjqpbt476lcxcpipbov4pznm.png'
-  },
-  '刃•夜宴': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/4/43/affscyu0v25sx7ostvvel52hxmpj9q1.png'
-  },
-  '卡芙卡•夜宴': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/4/41/qgnlg62iwio1832jj27j9rmiezmoqsr.png'
-  },
-  '景元•适暇': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/3/35/bsxm7j1i6iphtmbvsk9y84ei7pq36w7.png'
-  },
-  '符玄•适暇': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/1/18/rphdzko00g2aev7tm1ra8iu2yemms7d.png'
-  },
-  '布洛妮娅•庆典': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/9/99/qul923de63ye0w8jco9h3ox0tcsf4dl.png'
-  },
-  '杰帕德•庆典': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/9/90/s2w9pp9vnbak3nxikjx2ahfu23tn8gx.png'
-  },
-  '彦卿•远行': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/8/8c/dcbn6p2p95tmfxevu1amzs3ims0a28s.png'
-  },
-  '镜流•远行': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/f/fb/n9oz2j9l3mnnkzztdr0i1myrcg8z2nr.png'
-  },
-  '真理医生•教研': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/2/21/ohly0b002dhztt3yep5af0j3a4p3sri.png'
-  },
-  '阮•梅•教研': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/d/de/lm1tx0rny8w287kfr5nidt7k6q71oqx.png'
-  },
-  '桑博•幻象': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/5/53/bf3y8393ywr2zfdbxul8x5rwuadqvt0.png'
-  },
-  '花火•幻象': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/a/a6/gxeii3ssa89oa3q8tqvyn9y1qe8xzxf.png'
-  },
   菌菌: {
-    avatar: 'https://patchwiki.biligame.com/images/sr/1/1f/4un48lwd7xrd4jehzxfnc2n8hykb205.png'
+    avatar: 'https://patchwiki.biligame.com/images/sr/1/1f/jrxzh334nzooazc8lgrvwpt44kfg5c1.png'
   },
   呜呜伯: {
-    avatar: 'https://patchwiki.biligame.com/images/sr/6/68/cuvuk88575dmuj27n0cdfkiyxek5dzv.png'
+    avatar: 'https://patchwiki.biligame.com/images/sr/6/68/ai3qpid3wuw99pv6syf32tj5o4w3crb.png'
   },
   佩佩: {
-    avatar: 'https://patchwiki.biligame.com/images/sr/9/93/n6bsmrgi3as9gttm6av8zxb3f90r5bb.png'
+    avatar: 'https://patchwiki.biligame.com/images/sr/9/93/2wbkmjjpc46kava70i50nh3l0vffzfd.png'
   },
   通缉令: {
-    avatar: 'https://patchwiki.biligame.com/images/sr/6/61/s52qmmbcym2h6060khma3xtulsnwsob.png'
+    avatar: 'https://patchwiki.biligame.com/images/sr/6/61/ik2ync8jl76d6tucqbput4usvg0kfk4.png'
   },
   垃圾桶: {
-    avatar: 'https://patchwiki.biligame.com/images/sr/f/f7/dpes8v24ax5sod5323arf26b5ch43g5.png'
+    avatar: 'https://patchwiki.biligame.com/images/sr/f/f7/lm78lz60epewnfaa8kbkjz0slh2flkj.png'
+  },
+  '卡芙卡•夜宴': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/4/41/9mv71c889xntbqulae1s6s87gqmyc69.png'
+  },
+  '刃•夜宴': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/4/43/sweuw3ekwcp2nz7wyqbpsz3317qqk2v.png'
+  },
+  '符玄•适暇': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/1/18/aa2au3wl1d2f4rrzjwjrfhg8a36f4d5.png'
+  },
+  '景元•适暇': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/3/35/cuvp20sjdyt6drytper2zqmb2zsolac.png'
   },
   谛听: {
-    avatar: 'https://patchwiki.biligame.com/images/sr/8/8b/mvvqrfg0nw0ghrx1p91reedqnvt2wbv.png'
+    avatar: 'https://patchwiki.biligame.com/images/sr/8/8b/i6oesgaspey7z2k681cucd0w19dy6qf.png'
   },
   '帕姆•美食': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/4/45/4ti8vqyjoqya5dsg7l3lw300yh72q6r.png'
+    avatar: 'https://patchwiki.biligame.com/images/sr/4/45/iixul0xd53bzwycpf1hnegr2td1atto.png'
+  },
+  '杰帕德•庆典': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/9/90/6kb5mbltsugfvr32sdslzo7py54exfc.png'
+  },
+  '布洛妮娅•庆典': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/9/99/sla3pqos2p2bwq0v8aj55gykj6ucxyc.png'
+  },
+  '镜流•远行': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/f/fb/hhxzrtdjt5q21tp9fxfugzb9950t1cn.png'
+  },
+  '彦卿•远行': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/8/8c/ro8q39ct9pqfl36yt8tlmte5m1xv5as.png'
+  },
+  '阮•梅•教研': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/d/de/4exzdnlnyrwx7xytr3upfp834ky16wg.png'
+  },
+  '真理医生•教研': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/2/21/9expjnh7hy7uumb47uxvg4jqk8gsi15.png'
+  },
+  点心生命: {
+    avatar: 'https://patchwiki.biligame.com/images/sr/3/31/p9vnch0ofulddbra8d6hs96qrk9cesn.png'
   },
   '开拓者•星轨(星)': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/1/1c/oq49xov0qpomd3rknwl72n2y6tqd7nj.png'
+    avatar: 'https://patchwiki.biligame.com/images/sr/1/1c/j3h11hvm9c25dsfyy2jwgzjav5nob5g.png'
   },
   '开拓者•星轨(穹)': {
-    avatar: 'https://patchwiki.biligame.com/images/sr/4/48/cichewt3xev1fu27higunsm6co6jbjt.png'
+    avatar: 'https://patchwiki.biligame.com/images/sr/4/48/oou12fc0zqwri47ht8uf9rzt5tjil6f.png'
+  },
+  '花火•幻象': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/a/a6/jf7yyzgsh4zmg2qcv37u7fgrvcw054n.png'
+  },
+  '桑博•幻象': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/5/53/h49560vna1lvo3fwvxq9uyxzcn2vnh5.png'
+  },
+  钟表小子: {
+    avatar: 'https://patchwiki.biligame.com/images/sr/b/b8/51h1sx6oub1ydwtp9nqsl3ay1mfsqwm.png'
+  },
+  折纸小鸟: {
+    avatar: 'https://patchwiki.biligame.com/images/sr/9/94/ook8jn1anlv5y0kmhuk4pco0dwrqth0.png'
+  },
+  哈努兄弟: {
+    avatar: 'https://patchwiki.biligame.com/images/sr/2/24/homr2vlj3lsvapite4off0ccye3dgmz.png'
+  },
+  '砂金•命中': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/a/a1/4ov7xo4xy40fc3zbmeq7ue1j7h8iew1.png'
+  },
+  '托帕•命中': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/b/bc/r4pcdr51ue85kvwshcasp2uj0spaghg.png'
+  },
+  卡卡瓦夏: {
+    avatar: 'https://patchwiki.biligame.com/images/sr/e/e0/kqovjuy1sc7d11vdiz5mupjl4uf71oa.png'
+  },
+  仓鼠球骑士: {
+    avatar: 'https://patchwiki.biligame.com/images/sr/a/a9/fnxdpo2yt7r4jvks5tj82fc4ef8ylm4.png'
+  },
+  一周年纪念: {
+    avatar: 'https://patchwiki.biligame.com/images/sr/2/26/b769iu7yc00cgf93j9yij0m6moqn1t2.png'
+  },
+  '黄泉•暗袭': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/7/72/g5ifnyxe7ckx31y0dbamwia8ydb31js.png'
+  },
+  '波提欧•暗袭': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/2/28/ttp0fi735kzjhpmcbiginu4ioc54p53.png'
   },
   '星·毁灭': {
     avatar: 'https://patchwiki.biligame.com/images/sr/5/52/rhgkx12fxucnesllif85tatcmhxqex3.png',
-    card: card
+    card: 星_毁灭_card
+  },
+  '穹·毁灭': {
+    avatar: 穹_毁灭,
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/26/288909604/bb5959b4a67a0637f6862b2c8ba163ed_3921856926987798793.png?x-oss-process=image/quality,q_75/resize,s_280'
   },
   '星·存护': {
     avatar: 'https://patchwiki.biligame.com/images/sr/7/71/sg4gsfp901hyfd1huaipfsbcm8p85j2.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/1d351a764ae64aeed744296503bc6266_9196637429550074047.png?x-oss-process=image/quality,q_75/resize,s_280'
   },
-  '穹·毁灭': {
-    avatar: avatar,
-    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/26/288909604/bb5959b4a67a0637f6862b2c8ba163ed_3921856926987798793.png?x-oss-process=image/quality,q_75/resize,s_280'
+  '穹·存护': {
+    avatar: 穹_存护,
+    card: 穹_存护_card
+  },
+  '星·同谐': {
+    avatar: 星_同谐,
+    card: 星_同谐_card
+  },
+  '穹·同谐': {
+    avatar: 穹_同谐,
+    card: 穹_同谐_card
   }
 }
 
