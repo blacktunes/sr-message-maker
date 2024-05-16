@@ -117,6 +117,7 @@ const getBubbles = (key: string) => {
       classList.push('bubbles-0')
     }
   }
+  console.log(key, classList)
   return classList
 }
 
@@ -134,7 +135,7 @@ const updateMessage = (e: Event) => {
 
 <style lang="stylus" scoped>
 @import './Message.styl'
-@import './Bubbles.styl'
+@import '../../assets/data/bubbles/style.styl'
 
 $del-pos = -100px
 

@@ -10,5 +10,8 @@ export const bubbles = reactive([
   },
   {
     name: '星体培养皿'
+  },
+  {
+    name: '怪物酒馆'
   }
 ])

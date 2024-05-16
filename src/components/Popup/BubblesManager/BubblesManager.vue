@@ -141,7 +141,7 @@ callback.confirm = onBtnClick
 
 <style lang="stylus" scoped>
 @import '../../Message/Message.styl'
-@import '../../Message/Bubbles.styl'
+@import '../../../assets/data/bubbles/style.styl'
 
 .text-box
   box()
