@@ -5,7 +5,7 @@ import { popupManager } from './popup'
 const { needRefresh, updateServiceWorker } = useRegisterSW()
 
 export const updateCheck = () => {
-  let updateWatcher: WatchStopHandle = watchEffect(() => {
+  const updateWatcher: WatchStopHandle = watchEffect(() => {
     if (needRefresh.value) {
       nextTick(() => {
         updateWatcher()

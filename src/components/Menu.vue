@@ -1,6 +1,6 @@
 <template>
   <Transition
-    name="slide-right"
+    name="slide-right-first"
     appear
   >
     <div class="menu">

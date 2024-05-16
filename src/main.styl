@@ -26,8 +26,13 @@
   --avatar-background #505050
   --avatar-image-clip-path-bilibiliwiki-only circle(46%)
 
+@keyframes first
+  from
+    opacity 0
+
 html
   font-size 40px
+  animation first 0.8s
   scrollbar-width none
 
   &::-webkit-scrollbar
@@ -71,23 +76,19 @@ img
 .fade-in-enter-from
   opacity 0
 
-.fade-out-leave-active
-  transition opacity 0.5s 1s linear
+.slide-left-first-enter-active
+  transition all 0.5s
+  transition-delay 0.3s
 
-.fade-out-leave-to
-  opacity 0
-
-.slide-left-enter-active
-  transition all 0.5s ease-out
-
-.slide-left-enter-from
+.slide-left-first-enter-from
   opacity 0
   transform translateX(50%)
 
-.slide-right-enter-active
-  transition all 0.5s ease-out
+.slide-right-first-enter-active
+  transition all 0.5s
+  transition-delay 0.3s
 
-.slide-right-enter-from
+.slide-right-first-enter-from
   opacity 0
   transform translateX(-50%)
 

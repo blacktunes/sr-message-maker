@@ -146,7 +146,7 @@ import { emitter } from '@/assets/scripts/event'
 import { popupManager } from '@/assets/scripts/popup'
 import { emoticonClose, emoticonOpen, emoticonData } from './Message/Emoticon'
 
-const appearTransition = ref('slide-left')
+const appearTransition = ref('slide-left-first')
 
 const defaultText = DEFAULT_TEXT
 
