@@ -1,13 +1,5 @@
 <template>
   <div class="link">
-    <Transition name="fade-out">
-      <div
-        v-show="progress[0] > 0 && progress[1] < progress[0]"
-        class="progress"
-      >
-        <span>图片预加载[</span>{{ progress[1] }}/{{ progress[0] }}]
-      </div>
-    </Transition>
     <a
       href="https://github.com/blacktunes/sr-message-maker"
       target="_blank"
@@ -21,12 +13,15 @@
     >
       BiliBili
     </a>
+    <div class="sep"></div>
+    <a
+      href="https://light.shenmedouyou.top/"
+      target="_blank"
+    >
+      光锥生成器
+    </a>
   </div>
 </template>
-
-<script lang="ts" setup>
-import { progress } from '@/assets/scripts/preload'
-</script>
 
 <style lang="stylus" scoped>
 .link
@@ -38,19 +33,6 @@ import { progress } from '@/assets/scripts/preload'
   width 100%
   height 75px
   color #ddd
-
-  .progress
-    position absolute
-    bottom 0
-    left 180px
-    display flex
-    justify-content center
-    align-items center
-    box-sizing border-box
-    height 75px
-    color rgba(255, 255, 255, 0.3)
-    font-size 38px
-    user-select none
 
   .sep
     margin 0 25px

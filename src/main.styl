@@ -23,11 +23,16 @@
   --menu-border-highlight 5px solid #f3f4f6
   --option-background-color #ece9ec
   --option-background--hover-color #cccccc
-  --avatar-background #505050
+  --avatar-background #3a3a3a
   --avatar-image-clip-path-bilibiliwiki-only circle(46%)
+
+@keyframes first
+  from
+    opacity 0
 
 html
   font-size 40px
+  animation first 0.8s
   scrollbar-width none
 
   &::-webkit-scrollbar
@@ -53,14 +58,6 @@ img
   background #545454
 
 #app
-  display flex
-  justify-content center
-  align-items center
-  overflow hidden
-  width 100vw
-  width var(--window-w)
-  height 100vh
-  height var(--window-h)
   background url('@/assets/images/主背景.webp')
   background-position center
   background-size cover
@@ -68,9 +65,6 @@ img
 .del
   transition opacity 0.2s
   user-select none
-
-.win-btn
-  width 600px
 
 .grabbing
   *
@@ -82,35 +76,19 @@ img
 .fade-in-enter-from
   opacity 0
 
-.fade-out-leave-active
-  transition opacity 0.5s 1s linear
+.slide-left-first-enter-active
+  transition all 0.5s
+  transition-delay 0.3s
 
-.fade-out-leave-to
-  opacity 0
-
-.fade-enter-active
-.fade-leave-active
-  transition all 0.2s
-
-.fade-enter-from
-.fade-leave-to
-  opacity 0
-
-.fade-enter-to
-.fade-leave-from
-  opacity 1
-
-.slide-left-enter-active
-  transition all 0.5s ease-out
-
-.slide-left-enter-from
+.slide-left-first-enter-from
   opacity 0
   transform translateX(50%)
 
-.slide-right-enter-active
-  transition all 0.5s ease-out
+.slide-right-first-enter-active
+  transition all 0.5s
+  transition-delay 0.3s
 
-.slide-right-enter-from
+.slide-right-first-enter-from
   opacity 0
   transform translateX(-50%)
 

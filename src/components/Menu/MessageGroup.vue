@@ -67,15 +67,14 @@
 </template>
 
 <script lang="ts" setup>
-import { message } from '@/store/message'
-import { setting } from '@/store/setting'
-import Icon from '../Common/Icon.vue'
 import avatar_0 from '@/assets/images/avatar/一家人.webp'
 import avatar_1 from '@/assets/images/avatar/私聊.webp'
 import avatar_2 from '@/assets/images/avatar/群聊.webp'
-import { getAssets } from '@/assets/scripts/preload'
-import { openWindow } from '@/assets/scripts/popup'
+import { popupManager } from '@/assets/scripts/popup'
 import { emoticonClose } from '@/components/Message/Emoticon'
+import { message } from '@/store/message'
+import { setting } from '@/store/setting'
+import Icon from '../Common/Icon.vue'
 
 const props = defineProps<{
   title?: string
@@ -163,7 +162,7 @@ const deleteMessage = (index: number) => {
 const handleDelClick = (index: number, length: number) => {
   emoticonClose()
   if (length > 0) {
-    openWindow('confirm', {
+    popupManager.open('confirm', {
       title: '删除短信',
       text: ['是否删除该短信？'],
       fn: () => {
@@ -183,12 +182,12 @@ const getFirstAvatar = (list: MessageListItem) => {
 }
 
 const avatarUrl = computed(() => {
-  if (props.title === '星穹列车一家人') return getAssets(avatar_0).value
+  if (props.title === '星穹列车一家人') return avatar_0
   if (props.title) {
-    if (props.num > 1) return getAssets(avatar_2).value
-    return getFirstAvatar(props.list[0]) || getAssets(avatar_1).value
+    if (props.num > 1) return avatar_2
+    return getFirstAvatar(props.list[0]) || avatar_1
   } else {
-    return getAssets(avatar_2).value
+    return avatar_2
   }
 })
 </script>

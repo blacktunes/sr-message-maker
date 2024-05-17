@@ -66,8 +66,8 @@ $border-color = #b9babf
   user-select none
 
   .circle
-    //倒影
-    //-webkit-box-reflect below 5px linear-gradient(transparent, rgba(0, 0, 0, 0.1))
+    // 倒影
+    // -webkit-box-reflect below 5px linear-gradient(transparent, rgba(0, 0, 0, 0.1))
     position relative
     display flex
     justify-content center
@@ -168,6 +168,8 @@ $border-color = #b9babf
     .name
       position absolute
       bottom -65px
+      overflow hidden
+      max-width 600px
       color v-bind(color)
       text-overflow ellipsis
       white-space nowrap

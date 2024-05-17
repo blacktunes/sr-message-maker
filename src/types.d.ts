@@ -66,6 +66,7 @@ interface Emoticon {
   name?: string
   title: string
   url: string
+  error?: boolean
 }
 
 interface UserAvatar {

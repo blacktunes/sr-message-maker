@@ -11,7 +11,7 @@
     </div>
     <div
       class="avatar"
-      @click.stop=";[emoticonClose(), openWindow('avatar')]"
+      @click.stop=";[emoticonClose(), popupManager.open('avatar')]"
       title="修改头像"
     >
       <img
@@ -25,12 +25,12 @@
 <script lang="ts" setup>
 import { setName, setting } from '@/store/setting'
 import { userData } from '@/store/avatar'
-import { openWindow } from '@/assets/scripts/popup'
+import { popupManager } from '@/assets/scripts/popup'
 import { emoticonClose } from '@/components/Message/Emoticon'
 
 const handleNameClick = async () => {
   emoticonClose()
-  const name = await openWindow('input', {
+  const name = await popupManager.open('input', {
     title: '修改昵称',
     tip: '建议不要使用过长的昵称',
     required: false,

@@ -8,21 +8,21 @@
         <Transition name="fade">
           <div
             class="green"
-            v-show="isGreenScreen"
+            v-show="setting.green"
           ></div>
         </Transition>
         <div
           class="green-btn"
           title="切换背景"
           @click.stop="toggleGreenScreen"
-          :class="{ highlight: isGreenScreen }"
+          :class="{ highlight: setting.green }"
         >
           <Icon name="green" />
         </div>
       </div>
     </Transition>
     <Transition
-      :name="isGreenScreen ? 'preview-delay' : 'preview'"
+      :name="setting.green ? 'preview-delay' : 'preview'"
       appear
     >
       <MessageBox
@@ -71,15 +71,15 @@
 
 <script lang="ts" setup>
 import { emitter } from '@/assets/scripts/event'
-import { screenshot } from '@/assets/scripts/screenshot'
-import { messageIndex, currentMessage } from '@/store/message'
-import { setting } from '@/store/setting'
+import { popupManager } from '@/assets/scripts/popup'
 import { autoPlay } from '@/store/autoPlay'
+import { currentMessage, messageIndex } from '@/store/message'
+import { setting } from '@/store/setting'
+import { screenshot } from 'star-rail-vue'
 import Icon from './Common/Icon.vue'
 import { info, scrollToBottom, title } from './Message/Message'
 import MessageBox from './Message/MessageBox.vue'
 import MessageItem from './Message/MessageItem.vue'
-import { closeWindow, isLoading, openWindow } from '@/assets/scripts/popup'
 
 const boxRef = ref<InstanceType<typeof MessageBox>>()
 
@@ -124,7 +124,6 @@ let timer: number
 emitter.on('autoplay', () => {
   if (autoPlay.flag) return
 
-  isGreenScreen.value = JSON.parse(localStorage.getItem('sr-message-screen') || 'false')
   setting.preview = true
   reset()
   autoPlay.flag = true
@@ -243,25 +242,35 @@ const stopPlay = () => {
 }
 
 emitter.on('screenshot', () => {
-  if (isLoading()) return
+  if (popupManager.isLoading()) return
   reset()
 
-  isGreenScreen.value = false
   setting.preview = true
-  openWindow('loading')
-  nextTick(async () => {
+  popupManager.open('loading')
+  nextTick(() => {
     if (boxRef.value?.boxDom && boxRef.value?.listDom && setting.preview) {
-      await screenshot(boxRef.value.boxDom, undefined, boxRef.value.listDom.scrollHeight + 185)
+      screenshot(boxRef.value.boxDom, {
+        height: boxRef.value.listDom.scrollHeight + 185,
+        download: setting.download
+      })
+        .catch(() => {
+          popupManager.open('confirm', {
+            title: '图片保存异常',
+            text: ['可能是浏览器拦截了新窗口'],
+            tip: '请尝试在设置中切换下载模式'
+          })
+        })
+        .finally(() => {
+          setTimeout(() => {
+            popupManager.close('loading')
+          }, 1000)
+        })
     }
-    closeWindow('loading')
   })
 })
 
-const isGreenScreen = ref(false)
-isGreenScreen.value = JSON.parse(localStorage.getItem('sr-message-screen') || 'false')
 const toggleGreenScreen = () => {
-  isGreenScreen.value = !isGreenScreen.value
-  localStorage.setItem('sr-message-screen', JSON.stringify(isGreenScreen.value))
+  setting.green = !setting.green
 }
 </script>
 

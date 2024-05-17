@@ -5,77 +5,97 @@
       @close="close"
     >
       <div class="data">
-        <div class="info">
-          <div>当前短信ID: {{ setting.index || '-' }}</div>
-          <div style="margin-top: 20px">短信数量: {{ message.list.length }}{{ messageUsage }}</div>
-          <div>消息数量: {{ messageNum }}</div>
-          <div>自定义角色数量: {{ Object.keys(character.custom).length }}{{ characterUsage }}</div>
-          <div>自定义头像数量: {{ avatar.custom.length }}{{ customAvatarUsage }}</div>
+        <div class="box">
+          <div class="info">
+            <span class="label">短信数</span>
+            <span class="value">{{ message.list.length }}{{ messageUsage }}</span>
+          </div>
+          <div
+            class="info"
+            style="border-top: none"
+          >
+            <span class="label">消息数</span>
+            <span class="value">{{ messageNum }}</span>
+          </div>
+          <div class="btn-group">
+            <div
+              class="btn"
+              :class="{ disable: !hasData }"
+              @click="downloadAllMessage"
+            >
+              导出
+            </div>
+            <div
+              class="btn"
+              @click="uploadDate"
+            >
+              导入
+            </div>
+            <div
+              class="btn"
+              :class="{ disable: !hasData }"
+              @click="deleteData"
+            >
+              删除
+            </div>
+          </div>
         </div>
         <div class="box">
-          <Btn
-            class="btn"
-            name="导出当前短信"
-            :disable="!setting.index"
-            @click="downloadMessage"
-          />
-          <Btn
-            class="btn"
-            name="导出全部短信"
-            :disable="!hasData"
-            @click="downloadAllMessage"
-          />
-          <Btn
-            class="btn"
-            name="导入短信数据"
-            @click="uploadDate"
-          />
-          <Btn
-            class="btn"
-            name="删除所有短信"
-            :disable="!hasData"
-            @click="deleteData"
-          />
-          <div class="line"></div>
-          <Btn
-            class="btn"
-            name="导出自定义角色"
-            :disable="!hasCharacter"
-            @click="downloadCharacter"
-          />
-          <Btn
-            class="btn"
-            name="导入自定义角色"
-            @click="uploadCharacter"
-          />
-          <Btn
-            class="btn"
-            name="删除自定义角色"
-            :disable="!hasCharacter"
-            @click="deleteCharacter"
-          />
-          <div class="line"></div>
-          <Btn
-            class="btn"
-            name="重置数据库"
-            @click="reserDatabase"
-          />
+          <div class="info">
+            <span class="label">自定义角色</span>
+            <span class="value"
+              >{{ Object.keys(character.custom).length }}{{ characterUsage }}</span
+            >
+          </div>
+          <div class="btn-group">
+            <div
+              class="btn"
+              :class="{ disable: !hasCharacter }"
+              @click="downloadCharacter"
+            >
+              导出
+            </div>
+            <div
+              class="btn"
+              @click="uploadCharacter"
+            >
+              导入
+            </div>
+            <div
+              class="btn"
+              :class="{ disable: !hasCharacter }"
+              @click="deleteCharacter"
+            >
+              删除
+            </div>
+          </div>
+        </div>
+        <div class="box">
+          <div class="info">
+            <span class="label">自定义头像</span>
+            <span class="value">{{ avatar.custom.length }}{{ customAvatarUsage }}</span>
+          </div>
         </div>
       </div>
+      <template #footer>
+        <Btn
+          class="btn"
+          name="重置数据库"
+          @click="reserDatabase"
+        />
+      </template>
     </Window>
   </Popup>
 </template>
 
 <script lang="ts" setup>
-import Popup from '@/components/Common/Popup.vue'
-import Window from '@/components/Common/Window.vue'
-import Btn from '@/components/Common/Btn.vue'
+import { Btn, Popup, Window } from 'star-rail-vue'
 import { currentMessage, message } from '@/store/message'
 import { setting } from '@/store/setting'
 import { character } from '@/store/character'
 import { zhLocale, setLocale, Parameter } from '@ckpack/parameter'
 import { avatar } from '@/store/avatar'
-import { openWindow } from '@/assets/scripts/popup'
+import { popupManager } from '@/assets/scripts/popup'
 import { compressToUint8Array, decompressFromUint8Array } from 'lz-string'
 
 const props = defineProps<{
@@ -223,12 +243,6 @@ const dataRule = {
 
 const hasData = computed(() => message.list.length > 0)
 
-const downloadMessage = () => {
-  if (!setting.index || !currentMessage.value) return
-
-  downloadData([toRaw(currentMessage.value)], Accept.message)
-}
-
 const downloadAllMessage = () => {
   if (!hasData.value) return
 
@@ -263,19 +277,19 @@ const uploadDate = async () => {
               }
             }
             if (num === 0) {
-              openWindow('confirm', {
+              popupManager.open('confirm', {
                 title: '短信导入失败',
                 text: ['请检查文件格式是否正确']
               })
             } else if (num < data.length) {
-              openWindow('confirm', {
+              popupManager.open('confirm', {
                 title: '短信导入失败',
                 text: ['部分短信导入失败', '请检查文件格式是否正确']
               })
             }
             updateMessageUsage()
           } catch (err) {
-            openWindow('confirm', {
+            popupManager.open('confirm', {
               title: '短信导入失败',
               text: [String(err)]
             })
@@ -291,7 +305,7 @@ const uploadDate = async () => {
 const deleteData = () => {
   if (!hasData.value) return
 
-  openWindow('confirm', {
+  popupManager.open('confirm', {
     title: '删除短信',
     text: ['确定删除所有短信吗？'],
     fn: () => {
@@ -351,19 +365,19 @@ const uploadCharacter = async () => {
               }
             }
             if (num === 0) {
-              openWindow('confirm', {
+              popupManager.open('confirm', {
                 title: '自定义导角色入失败',
                 text: ['请检查文件格式是否正确']
               })
             } else if (num < Object.keys(data).length) {
-              openWindow('confirm', {
+              popupManager.open('confirm', {
                 title: '自定义导角色入失败',
                 text: ['部分自定义导角色入失败', '请检查文件格式是否正确']
               })
             }
             updateCharacterUsage()
           } catch (err) {
-            openWindow('confirm', {
+            popupManager.open('confirm', {
               title: '自定义导角色入失败',
               text: [String(err)]
             })
@@ -378,7 +392,7 @@ const uploadCharacter = async () => {
 const deleteCharacter = () => {
   if (!hasCharacter.value) return
 
-  openWindow('confirm', {
+  popupManager.open('confirm', {
     title: '删除角色',
     text: ['确定删除所有自定义角色吗？'],
     fn: () => {
@@ -391,12 +405,12 @@ const deleteCharacter = () => {
 }
 
 const reserDatabase = () => {
-  openWindow('confirm', {
+  popupManager.open('confirm', {
     title: '重置数据库',
     tip: '该操作会清除所有短信/头像/自定义角色',
     text: ['确定重置数据库吗？'],
     fn: () => {
-      openWindow('loading')
+      popupManager.open('loading')
       const request = indexedDB.deleteDatabase('sr-message-v2')
       request.onblocked = () => {
         location.reload()
@@ -411,41 +425,73 @@ const reserDatabase = () => {
 
 <style lang="stylus" scoped>
 .data
-  margin 40px 0
+  display flex
+  flex-direction column
+  margin 40px 0 60px
   width 1000px
-
-  .info
-    margin-bottom 40px
-    padding 30px 50px
-    border 2px solid rgba(0, 0, 0, 0.2)
-    border-radius 10px
-    font-size 36px
+  gap 30px
 
   .box
+    box-sizing border-box
+    border 4px solid rgba(0, 0, 0, 0.2)
+
+  .info
+    display flex
+    justify-content space-between
+    align-items center
+    box-sizing border-box
     width 100%
+    height 100px
+    border-bottom 2px solid rgba(0, 0, 0, 0.2)
+    font-size 36px
+
+    &:last-child
+      border-bottom none
+
+    .label
+      display flex
+      flex 0 0 33.33%
+      justify-content center
+      align-items center
+      height 100%
+      border-right 2px solid rgba(0, 0, 0, 0.2)
+
+    .value
+      flex 1
+      padding 0 50px
+      color #333
+
+  .btn-group
+    display flex
+    justify-content space-between
+    align-items center
+    box-sizing border-box
+    width 100%
+    height 100px
+    border 2px solid rgba(0, 0, 0, 0)
 
     .btn
-      margin 10px 0 0
-      height 100px
-      font-size 42px
+      display flex
+      flex 0 0 calc(33.33% + 1px)
+      justify-content center
+      align-items center
+      box-sizing border-box
+      height 100%
+      border-right 2px solid rgba(0, 0, 0, 0.2)
+      color #333
+      user-select none
 
-    :deep(.disable)
-      border none !important
+      &:last-child
+        border-right none
 
-      &:before
-        display block !important
+      &:hover
+        background #ddd
 
-  &:before
-    display none
+.line
+  width 100%
+  height 30px
 
-    .line
-      margin 20px 0
-      width 100%
-      border-bottom 5px solid rgba(150, 150, 150, 0.5)
-
-  .tip
-    text-align center
-    font-weight bold
-    font-size 28px
-    user-select none
+.disable
+  color rgba(0, 0, 0, 0.2) !important
+  pointer-events none
 </style>

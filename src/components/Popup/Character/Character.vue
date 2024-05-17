@@ -118,18 +118,18 @@
 </template>
 
 <script lang="ts" setup>
-import Popup from '@/components/Common/Popup.vue'
+import { getAvatarBase64 } from '@/assets/scripts/avatar'
+import { popupManager } from '@/assets/scripts/popup'
 import CharacterCard from '@/components/Character/CharacterCard.vue'
 import Icon from '@/components/Common/Icon.vue'
-import { avatarData } from '@/components/Popup/Avatar'
-import { getCharaterAvatar } from '@/assets/scripts/avatar'
-import { character } from '@/store/character'
+import { data as avatarData } from '@/components/Popup/Avatar/data'
 import { userData } from '@/store/avatar'
+import { character } from '@/store/character'
 import { input } from '@/store/input'
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
-import { openWindow } from '@/assets/scripts/popup'
-import { characterData } from './'
+import { Popup } from 'star-rail-vue'
+import { data } from './data'
 
 const game = ref<HTMLElement | null>(null)
 const other = ref<HTMLElement | null>(null)
@@ -207,9 +207,9 @@ const changePage = (page: number) => {
   }
 }
 
-const handlecharacterClick = (key: string, name: string) => {
-  if (characterData.key) {
-    if (characterData.key[0] === -1) {
+const handlecharacterClick = async (key: string, name: string) => {
+  if (data.key) {
+    if (data.key[0] === -1) {
       if (key !== '开拓者') {
         avatarData.index = key
         avatarData.name = name
@@ -218,9 +218,9 @@ const handlecharacterClick = (key: string, name: string) => {
         avatarData.name = setting.name
       }
     } else {
-      message.list[characterData.key[0]].list[characterData.key[1]].key = key
-      message.list[characterData.key[0]].list[characterData.key[1]].name = name
-      message.list[characterData.key[0]].list[characterData.key[1]].avatar = getCharaterAvatar(key)
+      message.list[data.key[0]].list[data.key[1]].key = key
+      message.list[data.key[0]].list[data.key[1]].name = name
+      message.list[data.key[0]].list[data.key[1]].avatar = await getAvatarBase64(key)
     }
   } else {
     input.character.key = key
@@ -230,32 +230,34 @@ const handlecharacterClick = (key: string, name: string) => {
 }
 
 const addCustom = async () => {
-  const name = await openWindow('input', { title: '请输入角色名' })
+  const name = await popupManager.open('input', { title: '请输入角色名' })
   if (name === null) return
 
   const info =
-    (await openWindow('input', {
+    (await popupManager.open('input', {
       title: '请输入角色签名',
       tip: '非必要选项',
       required: false
     })) ?? ''
   const key = Date.now()
 
-  openWindow('cropper', {
-    aspectRatio: 1,
-    maxWidth: 500
-  }).then(({ base64 }) => {
-    character.custom[key] = {
-      name,
-      avatar: base64,
-      info,
-      custom: true
-    }
-  })
+  popupManager
+    .open('cropper', {
+      aspectRatio: 1,
+      maxWidth: 500
+    })
+    .then(({ base64 }) => {
+      character.custom[key] = {
+        name,
+        avatar: base64,
+        info,
+        custom: true
+      }
+    })
 }
 
 const handleDelClick = (key: string, name: string) => {
-  openWindow('confirm', {
+  popupManager.open('confirm', {
     title: '删除角色',
     text: [`是否删除${name}？`],
     fn: () => {

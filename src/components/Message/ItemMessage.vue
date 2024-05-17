@@ -71,8 +71,7 @@
           <div
             class="text"
             :contenteditable="!preview"
-            @keydown.enter.prevent.stop="preview ? undefined : blur($event)"
-            @keydown.escape.prevent.stop="preview ? undefined : blur($event)"
+            @keydown="preview ? undefined : blur($event)"
             @blur="preview ? undefined : updateMessage($event)"
           >
             {{ item.text }}
@@ -89,11 +88,11 @@
 </template>
 
 <script lang="ts" setup>
-import Icon from '../Common/Icon.vue'
-import { setting } from '@/store/setting'
-import { autoPlay } from '@/store/autoPlay'
-import { getAvatar } from './Message'
 import { bubbles } from '@/assets/data/bubbles'
+import { autoPlay } from '@/store/autoPlay'
+import { setting } from '@/store/setting'
+import Icon from '../Common/Icon.vue'
+import { blur, getAvatar } from './Message'
 
 defineProps<{
   item: Message
@@ -121,10 +120,6 @@ const getBubbles = (key: string) => {
   return classList
 }
 
-const blur = (e: KeyboardEvent) => {
-  ;(e.target as HTMLInputElement).blur()
-}
-
 const updateMessage = (e: Event) => {
   if (e.target) {
     let text = (e.target as HTMLElement).innerText
@@ -139,7 +134,7 @@ const updateMessage = (e: Event) => {
 
 <style lang="stylus" scoped>
 @import './Message.styl'
-@import './Bubbles.styl'
+@import '../../assets/data/bubbles/style.styl'
 
 $del-pos = -100px
 
@@ -261,9 +256,6 @@ $del-pos = -100px
 
   .avatar
     margin 0 0 0 var(--message-item-avatar-margin) !important
-
-    img
-      background #c3b7a9 !important
 
   .message-item
     align-items flex-end

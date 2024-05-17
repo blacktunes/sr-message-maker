@@ -1,5 +1,8 @@
 <template>
-  <Popup :index="props.index">
+  <Popup
+    :index="props.index"
+    show
+  >
     <Window
       class="window"
       title="更换头像"
@@ -9,7 +12,7 @@
           class="avatar"
           v-for="(item, key) in avatar.game"
           :key="key"
-          :class="{ avatar_highlight: avatarData.index === key }"
+          :class="{ avatar_highlight: data.index === key }"
           @click="onAvatarClick(key)"
         >
           <img
@@ -21,8 +24,8 @@
           class="avatar"
           v-for="(url, key) in avatar.custom"
           :key="key"
-          :class="{ avatar_highlight: avatarData.index === key }"
-          @click="avatarData.index = key"
+          :class="{ avatar_highlight: data.index === key }"
+          @click="data.index = key"
           @contextmenu.prevent.stop="handleDelClick(key)"
         >
           <img
@@ -64,16 +67,14 @@
       </template>
       <template #footer>
         <Btn
-          class="win-btn"
           name="取消"
           type="wrong"
           @click="close"
         />
         <Btn
-          class="win-btn"
           name="确认"
           type="check"
-          :disable="avatarData.index === setting.avatar"
+          :disable="data.index === setting.avatar"
           @click="onBtnClick"
         />
       </template>
@@ -82,20 +83,15 @@
 </template>
 
 <script lang="ts" setup>
-import Popup from '@/components/Common/Popup.vue'
-import Window from '@/components/Common/Window.vue'
-import Btn from '@/components/Common/Btn.vue'
+import defaultAvatar from '@/assets/images/avatar/私聊.webp'
+import { popupManager } from '@/assets/scripts/popup'
 import Icon from '@/components/Common/Icon.vue'
 import Preview from '@/components/Common/Preview.vue'
-import borderUrl from '@/assets/images/avatar/边框.webp'
-import iconUrl from '@/assets/images/avatar/图标.webp'
-import defaultAvatar from '@/assets/images/avatar/私聊.webp'
-import { setAvatar, setName, setting } from '@/store/setting'
-import { character } from '@/store/character'
-import { getAssets } from '@/assets/scripts/preload'
 import { avatar } from '@/store/avatar'
-import { confirmCallback, openWindow } from '@/assets/scripts/popup'
-import { avatarData } from './'
+import { character } from '@/store/character'
+import { setAvatar, setName, setting } from '@/store/setting'
+import { Btn, Popup, Window } from 'star-rail-vue'
+import { callback, data } from './data'
 
 const props = defineProps<{
   name: string
@@ -111,84 +107,86 @@ const close = () => {
 }
 
 const avatarName = computed(() => {
-  if (typeof avatarData.index === 'string' && !Number(avatarData.index)) {
-    if (avatarData.index.startsWith('开拓者•星轨')) {
+  if (typeof data.index === 'string' && !Number(data.index)) {
+    if (data.index.startsWith('开拓者•星轨')) {
       return `${setting.name}•星轨`
     }
-    return avatarData.index
+    if (data.index.startsWith('星•') || data.index.startsWith('穹•')) {
+      return data.index.replace(/星|穹/, setting.name)
+    }
+    return data.index
   }
   return ''
 })
 
 const imgUrl = computed(() => {
-  if (typeof avatarData.index === 'string') {
-    if (avatar.game[avatarData.index]) {
-      return avatar.game[avatarData.index].avatar
+  if (typeof data.index === 'string') {
+    if (avatar.game[data.index]) {
+      return avatar.game[data.index].avatar
     }
-    if (character.game[avatarData.index]) {
-      return character.game[avatarData.index].avatar
+    if (character.game[data.index]) {
+      return character.game[data.index].avatar
     }
-    if (character.other[avatarData.index]) {
-      return character.other[avatarData.index].avatar
+    if (character.other[data.index]) {
+      return character.other[data.index].avatar
     }
-    if (character.custom[avatarData.index]) {
-      return character.custom[avatarData.index].avatar || defaultAvatar
+    if (character.custom[data.index]) {
+      return character.custom[data.index].avatar || defaultAvatar
     }
   }
-  if (typeof avatarData.index === 'number') {
-    return avatar.custom[avatarData.index]
+  if (typeof data.index === 'number') {
+    return avatar.custom[data.index]
   }
   return ''
 })
 
 const handleDelClick = (key: number) => {
-  openWindow('confirm', {
+  popupManager.open('confirm', {
     title: '删除头像',
     text: ['是否删除该头像'],
     fn: () => {
       avatar.custom.splice(key, 1)
       if (key === setting.avatar) {
-        avatarData.index = DEFAULT_AVATAR
-        setAvatar(avatarData.index)
-      } else if (key === avatarData.index) {
-        avatarData.index = DEFAULT_AVATAR
+        data.index = DEFAULT_AVATAR
+        setAvatar(data.index)
+      } else if (key === data.index) {
+        data.index = DEFAULT_AVATAR
       }
     }
   })
 }
 
 const addCustom = () => {
-  openWindow('cropper', {
-    aspectRatio: 1,
-    maxWidth: 500
-  }).then(({ base64 }) => {
-    avatar.custom.push(base64)
-  })
+  popupManager
+    .open('cropper', {
+      aspectRatio: 1,
+      maxWidth: 500
+    })
+    .then(({ base64 }) => {
+      avatar.custom.push(base64)
+    })
 }
 
 const onAvatarClick = (key: string | number) => {
-  avatarData.name = undefined
-  avatarData.index = key
+  data.name = undefined
+  data.index = key
 }
 
 const onBtnClick = () => {
-  if (setting.avatar === avatarData.index) return false
+  if (setting.avatar === data.index) return false
   close()
-  if (avatarData.name) {
-    setName(avatarData.name)
+  if (data.name) {
+    setName(data.name)
   }
-  setAvatar(avatarData.index)
+  setAvatar(data.index)
   return true
 }
 
-confirmCallback[props.name] = onBtnClick
+callback.confirm = onBtnClick
 
 const changeTOGameCharacter = () => {
-  openWindow('character', [-1, -1])
+  popupManager.open('character', [-1, -1])
 }
-
-const border = computed(() => `url('${getAssets(borderUrl).value}`)
-const icon = computed(() => `url('${getAssets(iconUrl).value}`)
 </script>
 
 <style lang="stylus" scoped>
@@ -278,7 +276,7 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
     width 130%
     height 130%
     border-radius 50%
-    background v-bind(border)
+    background url('@/assets/images/avatar/边框.webp')
     background-size 100%
     content ''
     transform translate(-50%, 50%)
@@ -291,7 +289,7 @@ const icon = computed(() => `url('${getAssets(iconUrl).value}`)
     left 50%
     width 40px
     height 45px
-    background v-bind(icon)
+    background url('@/assets/images/avatar/图标.webp')
     background-size 100%
     background-repeat no-repeat
     content ''

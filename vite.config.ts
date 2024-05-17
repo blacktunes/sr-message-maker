@@ -1,9 +1,10 @@
 import { fileURLToPath, URL } from 'node:url'
 
-import { defineConfig, splitVendorChunkPlugin } from 'vite'
+import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import AutoImport from 'unplugin-auto-import/vite'
+import VueDevTools from 'vite-plugin-vue-devtools'
 import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vitejs.dev/config/
@@ -11,7 +12,7 @@ export default defineConfig({
   define: {
     BUILD_TIME: Date.now(),
     DEFAULT_TEXT: JSON.stringify('愿此行，终抵群星'),
-    DEFAULT_AVATAR: JSON.stringify('星·毁灭')
+    DEFAULT_AVATAR: JSON.stringify('星•毁灭')
   },
   plugins: [
     vue(),
@@ -19,7 +20,7 @@ export default defineConfig({
     AutoImport({
       imports: ['vue']
     }),
-    splitVendorChunkPlugin(),
+    VueDevTools(),
     VitePWA({
       mode: 'production',
       injectRegister: 'auto',
@@ -63,6 +64,13 @@ export default defineConfig({
             options: {
               cacheName: 'image-cache'
             }
+          },
+          {
+            urlPattern: /(.*?)\.(woff2)/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'font-cache'
+            }
           }
         ]
       },
@@ -78,6 +86,7 @@ export default defineConfig({
     }
   },
   build: {
-    assetsInlineLimit: 0
+    assetsInlineLimit: 1024 * 200,
+    chunkSizeWarningLimit: 1024
   }
 })

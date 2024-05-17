@@ -24,8 +24,7 @@
       }"
       @input="emit('update', ($event.target as HTMLInputElement).value)"
       @blur="updateText(($event.target as HTMLInputElement).value)"
-      @keydown.enter.prevent.stop="blur"
-      @keydown.escape.prevent.stop="blur"
+      @keydown="blur"
     />
     <div
       @click="emit('delete')"
@@ -42,6 +41,7 @@
 
 <script lang="ts" setup>
 import Icon from '../Common/Icon.vue'
+import { blur } from './Message'
 
 defineProps<{
   text: string
@@ -56,10 +56,6 @@ const emit = defineEmits<{
 
 const updateText = (text: string) => {
   if (text.length < 1) emit('update', DEFAULT_TEXT)
-}
-
-const blur = (e: KeyboardEvent) => {
-  ;(e.target as HTMLInputElement).blur()
 }
 </script>
 

@@ -4,10 +4,11 @@
       title="字体设置"
       @close="close"
     >
-      <div class="font">
+      <div class="font-wrapper">
         <div class="preview">愿此行，终抵群星</div>
         <div class="font">{{ font }}</div>
-        <div class="line"></div>
+      </div>
+      <template #footer>
         <Btn
           class="btn"
           name="默认字体"
@@ -23,15 +24,14 @@
           name="上传字体"
           @click="setCustomFont"
         />
-      </div>
+      </template>
     </Window>
   </Popup>
 </template>
 
 <script lang="ts" setup>
-import Popup from '@/components/Common/Popup.vue'
-import Window from '@/components/Common/Window.vue'
-import Btn from '@/components/Common/Btn.vue'
+import { popupManager } from '@/assets/scripts/popup'
+import { Btn, Popup, Window } from 'star-rail-vue'
 
 const props = defineProps<{
   name: string
@@ -48,7 +48,7 @@ const close = () => {
 
 const defaultFont = "* { font-family: 'Noto Sans SC'; }"
 
-const getFontName = () => JSON.parse(getComputedStyle(document.body).fontFamily)
+const getFontName = () => getComputedStyle(document.body).fontFamily.replace(/\"/g, '')
 const font = ref(getFontName())
 
 const fontStyle = document.querySelector('style[title=font]')
@@ -57,8 +57,6 @@ const setFont = (text: string) => {
   if (fontStyle) {
     fontStyle.innerHTML = text
     font.value = getFontName()
-  } else {
-    console.warn('字体设置错误')
   }
 }
 
@@ -69,17 +67,23 @@ const resetFont = () => {
 const setCustomFont = async () => {
   const el = document.createElement('input')
   el.type = 'file'
-  el.onchange = () => {
+  el.onchange = async () => {
     if (el.files?.[0]) {
-      const file = new FileReader()
-      file.readAsDataURL(el.files[0])
-      file.onload = (e) => {
-        const fontName = 'CustomFont'
-        const css = `@font-face{font-family:'${fontName}'; src: url('${
-          e.target?.result as string
-        }')}* { font-family: '${fontName}'};`
-        setFont(css)
-      }
+      popupManager.open('loading')
+      setTimeout(() => {
+        if (el.files?.[0]) {
+          const file = new FileReader()
+          file.readAsDataURL(el.files[0])
+          file.onload = async (e) => {
+            const fontName = 'CustomFont'
+            const css = `@font-face{font-family:'${fontName}'; src: url('${
+              e.target?.result as string
+            }')}* { font-family: '${fontName}'};`
+            setFont(css)
+            popupManager.close('loading')
+          }
+        }
+      }, 500)
     }
   }
   el.click()
@@ -87,7 +91,7 @@ const setCustomFont = async () => {
 </script>
 
 <style lang="stylus" scoped>
-.font
+.font-wrapper
   margin 40px 0
 
   .preview
@@ -101,18 +105,10 @@ const setCustomFont = async () => {
   .font
     margin-top 20px
     text-align center
-    font-size 40px
+    font-weight bold
+    font-size 46px
     user-select none
 
-  .btn
-    margin 10px 0 0
-    height 100px
-    font-size 42px
-
-  .line
-    box-sizing border-box
-    margin 30px 0 20px
-    padding 0 10px
-    width 100%
-    border-bottom 3px solid rgba(150, 150, 150, 0.5)
+.btn
+  width 500px
 </style>

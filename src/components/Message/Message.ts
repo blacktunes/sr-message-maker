@@ -4,6 +4,14 @@ import { userData } from '@/store/avatar'
 import { character } from '@/store/character'
 import { currentMessage } from '@/store/message'
 
+export const blur = (e: KeyboardEvent) => {
+  if (e.key === 'Enter' || e.key === 'Escape') {
+    e.preventDefault()
+    e.stopPropagation()
+    ;(e.target as HTMLInputElement).blur()
+  }
+}
+
 const names = computed<[string[], string]>(() => {
   if (!currentMessage.value) return [[], '']
 

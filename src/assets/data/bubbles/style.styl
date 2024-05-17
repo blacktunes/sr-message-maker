@@ -1,4 +1,4 @@
-@import './BubblesImage.styl'
+@import './images.styl'
 
 bubbles()
   .text-box
@@ -54,4 +54,30 @@ bubbles()
 
     .text
       margin 10px 0 20px -5px !important
+      color #fffafb !important
+
+.bubbles-4
+  bubbles()
+
+  .text-box
+    border-image-source $bubbles-4
+    border-image-slice 64 105 85 100 fill
+    border-image-width 85px 105px 85px 100px
+    border-image-outset 45px 75px 10px 85px
+
+    .text
+      margin 20px 0
+      color #fffafb !important
+
+.bubbles-5
+  bubbles()
+
+  .text-box
+    border-image-source $bubbles-5
+    border-image-slice 75 90 60 95 fill
+    border-image-width 75px 85px 60px 95px
+    border-image-outset 25px 85px 10px 70px
+
+    .text
+      margin 30px 0
       color #fffafb !important

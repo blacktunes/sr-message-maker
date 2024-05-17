@@ -1,96 +1,59 @@
 <template>
   <Popup :index="props.index">
-    <Window title="更换对话框">
-      <div class="select">
+    <Window
+      title="其它设置"
+      @close="close"
+    >
+      <div class="data">
         <div
-          class="item"
-          v-for="(item, key) in bubbles"
-          :key="key"
-          :class="{ highlight: index === key }"
-          @click="index = key"
+          class="info"
+          title="切换下载模式"
+          @click="setting.download = !setting.download"
         >
-          <div :class="`bubbles-${key}`">
-            <div class="text-box">
-              <div class="text">你好</div>
-            </div>
+          <div class="text">
+            <span class="label">下载模式</span>
+            <span class="value">{{ setting.download ? '下载图片' : '打开新窗口' }}</span>
+          </div>
+          <Icon
+            name="change"
+            class="icon"
+          />
+        </div>
+        <div
+          class="info"
+          title="切换绿幕"
+          @click="setting.green = !setting.green"
+        >
+          <div class="text">
+            <span class="label">预览背景</span>
+            <span class="value">{{ setting.green ? '绿幕' : '模糊' }}</span>
+          </div>
+          <Icon
+            name="change"
+            class="icon"
+          />
+        </div>
+        <div
+          class="info"
+          title="查看更新日志"
+          @click="popupManager.open('log')"
+        >
+          <div class="text">
+            <span class="label">最后更新</span>
+            <span class="value">{{ Log[0]?.time || '-' }}</span>
           </div>
         </div>
       </div>
-      <template #outside>
-        <div class="other-setting">
-          <div
-            class="setting-btn"
-            title="更新记录"
-            @click.stop="openWindow('log')"
-          >
-            <Icon
-              name="log"
-              width="50"
-              height="50"
-            />
-          </div>
-          <div
-            class="setting-btn"
-            title="字体设置"
-            @click.stop="openWindow('font')"
-          >
-            <Icon
-              name="font"
-              width="60"
-              height="60"
-            />
-          </div>
-          <div
-            class="setting-btn"
-            title="数据管理"
-            @click.stop="openWindow('data')"
-          >
-            <Icon name="data" />
-          </div>
-        </div>
-      </template>
-      <template #left>
-        <Preview :name="name">
-          <div class="preview-text-box">
-            <div :class="`bubbles-${index}`">
-              <div class="text-box">
-                <div class="text">
-                  <span>———</span>
-                  <span>——</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Preview>
-      </template>
-      <template #footer>
-        <Btn
-          class="win-btn"
-          name="取消"
-          type="wrong"
-          @click="close"
-        />
-        <Btn
-          class="win-btn"
-          name="确认"
-          type="check"
-          :disable="index === setting.bubbles"
-          @click="onBtnClick"
-        />
-      </template>
     </Window>
   </Popup>
 </template>
 
 <script lang="ts" setup>
-import Popup from '../Common/Popup.vue'
-import Window from '@/components/Common/Window.vue'
-import Btn from '@/components/Common/Btn.vue'
-import Icon from '@/components/Common/Icon.vue'
-import Preview from '@/components/Common/Preview.vue'
+import { popupManager } from '@/assets/scripts/popup'
 import { setting } from '@/store/setting'
-import { confirmCallback, openWindow } from '@/assets/scripts/popup'
-import { bubbles } from '@/assets/data/bubbles'
+import { Popup, Window } from 'star-rail-vue'
+import Icon from '../Common/Icon.vue'
+import Log from '@/assets/data/log'
 
 const props = defineProps<{
   name: string
@@ -104,156 +67,48 @@ const emits = defineEmits<{
 const close = () => {
   emits('close', props.name)
 }
-
-const index = ref(0)
-
-const nameList = ['次元扑满', '扑满', '泡泡', '毛球', '白色恶魔', '肥大', '扑满侠', '扑神']
-const name = computed(() => {
-  if (index.value === 2) {
-    return nameList[Math.floor(Math.random() * nameList.length)]
-  } else {
-    return bubbles[index.value].name
-  }
-})
-
-watch(
-  () => props.index,
-  () => {
-    if (props.index !== -1) {
-      index.value = setting.bubbles
-    }
-  }
-)
-
-const onBtnClick = () => {
-  if (setting.bubbles === index.value) return false
-  close()
-  setting.bubbles = index.value
-  localStorage.setItem('sr-message-bubbles', JSON.stringify(setting.bubbles))
-  return true
-}
-
-confirmCallback[props.name] = onBtnClick
 </script>
 
 <style lang="stylus" scoped>
-@import '../Message/Message.styl'
-@import '../Message/Bubbles.styl'
+$margin = 40px
 
-.text-box
-  box()
+.data
+  margin 40px 0
+  width 1000px
 
-.preview-text-box
-  .text-box
-    transform scale(0.9)
-
-    .text
-      display flex !important
-      flex-direction column
-
-      span
-        overflow hidden
-        max-width 125px
-        word-break break-all
-        font-weight bold
-        line-height 40px
-
-  .bubbles-0
-    .text
-      padding 25px 40px !important
-
-  .bubbles-1
-  .bubbles-2
-    .text
-      padding 0px !important
-
-  .bubbles-3
-    margin-left 15px
-
-    .text
-      padding 15px 5px !important
-
-.other-setting
-  .setting-btn
+  .info
     display flex
-    justify-content center
+    justify-content space-between
     align-items center
-    box-sizing border-box
-    margin-bottom 30px
-    width 90px
-    height 90px
-    border 5px solid #767479
-    border-radius 50%
-    background rgba(255, 255, 255, 0.8)
-    cursor pointer
-
-    :deep(path)
-      fill #767479
+    margin-bottom 20px
+    border 2px solid rgba(0, 0, 0, 0.2)
+    border-radius 10px
+    font-size 36px
 
     &:hover
-      background #ffffff
+      background #ddd
 
-.select
-  display flex
-  flex-wrap wrap
-  justify-content flex-start
-  overflow-x hidden
-  margin-bottom 30px
-  padding-right 10px
-  width 1200px
-  height 450px
-  user-select none
+      .icon
+        color #333
 
-  .item
-    position relative
-    display flex
-    justify-content center
-    align-items center
-    overflow hidden
-    box-sizing border-box
-    margin 30px 10px 0 0
-    width 385px
-    height 200px
-    border 4px solid #a7a8aa
-    background #c5c6ca
-    cursor pointer
+    .text
+      display flex
+      align-items center
+      height 100px
 
-    &:hover
-      background #d7d7d7
+      .label
+        display flex
+        align-items center
+        padding 0 $margin
+        width 150px
+        height 100%
+        border-right 2px solid rgba(0, 0, 0, 0.2)
 
-    .text-box
-      transform scale(0.8)
+      .value
+        margin 0 $margin
+        color #333
 
-    .bubbles-0
-      .text
-        padding 25px 50px !important
-
-    .bubbles-1
-    .bubbles-2
-      .text
-        padding 1px 8px !important
-
-    .bubbles-3
-      .text
-        padding 10px !important
-
-.highlight
-  border 4px solid #14120d !important
-  cursor auto !important
-
-  &:after
-    position absolute
-    bottom 0
-    left 0
-    display flex
-    justify-content center
-    align-items center
-    width 100%
-    height 38px
-    background #e7c57e
-    content '使用中'
-    font-size 28px
-
-  &:hover
-    background #c5c6ca !important
+    .icon
+      margin-right $margin
+      color #aaa
 </style>

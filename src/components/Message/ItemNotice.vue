@@ -3,8 +3,7 @@
     <Icon name="warn" />
     <span
       :contenteditable="!preview"
-      @keydown.enter.prevent.stop="preview ? undefined : blur($event)"
-      @keydown.escape.prevent.stop="preview ? undefined : blur($event)"
+      @keydow="preview ? undefined : blur($event)"
       @blur="preview ? undefined : updateMessage($event)"
     >
       {{ text }}
@@ -26,6 +25,7 @@
 
 <script lang="ts" setup>
 import Icon from '../Common/Icon.vue'
+import { blur } from './Message'
 
 defineProps<{
   text: string
@@ -36,10 +36,6 @@ const emit = defineEmits<{
   (event: 'update', text: string): void
   (event: 'delete'): void
 }>()
-
-const blur = (e: KeyboardEvent) => {
-  ;(e.target as HTMLInputElement).blur()
-}
 
 const updateMessage = (e: Event) => {
   if (e.target) {
