@@ -142,6 +142,7 @@ $del-pos = -100px
   display flex
   box-sizing border-box
   padding 15px 30px
+  min-height 255px
   height -moz-fit-content
   height fit-content
   item()
