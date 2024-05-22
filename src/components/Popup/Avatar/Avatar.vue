@@ -174,11 +174,11 @@ const onAvatarClick = (key: string | number) => {
 
 const onBtnClick = () => {
   if (setting.avatar === data.index) return false
-  close()
   if (data.name) {
     setName(data.name)
   }
   setAvatar(data.index)
+  close()
   return true
 }
 
