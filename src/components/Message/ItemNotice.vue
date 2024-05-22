@@ -1,29 +1,35 @@
 <template>
-  <div class="notice">
-    <Icon name="warn" />
-    <span
-      :contenteditable="!preview"
-      @keydow="preview ? undefined : blur($event)"
-      @blur="preview ? undefined : updateMessage($event)"
-    >
-      {{ text }}
-    </span>
-    <div v-if="!preview">
-      <div
-        @click="emit('delete')"
-        class="del"
+  <Transition
+    :name="!setting.drag ? 'fade-in' : undefined"
+    appear
+  >
+    <div class="notice">
+      <Icon name="warn" />
+      <span
+        :contenteditable="!preview"
+        @keydow="preview ? undefined : blur($event)"
+        @blur="preview ? undefined : updateMessage($event)"
       >
-        <Icon
-          name="delete"
-          width="30"
-          height="30"
-        />
+        {{ text }}
+      </span>
+      <div v-if="!preview">
+        <div
+          @click="emit('delete')"
+          class="del"
+        >
+          <Icon
+            name="delete"
+            width="30"
+            height="30"
+          />
+        </div>
       </div>
     </div>
-  </div>
+  </Transition>
 </template>
 
 <script lang="ts" setup>
+import { setting } from '@/store/setting'
 import Icon from '../Common/Icon.vue'
 import { blur } from './Message'
 

@@ -1,45 +1,51 @@
 <template>
-  <div class="option">
-    <div
-      @click="emit('select')"
-      class="change"
-    >
-      <Icon
-        v-if="!highlight"
-        name="success"
-        width="50"
-        height="50"
+  <Transition
+    :name="!setting.drag ? 'fade-in' : undefined"
+    appear
+  >
+    <div class="option">
+      <div
+        @click="emit('select')"
+        class="change"
+      >
+        <Icon
+          v-if="!highlight"
+          name="success"
+          width="50"
+          height="50"
+        />
+        <Icon
+          v-else
+          name="fail"
+          width="50"
+          height="50"
+        />
+      </div>
+      <input
+        :value="text"
+        :style="{
+          background: highlight ? 'var(--option-background-hover-color)' : ''
+        }"
+        @input="emit('update', ($event.target as HTMLInputElement).value)"
+        @blur="updateText(($event.target as HTMLInputElement).value)"
+        @keydown="blur"
       />
-      <Icon
-        v-else
-        name="fail"
-        width="50"
-        height="50"
-      />
+      <div
+        @click="emit('delete')"
+        class="del"
+      >
+        <Icon
+          name="delete"
+          width="35"
+          height="35"
+        />
+      </div>
     </div>
-    <input
-      :value="text"
-      :style="{
-        background: highlight ? 'var(--option-background-hover-color)' : ''
-      }"
-      @input="emit('update', ($event.target as HTMLInputElement).value)"
-      @blur="updateText(($event.target as HTMLInputElement).value)"
-      @keydown="blur"
-    />
-    <div
-      @click="emit('delete')"
-      class="del"
-    >
-      <Icon
-        name="delete"
-        width="35"
-        height="35"
-      />
-    </div>
-  </div>
+  </Transition>
 </template>
 
 <script lang="ts" setup>
+import { setting } from '@/store/setting'
 import Icon from '../Common/Icon.vue'
 import { blur } from './Message'
 

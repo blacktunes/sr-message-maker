@@ -291,7 +291,7 @@ $character-item-width = 387px
     align-items center
     padding 20px 65px
     width 90%
-    height 90%
+    height 95%
     background var(--box-background-color)
     cursor default
     message()
@@ -339,6 +339,7 @@ $character-item-width = 387px
           width $character-item-width
           height 645px
           border 5px solid #afafaf
+          color #afafaf
           cursor pointer
 
 .highlight

@@ -47,11 +47,10 @@ export const hotkey = () => {
         break
       // 打开角色选择
       case 'Tab':
-        e.preventDefault()
-        if (currentMessage.value && !popupManager.hasPopup() && !setting.preview) {
-          popupManager.open('character')
+        if (popupManager.currentComponent === 'character') {
+          e.preventDefault()
+          popupManager.close('character')
         }
-
         break
       case 'Enter':
         if (autoPlay.flag) {
