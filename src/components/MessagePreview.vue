@@ -160,7 +160,6 @@ const next = (i: number, loading: boolean) => {
     optionIndex = i + 1
     autoPlay.option.push(currentMessage.value.list[i])
     if (currentMessage.value.list[optionIndex] && currentMessage.value.list[optionIndex].option) {
-      autoPlayIndex = optionIndex
       next(optionIndex, true)
     }
     return
