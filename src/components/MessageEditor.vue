@@ -452,8 +452,13 @@ const getName = (index: number) => {
 const onKeydown = (e: KeyboardEvent) => {
   if (!currentMessage.value) return
 
-  if (e.key === 'Tab' || e.key === 'Escape') {
+  if (e.key === 'Escape') {
     inputFocus(false)
+  } else if (e.key === 'Tab') {
+    e.preventDefault()
+    e.stopPropagation()
+    inputFocus(false)
+    popupManager.open('character')
   } else if (e.key === 'Enter') {
     handleAddClick()
     if (e.ctrlKey) {
