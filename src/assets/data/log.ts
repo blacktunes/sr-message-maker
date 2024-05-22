@@ -1,13 +1,28 @@
 const log: Log[] = [
   {
+    time: '2024-05-22',
+    text: [
+      {
+        text: '头像选择界面增加了单独的按钮用于切换为游戏角色'
+      },
+      {
+        text: '修复切换为游戏角色不会自动修改名字的问题'
+      },
+      {
+        text: '修复中断自动播放时选项内容丢失的问题'
+      },
+      {
+        text: '修复自动播放时Loading动画导致的抖动'
+      }
+    ]
+  },
+  {
     time: '2024-05-17',
     text: [
       {
         text: '重构框架',
-        info: [
-          '将大部分通用组件拆分到npm包<a href="https://www.npmjs.com/package/star-rail-vue" trage="_blank">star-rail-vue</a>',
-          '如出现功能异常请及时联系修复'
-        ],
+        info: '将大部分通用组件拆分到单独的组件库<a href="https://www.npmjs.com/package/star-rail-vue" target="_blank">star-rail-vue</a>',
+
         highlight: true
       },
       {
