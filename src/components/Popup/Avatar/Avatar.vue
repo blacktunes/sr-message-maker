@@ -9,46 +9,68 @@
     >
       <div class="list">
         <div
-          class="avatar"
+          class="avatar-wrapper"
           v-for="(item, key) in avatar.game"
           :key="key"
-          :class="{ avatar_highlight: data.index === key }"
-          @click="onAvatarClick(key)"
         >
-          <img
-            :src="item.avatar"
-            alt=""
-          />
-        </div>
-        <div
-          class="avatar"
-          v-for="(url, key) in avatar.custom"
-          :key="key"
-          :class="{ avatar_highlight: data.index === key }"
-          @click="data.index = key"
-          @contextmenu.prevent.stop="handleDelClick(key)"
-        >
-          <img
-            :src="url"
-            alt=""
-          />
           <div
-            class="del"
-            @click.stop="handleDelClick(key)"
+            class="avatar"
+            :class="{ avatar_highlight: data.index === key }"
+            @click="onAvatarClick(key)"
           >
-            <Icon
-              name="delete"
-              width="25"
-              height="25"
+            <img
+              :src="item.avatar"
+              alt=""
             />
           </div>
         </div>
         <div
-          class="add"
-          title="上传头像"
-          @click.stop="addCustom"
+          class="avatar-wrapper"
+          v-for="(url, key) in avatar.custom"
+          :key="key"
         >
-          <Icon name="add" />
+          <div
+            class="avatar"
+            :class="{ avatar_highlight: data.index === key }"
+            @click="data.index = key"
+            @contextmenu.prevent.stop="handleDelClick(key)"
+          >
+            <img
+              :src="url"
+              alt=""
+            />
+            <div
+              class="del"
+              @click.stop="handleDelClick(key)"
+            >
+              <Icon
+                name="delete"
+                width="25"
+                height="25"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="avatar-wrapper">
+          <div
+            class="btn"
+            :class="{ avatar_highlight: isGameCharacter }"
+            title="切换为游戏角色"
+            @click.stop="changeToGameCharacter"
+          >
+            <Icon name="character" />
+            <div class="border"></div>
+          </div>
+        </div>
+        <div class="avatar-wrapper">
+          <div
+            class="btn"
+            title="上传头像"
+            @click.stop="addCustom"
+          >
+            <Icon name="add" />
+            <div class="border"></div>
+          </div>
         </div>
       </div>
       <template #left>
@@ -62,7 +84,6 @@
           font-size="40px"
           title="切换为游戏角色"
           circle
-          @click="changeTOGameCharacter"
         />
       </template>
       <template #footer>
@@ -75,7 +96,7 @@
           name="确认"
           type="check"
           :disable="data.index === setting.avatar"
-          @click="onBtnClick"
+          @click="onConfirmClick"
         />
       </template>
     </Window>
@@ -105,6 +126,10 @@ const emits = defineEmits<{
 const close = () => {
   emits('close', props.name)
 }
+
+const isGameCharacter = computed(
+  () => character.game[data.index] || character.other[data.index] || character.custom[data.index]
+)
 
 const avatarName = computed(() => {
   if (typeof data.index === 'string' && !Number(data.index)) {
@@ -172,7 +197,7 @@ const onAvatarClick = (key: string | number) => {
   data.index = key
 }
 
-const onBtnClick = () => {
+const onConfirmClick = () => {
   if (setting.avatar === data.index) return false
   if (data.name) {
     setName(data.name)
@@ -182,9 +207,9 @@ const onBtnClick = () => {
   return true
 }
 
-callback.confirm = onBtnClick
+callback.confirm = onConfirmClick
 
-const changeTOGameCharacter = () => {
+const changeToGameCharacter = () => {
   popupManager.open('character', [-1, -1])
 }
 </script>
@@ -195,15 +220,12 @@ const changeTOGameCharacter = () => {
     margin 10px 80px !important
     max-height unset !important
 
-  :deep(.img_circle)
-    &:hover
-      filter brightness(1.05)
-
   :deep(.content)
     mask-image linear-gradient(to bottom, #000 calc(100% - 60px), transparent), linear-gradient(to left, black, transparent 50px) !important
 
+$border-width = 4px
+
 .list
-  $border-width = 4px
   display flex
   flex-wrap wrap
   justify-content flex-start
@@ -213,10 +235,17 @@ const changeTOGameCharacter = () => {
   height 520px
   user-select none
 
+  .avatar-wrapper
+    overflow hidden
+    margin-top -10px
+    margin-left -10px
+    width 235px
+    height 235px
+
   .avatar
-  .add
+  .btn
     box-sizing border-box
-    margin 30px 25px 5px 15px
+    margin 25px
     width 190px
     height 190px
     border $border-width solid transparent
@@ -255,12 +284,23 @@ const changeTOGameCharacter = () => {
       &:hover
         opacity 1
 
-  .add
+  .btn
+    position relative
     display flex
     justify-content center
     align-items center
-    border 8px solid #afafaf
-    cursor pointer
+    background #c3b7a9
+    color #e4e5e4
+    cursor pointer !important
+
+    .border
+      position absolute
+      top 2px
+      right 2px
+      bottom 2px
+      left 2px
+      border 3px solid #e4e5e4
+      border-radius 50%
 
 .avatar_highlight
   border-color #fff !important
