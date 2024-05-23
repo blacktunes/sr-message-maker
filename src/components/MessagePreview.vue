@@ -46,7 +46,9 @@
         <template #bottom>
           <Transition
             name="option"
-            @after-enter="onOptionShow"
+            @before-enter="beforeOptionShow"
+            @after-enter="afterOptionShow"
+            @after-leave="afterOptionHide"
           >
             <div
               class="option-box"
@@ -135,16 +137,46 @@ emitter.on('autoplay', () => {
   }, 1000)
 })
 
-const onOptionShow = () => {
-  scrollToBottom(boxRef.value?.listDom, true)
+let shouldRefresh: boolean = false
+let selectOption: Message | undefined
+
+const refresh = () => {
+  scrollToBottom(boxRef.value?.listDom, false)
+  if (shouldRefresh) {
+    requestAnimationFrame(refresh)
+  }
+}
+
+const beforeOptionShow = () => {
+  shouldRefresh = true
+  selectOption = undefined
+  requestAnimationFrame(refresh)
+}
+
+const afterOptionShow = () => {
+  shouldRefresh = false
+}
+
+const afterOptionHide = () => {
+  if (!autoPlay.flag) return
+  if (selectOption) {
+    autoPlay.list.push({ ...selectOption, option: undefined })
+  }
+  nextTick(() => {
+    selectOption = undefined
+    autoPlayIndex = optionIndex - 1
+    scrollToBottom(boxRef.value?.listDom)
+
+    clearTimeout(timer)
+    timer = setTimeout(() => {
+      next(optionIndex, true)
+    }, 1500)
+  })
 }
 
 const handleOptionClick = (item: Message) => {
   autoPlay.option = []
-  autoPlay.list.push({ ...item, option: undefined })
-  setTimeout(() => {
-    next(optionIndex, true)
-  }, 1500)
+  selectOption = item
 }
 
 const next = (i: number, loading: boolean) => {
@@ -339,7 +371,7 @@ const toggleGreenScreen = () => {
   .option-box
     z-index 9
     overflow-y auto
-    padding 10px 50px
+    padding 20px 50px
     height 90px * 3 + 20px * 4
     border-top var(--menu-border-hover)
     background var(--message-menu-background-color)
@@ -359,16 +391,15 @@ const toggleGreenScreen = () => {
       user-select none
 
 .option-enter-active
-  transition all 0.25s
+  transition height 0.25s, opacity 0.75s
 
 .option-leave-active
   transition all 0.15s
 
 .option-enter-from
-  height 0 !important
-
 .option-leave-to
-  opacity 0
+  height 0 !important
+  opacity 0 !important
 
 .preview-enter-active
   transition all 0.3s
