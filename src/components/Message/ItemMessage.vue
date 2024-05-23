@@ -71,7 +71,7 @@
           <div
             class="text"
             :contenteditable="!preview"
-            @keydown="preview ? undefined : blur($event)"
+            @keydown="preview ? undefined : onKeydown($event)"
             @blur="preview ? undefined : updateMessage($event)"
           >
             {{ item.text }}
@@ -92,7 +92,7 @@ import { bubbles } from '@/assets/data/bubbles'
 import { autoPlay } from '@/store/autoPlay'
 import { setting } from '@/store/setting'
 import Icon from '../Common/Icon.vue'
-import { blur, getAvatar } from './Message'
+import { onKeydown, getAvatar } from './Message'
 
 defineProps<{
   item: Message

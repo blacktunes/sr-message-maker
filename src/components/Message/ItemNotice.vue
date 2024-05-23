@@ -7,7 +7,7 @@
       <Icon name="warn" />
       <span
         :contenteditable="!preview"
-        @keydow="preview ? undefined : blur($event)"
+        @keydow="preview ? undefined : onKeydown($event)"
         @blur="preview ? undefined : updateMessage($event)"
       >
         {{ text }}
@@ -31,7 +31,7 @@
 <script lang="ts" setup>
 import { setting } from '@/store/setting'
 import Icon from '../Common/Icon.vue'
-import { blur } from './Message'
+import { onKeydown } from './Message'
 
 defineProps<{
   text: string

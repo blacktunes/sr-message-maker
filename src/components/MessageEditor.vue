@@ -173,7 +173,7 @@ watch(messageIndex, () => {
     setting.index = undefined
   } else {
     nextTick(() => {
-      scrollToBottom(boxRef.value?.listDom, true)
+      scrollToBottom(boxRef.value?.listDom, false)
       boxRef.value?.updateArrow()
       inputFocus()
     })

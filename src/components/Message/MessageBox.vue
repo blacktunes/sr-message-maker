@@ -34,7 +34,7 @@
               v-else
               class="title"
               :value="title"
-              @keydown="blur"
+              @keydown="onKeydown"
               @focus="getTitle"
               @blur="updateTitle"
             />
@@ -66,7 +66,7 @@
 
 <script lang="ts" setup>
 import Icon from '../Common/Icon.vue'
-import { blur } from './Message'
+import { onKeydown } from './Message'
 
 defineProps<{
   index: number
