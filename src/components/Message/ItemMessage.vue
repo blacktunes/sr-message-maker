@@ -71,7 +71,7 @@
           <div
             class="text"
             :contenteditable="!preview"
-            @keydown="preview ? undefined : blur($event)"
+            @keydown="preview ? undefined : onKeydown($event)"
             @blur="preview ? undefined : updateMessage($event)"
           >
             {{ item.text }}
@@ -92,7 +92,7 @@ import { bubbles } from '@/assets/data/bubbles'
 import { autoPlay } from '@/store/autoPlay'
 import { setting } from '@/store/setting'
 import Icon from '../Common/Icon.vue'
-import { blur, getAvatar } from './Message'
+import { onKeydown, getAvatar } from './Message'
 
 defineProps<{
   item: Message
@@ -142,7 +142,6 @@ $del-pos = -100px
   display flex
   box-sizing border-box
   padding 15px 30px
-  min-height 255px
   height -moz-fit-content
   height fit-content
   item()
@@ -171,6 +170,7 @@ $del-pos = -100px
     flex 1
     flex-direction column
     align-items flex-start
+    min-height 225px
     max-width calc(100% - var(--message-item-avatar-width) - var(--message-item-avatar-margin))
 
     .name

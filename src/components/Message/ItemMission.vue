@@ -38,7 +38,7 @@
           :value="text"
           @input="emit('update', ($event.target as HTMLInputElement).value)"
           @blur="updateText(($event.target as HTMLInputElement).value)"
-          @keydown="blur"
+          @keydown="onKeydown"
         />
         <div
           class="state"
@@ -84,7 +84,7 @@ import image_4 from '@/assets/images/mission/开拓续闻.webp'
 import image_3 from '@/assets/images/mission/日常任务.webp'
 import { setting } from '@/store/setting'
 import Icon from '../Common/Icon.vue'
-import { blur } from './Message'
+import { onKeydown } from './Message'
 
 const props = defineProps<{
   text: string

@@ -4,7 +4,7 @@ import { userData } from '@/store/avatar'
 import { character } from '@/store/character'
 import { currentMessage } from '@/store/message'
 
-export const blur = (e: KeyboardEvent) => {
+export const onKeydown = (e: KeyboardEvent) => {
   if (e.key === 'Enter' || e.key === 'Escape') {
     e.preventDefault()
     e.stopPropagation()
@@ -58,12 +58,12 @@ export const getAvatar = (key: string, url: string) => {
   }
 }
 
-export const scrollToBottom = (dom?: HTMLElement | null, smooth?: boolean) => {
+export const scrollToBottom = (dom?: HTMLElement | null, smooth = true) => {
   nextTick(() => {
     if (!dom) return
     dom.scrollTo({
       top: dom.scrollHeight,
-      behavior: smooth ? undefined : 'smooth'
+      behavior: smooth ? 'smooth' : undefined
     })
   })
 }

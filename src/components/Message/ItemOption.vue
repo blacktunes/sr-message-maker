@@ -28,7 +28,7 @@
         }"
         @input="emit('update', ($event.target as HTMLInputElement).value)"
         @blur="updateText(($event.target as HTMLInputElement).value)"
-        @keydown="blur"
+        @keydown="onKeydown"
       />
       <div
         @click="emit('delete')"
@@ -47,7 +47,7 @@
 <script lang="ts" setup>
 import { setting } from '@/store/setting'
 import Icon from '../Common/Icon.vue'
-import { blur } from './Message'
+import { onKeydown } from './Message'
 
 defineProps<{
   text: string
