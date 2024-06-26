@@ -306,6 +306,9 @@ const handleSelectClick = () => {
 emitter.on('focus', () => {
   inputFocus()
 })
+onUnmounted(() => {
+  emitter.off('focus')
+})
 
 const inputFocus = (flag = true) => {
   if (flag) {
