@@ -152,6 +152,12 @@ export const gameAvatar: { [name: string]: UserAvatar } = {
 }
 
 export const gameCharacter: { [name: string]: Character } = {
+  流萤: {
+    name: '流萤',
+    avatar: 'https://patchwiki.biligame.com/images/sr/6/6e/loo8cnidyavnbgut84xmcgth6vdl5a0.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/06/19/276833758/ae84e73eaaa4e95b8ab5bdbf12c98e21_8991682840380807826.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '会找到的，属于我的梦...'
+  },
   知更鸟: {
     name: '知更鸟',
     avatar: 'https://patchwiki.biligame.com/images/sr/4/45/mcybqtbsmow098ik7nu1dq1jmef7bmc.png',
@@ -161,7 +167,8 @@ export const gameCharacter: { [name: string]: Character } = {
   黄泉: {
     name: '黄泉',
     avatar: 'https://patchwiki.biligame.com/images/sr/e/e8/joho8jkwl2caelu155puktvr7qevzmx.png',
-    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/03/27/75216984/c218e57d31059dda7c12c9782d78f8e3_2071613700825001486.png?x-oss-process=image/quality,q_75/resize,s_280'
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/03/27/75216984/c218e57d31059dda7c12c9782d78f8e3_2071613700825001486.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '该启程了。'
   },
   花火: {
     name: '花火',
@@ -245,6 +252,12 @@ export const gameCharacter: { [name: string]: Character } = {
     avatar: 'https://patchwiki.biligame.com/images/sr/7/73/cx1pu6pl7h4z5b5e86fxmb2gfyqewr9.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/4d5ac247ca1460b34b3f73244afbb0f6_8390343856757982675.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: '可以不喝水，但不能没咖啡'
+  },
+  波提欧: {
+    name: '波提欧',
+    avatar: 'https://patchwiki.biligame.com/images/sr/d/da/5wtfcz4garqrmk9k3jbq0vc5x45lgu3.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/05/29/75216984/7c18840c0765e1a88775252a33a42c95_7693135039026362970.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '庇尔波因特标准差事3=1'
   },
   砂金: {
     name: '砂金',

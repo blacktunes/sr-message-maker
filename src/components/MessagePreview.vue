@@ -241,8 +241,6 @@ const next = (i: number, loading: boolean) => {
   })
 }
 
-emitter.on('stopplay', () => stopPlay())
-
 // 取消播放
 const stopPlay = () => {
   clearTimeout(timer)
@@ -271,6 +269,8 @@ const stopPlay = () => {
   autoPlay.list = [...autoPlay.list, ...list]
   scrollToBottom(boxRef.value?.listDom)
 }
+emitter.on('stopplay', stopPlay)
+
 
 emitter.on('screenshot', () => {
   if (popupManager.isLoading()) return
@@ -303,6 +303,12 @@ emitter.on('screenshot', () => {
 const toggleGreenScreen = () => {
   setting.green = !setting.green
 }
+
+onUnmounted(() => {
+  emitter.off('autoplay')
+  emitter.off('stopplay')
+  emitter.off('screenshot')
+})
 </script>
 
 <style lang="stylus" scoped>

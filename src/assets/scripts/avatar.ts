@@ -7,16 +7,15 @@ const avatarToBase64 = async (type: 'game' | 'other', key: string) => {
       character[type][key].avatar = await urlToBase64(character[type][key].avatar, true)
     } catch {}
   }
+  return character[type][key].avatar
 }
 
 export const getAvatarBase64 = async (key: string) => {
   let avatar = ''
   if (character.game[key]) {
-    await avatarToBase64('game', key)
-    avatar = character.game[key].avatar
+    avatar = await avatarToBase64('game', key)
   } else if (character.other[key]) {
-    await avatarToBase64('other', key)
-    avatar = character.other[key].avatar
+    avatar = await avatarToBase64('other', key)
   } else if (character.custom[key]) {
     avatar = character.custom[key].avatar
   }
