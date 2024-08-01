@@ -339,7 +339,7 @@ export const gameCharacter: { [name: string]: Character } = {
     info: '列车组的各位，随时保持联系'
   },
   仙舟三月七: {
-    name: '仙舟三月七',
+    name: '三月七',
     avatar: 'https://patchwiki.biligame.com/images/sr/e/e6/0it2w9hehfp8wqqa2nopfvdk4aj68um.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2024/08/01/279865110/784acf7503244758681fb1bdee0bc321_2566576787451437916.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: '今天也是三月七~'
