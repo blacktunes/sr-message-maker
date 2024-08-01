@@ -5,7 +5,6 @@
       bottom: 100
     }"
     :popup="popupManager"
-    style="margin-top: 15px;"
   >
     <Component
       v-for="(item, index) in components"

@@ -53,7 +53,7 @@
               v-for="(item, key) in character.game"
               :key="`character-${key}`"
               class="character"
-              :name="item.name"
+              :name="key as string"
               :info="item.info"
               :avatar="item.card"
               @click="handlecharacterClick(String(key), item.name)"
