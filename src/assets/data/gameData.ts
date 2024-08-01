@@ -99,7 +99,7 @@ export const gameAvatar: { [name: string]: UserAvatar } = {
     avatar: 'https://patchwiki.biligame.com/images/sr/b/b8/51h1sx6oub1ydwtp9nqsl3ay1mfsqwm.png'
   },
   折纸小鸟: {
-    avatar: 'https://patchwiki.biligame.com/images/sr/9/94/ook8jn1anlv5y0kmhuk4pco0dwrqth0.png'
+    avatar: 'https://patchwiki.biligame.com/images/sr/d/de/ook8jn1anlv5y0kmhuk4pco0dwrqth0.png'
   },
   哈努兄弟: {
     avatar: 'https://patchwiki.biligame.com/images/sr/2/24/homr2vlj3lsvapite4off0ccye3dgmz.png'
@@ -124,6 +124,12 @@ export const gameAvatar: { [name: string]: UserAvatar } = {
   },
   '波提欧•暗袭': {
     avatar: 'https://patchwiki.biligame.com/images/sr/2/28/ttp0fi735kzjhpmcbiginu4ioc54p53.png'
+  },
+  '流萤•愿景': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/4/4a/7r8hgielwdnvkdjzvx910mdr8l4ullo.png'
+  },
+  '装甲「萨姆」•愿景': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/c/cb/jm4y1xm7lq40es6kveytlpiw8i6336t.png'
   },
   '星•毁灭': {
     avatar: 'https://patchwiki.biligame.com/images/sr/5/52/rhgkx12fxucnesllif85tatcmhxqex3.png',
@@ -152,6 +158,18 @@ export const gameAvatar: { [name: string]: UserAvatar } = {
 }
 
 export const gameCharacter: { [name: string]: Character } = {
+  云璃: {
+    name: '云璃',
+    avatar: 'https://patchwiki.biligame.com/images/sr/d/d9/q1kzn8lehteph6x95tlyzjzf9re3ek8.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/08/01/279865110/3e425878bea35e483c93fb2b86abefdd_7738646509174260084.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '(´ ･ ω ･ `)打吗？'
+  },
+  翡翠: {
+    name: '翡翠',
+    avatar: 'https://patchwiki.biligame.com/images/sr/e/ec/4er3t2hcgkmytigzjj4ralmhbn0gwf6.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/07/09/276833758/0a3057537ff4f442b730bb5238073708_326627786697592952.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '欢迎随时光临「慈玉典押」'
+  },
   流萤: {
     name: '流萤',
     avatar: 'https://patchwiki.biligame.com/images/sr/6/6e/loo8cnidyavnbgut84xmcgth6vdl5a0.png',
@@ -319,6 +337,12 @@ export const gameCharacter: { [name: string]: Character } = {
     avatar: 'https://patchwiki.biligame.com/images/sr/8/87/f50frnxnzqgx3lrnqz2f4hjzrlqcfae.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/d5a01ddc0494595417fee74fa3285b56_8110023215605946848.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: '列车组的各位，随时保持联系'
+  },
+  仙舟三月七: {
+    name: '仙舟三月七',
+    avatar: 'https://patchwiki.biligame.com/images/sr/e/e6/0it2w9hehfp8wqqa2nopfvdk4aj68um.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/08/01/279865110/784acf7503244758681fb1bdee0bc321_2566576787451437916.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '今天也是三月七~'
   },
   雪衣: {
     name: '雪衣',

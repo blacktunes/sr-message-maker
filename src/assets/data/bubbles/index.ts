@@ -16,5 +16,8 @@ export const bubbles = reactive([
   },
   {
     name: '影城逐梦记'
+  },
+  {
+    name: '光阴莫负'
   }
 ])
