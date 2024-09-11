@@ -24,8 +24,8 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1
       star-rail-vue:
-        specifier: ^1.2.3
-        version: 1.2.3(typescript@5.6.2)
+        specifier: ^1.2.5
+        version: 1.2.5(typescript@5.6.2)
       super-image-cropper:
         specifier: ^1.0.18
         version: 1.0.18
@@ -2717,8 +2717,8 @@ packages:
   stampit@1.2.0:
     resolution: {integrity: sha512-DzVKo18iiu9dHcs1y/51Th/bOB4qbC5G1mfBcK4/cq2QNxZqExWH6MG9YbXSx96nC293B65pEsC0fT7MKmsGnA==}
 
-  star-rail-vue@1.2.3:
-    resolution: {integrity: sha512-+plgxFtZC2Lw+4So7leq6FCV5VrzoAmksIu6Dk03vUziUx0JAUT41J1hc5eHEdCj3gH/ZI2gsN1uWmyJ6EvLTQ==}
+  star-rail-vue@1.2.5:
+    resolution: {integrity: sha512-1VcEOwkULmLapY79oL772GYkdCvjr0RgKiCWcrgQAFUh168at4dr0vxMFq9sqUimRd0gBFEkdEXOyHxd5H7lew==}
 
   string-width@1.0.2:
     resolution: {integrity: sha512-0XsVpQLnVCXHJfyEs8tC0zpTVIr5PKKsQtkT29IwupnPTjtPmQ3xT/4yCREF9hYkV/3M3kzcUTSAZT6a6h81tw==}
@@ -6066,7 +6066,7 @@ snapshots:
     dependencies:
       mout: 0.5.0
 
-  star-rail-vue@1.2.3(typescript@5.6.2):
+  star-rail-vue@1.2.5(typescript@5.6.2):
     dependencies:
       html-to-image: 1.11.11
       super-image-cropper: 1.0.18
