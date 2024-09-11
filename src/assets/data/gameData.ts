@@ -131,6 +131,12 @@ export const gameAvatar: { [name: string]: UserAvatar } = {
   '装甲「萨姆」•愿景': {
     avatar: 'https://patchwiki.biligame.com/images/sr/c/cb/jm4y1xm7lq40es6kveytlpiw8i6336t.png'
   },
+  '白露•仁医': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/9/96/n8cwjotcubkkv26nabszotfucfu3w7q.png'
+  },
+  '椒丘•仁医': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/0/0f/9pcmt0yp5sxwvdto5crkzxcb9h6p8cz.png'
+  },
   '星•毁灭': {
     avatar: 'https://patchwiki.biligame.com/images/sr/5/52/rhgkx12fxucnesllif85tatcmhxqex3.png',
     card: 星_毁灭_card
@@ -158,6 +164,12 @@ export const gameAvatar: { [name: string]: UserAvatar } = {
 }
 
 export const gameCharacter: { [name: string]: Character } = {
+  飞霄: {
+    name: '飞霄',
+    avatar: 'https://patchwiki.biligame.com/images/sr/d/df/iq1o5mvremm66200xe7a5klm5lb1vc4.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/09/10/279865110/85034b6791292d156fe4c395136320ce_2585409063876523378.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '手痒'
+  },
   云璃: {
     name: '云璃',
     avatar: 'https://patchwiki.biligame.com/images/sr/d/d9/q1kzn8lehteph6x95tlyzjzf9re3ek8.png',
@@ -270,6 +282,12 @@ export const gameCharacter: { [name: string]: Character } = {
     avatar: 'https://patchwiki.biligame.com/images/sr/7/73/cx1pu6pl7h4z5b5e86fxmb2gfyqewr9.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/4d5ac247ca1460b34b3f73244afbb0f6_8390343856757982675.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: '可以不喝水，但不能没咖啡'
+  },
+  椒丘: {
+    name: '椒丘',
+    avatar: 'https://patchwiki.biligame.com/images/sr/e/e0/qaochn30qkct2gzvcop1l7galoy9d63.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/08/21/299598919/93ac3bf5f943aefe2ebb3e331c7fa3e6_882750783069206996.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '没有一顿火锅解决不了的事'
   },
   波提欧: {
     name: '波提欧',
@@ -435,6 +453,12 @@ export const gameCharacter: { [name: string]: Character } = {
       'https://patchwiki.biligame.com/images/sr/thumb/6/62/1onkwhuhwsu88n9hgwma5i7uskfo32x.png/174px-%E4%B8%89%E6%9C%88%E4%B8%83.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/6a4bd3468e9dbd577f26dbf8757f0b03_924968634176225322.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: '今天也是三月七~'
+  },
+  貊泽: {
+    name: '貊泽',
+    avatar: 'https://patchwiki.biligame.com/images/sr/6/61/rkegujumye2mz2bddqhg976ijosbv0k.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/09/10/279865110/cee99b33cd39b3e7ff857ea866e125bf_7507368002936382130.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '没有签名。'
   },
   加拉赫: {
     name: '加拉赫',
