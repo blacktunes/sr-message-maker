@@ -84,14 +84,15 @@
 </table>
 
 ## 相关项目
-- 崩坏:星穹铁道光锥生成网站
+- 崩坏:星穹铁道光锥生生成器
   - https://github.com/blacktunes/sr-light-cone
   - https://light.shenmedouyou.top/
-- 崩坏:星穹铁道罗浮杂俎生成网站
+- 崩坏:星穹铁道罗浮杂俎生生成器
   - https://github.com/blacktunes/sr-ghostly-grove
   - https://ghostly.shenmedouyou.top/
-- 绝区零 - 绳网生成网站
+- 绝区零 - 绳网生生成器
   - https://github.com/blacktunes/interknot
+  - https://interknot.shenmedouyou.top/
 
 ## 支持
-如果你喜欢这个项目，可以给个⭐️或者[请我喝杯柠檬水](https://afdian.net/a/blacktune)
+如果你喜欢这个项目，可以给个⭐️或者[请我喝杯柠檬水](https://afdian.com/a/blacktune)
