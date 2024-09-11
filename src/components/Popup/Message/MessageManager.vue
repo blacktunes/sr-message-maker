@@ -6,41 +6,43 @@
     >
       <div class="config">
         <table class="table">
-          <tr
-            class="line"
-            v-if="currentMessage?.list?.[data.key || -1]?.key !== '开拓者'"
-          >
-            <td class="left">修改昵称</td>
-            <td class="right">
-              <div
-                class="link"
-                @click.stop="handleChangeName"
-              >
-                <span>点击修改</span>
-                <Icon
-                  name="arrow"
-                  class="icon"
-                />
-              </div>
-            </td>
-          </tr>
-          <tr class="line">
-            <td class="left">等待时间</td>
-            <td class="right">
-              <div class="slider">
-                <Slider
-                  class="range"
-                  :min="1"
-                  :max="5"
-                  :step="0.1"
-                  v-model="data.interval"
-                />
-                <span class="text">
-                  {{ data.interval ? data.interval + '秒' : '默认' }}
-                </span>
-              </div>
-            </td>
-          </tr>
+          <tbody>
+            <tr
+              class="line"
+              v-if="currentMessage?.list?.[data.key || -1]?.key !== '开拓者'"
+            >
+              <td class="left">修改昵称</td>
+              <td class="right">
+                <div
+                  class="link"
+                  @click.stop="handleChangeName"
+                >
+                  <span>点击修改</span>
+                  <Icon
+                    name="arrow"
+                    class="icon"
+                  />
+                </div>
+              </td>
+            </tr>
+            <tr class="line">
+              <td class="left">等待时间</td>
+              <td class="right">
+                <div class="slider">
+                  <Slider
+                    class="range"
+                    :min="1"
+                    :max="5"
+                    :step="0.1"
+                    v-model="data.interval"
+                  />
+                  <span class="text">
+                    {{ data.interval ? data.interval + '秒' : '默认' }}
+                  </span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
         </table>
       </div>
       <template #footer>
