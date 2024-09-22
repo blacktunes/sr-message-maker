@@ -1,7 +1,7 @@
 import { emoticonClose } from '@/components/Message/Emoticon'
 import { autoPlay } from '@/store/autoPlay'
 import { addNewMessage, currentMessage } from '@/store/message'
-import { setting } from '@/store/setting'
+import { state } from '@/store/setting'
 import { emitter } from './event'
 import { popupManager } from './popup'
 
@@ -15,8 +15,8 @@ const handleBack = () => {
     return
   }
 
-  if (setting.preview) {
-    setting.preview = false
+  if (state.preview) {
+    state.preview = false
     return
   }
 
@@ -58,7 +58,7 @@ export const hotkey = () => {
           return
         }
 
-        if (setting.preview) return
+        if (state.preview) return
 
         // 确认窗口
         if (popupManager.hasPopup()) {
@@ -78,7 +78,7 @@ export const hotkey = () => {
       // 新短信
       case 'Insert':
         e.preventDefault()
-        if (!popupManager.hasPopup() && !setting.preview) {
+        if (!popupManager.hasPopup() && !state.preview) {
           addNewMessage()
         }
 

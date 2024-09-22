@@ -1,7 +1,7 @@
 <template>
   <div class="mission">
     <transition
-      :name="!setting.drag ? 'fade-in' : undefined"
+      :name="!state.drag ? 'fade-in' : undefined"
       appear
     >
       <div
@@ -82,7 +82,7 @@ import image_0 from '@/assets/images/mission/同行任务.webp'
 import image_2 from '@/assets/images/mission/开拓任务.webp'
 import image_4 from '@/assets/images/mission/开拓续闻.webp'
 import image_3 from '@/assets/images/mission/日常任务.webp'
-import { setting } from '@/store/setting'
+import { state } from '@/store/setting'
 import Icon from '../Common/Icon.vue'
 import { onKeydown } from './Message'
 

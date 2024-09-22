@@ -30,7 +30,7 @@
           </div>
           <div
             class="btn"
-            v-if="setting.index"
+            v-if="state.index"
             @click.stop="handleScreenshotClick"
           >
             <IconBtn
@@ -44,7 +44,7 @@
           </div>
           <div
             class="btn"
-            v-if="setting.index"
+            v-if="state.index"
             @click.stop="handleAutoPlayClick"
           >
             <IconBtn
@@ -74,7 +74,7 @@ import { getNames, getTitle } from '@/assets/scripts/header'
 import { popupManager } from '@/assets/scripts/popup'
 import { emoticonClose } from '@/components/Message/Emoticon'
 import { addNewMessage, message } from '@/store/message'
-import { setting } from '@/store/setting'
+import { state } from '@/store/setting'
 import { IconBtn } from 'star-rail-vue'
 import Icon from './Common/Icon.vue'
 import MessageGroup from './Menu/MessageGroup.vue'
@@ -121,20 +121,18 @@ const list = computed(() => {
 
 const handleMessageClick = () => {
   addNewMessage(
-    list.value.some((i) => i.list.some((j) => j.title === setting.select))
-      ? setting.select
-      : undefined
+    list.value.some((i) => i.list.some((j) => j.title === state.select)) ? state.select : undefined
   )
 }
 
 const handleScreenshotClick = () => {
-  if (setting.preview) return
+  if (state.preview) return
   emoticonClose()
   emitter.emit('screenshot')
 }
 
 const handleAutoPlayClick = () => {
-  if (setting.preview) return
+  if (state.preview) return
   emoticonClose()
   emitter.emit('autoplay')
 }

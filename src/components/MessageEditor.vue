@@ -1,5 +1,5 @@
 <template>
-  <template v-if="setting.index && currentMessage">
+  <template v-if="state.index && currentMessage">
     <transition
       name="fade"
       appear
@@ -132,19 +132,19 @@
 </template>
 
 <script lang="ts" setup>
-import Icon from './Common/Icon.vue'
-import Emoticon from './Message/Emoticon/Emoticon.vue'
-import MessageBox from './Message/MessageBox.vue'
-import MessageItem from './Message/MessageItem.vue'
-import draggable from '@marshallswain/vuedraggable'
 import { getCharaterAvatar } from '@/assets/scripts/avatar'
-import { input } from '@/store/input'
-import { messageIndex, currentMessage, message } from '@/store/message'
-import { setting } from '@/store/setting'
-import { getAvatar, info, scrollToBottom, title } from './Message/Message'
 import { emitter } from '@/assets/scripts/event'
 import { popupManager } from '@/assets/scripts/popup'
-import { emoticonClose, emoticonOpen, emoticonData } from './Message/Emoticon'
+import { input } from '@/store/input'
+import { currentMessage, message, messageIndex } from '@/store/message'
+import { state } from '@/store/setting'
+import draggable from '@marshallswain/vuedraggable'
+import Icon from './Common/Icon.vue'
+import { emoticonClose, emoticonData, emoticonOpen } from './Message/Emoticon'
+import Emoticon from './Message/Emoticon/Emoticon.vue'
+import { getAvatar, info, scrollToBottom, title } from './Message/Message'
+import MessageBox from './Message/MessageBox.vue'
+import MessageItem from './Message/MessageItem.vue'
 
 const appearTransition = ref('slide-left-first')
 
@@ -170,7 +170,7 @@ const getKey = (item: Message) => {
 // 自动滚动到底部
 watch(messageIndex, () => {
   if (messageIndex.value === -1) {
-    setting.index = undefined
+    state.index = undefined
   } else {
     nextTick(() => {
       scrollToBottom(boxRef.value?.listDom, false)
@@ -223,7 +223,7 @@ const setMessageClass = (key: number) => {
 }
 
 watch(title, () => {
-  if (title.value) setting.select = title.value
+  if (title.value) state.select = title.value
 })
 
 const updateTitle = (data: string) => {
@@ -474,13 +474,13 @@ let isMove = false
 
 const onChoose = () => {
   emoticonClose()
-  setting.drag = true
+  state.drag = true
   document.body.className = 'grabbing'
 }
 
 const onUnChoose = () => {
   if (isMove) return
-  setting.drag = false
+  state.drag = false
   document.body.className = ''
 }
 
@@ -490,7 +490,7 @@ const onMoveStart = () => {
 }
 
 const onMoveEnd = () => {
-  setting.drag = false
+  state.drag = false
   isMove = false
   document.body.className = ''
 }
@@ -501,7 +501,7 @@ const onChange = () => {
   currentMessage.value.time = Date.now()
 }
 
-const opacity = computed(() => (setting.drag ? 0 : 1))
+const opacity = computed(() => (state.drag ? 0 : 1))
 </script>
 
 <style lang="stylus" scoped>

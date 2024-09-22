@@ -4,7 +4,7 @@
     :class="getBubbles(item.key)"
   >
     <transition
-      :name="!preview ? (!setting.drag ? 'fade-in' : undefined) : 'avatar'"
+      :name="!preview ? (!state.drag ? 'fade-in' : undefined) : 'avatar'"
       appear
     >
       <div
@@ -19,7 +19,7 @@
     </transition>
     <div class="message-item">
       <transition
-        :name="!preview ? (!setting.drag ? 'fade-in' : undefined) : 'message'"
+        :name="!preview ? (!state.drag ? 'fade-in' : undefined) : 'message'"
         appear
       >
         <div class="name">
@@ -40,7 +40,7 @@
         </div>
       </transition>
       <transition
-        :name="!preview ? (!setting.drag ? 'fade-in' : undefined) : 'message'"
+        :name="!preview ? (!state.drag ? 'fade-in' : undefined) : 'message'"
         appear
       >
         <div
@@ -90,9 +90,9 @@
 <script lang="ts" setup>
 import { bubbles } from '@/assets/data/bubbles'
 import { autoPlay } from '@/store/autoPlay'
-import { setting } from '@/store/setting'
+import { setting, state } from '@/store/setting'
 import Icon from '../Common/Icon.vue'
-import { onKeydown, getAvatar } from './Message'
+import { getAvatar, onKeydown } from './Message'
 
 defineProps<{
   item: Message

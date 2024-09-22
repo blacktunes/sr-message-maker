@@ -1,9 +1,9 @@
 <template>
-  <template v-if="setting.index">
+  <template v-if="state.index">
     <Transition name="fade">
       <div
         class="bg"
-        v-show="setting.preview"
+        v-show="state.preview"
       >
         <Transition name="fade">
           <div
@@ -26,7 +26,7 @@
       appear
     >
       <MessageBox
-        v-show="setting.preview"
+        v-show="state.preview"
         class="message-preview"
         :index="messageIndex"
         :title="title"
@@ -76,7 +76,7 @@ import { emitter } from '@/assets/scripts/event'
 import { popupManager } from '@/assets/scripts/popup'
 import { autoPlay } from '@/store/autoPlay'
 import { currentMessage, messageIndex } from '@/store/message'
-import { setting } from '@/store/setting'
+import { setting, state } from '@/store/setting'
 import { screenshot } from 'star-rail-vue'
 import Icon from './Common/Icon.vue'
 import { info, scrollToBottom, title } from './Message/Message'
@@ -126,7 +126,7 @@ let timer: number
 emitter.on('autoplay', () => {
   if (autoPlay.flag) return
 
-  setting.preview = true
+  state.preview = true
   reset()
   autoPlay.flag = true
 
@@ -271,15 +271,14 @@ const stopPlay = () => {
 }
 emitter.on('stopplay', stopPlay)
 
-
 emitter.on('screenshot', () => {
   if (popupManager.isLoading()) return
   reset()
 
-  setting.preview = true
+  state.preview = true
   popupManager.open('loading')
   nextTick(() => {
-    if (boxRef.value?.boxDom && boxRef.value?.listDom && setting.preview) {
+    if (boxRef.value?.boxDom && boxRef.value?.listDom && state.preview) {
       screenshot(boxRef.value.boxDom, {
         height: boxRef.value.listDom.scrollHeight + 185,
         download: setting.download
