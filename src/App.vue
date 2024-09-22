@@ -6,32 +6,22 @@
     }"
     :popup="popupManager"
   >
-    <Component
-      v-for="(item, index) in components"
-      :key="index"
-      :is="item"
-    />
+    <Header />
+    <Index />
+    <User />
+    <Link />
+    <Preview />
   </Main>
 </template>
 
 <script lang="ts" setup>
 import { Main } from 'star-rail-vue'
-import type { Component } from 'vue'
 import { popupManager } from './assets/scripts/popup'
-
-// 动态加载所有组件
-const components: Component[] = Object.values(
-  import.meta.glob<{ default: Component }>(
-    [
-      // 组件位置
-      './components/*.vue'
-    ],
-    {
-      eager: true,
-      import: 'default'
-    }
-  )
-).map((i) => defineComponent<{}>(i))
+import Header from './components/Header.vue'
+import Index from './components/Index.vue'
+import Link from './components/Link.vue'
+import Preview from './components/Preview.vue'
+import User from './components/User.vue'
 </script>
 
 <style lang="stylus" scoped>

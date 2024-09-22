@@ -1,6 +1,6 @@
 <template>
   <Transition
-    :name="!setting.drag ? 'fade-in' : undefined"
+    :name="!state.drag ? 'fade-in' : undefined"
     appear
   >
     <div class="notice">
@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts" setup>
-import { setting } from '@/store/setting'
+import { state } from '@/store/setting'
 import Icon from '../Common/Icon.vue'
 import { onKeydown } from './Message'
 

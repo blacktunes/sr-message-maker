@@ -1,4 +1,4 @@
-import { setting } from './setting'
+import { state } from './setting'
 
 export const message = reactive<{
   list: MessageListItem[]
@@ -14,14 +14,14 @@ export const addNewMessage = (title?: string) => {
     time,
     list: []
   })
-  setting.index = time
-  setting.select = title || '未命名短信'
+  state.index = time
+  state.select = title || '未命名短信'
 }
 
 export const messageIndex = computed(() => {
-  if (setting.index) {
+  if (state.index) {
     return message.list.findIndex((item) => {
-      return item.id === setting.index
+      return item.id === state.index
     })
   } else {
     return -1

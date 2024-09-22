@@ -3,7 +3,7 @@
     <div
       class="item"
       :class="{
-        highlight: setting.select === title
+        highlight: state.select === title
       }"
       @click="handleItemClick"
     >
@@ -17,20 +17,20 @@
       <Icon
         name="arrow"
         :style="{
-          transform: setting.select === title ? 'rotate(90deg)' : ''
+          transform: state.select === title ? 'rotate(90deg)' : ''
         }"
       />
     </div>
     <div
       class="message-list"
       :class="{
-        'message-list-highlight': setting.select === title
+        'message-list-highlight': state.select === title
       }"
     >
       <div
         class="message"
         :class="{
-          'message-highlight': setting.index === item.id
+          'message-highlight': state.index === item.id
         }"
         v-for="(item, index) in showList"
         :key="`title-${index}`"
@@ -73,7 +73,7 @@ import avatar_2 from '@/assets/images/avatar/群聊.webp'
 import { popupManager } from '@/assets/scripts/popup'
 import { emoticonClose } from '@/components/Message/Emoticon'
 import { message } from '@/store/message'
-import { setting } from '@/store/setting'
+import { state } from '@/store/setting'
 import Icon from '../Common/Icon.vue'
 
 const props = defineProps<{
@@ -139,15 +139,15 @@ const getLastMsg = (index: number) => {
 const height = computed(() => `${props.list.length * 165}px`)
 
 const handleItemClick = () => {
-  if (setting.select === props.title) {
-    setting.select = ''
+  if (state.select === props.title) {
+    state.select = ''
   } else {
-    setting.select = props.title
+    state.select = props.title
   }
 }
 
 const handleMessageClick = (index: number) => {
-  setting.index = index
+  state.index = index
 }
 
 const deleteMessage = (index: number) => {

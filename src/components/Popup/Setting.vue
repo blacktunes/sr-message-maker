@@ -7,12 +7,12 @@
       <div class="data">
         <div
           class="info"
-          title="切换下载模式"
+          title="切换截图的保存模式"
           @click="setting.download = !setting.download"
         >
           <div class="text">
-            <span class="label">下载模式</span>
-            <span class="value">{{ setting.download ? '下载图片' : '打开新窗口' }}</span>
+            <span class="label">截图保存</span>
+            <span class="value">{{ setting.download ? '下载图片' : '新窗口打开' }}</span>
           </div>
           <Icon
             name="change"
@@ -21,12 +21,26 @@
         </div>
         <div
           class="info"
-          title="切换绿幕"
+          title="切换预览背景"
           @click="setting.green = !setting.green"
         >
           <div class="text">
             <span class="label">预览背景</span>
             <span class="value">{{ setting.green ? '绿幕' : '模糊' }}</span>
+          </div>
+          <Icon
+            name="change"
+            class="icon"
+          />
+        </div>
+        <div
+          class="info"
+          title="切换截图的图片质量"
+          @click="qualityChange"
+        >
+          <div class="text">
+            <span class="label">截图质量</span>
+            <span class="value">{{ setting.quality === 1 ? '高(1600px)' : '低(900px)' }}</span>
           </div>
           <Icon
             name="change"
@@ -49,11 +63,11 @@
 </template>
 
 <script lang="ts" setup>
+import Log from '@/assets/data/log'
 import { popupManager } from '@/assets/scripts/popup'
 import { setting } from '@/store/setting'
 import { Popup, Window } from 'star-rail-vue'
 import Icon from '../Common/Icon.vue'
-import Log from '@/assets/data/log'
 
 const props = defineProps<{
   name: string
@@ -67,6 +81,14 @@ const emits = defineEmits<{
 const close = () => {
   emits('close', props.name)
 }
+
+const qualityChange = () => {
+  if (setting.quality === 1) {
+    setting.quality = 0.5
+  } else {
+    setting.quality = 1
+  }
+}
 </script>
 
 <style lang="stylus" scoped>
@@ -75,6 +97,7 @@ $margin = 40px
 .data
   margin 40px 0
   width 1000px
+  user-select none
 
   .info
     display flex

@@ -74,7 +74,7 @@
         </div>
       </div>
       <template #left>
-        <Preview
+        <ItemPreview
           style="margin-top: 45px"
           :img="imgUrl"
           :name="avatarName"
@@ -82,7 +82,6 @@
           color="#333"
           bg-color="linear-gradient(to top, #bcb2a2, #cac2b7, transparent)"
           font-size="40px"
-          title="切换为游戏角色"
           circle
         />
       </template>
@@ -107,7 +106,7 @@
 import defaultAvatar from '@/assets/images/avatar/私聊.webp'
 import { popupManager } from '@/assets/scripts/popup'
 import Icon from '@/components/Common/Icon.vue'
-import Preview from '@/components/Common/Preview.vue'
+import ItemPreview from '@/components/Common/ItemPreview.vue'
 import { avatar } from '@/store/avatar'
 import { character } from '@/store/character'
 import { setAvatar, setName, setting } from '@/store/setting'

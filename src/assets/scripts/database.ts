@@ -24,7 +24,7 @@ export const loadDatabase = () => {
       })
     }, 30 * 1000)
 
-    createDatabase('sr-message-v2')
+    createDatabase('sr-message-v2', '短信')
       .add({
         data: message,
         key: 'list',
