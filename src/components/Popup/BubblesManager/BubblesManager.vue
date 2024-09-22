@@ -57,7 +57,7 @@
         </div>
       </template>
       <template #left>
-        <Preview :name="name">
+        <ItemPreview :name="name">
           <div class="preview-text-box">
             <div :class="`bubbles-${index}`">
               <div class="text-box">
@@ -68,7 +68,7 @@
               </div>
             </div>
           </div>
-        </Preview>
+        </ItemPreview>
       </template>
       <template #footer>
         <Btn
@@ -91,7 +91,7 @@
 import { bubbles } from '@/assets/data/bubbles'
 import { popupManager } from '@/assets/scripts/popup'
 import Icon from '@/components/Common/Icon.vue'
-import Preview from '@/components/Common/Preview.vue'
+import ItemPreview from '@/components/Common/ItemPreview.vue'
 import { setting } from '@/store/setting'
 import { Btn, Popup, Window } from 'star-rail-vue'
 import { callback } from './data'
