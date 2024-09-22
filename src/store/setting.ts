@@ -27,12 +27,15 @@ export const setting = reactive<{
   green: boolean
   /** 是否下载图片 */
   download: boolean
+  /** 截图质量 */
+  quality: number
 }>({
   name: '开拓者',
   avatar: DEFAULT_AVATAR,
   bubbles: 0,
   green: false,
   download: true,
+  quality: 1
 })
 
 export const setName = (name: string) => {
