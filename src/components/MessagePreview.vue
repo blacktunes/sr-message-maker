@@ -279,10 +279,19 @@ emitter.on('screenshot', () => {
   popupManager.open('loading')
   nextTick(() => {
     if (boxRef.value?.boxDom && boxRef.value?.listDom && state.preview) {
-      screenshot(boxRef.value.boxDom, {
-        height: boxRef.value.listDom.scrollHeight + 185,
-        download: setting.download
-      })
+      screenshot(
+        boxRef.value.boxDom,
+        {
+          name: title.value,
+          height: boxRef.value.listDom.scrollHeight + 185,
+          download: setting.download,
+          data: {
+            raw: JSON.stringify(toRaw(currentMessage.value)),
+            filename: 'raw.m'
+          }
+        },
+        { pixelRatio: setting.quality }
+      )
         .catch(() => {
           popupManager.open('confirm', {
             title: '图片保存异常',
