@@ -8,7 +8,7 @@
         <div class="box">
           <div class="info">
             <span class="label">短信数</span>
-            <span class="value">{{ message.list.length }}{{ messageUsage }}</span>
+            <span class="value">{{ message.list.length }}</span>
           </div>
           <div
             class="info"
@@ -17,63 +17,82 @@
             <span class="label">消息数</span>
             <span class="value">{{ messageNum }}</span>
           </div>
+          <div
+            class="info"
+            style="border-top: none"
+          >
+            <span class="label">数据大小</span>
+            <span class="value">{{ messageUsage }}</span>
+          </div>
           <div class="btn-group">
             <div
               class="btn"
-              :class="{ disable: !hasData }"
-              @click="downloadAllMessage"
+              :class="{ disable: !hasMessage }"
+              @click="deleteMessage"
             >
-              导出
+              <span>清空</span>
             </div>
             <div
               class="btn"
-              @click="uploadDate"
+              :class="{ disable: !hasMessage }"
+              @click="downloadMessage"
             >
-              导入
+              <span>导出</span>
             </div>
             <div
               class="btn"
-              :class="{ disable: !hasData }"
-              @click="deleteData"
+              @click="uploadMessage"
             >
-              删除
+              <span>导入</span>
             </div>
           </div>
         </div>
         <div class="box">
           <div class="info">
             <span class="label">自定义角色</span>
-            <span class="value"
-              >{{ Object.keys(character.custom).length }}{{ characterUsage }}</span
-            >
+            <span class="value">{{ Object.keys(character.custom).length }}</span>
+          </div>
+          <div
+            class="info"
+            style="border-top: none"
+          >
+            <span class="label">数据大小</span>
+            <span class="value">{{ characterUsage }}</span>
           </div>
           <div class="btn-group">
             <div
               class="btn"
               :class="{ disable: !hasCharacter }"
+              @click="deleteCharacter"
+            >
+              <span>清空</span>
+            </div>
+            <div
+              class="btn"
+              :class="{ disable: !hasCharacter }"
               @click="downloadCharacter"
             >
-              导出
+              <span>导出</span>
             </div>
             <div
               class="btn"
               @click="uploadCharacter"
             >
-              导入
-            </div>
-            <div
-              class="btn"
-              :class="{ disable: !hasCharacter }"
-              @click="deleteCharacter"
-            >
-              删除
+              <span>导入</span>
             </div>
           </div>
         </div>
         <div class="box">
           <div class="info">
             <span class="label">自定义头像</span>
-            <span class="value">{{ avatar.custom.length }}{{ customAvatarUsage }}</span>
+            <span class="value">{{ avatar.custom.length }}</span>
+          </div>
+          <div
+            class="info"
+            style="border-top: none"
+          >
+            <span class="label">数据大小</span>
+            <span class="value">{{ customAvatarUsage }}</span>
           </div>
         </div>
       </div>
@@ -89,14 +108,13 @@
 </template>
 
 <script lang="ts" setup>
-import { Btn, Popup, Window } from 'star-rail-vue'
-import { currentMessage, message } from '@/store/message'
-import { setting } from '@/store/setting'
-import { character } from '@/store/character'
-import { zhLocale, setLocale, Parameter } from '@ckpack/parameter'
-import { avatar } from '@/store/avatar'
 import { popupManager } from '@/assets/scripts/popup'
-import { compressToUint8Array, decompressFromUint8Array } from 'lz-string'
+import { Accept, uploadFile } from '@/assets/scripts/upload'
+import { avatar } from '@/store/avatar'
+import { character } from '@/store/character'
+import { message } from '@/store/message'
+import { compressToUint8Array } from 'lz-string'
+import { Btn, Popup, Window } from 'star-rail-vue'
 
 const props = defineProps<{
   name: string
@@ -125,46 +143,10 @@ const countStrToSize = (str: string) => {
   return `${Number((count / Math.pow(k, i)).toPrecision(3))} ${sizes[i]}`
 }
 
-const messageUsage = ref('')
-const messageNum = ref(0)
-const characterUsage = ref('')
-const customAvatarUsage = ref('')
-
-const updateMessageUsage = () => {
-  messageUsage.value = ` (${countStrToSize(JSON.stringify(message.list))})`
-  let num = 0
-  message.list.forEach((i) => {
-    i.list.forEach(() => {
-      num += 1
-    })
-  })
-  messageNum.value = num
-}
-
-const updateCharacterUsage = () => {
-  characterUsage.value = ` (${countStrToSize(JSON.stringify(character.custom))})`
-}
-
-const updateCustomAvatarUsage = () => {
-  customAvatarUsage.value = ` (${countStrToSize(JSON.stringify(avatar.custom))})`
-}
-
-watch(
-  () => props.index,
-  async () => {
-    if (props.index !== -1) {
-      updateMessageUsage()
-      updateCharacterUsage()
-      updateCustomAvatarUsage()
-    }
-  }
-)
-
-enum Accept {
-  message = '.srm',
-  character = '.src',
-  avatar = '.sra'
-}
+const messageUsage = computed(() => countStrToSize(JSON.stringify(message.list)))
+const messageNum = computed(() => message.list.reduce((i, j) => j.list.length + i, 0))
+const characterUsage = computed(() => countStrToSize(JSON.stringify(character.custom)))
+const customAvatarUsage = computed(() => countStrToSize(JSON.stringify(avatar.custom)))
 
 const downloadData = (data: any, type: Accept) => {
   const str = JSON.stringify(data, null, 2)
@@ -178,160 +160,69 @@ const downloadData = (data: any, type: Accept) => {
   URL.revokeObjectURL(url)
 }
 
-setLocale(zhLocale)
-const parameter = new Parameter()
-
-const dataRule = {
-  time: {
-    type: 'number'
-  },
-  id: {
-    type: 'number'
-  },
-  title: {
-    isRequired: false,
-    type: 'string'
-  },
-  list: {
-    type: 'array',
-    itemType: 'object',
-    itemRule: {
-      key: {
-        type: 'string'
-      },
-      name: {
-        type: 'string'
-      },
-      avatar: {
-        type: 'string'
-      },
-      text: {
-        type: 'string'
-      },
-      img: {
-        isRequired: false,
-        type: 'string'
-      },
-      notice: {
-        isRequired: false,
-        type: 'boolean'
-      },
-      emoticon: {
-        isRequired: false,
-        type: 'string'
-      },
-      loading: {
-        isRequired: false,
-        type: 'boolean'
-      },
-      mission: {
-        isRequired: false,
-        type: 'object',
-        rule: {
-          type: 'number',
-          state: 'number'
-        }
-      },
-      option: {
-        isRequired: false,
-        type: 'array',
-        itemType: 'boolean'
-      }
-    }
-  }
-}
-
-const hasData = computed(() => message.list.length > 0)
-
-const downloadAllMessage = () => {
-  if (!hasData.value) return
-
-  downloadData(toRaw(message.list), Accept.message)
-}
-
-const uploadDate = async () => {
+const uploadData = async (accept: string) => {
   const el = document.createElement('input')
   el.type = 'file'
-  el.accept = Accept.message
-  el.onchange = () => {
-    if (el.files?.[0]) {
-      const file = new FileReader()
-      file.readAsArrayBuffer(el.files[0])
-      file.onload = (e) => {
-        if (e.target?.result) {
-          try {
-            const data: MessageListItem[] = JSON.parse(
-              decompressFromUint8Array(new Uint8Array(e.target.result as ArrayBuffer))
-            )
-            let time = Date.now()
-            let num = 0
-            for (const i in data) {
-              data[i].time = time
-              data[i].id = time++
-              const val = parameter.validate(dataRule, data[i])
-              if (val) {
-                console.warn(val)
-              } else {
-                message.list.unshift(data[i])
-                num += 1
-              }
-            }
-            if (num === 0) {
-              popupManager.open('confirm', {
-                title: '短信导入失败',
-                text: ['请检查文件格式是否正确']
-              })
-            } else if (num < data.length) {
-              popupManager.open('confirm', {
-                title: '短信导入失败',
-                text: ['部分短信导入失败', '请检查文件格式是否正确']
-              })
-            }
-            updateMessageUsage()
-          } catch (err) {
-            popupManager.open('confirm', {
-              title: '短信导入失败',
-              text: [String(err)]
-            })
-          }
-        }
-      }
+  el.accept = accept
+  el.onchange = async () => {
+    const file = el.files?.[0]
+    if (file) {
+      await uploadFile(file)
     }
   }
   el.click()
   el.remove()
 }
 
-const deleteData = () => {
-  if (!hasData.value) return
+const hasMessage = computed(() => message.list.length > 0)
+
+const deleteMessage = () => {
+  if (!hasMessage.value) return
 
   popupManager.open('confirm', {
-    title: '删除短信',
+    title: '清空短信',
     text: ['确定删除所有短信吗？'],
-    fn: () => {
+    fn: async () => {
       message.list.length = 0
-      updateMessageUsage()
+      await nextTick()
+      popupManager.open('confirm', {
+        title: '短信已清空',
+        text: ['已删除所有短信']
+      })
     }
   })
 }
 
-const characterRule = {
-  name: {
-    type: 'string'
-  },
-  avatar: {
-    type: 'string'
-  },
-  info: {
-    isRequired: false,
-    type: 'string'
-  },
-  custom: {
-    type: 'boolean'
-  }
+const downloadMessage = () => {
+  if (!hasMessage.value) return
+
+  downloadData(toRaw(message.list), Accept.message)
+}
+
+const uploadMessage = async () => {
+  await uploadData(`.png,${Accept.message}`)
 }
 
 const hasCharacter = computed(() => Object.keys(character.custom).length > 0)
+
+const deleteCharacter = () => {
+  if (!hasCharacter.value) return
+
+  popupManager.open('confirm', {
+    title: '清空自定义角色',
+    text: ['确定删除所有自定义角色吗？'],
+    fn: async () => {
+      Object.keys(character.custom).forEach((key) => {
+        delete character.custom[key]
+      })
+      await nextTick()
+      popupManager.open('confirm', {
+        title: '自定义角色已清空',
+        text: ['已删除所有自定义角色']
+      })
+    }
+  })
+}
 
 const downloadCharacter = () => {
   if (!hasCharacter.value) return
@@ -340,68 +231,7 @@ const downloadCharacter = () => {
 }
 
 const uploadCharacter = async () => {
-  const el = document.createElement('input')
-  el.type = 'file'
-  el.accept = Accept.character
-  el.onchange = () => {
-    if (el.files?.[0]) {
-      const file = new FileReader()
-      file.readAsArrayBuffer(el.files[0])
-      file.onload = (e) => {
-        if (e.target?.result) {
-          try {
-            const data: { [key: string]: CustomCharacter } = JSON.parse(
-              decompressFromUint8Array(new Uint8Array(e.target.result as ArrayBuffer))
-            )
-            let time = Date.now()
-            let num = 0
-            for (const i in data) {
-              const val = parameter.validate(characterRule, data[i])
-              if (val) {
-                console.warn(val)
-              } else {
-                character.custom[time++] = data[i]
-                num += 1
-              }
-            }
-            if (num === 0) {
-              popupManager.open('confirm', {
-                title: '自定义导角色入失败',
-                text: ['请检查文件格式是否正确']
-              })
-            } else if (num < Object.keys(data).length) {
-              popupManager.open('confirm', {
-                title: '自定义导角色入失败',
-                text: ['部分自定义导角色入失败', '请检查文件格式是否正确']
-              })
-            }
-            updateCharacterUsage()
-          } catch (err) {
-            popupManager.open('confirm', {
-              title: '自定义导角色入失败',
-              text: [String(err)]
-            })
-          }
-        }
-      }
-    }
-  }
-  el.click()
-}
-
-const deleteCharacter = () => {
-  if (!hasCharacter.value) return
-
-  popupManager.open('confirm', {
-    title: '删除角色',
-    text: ['确定删除所有自定义角色吗？'],
-    fn: () => {
-      Object.keys(character.custom).forEach((key) => {
-        delete character.custom[key]
-      })
-      updateCharacterUsage()
-    }
-  })
+  await uploadData(Accept.character)
 }
 
 const reserDatabase = () => {
@@ -460,6 +290,7 @@ const reserDatabase = () => {
       flex 1
       padding 0 50px
       color #333
+      text-align center
 
   .btn-group
     display flex
