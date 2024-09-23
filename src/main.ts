@@ -7,9 +7,9 @@ import { hotkey } from './assets/scripts/hotkey'
 import { logCheck } from './assets/scripts/log'
 import { updateCheck } from './assets/scripts/update'
 
-window.BUILD_TIME = new Date(BUILD_TIME)
-
-analytics('G-PW30Q3ZHX1', import.meta.env.MODE === 'development')
+if (import.meta.env.MODE === 'production') {
+  analytics('G-PW30Q3ZHX1')
+}
 
 createApp(App).mount('#app')
 
