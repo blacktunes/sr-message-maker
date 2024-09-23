@@ -1,4 +1,4 @@
-import type { Reactive } from 'vue'
+import { setLocalStorage } from 'star-rail-vue'
 
 export const state = reactive<{
   /** 当前短信ID */
@@ -50,65 +50,4 @@ export const setAvatar = (key: string | number = DEFAULT_AVATAR) => {
   setting.avatar = key
 }
 
-const settingInit = <T extends Reactive<Object>>(data: T, name: string) => {
-  try {
-    const _setting = JSON.parse(localStorage.getItem(name) || '{}')
-    for (const _key in _setting) {
-      const key = _key as keyof typeof data
-      if (
-        _setting[_key] !== undefined &&
-        data[key] !== undefined &&
-        _setting[_key] !== data[key] &&
-        typeof _setting[_key] === typeof data[key]
-      ) {
-        ;(data[key] as any) = _setting[_key]
-      }
-    }
-  } finally {
-    watch(data, () => {
-      localStorage.setItem(name, JSON.stringify(toRaw(setting)))
-    })
-  }
-}
-settingInit(setting, 'sr-message-setting')
-
-// try {
-//   const _setting = JSON.parse(localStorage.getItem('sr-message-setting') || '{}')
-//   if (_setting.name !== undefined) {
-//     setting.name = _setting.name
-//   }
-//   if (_setting.avatar !== undefined) {
-//     setting.avatar = _setting.avatar
-//   }
-//   if (_setting.bubbles !== undefined) {
-//     setting.bubbles = Number(_setting.bubbles)
-//   }
-//   if (_setting.green !== undefined) {
-//     setting.green = _setting.green
-//   }
-//   if (_setting.download !== undefined) {
-//     setting.download = _setting.download
-//   }
-// } finally {
-//   watch(
-//     [
-//       () => setting.name,
-//       () => setting.avatar,
-//       () => setting.bubbles,
-//       () => setting.green,
-//       () => setting.download
-//     ],
-//     () => {
-//       localStorage.setItem(
-//         'sr-message-setting',
-//         JSON.stringify({
-//           name: setting.name,
-//           avatar: setting.avatar,
-//           bubbles: setting.bubbles,
-//           green: setting.green,
-//           download: setting.download
-//         })
-//       )
-//     }
-//   )
-// }
+setLocalStorage(setting, 'sr-message-setting')
