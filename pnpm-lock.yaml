@@ -27,8 +27,8 @@ importers:
         specifier: ^3.0.1
         version: 3.0.1
       star-rail-vue:
-        specifier: ^1.3.3
-        version: 1.3.3(vue@3.5.8(typescript@5.6.2))
+        specifier: ^1.3.4
+        version: 1.3.4(vue@3.5.8(typescript@5.6.2))
       super-image-cropper:
         specifier: ^1.0.20
         version: 1.0.20
@@ -2753,8 +2753,8 @@ packages:
   stampit@1.2.0:
     resolution: {integrity: sha512-DzVKo18iiu9dHcs1y/51Th/bOB4qbC5G1mfBcK4/cq2QNxZqExWH6MG9YbXSx96nC293B65pEsC0fT7MKmsGnA==}
 
-  star-rail-vue@1.3.3:
-    resolution: {integrity: sha512-UEYWdh9ED/om/KkPok5CfzvY+M/HAD465elxS0LLx9UNfWNjRBXJKDFePopm4gwVZ0gD85GEkCXDnShYMmvMDA==}
+  star-rail-vue@1.3.4:
+    resolution: {integrity: sha512-DgPeKDsRLtboOxlvPDj2lhN4TRRbb0WIpG8+bhCOKpmPY5b/UrHJOmF8+LF4jC0u1/54Qd0XDh7mXqC+OHMmGw==}
     peerDependencies:
       vue: '>=3.5.0'
 
@@ -2843,6 +2843,10 @@ packages:
   stylus@0.63.0:
     resolution: {integrity: sha512-OMlgrTCPzE/ibtRMoeLVhOY0RcNuNWh0rhAVqeKnk/QwcuUKQbnqhZ1kg2vzD8VU/6h3FoPTq4RJPHgLBvX6Bw==}
     hasBin: true
+
+  super-image-cropper@1.0.18:
+    resolution: {integrity: sha512-x36nt6DV6jdQqXKyNRFxXWCxnR1+Ld3DTISBWPxhHRexhP8rlxV8KQYlVwgQT6cVTO933A5zjnSyHyfQALJdmA==}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   super-image-cropper@1.0.20:
     resolution: {integrity: sha512-uRKaP2JPmLHHgejRdRDHEYWZu/ixxelKHJKKg97kjMAlDAcLPz3NJ4iNJq1iWPromfGvf6x34UICLhrPQO1rHQ==}
@@ -6144,12 +6148,12 @@ snapshots:
     dependencies:
       mout: 0.5.0
 
-  star-rail-vue@1.3.3(vue@3.5.8(typescript@5.6.2)):
+  star-rail-vue@1.3.4(vue@3.5.8(typescript@5.6.2)):
     dependencies:
       html-to-image: 1.11.11
       jszip: 3.10.1
       lz-string: 1.5.0
-      super-image-cropper: 1.0.20
+      super-image-cropper: 1.0.18
       vue: 3.5.8(typescript@5.6.2)
       vue-dompurify-html: 5.1.0(vue@3.5.8(typescript@5.6.2))
       vue-picture-cropper: 0.7.0(vue@3.5.8(typescript@5.6.2))
@@ -6291,6 +6295,14 @@ snapshots:
       source-map: 0.7.4
     transitivePeerDependencies:
       - supports-color
+
+  super-image-cropper@1.0.18:
+    dependencies:
+      cropperjs: 1.6.2
+      gif-build-worker-js: 1.0.2
+      gif.js: 0.2.0
+      gifuct-js: 2.1.2
+      image-type: 4.1.0
 
   super-image-cropper@1.0.20:
     dependencies:
