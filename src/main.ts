@@ -7,9 +7,7 @@ import { hotkey } from './assets/scripts/hotkey'
 import { logCheck } from './assets/scripts/log'
 import { updateCheck } from './assets/scripts/update'
 
-if (import.meta.env.MODE === 'production') {
-  analytics('G-PW30Q3ZHX1')
-}
+analytics('G-PW30Q3ZHX1', import.meta.env.MODE === 'development')
 
 createApp(App).mount('#app')
 
