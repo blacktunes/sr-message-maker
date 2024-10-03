@@ -1,4 +1,18 @@
-const log: Log[] = [
+import type { LogData } from 'star-rail-vue'
+
+const log: LogData[] = [
+  {
+    time: '2024-10-03',
+    text: [
+      {
+        text: '增加角色',
+        info: '灵砂'
+      },
+      {
+        text: '优化代码'
+      }
+    ]
+  },
   {
     time: '2024-09-22',
     text: [
