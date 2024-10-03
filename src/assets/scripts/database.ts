@@ -3,6 +3,7 @@ import { character } from '@/store/character'
 import { message } from '@/store/message'
 import { createDatabase } from 'star-rail-vue'
 import { popupManager } from './popup'
+import { KEY } from '@/store/setting'
 
 export const loadDatabase = () => {
   return new Promise<void>((resolve) => {
@@ -24,7 +25,7 @@ export const loadDatabase = () => {
       })
     }, 30 * 1000)
 
-    createDatabase('sr-message-v2', '短信')
+    createDatabase(KEY.DATABASE_NAME, '短信')
       .add({
         data: message,
         key: 'list',

@@ -1,10 +1,12 @@
 import { character } from '@/store/character'
 import { message } from '@/store/message'
-import { state } from '@/store/setting'
+import { KEY, state } from '@/store/setting'
 import { Parameter, setLocale, zhLocale } from '@ckpack/parameter'
-import JSZip from 'jszip'
-import { decompress, decompressFromUint8Array } from 'lz-string'
+import { createDownloadFile, decompressFromArrayBuffer, decompressFromZip } from 'star-rail-vue'
 import { popupManager } from './popup'
+
+setLocale(zhLocale)
+const parameter = new Parameter()
 
 const messageRule = {
   time: {
@@ -80,38 +82,43 @@ const characterRule = {
   }
 }
 
-export enum Accept {
-  message = '.srm',
-  character = '.src',
-  avatar = '.sra'
+export const inputFile = async (accept: string) => {
+  const el = document.createElement('input')
+  el.type = 'file'
+  el.accept = accept
+  el.onchange = async () => {
+    const file = el.files?.[0]
+    if (file) {
+      await importFile(file)
+    }
+  }
+  el.click()
+  el.remove()
 }
 
-setLocale(zhLocale)
-const parameter = new Parameter()
-
-export const uploadFile = async (file: File, open?: boolean) => {
+export const importFile = async (file: File, open?: boolean) => {
   const accept = file.name.split('.').pop()
-  if (`.${accept}` === Accept.message) {
+  if (`.${accept}` === KEY.MESSAGE_FILE_ACCEPT) {
     const reader = new FileReader()
     reader.readAsArrayBuffer(file)
     reader.onload = (e) => {
       if (e.target?.result) {
         try {
-          const messageList: MessageListItem[] = JSON.parse(
-            decompressFromUint8Array(new Uint8Array(e.target.result as ArrayBuffer))
+          const newDataList: MessageListItem[] = decompressFromArrayBuffer(
+            e.target.result as ArrayBuffer
           )
           let time = Date.now()
           let num = 0
-          for (const i in messageList) {
-            messageList[i].time = time
-            messageList[i].id = time++
-            const val = parameter.validate(messageRule, messageList[i])
+          for (const i in newDataList) {
+            newDataList[i].time = time
+            newDataList[i].id = time++
+            const val = parameter.validate(messageRule, newDataList[i])
             if (val) {
               val.forEach((err) => {
                 console.warn(err.message)
               })
             } else {
-              message.list.unshift(messageList[i])
+              message.list.unshift(newDataList[i])
               num += 1
             }
           }
@@ -134,25 +141,25 @@ export const uploadFile = async (file: File, open?: boolean) => {
         }
       }
     }
-  } else if (`.${accept}` === Accept.character) {
+  } else if (`.${accept}` === KEY.CHARACTER_FILE_ACCEPT) {
     const reader = new FileReader()
     reader.readAsArrayBuffer(file)
     reader.onload = (e) => {
       if (e.target?.result) {
         try {
-          const characterList: { [key: string]: CustomCharacter } = JSON.parse(
-            decompressFromUint8Array(new Uint8Array(e.target.result as ArrayBuffer))
+          const newDataList: { [key: string]: CustomCharacter } = decompressFromArrayBuffer(
+            e.target.result as ArrayBuffer
           )
           let time = Date.now()
           let num = 0
-          for (const i in characterList) {
-            const val = parameter.validate(characterRule, characterList[i])
+          for (const i in newDataList) {
+            const val = parameter.validate(characterRule, newDataList[i])
             if (val) {
               val.forEach((err) => {
                 console.warn(err.message)
               })
             } else {
-              character.custom[time++] = characterList[i]
+              character.custom[time++] = newDataList[i]
               num += 1
             }
           }
@@ -176,32 +183,26 @@ export const uploadFile = async (file: File, open?: boolean) => {
       }
     }
   } else {
-    const zip = new JSZip()
     try {
-      const zipContent = await zip.loadAsync(file)
-      const raw = zipContent.files['raw.m']
-      if (!raw) {
-        throw Error()
-      }
-      const messageData = JSON.parse(decompress(await raw.async('text'))) as MessageListItem
+      const newData = await decompressFromZip<MessageListItem>(file, KEY.RAW_NAME)
       const time = Date.now()
-      messageData.time = time
-      messageData.id = time
-      const val = parameter.validate(messageRule, messageData)
+      newData.time = time
+      newData.id = time
+      const val = parameter.validate(messageRule, newData)
       if (val) {
         val.forEach((err) => {
           console.warn(err.message)
         })
         throw Error()
       } else {
-        message.list.unshift(messageData)
+        message.list.unshift(newData)
         if (open) {
-          state.index = messageData.id
-          state.select = messageData.title || '未命名短信'
+          state.index = newData.id
+          state.select = newData.title || '未命名短信'
         } else {
           popupManager.open('confirm', {
             title: '短信导入完成',
-            text: ['已添加新短信', messageData.title || '未命名短信']
+            text: ['已添加新短信', newData.title || '未命名短信']
           })
         }
       }
@@ -212,4 +213,18 @@ export const uploadFile = async (file: File, open?: boolean) => {
       })
     }
   }
+}
+
+export const exportFile = (
+  data: any,
+  type: KEY.CHARACTER_FILE_ACCEPT | KEY.MESSAGE_FILE_ACCEPT
+) => {
+  const blob = createDownloadFile(data)
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = `SR-${new Date().toLocaleString()}${type}`
+  a.click()
+  a.remove()
+  URL.revokeObjectURL(url)
 }

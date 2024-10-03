@@ -1,5 +1,14 @@
 import { setLocalStorage } from 'star-rail-vue'
 
+export enum KEY {
+  DATABASE_NAME = 'sr-message-v2',
+  SETTING_KEY = 'sr-message-setting',
+  MESSAGE_FILE_ACCEPT = '.srm',
+  CHARACTER_FILE_ACCEPT = '.src',
+  RAW_NAME = 'raw.m',
+  UPDATE_KEY = 'sr-message-update'
+}
+
 export const state = reactive<{
   /** 当前短信ID */
   index?: number
@@ -50,4 +59,4 @@ export const setAvatar = (key: string | number = DEFAULT_AVATAR) => {
   setting.avatar = key
 }
 
-setLocalStorage(setting, 'sr-message-setting')
+setLocalStorage(setting, KEY.SETTING_KEY)

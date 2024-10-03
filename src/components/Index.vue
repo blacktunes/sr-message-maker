@@ -11,13 +11,13 @@
 </template>
 
 <script lang="ts" setup>
-import { uploadFile } from '@/assets/scripts/upload'
+import { importFile } from '@/assets/scripts/file'
 import Editor from './Index/Editor.vue'
 import Menu from './Index/Menu.vue'
 
 const handleDrop = (e: DragEvent) => {
   if (e?.dataTransfer?.files) {
-    uploadFile(e.dataTransfer.files[0], true)
+    importFile(e.dataTransfer.files[0], true)
   }
 }
 </script>
