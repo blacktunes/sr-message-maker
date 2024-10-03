@@ -164,10 +164,16 @@ export const gameAvatar: { [name: string]: UserAvatar } = {
 }
 
 export const gameCharacter: { [name: string]: Character } = {
+  灵砂: {
+    name: '灵砂',
+    avatar: 'https://patchwiki.biligame.com/images/sr/6/60/kwdehoxn9net3nsjwub5r16ix6ipofo.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/10/02/276833758/503f3b24c59343fe64b94c87549b1315_8703058771506056818.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '莫生气，莫生气，哪有功夫生闲气'
+  },
   飞霄: {
     name: '飞霄',
     avatar: 'https://patchwiki.biligame.com/images/sr/d/df/iq1o5mvremm66200xe7a5klm5lb1vc4.png',
-    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/09/10/279865110/85034b6791292d156fe4c395136320ce_2585409063876523378.png?x-oss-process=image/quality,q_75/resize,s_280',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/10/02/279865110/93f0f516a72a85f884d68c865d4518ff_2071160874130550591.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: '手痒'
   },
   云璃: {

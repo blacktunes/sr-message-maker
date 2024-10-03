@@ -108,13 +108,13 @@
 </template>
 
 <script lang="ts" setup>
+import { exportFile, inputFile } from '@/assets/scripts/file'
 import { popupManager } from '@/assets/scripts/popup'
-import { Accept, uploadFile } from '@/assets/scripts/upload'
 import { avatar } from '@/store/avatar'
 import { character } from '@/store/character'
 import { message } from '@/store/message'
-import { compressToUint8Array } from 'lz-string'
-import { Btn, Popup, Window } from 'star-rail-vue'
+import { KEY } from '@/store/setting'
+import { Btn, countStrToSize, Popup, Window } from 'star-rail-vue'
 
 const props = defineProps<{
   name: string
@@ -129,50 +129,10 @@ const close = () => {
   emits('close', props.name)
 }
 
-const countStrToSize = (str: string) => {
-  let count = 0
-  for (let i = 0; i < str.length; i++) {
-    count += Math.ceil(str.charCodeAt(i).toString(2).length / 8)
-  }
-
-  if (count === 0) return '0 B'
-  const k = 1024,
-    sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
-    i = Math.floor(Math.log(count) / Math.log(k))
-
-  return `${Number((count / Math.pow(k, i)).toPrecision(3))} ${sizes[i]}`
-}
-
 const messageUsage = computed(() => countStrToSize(JSON.stringify(message.list)))
 const messageNum = computed(() => message.list.reduce((i, j) => j.list.length + i, 0))
 const characterUsage = computed(() => countStrToSize(JSON.stringify(character.custom)))
 const customAvatarUsage = computed(() => countStrToSize(JSON.stringify(avatar.custom)))
-
-const downloadData = (data: any, type: Accept) => {
-  const str = JSON.stringify(data, null, 2)
-  const blob = new Blob([compressToUint8Array(str)], { type: 'application/octet-stream' })
-  const url = URL.createObjectURL(blob)
-  const a = document.createElement('a')
-  a.href = url
-  a.download = `SR-${new Date().toLocaleString()}${type}`
-  a.click()
-  a.remove()
-  URL.revokeObjectURL(url)
-}
-
-const uploadData = async (accept: string) => {
-  const el = document.createElement('input')
-  el.type = 'file'
-  el.accept = accept
-  el.onchange = async () => {
-    const file = el.files?.[0]
-    if (file) {
-      await uploadFile(file)
-    }
-  }
-  el.click()
-  el.remove()
-}
 
 const hasMessage = computed(() => message.list.length > 0)
 
@@ -195,12 +155,11 @@ const deleteMessage = () => {
 
 const downloadMessage = () => {
   if (!hasMessage.value) return
-
-  downloadData(toRaw(message.list), Accept.message)
+  exportFile(toRaw(message.list), KEY.MESSAGE_FILE_ACCEPT)
 }
 
 const uploadMessage = async () => {
-  await uploadData(`.png,${Accept.message}`)
+  await inputFile(`.png,${KEY.MESSAGE_FILE_ACCEPT}`)
 }
 
 const hasCharacter = computed(() => Object.keys(character.custom).length > 0)
@@ -227,11 +186,11 @@ const deleteCharacter = () => {
 const downloadCharacter = () => {
   if (!hasCharacter.value) return
 
-  downloadData(toRaw(character.custom), Accept.character)
+  exportFile(toRaw(character.custom), KEY.CHARACTER_FILE_ACCEPT)
 }
 
 const uploadCharacter = async () => {
-  await uploadData(Accept.character)
+  await inputFile(KEY.CHARACTER_FILE_ACCEPT)
 }
 
 const reserDatabase = () => {
@@ -241,7 +200,7 @@ const reserDatabase = () => {
     text: ['确定重置数据库吗？'],
     fn: () => {
       popupManager.open('loading')
-      const request = indexedDB.deleteDatabase('sr-message-v2')
+      const request = indexedDB.deleteDatabase(KEY.DATABASE_NAME)
       request.onblocked = () => {
         location.reload()
       }

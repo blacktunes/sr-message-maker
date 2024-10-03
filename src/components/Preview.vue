@@ -76,7 +76,7 @@ import { emitter } from '@/assets/scripts/event'
 import { popupManager } from '@/assets/scripts/popup'
 import { autoPlay } from '@/store/autoPlay'
 import { currentMessage, messageIndex } from '@/store/message'
-import { setting, state } from '@/store/setting'
+import { KEY, setting, state } from '@/store/setting'
 import { screenshot } from 'star-rail-vue'
 import Icon from './Common/Icon.vue'
 import { info, scrollToBottom, title } from './Message/Message'
@@ -287,7 +287,7 @@ emitter.on('screenshot', () => {
           download: setting.download,
           data: {
             raw: JSON.stringify(toRaw(currentMessage.value)),
-            filename: 'raw.m'
+            filename: KEY.RAW_NAME
           }
         },
         { pixelRatio: setting.quality }
