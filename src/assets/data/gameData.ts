@@ -137,6 +137,27 @@ export const gameAvatar: { [name: string]: UserAvatar } = {
   '椒丘•仁医': {
     avatar: 'https://patchwiki.biligame.com/images/sr/0/0f/9pcmt0yp5sxwvdto5crkzxcb9h6p8cz.png'
   },
+  '飞霄•健体': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/a/a4/oh74z8g8pbn584rsa5y4exnrqzsja6k.png'
+  },
+  '貊泽•健体': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/0/03/bjgm8vo242yhbpfsatq3rmuusl61cj2.png'
+  },
+  '梦境迷钟': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/d/d9/necqqbkdcevgayt5fggnmco207w9vtg.png'
+  },
+  '银狼•开场': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/d/d1/9s2tqlmgkvd0d3jx92fbozcs33d58q5.png'
+  },
+  '乱破•开场': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/4/46/f53iihq8mkmbt3a4n49h7jocti3jk8b.png'
+  },
+  '知更鸟•韶华': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/8/82/j02x2327imovo49rhzuelepqr9rcnks.png'
+  },
+  '星期日•韶华': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/8/8e/o74ht814h8err0467l4iqnars6clp8l.png'
+  },
   '星•毁灭': {
     avatar: 'https://patchwiki.biligame.com/images/sr/5/52/rhgkx12fxucnesllif85tatcmhxqex3.png',
     card: 星_毁灭_card
@@ -164,10 +185,22 @@ export const gameAvatar: { [name: string]: UserAvatar } = {
 }
 
 export const gameCharacter: { [name: string]: Character } = {
+  忘归人: {
+    name: '停云',
+    avatar: 'https://patchwiki.biligame.com/images/sr/b/b7/knwf151e2owlehhkauisj3wlcpqg4gh.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/12/24/276833758/73859ba04bc7f4ad04c79afb315a7d6c_482049655375202748.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '有话好好说，不要吵架~'
+  },
+  乱破: {
+    name: '乱破',
+    avatar: 'https://patchwiki.biligame.com/images/sr/0/0d/3wrmrv02fzul9srx9ft5r4ytbzh02ip.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/11/13/276833758/99561cf6e730a5a66215cfae1e2cde5e_1900678143670151817.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '一心不乱，破邪显正'
+  },
   灵砂: {
     name: '灵砂',
     avatar: 'https://patchwiki.biligame.com/images/sr/6/60/kwdehoxn9net3nsjwub5r16ix6ipofo.png',
-    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/10/02/276833758/503f3b24c59343fe64b94c87549b1315_8703058771506056818.png?x-oss-process=image/quality,q_75/resize,s_280',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/10/23/276833758/d4c8afb74f483ff0764bfa830a9b0b4e_6268429831486737186.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: '莫生气，莫生气，哪有功夫生闲气'
   },
   飞霄: {
@@ -288,6 +321,12 @@ export const gameCharacter: { [name: string]: Character } = {
     avatar: 'https://patchwiki.biligame.com/images/sr/7/73/cx1pu6pl7h4z5b5e86fxmb2gfyqewr9.png',
     card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/4d5ac247ca1460b34b3f73244afbb0f6_8390343856757982675.png?x-oss-process=image/quality,q_75/resize,s_280',
     info: '可以不喝水，但不能没咖啡'
+  },
+  星期日: {
+    name: '星期日',
+    avatar: 'https://patchwiki.biligame.com/images/sr/8/8d/65lqy256fqzq7jiaznl1bys2ito0oez.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/12/25/276833758/b91972d458398ba6c0f5b0f16e0386da_5372706694091431833.png?x-oss-process=image/quality,q_75/resize,s_280',
+    info: '♪正在收听《若我不曾见过太阳》'
   },
   椒丘: {
     name: '椒丘',
