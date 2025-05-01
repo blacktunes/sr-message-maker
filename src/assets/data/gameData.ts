@@ -1,11 +1,9 @@
 import 穹_毁灭 from '@/assets/images/avatar/穹_毁灭.webp'
-import 星_毁灭_card from '@/assets/images/avatar/星_毁灭_card.webp'
 import 穹_存护 from '@/assets/images/avatar/穹_存护.webp'
-import 穹_存护_card from '@/assets/images/avatar/穹_存护_card.webp'
 import 星_同谐 from '@/assets/images/avatar/星_同谐.webp'
-import 星_同谐_card from '@/assets/images/avatar/星_同谐_card.webp'
 import 穹_同谐 from '@/assets/images/avatar/穹_同谐.webp'
-import 穹_同谐_card from '@/assets/images/avatar/穹_同谐_card.webp'
+import 星_记忆 from '@/assets/images/avatar/星_记忆.webp'
+import 穹_记忆 from '@/assets/images/avatar/穹_记忆.webp'
 
 export const gameAvatar: { [name: string]: UserAvatar } = {
   无: {
@@ -158,37 +156,120 @@ export const gameAvatar: { [name: string]: UserAvatar } = {
   '星期日•韶华': {
     avatar: 'https://patchwiki.biligame.com/images/sr/8/8e/o74ht814h8err0467l4iqnars6clp8l.png'
   },
+  '叽米•沐浴': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/c/c7/jgkkygbktqlbat7ucdnc777edbbska8.png'
+  },
+  '贼灵': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/5/5b/0lbxjzrxvkhfdedvf4yc8ufmtytsk1z.png'
+  },
+  '黑塔•茶歇': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/9/9a/je7gd3eoc2end3ay5q04lxyymmm36zw.png'
+  },
+  '大黑塔•茶歇': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/f/f5/9l5ruam1va9gkpivi3qchejsnej150c.png'
+  },
+  '缇安娃娃': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/1/1e/61ezgfxc505p38ar0497fxvweymdvax.png'
+  },
+  '「看不见我」': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/b/b6/p53mvnz2gx4lw4y2fg6krsw6xu1dcw0.png'
+  },
+  '缇宝•佳肴': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/2/2e/mk0baihz23h3v2bd1ekz07geelmjb5g.png'
+  },
+  '万敌•佳肴': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/9/92/3m95g4nzdv3fbo02rw3cg47qe6i8o0s.png'
+  },
+  '玻吕茜亚': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/9/94/0w6y8aigzbmi7b8nxbklcn618kwn9la.png'
+  },
+  '遐蝶•巧思': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/9/91/611ntjdz42zoxcx6acgqsiiczflj5po.png'
+  },
+  '那刻夏•巧思': {
+    avatar: 'https://patchwiki.biligame.com/images/sr/1/1c/pf2di4g8wyzkrd6jvzj6oit1tx6hebh.png'
+  },
   '星•毁灭': {
     avatar: 'https://patchwiki.biligame.com/images/sr/5/52/rhgkx12fxucnesllif85tatcmhxqex3.png',
-    card: 星_毁灭_card
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/06/12/159300832/fa945988bc19ef6d44a1bad0def06b01_4529000585249072896.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp'
   },
   '穹•毁灭': {
     avatar: 穹_毁灭,
-    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/26/288909604/bb5959b4a67a0637f6862b2c8ba163ed_3921856926987798793.png?x-oss-process=image/quality,q_75/resize,s_280'
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/06/12/159300832/242eea2c0f347123489412f1a039bf58_2454114231381483151.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp'
   },
   '星•存护': {
     avatar: 'https://patchwiki.biligame.com/images/sr/7/71/sg4gsfp901hyfd1huaipfsbcm8p85j2.png',
-    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/1d351a764ae64aeed744296503bc6266_9196637429550074047.png?x-oss-process=image/quality,q_75/resize,s_280'
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/06/12/159300832/8c065ed03caf5efbd734b125147b76e0_2239882686265020556.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp'
   },
   '穹•存护': {
     avatar: 穹_存护,
-    card: 穹_存护_card
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/1d351a764ae64aeed744296503bc6266_9196637429550074047.png?x-oss-process=image/quality,q_75/resize,s_280'
   },
   '星•同谐': {
     avatar: 星_同谐,
-    card: 星_同谐_card
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/06/12/279865110/1428272a6d846c0e390a25a9f65b3f49_1460215812361881977.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp'
   },
   '穹•同谐': {
     avatar: 穹_同谐,
-    card: 穹_同谐_card
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/06/14/276833758/4c5a096164da0c10df9614973a96f135_4204388553645461311.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp'
+  },
+  '星•记忆': {
+    avatar: 星_记忆,
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2025/02/26/276833758/9a9e555d1ea70a7f28d69ffb79cc2b0d_2040079149834133653.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp'
+  },
+  '穹•记忆': {
+    avatar: 穹_记忆,
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2025/02/26/276833758/3855bf3134a7f0e1af4e5ed1c17bcab2_7911394014814947811.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp'
   }
 }
 
 export const gameCharacter: { [name: string]: Character } = {
+  风堇: {
+    name: '风堇',
+    avatar: 'https://patchwiki.biligame.com/images/sr/f/fe/btad3oegk6v46b3xswvvtl370ib8zbm.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2025/03/25/276833758/bce5adf04ef9254c48e1effe84aef5fb_8862908050067271418.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp',
+    info: ''
+  },
+  那刻夏: {
+    name: '那刻夏',
+    avatar: 'https://patchwiki.biligame.com/images/sr/c/c7/f3udn1bfun9og7a2h8nkabbom5kh53b.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2025/04/29/197948068/61e443a2a533c83d92cea1c2b18187b4_5187267915111429321.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp',
+    info: ''
+  },
+  遐蝶: {
+    name: '遐蝶',
+    avatar: 'https://patchwiki.biligame.com/images/sr/8/81/johi69tjqhfyngs4cfkfsu2w8bomyiy.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2025/04/30/276833758/95fc04dd6a845268fa7c27a31bb46621_6824530477798525844.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp',
+    info: ''
+  },
+  万敌: {
+    name: '万敌',
+    avatar: 'https://patchwiki.biligame.com/images/sr/d/d9/0dyo0uk3edcfpjbz82qbwep032ge0m4.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2025/04/09/276833758/9696192ebe9ad83cd596d1e61140da38_2969741350201296492.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp',
+    info: ''
+  },
+  缇宝: {
+    name: '缇宝',
+    avatar: 'https://patchwiki.biligame.com/images/sr/1/16/s15opurtx1s67wf670orxm0ysqnr7nk.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2025/03/19/276833758/07352f2641c62c60da15a8e536123aac_2462781100469790045.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp',
+    info: '缇宝老师随时在哦~'
+  },
+  阿格莱雅: {
+    name: '阿格莱雅',
+    avatar: 'https://patchwiki.biligame.com/images/sr/b/b3/js5tt9qxs66y1o04vi921zmgsrt54le.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2025/02/26/276833758/f8e3c85c4efff82259b97ee6a8af9591_431779080596053481.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp',
+    info: '浴场见'
+  },
+  大黑塔: {
+    name: '大黑塔',
+    avatar: 'https://patchwiki.biligame.com/images/sr/0/0f/k7y0cams5glai70zx3zq20dy4nvzcbp.png',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2025/02/04/276833758/1994e6c72f8092ad91eb0aec3062ab05_6446331692830742152.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp',
+    info: '是本人'
+  },
   忘归人: {
     name: '停云',
     avatar: 'https://patchwiki.biligame.com/images/sr/b/b7/knwf151e2owlehhkauisj3wlcpqg4gh.png',
-    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/12/24/276833758/73859ba04bc7f4ad04c79afb315a7d6c_482049655375202748.png?x-oss-process=image/quality,q_75/resize,s_280',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2025/04/30/276833758/8501a3ba8b68eebe10a52c4ba1745f75_3923503292936613839.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp',
     info: '有话好好说，不要吵架~'
   },
   乱破: {
@@ -502,7 +583,7 @@ export const gameCharacter: { [name: string]: Character } = {
   貊泽: {
     name: '貊泽',
     avatar: 'https://patchwiki.biligame.com/images/sr/6/61/rkegujumye2mz2bddqhg976ijosbv0k.png',
-    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/09/10/279865110/cee99b33cd39b3e7ff857ea866e125bf_7507368002936382130.png?x-oss-process=image/quality,q_75/resize,s_280',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/10/02/276833758/fb2e4984e0fb81b74c8e46a6637ed9d1_9214873775811182174.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp',
     info: '没有签名。'
   },
   加拉赫: {
