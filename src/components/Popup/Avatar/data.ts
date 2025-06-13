@@ -5,6 +5,7 @@ import { setAvatar, setting } from '@/store/setting'
 export const data = reactive<{
   index: string | number
   name?: string
+  local?: boolean
 }>({
   index: 0,
   name: undefined
@@ -33,6 +34,7 @@ export const callback = {
   },
   close: () => {
     data.name = undefined
+    data.local  = undefined
   },
   set confirm(fn: () => any) {
     confirm = fn

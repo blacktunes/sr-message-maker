@@ -39,6 +39,7 @@ const handleNameClick = async () => {
   })
   if (name !== null) {
     setName(name)
+    setting.local_character = undefined
   }
 }
 </script>

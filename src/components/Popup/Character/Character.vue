@@ -42,7 +42,7 @@
           >
             <CharacterCard
               class="character"
-              :custom="!userData.card"
+              :custom="!userData.card && !setting.local_character"
               :name="setting.name"
               :avatar="userData.card || userData.avatar"
               :level="!userData.card ? 5 : undefined"
@@ -213,6 +213,7 @@ const handlecharacterClick = async (key: string, name: string) => {
       if (key !== '开拓者') {
         avatarData.index = key
         avatarData.name = name
+        avatarData.local = true
       } else {
         avatarData.index = setting.avatar
         avatarData.name = setting.name

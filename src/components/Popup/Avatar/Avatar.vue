@@ -201,7 +201,7 @@ const onConfirmClick = () => {
   if (data.name) {
     setName(data.name)
   }
-  setAvatar(data.index)
+  setAvatar(data.index, data.local)
   close()
   return true
 }
