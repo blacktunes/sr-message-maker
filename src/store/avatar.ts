@@ -22,7 +22,8 @@ const userData = computed(() => {
     }
     if (character.game[key]) {
       return {
-        avatar: character.game[key].avatar
+        avatar: character.game[key].avatar,
+        card: character.game[key].card
       }
     }
     if (character.other[key]) {

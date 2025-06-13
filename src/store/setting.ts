@@ -30,6 +30,8 @@ export const setting = reactive<{
   name: string
   /** 用户头像 */
   avatar: string | number
+  /** 是否使用本地角色 */
+  local_character?: boolean
   /** 对话气泡 */
   bubbles: number
   /** 是否显示绿幕 */
@@ -41,6 +43,7 @@ export const setting = reactive<{
 }>({
   name: '开拓者',
   avatar: DEFAULT_AVATAR,
+  local_character: false,
   bubbles: 0,
   green: false,
   download: true,
@@ -55,8 +58,9 @@ export const setName = (name: string) => {
   }
 }
 
-export const setAvatar = (key: string | number = DEFAULT_AVATAR) => {
+export const setAvatar = (key: string | number = DEFAULT_AVATAR, local?: boolean) => {
   setting.avatar = key
+  setting.local_character = local
 }
 
 setLocalStorage(setting, KEY.SETTING_KEY)

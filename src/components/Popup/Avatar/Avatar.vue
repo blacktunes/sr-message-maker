@@ -126,9 +126,15 @@ const close = () => {
   emits('close', props.name)
 }
 
-const isGameCharacter = computed(
-  () => character.game[data.index] || character.other[data.index] || character.custom[data.index]
-)
+const isGameCharacter = computed(() => {
+  if (
+    typeof data.index === 'string' &&
+    (data.index.startsWith('星•') || data.index.startsWith('穹•'))
+  ) {
+    return false
+  }
+  return character.game[data.index] || character.other[data.index] || character.custom[data.index]
+})
 
 const avatarName = computed(() => {
   if (typeof data.index === 'string' && !Number(data.index)) {
@@ -201,7 +207,7 @@ const onConfirmClick = () => {
   if (data.name) {
     setName(data.name)
   }
-  setAvatar(data.index)
+  setAvatar(data.index, data.local)
   close()
   return true
 }
