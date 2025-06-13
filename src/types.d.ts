@@ -56,9 +56,10 @@ interface Character {
   avatar: string
   card: string
   info?: string
+  type?: Fate
 }
 
-type OtherCharacter = Omit<Character, 'card'> & { gold?: boolean }
+type OtherCharacter = Omit<Character, 'card'> & { gold?: boolean, custom: true }
 
 type CustomCharacter = Omit<Character, 'card'> & { custom: true }
 

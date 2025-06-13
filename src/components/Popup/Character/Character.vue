@@ -5,114 +5,84 @@
   >
     <div
       class="character-select"
-      @contextmenu.prevent.stop="close"
+      @click.stop
     >
-      <div
-        class="box"
-        @click.stop=""
+      <Close
+        color="#fff"
+        class="close"
+        @click.stop="close"
+      />
+      <Transition
+        name="box-slide-bottom"
+        appear
       >
-        <div class="tabs">
-          <div
-            class="tab"
-            :class="{ highlight: page === 0 }"
-            @click="changePage(0)"
-          >
-            游戏角色
-          </div>
-          <div
-            class="tab"
-            :class="{ highlight: page === 1 }"
-            @click="changePage(1)"
-          >
-            其它角色
-          </div>
-          <div
-            class="tab"
-            :class="{ highlight: page === 2 }"
-            @click="changePage(2)"
-          >
-            自定义角色
+        <div class="left">
+          <GroupBtn
+            type="全部"
+            :highlight="select === '全部'"
+            @click="select = '全部'"
+          />
+          <div class="group-list">
+            <GroupBtn
+              v-for="name in fateList"
+              :key="name"
+              :type="name"
+              :highlight="select === name"
+              @click="select = name"
+            />
           </div>
         </div>
-        <div class="list">
-          <div
-            class="character-list"
-            data-type="game"
-            ref="game"
+      </Transition>
+      <Transition
+        name="box-slide-bottom"
+        appear
+      >
+        <div class="right">
+          <CharacterCard
+            v-if="!(data.key && data.key[0] === -1)"
+            :custom="!userData.card && !setting.local_character"
+            :name="setting.name"
+            :avatar="userData.card || userData.avatar"
+            :level="!userData.card ? 5 : undefined"
+            title="你"
+            info="[短信发送者]"
+            @click="handlecharacterClick('开拓者', '')"
+            @contextmenu.prevent.stop
+          />
+          <CharacterCard
+            v-for="(item, key) in CharacterList"
+            :key="key"
+            :custom="!item.type || item.custom"
+            :name="item.type ? key : item.name"
+            :info="item.info"
+            :avatar="item.card || item.avatar"
+            :level="item.gold ? 5 : undefined"
+            @click="handlecharacterClick(String(key), item.name)"
+            @contextmenu.prevent.stop="
+              !item.type ? handleDelClick(String(key), item.name) : undefined
+            "
           >
-            <CharacterCard
-              class="character"
-              :custom="!userData.card && !setting.local_character"
-              :name="setting.name"
-              :avatar="userData.card || userData.avatar"
-              :level="!userData.card ? 5 : undefined"
-              title="开拓者"
-              @click="handlecharacterClick('开拓者', '')"
-            />
-            <CharacterCard
-              v-for="(item, key) in character.game"
-              :key="`character-${key}`"
-              class="character"
-              :name="key as string"
-              :info="item.info"
-              :avatar="item.card"
-              @click="handlecharacterClick(String(key), item.name)"
-            />
-          </div>
-          <div
-            class="character-list"
-            data-type="other"
-            ref="other"
-          >
-            <CharacterCard
-              v-for="(item, key) in character.other"
-              :key="`other-character-${key}`"
-              class="character"
-              :custom="true"
-              :name="item.name"
-              :info="item.info"
-              :avatar="item.avatar"
-              :level="item.gold ? 5 : undefined"
-              @click="handlecharacterClick(String(key), item.name)"
-            />
-          </div>
-
-          <div
-            class="character-list"
-            data-type="custom"
-            ref="custom"
-          >
-            <CharacterCard
-              v-for="(item, key) in character.custom"
-              :key="`custom-character-${key}`"
-              class="character"
-              :custom="true"
-              :name="item.name"
-              :info="item.info"
-              :avatar="item.avatar"
-              @click="handlecharacterClick(String(key), item.name)"
-              @contextmenu.prevent.stop="handleDelClick(String(key), item.name)"
-            >
-              <div
-                class="del"
-                @click.stop="handleDelClick(String(key), item.name)"
-              >
-                <Icon
-                  name="delete"
-                  width="25"
-                  height="25"
-                />
-              </div>
-            </CharacterCard>
             <div
-              class="add"
-              @click="addCustom"
+              v-if="!item.type"
+              class="del"
+              @click.stop="handleDelClick(String(key), item.name)"
             >
-              <Icon name="add" />
+              <Icon
+                name="delete"
+                width="25"
+                height="25"
+              />
             </div>
+          </CharacterCard>
+          <div
+            v-if="select === '全部' || select === '神秘'"
+            class="add"
+            @click="addCustom"
+          >
+            <Icon name="add" />
           </div>
         </div>
-      </div>
+      </Transition>
     </div>
   </Popup>
 </template>
@@ -128,12 +98,39 @@ import { character } from '@/store/character'
 import { input } from '@/store/input'
 import { message } from '@/store/message'
 import { setting } from '@/store/setting'
-import { Popup } from 'star-rail-vue'
-import { data } from './data'
+import { Close, Popup } from 'star-rail-vue'
+import { data, fateList } from './data'
+import GroupBtn from './GroupBtn.vue'
 
-const game = ref<HTMLElement | null>(null)
-const other = ref<HTMLElement | null>(null)
-const custom = ref<HTMLElement | null>(null)
+const select = ref<'全部' | Fate>('全部')
+
+const filter = <T extends { [key: string]: any }>(obj: T, fn: (...arg: any) => boolean) =>
+  Object.keys(obj)
+    .filter((key) => fn(obj[key]))
+    .reduce((res: { [key: string]: any }, key) => {
+      res[key] = obj[key]
+      return res
+    }, {})
+
+const CharacterList = computed(() => {
+  let list: { [key: string]: any }
+  if (select.value === '全部') {
+    list = { ...character.game, ...character.other, ...character.custom }
+  } else if (select.value === '神秘') {
+    list = { ...filter(character.other, (item) => item.type === select.value), ...character.custom }
+  } else {
+    list = filter({ ...character.game, ...character.other }, (item) => item.type === select.value)
+  }
+  if (data.key && data.key[0] === -1) {
+    list = Object.keys(list).reduce((res: { [key: string]: any }, key) => {
+      if (!key.startsWith('星•') && !key.startsWith('穹•')) {
+        res[key] = list[key]
+      }
+      return res
+    }, {})
+  }
+  return list
+})
 
 const props = defineProps<{
   name: string
@@ -146,65 +143,6 @@ const emits = defineEmits<{
 
 const close = () => {
   emits('close', props.name)
-}
-
-const page = ref(0)
-
-const intersectionRatio: [number, number, number] = [0, 0, 0]
-
-const intersectionObserver = new IntersectionObserver((entries) => {
-  entries.forEach((item) => {
-    switch ((item.target as HTMLElement).dataset.type) {
-      case 'game':
-        intersectionRatio[0] = item.intersectionRatio
-        break
-      case 'other':
-        intersectionRatio[1] = item.intersectionRatio
-        break
-      case 'custom':
-        intersectionRatio[2] = item.intersectionRatio
-        break
-    }
-  })
-
-  if (intersectionRatio[2] > 0) {
-    page.value = 2
-    return
-  }
-  if (intersectionRatio[1] > 0) {
-    page.value = 1
-    return
-  }
-  page.value = 0
-})
-
-onMounted(() => {
-  if (game.value) intersectionObserver.observe(game.value)
-  if (other.value) intersectionObserver.observe(other.value)
-  if (custom.value) intersectionObserver.observe(custom.value)
-})
-
-const changePage = (page: number) => {
-  if (page === 0) {
-    game.value?.scrollIntoView({
-      behavior: 'smooth'
-    })
-    return
-  }
-
-  if (page === 1) {
-    other.value?.scrollIntoView({
-      behavior: 'smooth'
-    })
-    return
-  }
-
-  if (page === 2) {
-    custom.value?.scrollIntoView({
-      behavior: 'smooth'
-    })
-    return
-  }
 }
 
 const handlecharacterClick = async (key: string, name: string) => {
@@ -269,93 +207,122 @@ const handleDelClick = (key: string, name: string) => {
 </script>
 
 <style lang="stylus" scoped>
-@import '../../Common/Window.styl'
-
-$character-item-width = 387px
+$top = 30px
 
 .character-select
   position absolute
-  top 0
-  left 0
+  top 10px
+  left 10px
   display flex
-  justify-content center
-  align-items center
-  width 100%
-  height 100%
-  user-select none
+  overflow hidden
+  box-sizing border-box
+  padding 30px 60px
+  width calc(100% - 20px)
+  height calc(100% - 20px)
+  background #000
+  background-image url('https://patchwiki.biligame.com/images/sr/2/29/tjd2rlq7gbac4k46mnum5fvtt1218r8.png')
+  background-position 100% 0
+  background-size 103%
+  background-repeat no-repeat
 
-  .box
-    position relative
+  &:before
+    position absolute
+    top 40px
+    right 50px
+    bottom 40px
+    left 50px
+    border 5px solid rgba(100, 100, 100, 0.3)
+    border-radius 5px
+    content ''
+    pointer-events none
+
+  .close
+    position absolute
+    top 100px
+    right 85px
+    z-index 1
+
+  .left
     display flex
     flex-direction column
-    justify-content center
-    align-items center
-    padding 20px 65px
-    width 90%
-    height 95%
-    background var(--box-background-color)
-    cursor default
-    message()
+    margin $top 150px $top 15px
+    width 300px
+    height s('calc(100% - %s)', $top * 2)
 
-    .tabs
+    .group-list
       display flex
-      align-self flex-start
-      width 100%
+      flex 1
+      flex-direction column
+      overflow-x hidden
+      overflow-y auto
+      overflow-y overlay
+      scrollbar-gutter stable
+      scrollbar-width none
+      mask-image linear-gradient(to bottom, transparent, #000 25px, #000 calc(100% - 25px), transparent)
 
-      .tab
-        margin 0 20px 25px 5px
-        font-weight bold
-        font-size 60px
-        opacity 0.5
-        cursor pointer
+      &::-webkit-scrollbar
+        width 0
+        height 0
 
-        &:hover
-          opacity 1
+  .right
+    display flex
+    flex 1
+    flex-wrap wrap
+    align-content flex-start
+    overflow-x hidden
+    overflow-y auto
+    overflow-y overlay
+    box-sizing border-box
+    margin ($top + 15px) 35px ($top + 15px) 0
+    height s('calc(100% - %s)', ($top + 15px) * 2)
+    scrollbar-gutter stable
+    scrollbar-width none
+    mask-image linear-gradient(to bottom, transparent, #000 30px, #000, #000 calc(100% - 30px), transparent), linear-gradient(to left, black, transparent 50px)
+    mask-size 100% 100%
+    mask-position 0 0, 100% 0
+    mask-repeat no-repeat, no-repeat
 
-    .list
-      overflow overlay
-      margin 15px 0
-      padding 0 30px 0 20px
-      width 100%
-      height 100%
+    &::-webkit-scrollbar
+      width 12px
+      height 12px
 
-      .character-list
-        display flex
-        flex-wrap wrap
+    &::-webkit-scrollbar-track
+      margin 0
+      background #545454
 
-        .character
-          width $character-item-width
+    &::-webkit-scrollbar-thumb
+      background #c1c8d2
 
-          &:hover
-            .del
-              opacity 1
+    .add
+      display flex
+      flex-direction column
+      justify-content center
+      align-items center
+      // overflow hidden
+      box-sizing border-box
+      margin 10px
+      width 387px
+      height 650px
+      border-bottom 15px solid #c3c3c3
+      border-top-right-radius 50px
+      background linear-gradient(to bottom, #373737, #615a6d)
+      color #afafaf
+      cursor pointer
 
-        .add
-          display flex
-          flex-direction column
-          justify-content center
-          align-items center
-          box-sizing border-box
-          margin 10px
-          width $character-item-width
-          height 645px
-          border 5px solid #afafaf
-          color #afafaf
-          cursor pointer
+      &:hover
+        position relative
+        filter brightness(1.1)
 
-.highlight
-  position relative
-  opacity 1 !important
-
-  &:after
-    position absolute
-    bottom -10px
-    left 0
-    width 100%
-    height 5px
-    background #121212
-    content ''
-    animation open 0.3s forwards
+        &:after
+          position absolute
+          top 0
+          right 0
+          bottom -15px
+          left 0
+          border 5px solid rgba(255, 255, 255, 0.7)
+          border-top-right-radius 50px
+          content ''
+          pointer-events none
 
 .del
   position absolute

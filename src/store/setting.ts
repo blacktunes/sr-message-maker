@@ -61,7 +61,6 @@ export const setName = (name: string) => {
 export const setAvatar = (key: string | number = DEFAULT_AVATAR, local?: boolean) => {
   setting.avatar = key
   setting.local_character = local
-  console.log(setting.local_character)
 }
 
 setLocalStorage(setting, KEY.SETTING_KEY)

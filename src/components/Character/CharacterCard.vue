@@ -45,18 +45,21 @@ defineProps<{
   background linear-gradient(to bottom, #373737, #7b715b) !important
 
 .custom-user
+  &:hover
+    .card
+      &:after
+        bottom -15px !important
+
   .card
-    overflow hidden
     margin-bottom 10px
     height 635px !important
     border-bottom 14px solid #c3c3c3
-    border-top-right-radius 50px
     background linear-gradient(to bottom, #373737, #615a6d)
 
     .avatar
       overflow hidden
       margin auto
-      margin-top 65px
+      padding-top 65px
       width 340px
       height 340px
 
@@ -75,13 +78,30 @@ defineProps<{
 
 .character
   position relative
-  margin 10px
+  margin 10px 12px
+  width 387px
   height 700px
   cursor pointer
 
+  .card
+    border-top-right-radius 50px
+    transition 0.2s
+
   &:hover
     .card
+      position relative
       filter brightness(1.1)
+
+      &:after
+        position absolute
+        top 0
+        right 0
+        bottom 0
+        left 0
+        border 5px solid rgba(255, 255, 255, 0.7)
+        border-top-right-radius 50px
+        content ''
+        pointer-events none
 
   .card
     position relative
