@@ -11,6 +11,8 @@ const hoyoWikiUrl = `https://bbs.mihoyo.com/sr/wiki/channel/map/17`
 const hoyoWikiListSelector = `.position-list--largeModelCard > .large-model-card`
 
 const TIMEOUT = 1000
+const CHECK_RECENT_BIO_COUNTS = 10
+const CONCURRENT_FETCH_LIMIT = 1
 
 const pathList = [
   '毁灭',
@@ -59,7 +61,7 @@ export async function fetchChar() {
     newChars.push({ name, card: src })
   }
 
-  async function fetchBiliWikiChar(name: string, card: string): Promise<Character | null> {
+  async function fetchBiliWikiChar(name: string) {
     const biliWikiUrl = `${biliWikiPrefix}${encodeURIComponent(name)}`
     const avtSelector = `.poke-bg img[alt="${name}.png"]`
     const typeSelector = `.char-type img:nth-of-type(2)`
@@ -106,24 +108,63 @@ export async function fetchChar() {
     if (!charInfo) return null
     if (!pathList.includes(charInfo.type))
       console.warn(`[${name}] Unknown path type: ${charInfo.type}`)
-    else console.log(`[${name}] Fetched character info successfully`)
     await wait(TIMEOUT)
-    return { name, card, ...charInfo }
+    return { name, ...charInfo }
   }
-  const limit = pLimit(1)
+
+  let updateCount = 0
+
+  async function fetchNewChar(name: string, card: string): Promise<null | Character> {
+    const info = await fetchBiliWikiChar(name)
+    if (info) {
+      console.log(
+        `Find new character: ${name} - ${info.type}\n` +
+          `  Bio:    ${info.info || 'Not provided'}\n` +
+          `  Card:   ${card}\n` +
+          `  Avatar: ${info.avatar}`
+      )
+      updateCount++
+      return { card, ...info }
+    }
+    console.warn(`Failed to fetch character info for ${name}`)
+    return null
+  }
+
+  async function updateCharBio(name: string): Promise<boolean> {
+    const info = await fetchBiliWikiChar(name)
+    if (!info || !info.info) {
+      console.log(`No bio update for ${name}`)
+      return false
+    }
+    console.log(`Find new character bio for ${name}:\n  ${info.info}`)
+    localChar[name].info = info.info
+    updateCount++
+    return true
+  }
+  const limit = pLimit(CONCURRENT_FETCH_LIMIT)
+
+  // Check for new characters
   const results = (
-    await Promise.all(newChars.map((char) => limit(() => fetchBiliWikiChar(char.name, char.card))))
+    await Promise.all(newChars.map((char) => limit(() => fetchNewChar(char.name, char.card))))
   ).filter((char): char is Character => !!char)
-  await browser.close()
   const diff: Record<string, Character> = {}
   results.forEach((char) => {
     diff[char.name] = char
   })
+
+  // Check recent bio updates
+  const needCheckNames = Object.values(localChar)
+    .slice(0, CHECK_RECENT_BIO_COUNTS)
+    .filter((c) => !c.info)
+    .map((c) => c.name)
+  await Promise.all(needCheckNames.map((name) => limit(() => updateCharBio(name))))
+
+  await browser.close()
   fs.writeFileSync(
     './src/assets/data/static/character.json',
     JSON.stringify({ ...diff, ...localChar }, null, 2)
   )
-  console.log(`Updated character data, ${Object.keys(diff).length} new characters found.`)
+  console.log(`Updated character data, ${updateCount} character(s) updated.`)
 }
 
 async function wait(ms: number): Promise<void> {
