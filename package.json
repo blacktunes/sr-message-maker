@@ -10,7 +10,9 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.app.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "update-data": "tsx update",
+    "init-update": "playwright install chromium"
   },
   "dependencies": {
     "@ckpack/parameter": "^2.9.0",
@@ -34,9 +36,12 @@
     "eslint": "^8.57.1",
     "eslint-plugin-vue": "^9.28.0",
     "npm-run-all": "^4.1.5",
+    "p-limit": "^7.0.0",
+    "playwright": "^1.54.2",
     "prettier": "^3.3.3",
     "prettier-plugin-stylus-format": "^1.0.1",
     "stylus": "^0.63.0",
+    "tsx": "^4.20.4",
     "typescript": "^5.6.2",
     "unplugin-auto-import": "^0.17.8",
     "vite": "^5.4.7",
