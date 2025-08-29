@@ -7,6 +7,9 @@ import { chromium } from 'playwright'
 import localCharJSON from '../src/assets/data/static/character.json'
 const localChar = localCharJSON as Record<string, Character>
 
+const args = process.argv.slice(2)
+const UPDATE_ALL_DATA = args.includes('-all')
+
 const ALIAS = {
   仙舟三月七: '三月七•巡猎'
 }
@@ -19,6 +22,8 @@ const TIMEOUT = 300
 const CONCURRENT_FETCH_LIMIT = 1
 
 export async function fetchChar() {
+  console.log('Update Character')
+
   const browser = await chromium.launch({ headless: true })
   const wikiPage = await browser.newPage()
 
@@ -87,8 +92,13 @@ export async function fetchChar() {
 
   let progress = 0
   let updateCount = 0
+  let log = `### 更新角色`
 
   async function getChar(name: string, card: string): Promise<null | Character> {
+    if (!UPDATE_ALL_DATA && localChar[name]) {
+      return localChar[name]
+    }
+
     console.log(`Fetch ${name} [${++progress}/${wikiChar.length}]`)
     const info = await fetchBiliWikiChar(name)
     if (info) {
@@ -100,11 +110,13 @@ export async function fetchChar() {
             `  Avatar: ${info.avatar}`
         )
         updateCount++
+        log += `\n- ${name}`
       } else {
         if (localChar[name].name !== name) info.name = localChar[name].name
         if (!localChar[name].info && info.info && localChar[name].info !== info.info) {
           console.log(`Find new character bio for ${name}: ${info.info}`)
           updateCount++
+          log += `\n- ${name}`
         }
         if (localChar[name].info && !info.info) info.info = localChar[name].info
       }
@@ -130,8 +142,11 @@ export async function fetchChar() {
 
   await browser.close()
 
+  if (updateCount > 0) {
+    fs.writeFileSync('./character.md', log)
+  }
   fs.writeFileSync('./src/assets/data/static/character.json', JSON.stringify(results, null, 2))
-  console.log(`Updated character data, ${updateCount} character(s) updated.`)
+  console.log(`Updated character data, ${updateCount} character(s) updated.\n`)
 }
 
 async function wait(ms: number): Promise<void> {
