@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 jobs:
   update:
@@ -39,12 +40,28 @@ jobs:
           else
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
+      - name: Marger Log
+        run: |
+          > log.md
+          if [ -f avatar.md ]; then
+            cat avatar.md >> log.md
+            echo -e "\n" >> log.md
+          fi
+
+          if [ -f character.md ]; then
+            cat character.md >> log.md
+            echo -e "\n" >> log.md
+          fi
       - name: Create Pull Request
         if: steps.git-check.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v6
         with:
-          commit-message: 'chore: weekly data update'
+          token: ${{ secrets.GH_PAT }}
+          commit-message: 'chore: 更新游戏数据'
           title: 'chore: 自动数据更新'
-          body: 'GitHub Actions 执行的定时自动数据更新'
-          branch: auto/update-data
+          body-path: log.md
+          add-paths: |
+            src/assets/data/static/avatar.json
+            src/assets/data/static/character.json
+          branch: auto-update-data
           delete-branch: true
