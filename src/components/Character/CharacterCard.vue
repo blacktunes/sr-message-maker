@@ -1,7 +1,7 @@
 <template>
   <div
     class="character"
-    :class="{ 'custom-user': custom }"
+    :class="{ 'custom-character': custom, sender }"
     :title="name"
   >
     <div
@@ -31,6 +31,7 @@
 import defaultAvatar from '@/assets/images/avatar/私聊.webp'
 
 defineProps<{
+  sender?: boolean
   custom?: boolean
   name: string
   info?: string
@@ -41,17 +42,17 @@ defineProps<{
 
 <style lang="stylus" scoped>
 .gold-border
-  border-bottom 14px solid #ffd070 !important
+  border-bottom 15px solid #ffd070 !important
   background linear-gradient(to bottom, #373737, #7b715b) !important
 
-.custom-user
+.custom-character
   &:hover
     .card
       &:after
         bottom -15px !important
 
   .card
-    margin-bottom 10px
+    margin-bottom 2px
     height 635px !important
     border-bottom 14px solid #c3c3c3
     background linear-gradient(to bottom, #373737, #615a6d)
@@ -135,4 +136,11 @@ defineProps<{
     color var(--info-color)
     text-align center
     font-size 30px
+
+.sender
+  border-top-right-radius 50px
+  background rgba(255, 255, 255, 0.05)
+
+  .info
+    color #ddd
 </style>

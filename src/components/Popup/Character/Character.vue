@@ -40,6 +40,7 @@
         <div class="right">
           <CharacterCard
             v-if="!(data.key && data.key[0] === -1)"
+            sender
             :custom="!userData.card && !setting.local_character"
             :name="setting.name"
             :avatar="userData.card || userData.avatar"
@@ -113,7 +114,7 @@ const filter = <T extends { [key: string]: any }>(obj: T, fn: (...arg: any) => b
     }, {})
 
 const CharacterList = computed(() => {
-  let list: { [key: string]: any }
+  let list: Record<string, Character | OtherCharacter | CustomCharacter>
   if (select.value === '全部') {
     list = { ...character.game, ...character.other, ...character.custom }
   } else if (select.value === '神秘') {
@@ -129,7 +130,31 @@ const CharacterList = computed(() => {
       return res
     }, {})
   }
-  return list
+  const sortedByValue = Object.entries(list as Record<string, OtherCharacter>)
+    .sort((a, b) => {
+      if (!a[1].custom && !b[1].custom) {
+        if (b[1]?.level === 4) return -1
+        return 1
+      }
+      if (a[1].custom && b[1].custom) {
+        if (a[1].gold && !b[1].gold) return -1
+        return 1
+      }
+      if (a[1].custom && !b[1].custom) {
+        if (!a[1].gold) return 1
+        if (b[1]?.level === 4) return -1
+        return 1
+      }
+      return 0
+    })
+    .reduce(
+      (acc, [key, value]) => {
+        acc[key] = value
+        return acc
+      },
+      {} as Record<string, any>
+    )
+  return sortedByValue
 })
 
 const props = defineProps<{
