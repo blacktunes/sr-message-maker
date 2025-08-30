@@ -57,6 +57,7 @@ interface Character {
   card: string
   info?: string
   type?: Fate
+  level?: 4 | 5
 }
 
 type OtherCharacter = Omit<Character, 'card'> & { gold?: boolean, custom: true }
