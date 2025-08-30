@@ -40,6 +40,7 @@
         <div class="right">
           <CharacterCard
             v-if="!(data.key && data.key[0] === -1)"
+            sender
             :custom="!userData.card && !setting.local_character"
             :name="setting.name"
             :avatar="userData.card || userData.avatar"
