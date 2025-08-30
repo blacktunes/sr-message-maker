@@ -43,7 +43,7 @@ export async function fetchAvt(isGHActions?: boolean) {
 
         // real src be like: https://patchwiki.biligame.com/images/sr/6/68/ai3...crb.png
         const src = thumbSrc.replace(/\/thumb\//, '/').replace(/\/\d+px-.+$/, '')
-        const name = nameCell.textContent.trim()
+        const name = nameCell.textContent.trim().replace('（头像）', '')
         avtList.push({ name, src })
       })
 
@@ -59,7 +59,7 @@ export async function fetchAvt(isGHActions?: boolean) {
   let count = 0
   let log = `### 更新头像`
 
-  fetchedAvt.reverse().forEach(({ name, src }) => {
+  fetchedAvt.forEach(({ name, src }) => {
     if (!localAvt[name]) {
       console.log(`Find new avatar: ${name} - ${src}`)
       log += `\n- ${name}`
