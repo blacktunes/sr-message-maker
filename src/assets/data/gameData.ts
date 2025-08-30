@@ -27,7 +27,7 @@ export const gameAvatar = {
   },
   '穹•存护': {
     avatar: 穹_存护,
-    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/1d351a764ae64aeed744296503bc6266_9196637429550074047.png?x-oss-process=image/quality,q_75/resize,s_280'
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/06/12/159300832/f11b1af3880ad7264acedc74851b3204_1784279959961548473.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp'
   },
   '星•同谐': {
     avatar: 星_同谐,
@@ -82,7 +82,7 @@ export const gameCharacter = {
   '穹•存护': {
     name: '开拓者',
     avatar: 穹_存护,
-    card: 'https://act-upload.mihoyo.com/sr-wiki/2023/04/24/288909604/1d351a764ae64aeed744296503bc6266_9196637429550074047.png?x-oss-process=image/quality,q_75/resize,s_280',
+    card: 'https://act-upload.mihoyo.com/sr-wiki/2024/06/12/159300832/f11b1af3880ad7264acedc74851b3204_1784279959961548473.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp',
     type: '存护'
   },
   '星•毁灭': {
