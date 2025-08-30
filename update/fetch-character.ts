@@ -21,7 +21,7 @@ const hoyoWikiListSelector = '.position-list--largeModelCard > .large-model-card
 const TIMEOUT = 300
 const CONCURRENT_FETCH_LIMIT = 1
 
-export async function fetchChar() {
+export async function fetchChar(isGHActions?: boolean) {
   console.log('Update Character')
 
   const browser = await chromium.launch({ headless: true })
@@ -142,7 +142,7 @@ export async function fetchChar() {
 
   await browser.close()
 
-  if (updateCount > 0) {
+  if (isGHActions && updateCount > 0) {
     fs.writeFileSync('./character.md', log)
   }
   fs.writeFileSync('./src/assets/data/static/character.json', JSON.stringify(results, null, 2))

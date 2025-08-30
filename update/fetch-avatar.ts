@@ -9,7 +9,7 @@ const localAvt = localAvtJSON as Record<string, UserAvatar>
 const wikiUrl = `https://wiki.biligame.com/sr/%E8%A3%85%E9%A5%B0%E4%B8%80%E8%A7%88`
 const avtTableSelector = `table#CardSelectTr`
 
-export async function fetchAvt() {
+export async function fetchAvt(isGHActions?: boolean) {
   console.log('Update Avatar')
 
   const browser = await chromium.launch({ headless: true })
@@ -72,7 +72,7 @@ export async function fetchAvt() {
     results[name] = { avatar: src }
   })
 
-  if (count > 0) {
+  if (isGHActions && count > 0) {
     fs.writeFileSync('./avatar.md', log)
   }
   fs.writeFileSync('./src/assets/data/static/avatar.json', JSON.stringify(results, null, 2))
