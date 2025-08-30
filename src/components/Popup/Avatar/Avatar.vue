@@ -138,8 +138,8 @@ const isGameCharacter = computed(() => {
 
 const avatarName = computed(() => {
   if (typeof data.index === 'string' && !Number(data.index)) {
-    if (data.index.startsWith('开拓者•星轨')) {
-      return `${setting.name}•星轨`
+    if (data.index.startsWith('开拓者•')) {
+      return data.index.replace('开拓者•', `${setting.name}•`).replace(/\（星\）|\（穹\）/, '')
     }
     if (data.index.startsWith('星•') || data.index.startsWith('穹•')) {
       return data.index.replace(/星|穹/, setting.name)
