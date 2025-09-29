@@ -16,7 +16,7 @@ const ALIAS = {
 
 const biliWikiPrefix = 'https://wiki.biligame.com/sr/'
 const hoyoWikiUrl = 'https://bbs.mihoyo.com/sr/wiki/channel/map/17'
-const hoyoWikiListSelector = '.position-list--largeModelCard > .large-model-card'
+const hoyoWikiListSelector = '.large-model-card'
 
 const TIMEOUT = 300
 const CONCURRENT_FETCH_LIMIT = 1
@@ -31,10 +31,15 @@ export async function fetchChar(isGHActions?: boolean) {
     waitUntil: 'domcontentloaded'
   })
 
-  await wikiPage.locator(hoyoWikiListSelector).waitFor()
+  await wikiPage.locator(hoyoWikiListSelector).first().waitFor()
 
-  const wikiChar = await wikiPage.evaluate(() => {
-    const charCards = [...document.querySelectorAll('.large-model-card__content')] as HTMLElement[]
+  const wikiChar = await wikiPage.evaluate((selector) => {
+    const charListDom = document.querySelector(selector)
+    if (!charListDom) return []
+
+    const charCards = [
+      ...charListDom.querySelectorAll('.large-model-card__content')
+    ] as HTMLElement[]
 
     const charList: { name: string; card: string }[] = []
 
@@ -48,7 +53,7 @@ export async function fetchChar(isGHActions?: boolean) {
     })
 
     return charList.filter(({ name }) => !name.includes('开拓者')) // 星/穹需要人工处理
-  })
+  }, hoyoWikiListSelector)
   console.log(`Get ${wikiChar.length} Character from Wiki`)
 
   async function fetchBiliWikiChar(name: string) {
@@ -70,10 +75,15 @@ export async function fetchChar(isGHActions?: boolean) {
     const infoLocator = charPage.locator(infoSelector)
     const soft404Locator = charPage.locator(soft404Selector)
 
-    await Promise.any([
-      avtLocator.waitFor(), // Success
-      soft404Locator.waitFor() // Fail
-    ])
+    try {
+      await Promise.any([
+        avtLocator.waitFor(), // Success
+        soft404Locator.waitFor() // Fail
+      ])
+    } catch (err) {
+      console.error(err)
+      return
+    }
 
     if ((await soft404Locator.count()) === 1) return
 
@@ -94,9 +104,19 @@ export async function fetchChar(isGHActions?: boolean) {
   let updateCount = 0
   let log = `### 更新角色`
 
-  async function getChar(name: string, card: string): Promise<null | Character> {
+  function checkCard(name: string, card: string) {
+    if (localChar[name].card !== card) {
+      localChar[name].card = card
+      console.log(`Find new character card for ${name}: ${card}`)
+      updateCount++
+      log += `\n- ${name}`
+    }
+  }
+
+  async function getChar(name: string, card: string): Promise<null | [string, Character]> {
     if (!UPDATE_ALL_DATA && localChar[name]) {
-      return localChar[name]
+      checkCard(name, card)
+      return [name, localChar[name]]
     }
 
     console.log(`Fetch ${name} [${++progress}/${wikiChar.length}]`)
@@ -120,11 +140,12 @@ export async function fetchChar(isGHActions?: boolean) {
         }
         if (localChar[name].info && !info.info) info.info = localChar[name].info
       }
-      return { card, ...info }
+      return [name, { card, ...info }]
     }
     console.warn(`Failed to fetch character info for ${name}`)
     if (localChar[name]) {
-      return localChar[name]
+      checkCard(name, card)
+      return [name, localChar[name]]
     }
     return null
   }
@@ -134,9 +155,9 @@ export async function fetchChar(isGHActions?: boolean) {
   const results = (
     await Promise.all(wikiChar.map((char) => limit(() => getChar(char.name, char.card))))
   )
-    .filter((char): char is Character => !!char)
+    .filter((char): char is [string, Character] => !!char)
     .reduce((obj, char) => {
-      obj[char.name] = char
+      obj[char[0]] = char[1]
       return obj
     }, {})
 
