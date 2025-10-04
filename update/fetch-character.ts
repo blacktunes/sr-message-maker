@@ -1,3 +1,4 @@
+import './types.d.ts'
 import '../src/types.d.ts'
 
 import fs from 'node:fs'
@@ -10,7 +11,7 @@ const localChar = localCharJSON as Record<string, Character>
 const args = process.argv.slice(2)
 const UPDATE_ALL_DATA = args.includes('-all')
 
-const ALIAS = {
+const ALIAS: Record<string, string> = {
   仙舟三月七: '三月七•巡猎'
 }
 
@@ -21,8 +22,8 @@ const hoyoWikiListSelector = '.large-model-card'
 const TIMEOUT = 300
 const CONCURRENT_FETCH_LIMIT = 1
 
-export async function fetchChar(isGHActions?: boolean) {
-  console.log('Update Character')
+export async function fetchChar() {
+  console.log('Update Character\n')
 
   const browser = await chromium.launch({ headless: true })
   const wikiPage = await browser.newPage()
@@ -101,15 +102,17 @@ export async function fetchChar(isGHActions?: boolean) {
   }
 
   let progress = 0
-  let updateCount = 0
-  let log = `### 更新角色`
+
+  const Diff: DIFF = {
+    new: [],
+    update: []
+  }
 
   function checkCard(name: string, card: string) {
     if (localChar[name].card !== card) {
       localChar[name].card = card
       console.log(`Find new character card for ${name}: ${card}`)
-      updateCount++
-      log += `\n- ${name}`
+      Diff.update.push(name)
     }
   }
 
@@ -129,14 +132,12 @@ export async function fetchChar(isGHActions?: boolean) {
             `  Card:   ${card}\n` +
             `  Avatar: ${info.avatar}`
         )
-        updateCount++
-        log += `\n- ${name}`
+        Diff.new.push(name)
       } else {
         if (localChar[name].name !== name) info.name = localChar[name].name
         if (!localChar[name].info && info.info && localChar[name].info !== info.info) {
           console.log(`Find new character bio for ${name}: ${info.info}`)
-          updateCount++
-          log += `\n- ${name}`
+          Diff.update.push(name)
         }
         if (localChar[name].info && !info.info) info.info = localChar[name].info
       }
@@ -156,18 +157,20 @@ export async function fetchChar(isGHActions?: boolean) {
     await Promise.all(wikiChar.map((char) => limit(() => getChar(char.name, char.card))))
   )
     .filter((char): char is [string, Character] => !!char)
-    .reduce((obj, char) => {
-      obj[char[0]] = char[1]
-      return obj
-    }, {})
+    .reduce(
+      (obj, char) => {
+        obj[char[0]] = char[1]
+        return obj
+      },
+      {} as Record<string, Character>
+    )
 
   await browser.close()
 
-  if (isGHActions && updateCount > 0) {
-    fs.writeFileSync('./character.md', log)
-  }
   fs.writeFileSync('./src/assets/data/static/character.json', JSON.stringify(results, null, 2))
-  console.log(`Updated character data, ${updateCount} character(s) updated.\n`)
+  console.log(`\n${Diff.new.length} new character(s) found.\n${Diff.update.length} character(s) updated.\n`)
+
+  return Diff
 }
 
 async function wait(ms: number): Promise<void> {

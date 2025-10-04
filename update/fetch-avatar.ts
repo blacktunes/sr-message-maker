@@ -1,3 +1,4 @@
+import './types.d.ts'
 import '../src/types.d.ts'
 
 import fs from 'node:fs'
@@ -9,8 +10,8 @@ const localAvt = localAvtJSON as Record<string, UserAvatar>
 const wikiUrl = `https://wiki.biligame.com/sr/%E8%A3%85%E9%A5%B0%E4%B8%80%E8%A7%88`
 const avtTableSelector = `table#CardSelectTr`
 
-export async function fetchAvt(isGHActions?: boolean) {
-  console.log('Update Avatar')
+export async function fetchAvt() {
+  console.log('Update Avatar\n')
 
   const browser = await chromium.launch({ headless: true })
   const page = await browser.newPage()
@@ -56,25 +57,25 @@ export async function fetchAvt(isGHActions?: boolean) {
   await browser.close()
 
   const results: Record<string, UserAvatar> = {}
-  let count = 0
-  let log = `### 更新头像`
+
+  const Diff: DIFF = {
+    new: [],
+    update: []
+  }
 
   fetchedAvt.forEach(({ name, src }) => {
     if (!localAvt[name]) {
+      Diff.new.push(name)
       console.log(`Find new avatar: ${name} - ${src}`)
-      log += `\n- ${name}`
-      count++
     } else if (localAvt[name].avatar !== src) {
       console.log(`Update avatar: ${name} - ${src}`)
-      log += `\n- ${name}`
-      count++
+      Diff.update.push(name)
     }
     results[name] = { avatar: src }
   })
 
-  if (isGHActions && count > 0) {
-    fs.writeFileSync('./avatar.md', log)
-  }
   fs.writeFileSync('./src/assets/data/static/avatar.json', JSON.stringify(results, null, 2))
-  console.log(`Updated avatar data, ${count} new avatars found.\n`)
+  console.log(`\n${Diff.new.length} new avatars found.\n${Diff.update.length} avatar updated.\n`)
+
+  return Diff
 }

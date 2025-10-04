@@ -1,9 +1,7 @@
+import { createLog } from './create-log'
 import { fetchAvt } from './fetch-avatar'
 import { fetchChar } from './fetch-character'
 
-const isGitHubActions = process.env.GITHUB_ACTIONS === 'true'
-
 ;(async () => {
-  await fetchAvt(isGitHubActions)
-  await fetchChar(isGitHubActions)
+  await createLog(await fetchAvt(), await fetchChar())
 })()

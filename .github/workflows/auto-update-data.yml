@@ -40,28 +40,21 @@ jobs:
           else
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
-      - name: Marger Log
+      - name: Commit data
         run: |
-          > log.md
-          if [ -f avatar.md ]; then
-            cat avatar.md >> log.md
-            echo -e "\n" >> log.md
-          fi
-
-          if [ -f character.md ]; then
-            cat character.md >> log.md
-            echo -e "\n" >> log.md
-          fi
+          git add src/assets/data/static/avatar.json
+          git add src/assets/data/static/character.json
+          git commit -m "chore: 更新游戏数据"
+      - name: Commit log
+        run: |
+          git add src/assets/data/static/log.json
+          git commit -m "chore: 添加更新记录"
       - name: Create Pull Request
         if: steps.git-check.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GH_PAT }}
-          commit-message: 'chore: 更新游戏数据'
-          title: 'chore: 自动数据更新'
-          body-path: log.md
-          add-paths: |
-            src/assets/data/static/avatar.json
-            src/assets/data/static/character.json
+          title: 'chore: 数据自动更新'
+          body-path: logs/log.md
           branch: auto-update-data
           delete-branch: true
