@@ -5,3 +5,5 @@
 declare const DEFAULT_TEXT: string
 /** 默认头像 */
 declare const DEFAULT_AVATAR: string
+
+declare const BUILD_TIME: TIME

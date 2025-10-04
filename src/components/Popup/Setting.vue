@@ -54,7 +54,7 @@
         >
           <div class="text">
             <span class="label">最后更新</span>
-            <span class="value">{{ Log[0]?.time || '-' }}</span>
+            <span class="value">{{ lastUpdate }}</span>
           </div>
         </div>
       </div>
@@ -63,7 +63,6 @@
 </template>
 
 <script lang="ts" setup>
-import Log from '@/assets/data/log'
 import { popupManager } from '@/assets/scripts/popup'
 import { setting } from '@/store/setting'
 import { Popup, Window } from 'star-rail-vue'
@@ -89,6 +88,8 @@ const qualityChange = () => {
     setting.quality = 1
   }
 }
+
+const lastUpdate = new Date(BUILD_TIME).toLocaleString() || '-'
 </script>
 
 <style lang="stylus" scoped>
