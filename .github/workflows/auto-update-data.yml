@@ -31,26 +31,38 @@ jobs:
         run: pnpm init-update
       - name: Update data
         run: pnpm update-data
-      - name: Check for changes
-        id: git-check
+      - name: Set Git config
         run: |
-          git add src/assets/data/static
-          if git diff --cached --quiet; then
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Check data changes
+        id: check-data
+        run: |
+          git add src/assets/data/static/avatar.json src/assets/data/static/character.json
+          if git diff --cached --quiet src/assets/data/static/avatar.json src/assets/data/static/character.json; then
             echo "changed=false" >> $GITHUB_OUTPUT
           else
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
       - name: Commit data
+        if: steps.check-data.outputs.changed == 'true'
         run: |
-          git add src/assets/data/static/avatar.json
-          git add src/assets/data/static/character.json
           git commit -m "chore: 更新游戏数据"
-      - name: Commit log
+      - name: Check log changes
+        id: check-log
         run: |
           git add src/assets/data/static/log.json
+          if git diff --cached --quiet src/assets/data/static/log.json; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+      - name: Commit log
+        if: steps.check-log.outputs.changed == 'true'
+        run: |
           git commit -m "chore: 添加更新记录"
       - name: Create Pull Request
-        if: steps.git-check.outputs.changed == 'true'
+        if: steps.check-data.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v6
         with:
           token: ${{ secrets.GH_PAT }}
