@@ -1,4 +1,4 @@
-import log from '@/assets/data/log'
+import log from '@/assets/data/static/log.json'
 import { KEY } from '@/store/setting'
 import { setLog, timeComparison } from 'star-rail-vue'
 import { useRegisterSW } from 'virtual:pwa-register/vue'
