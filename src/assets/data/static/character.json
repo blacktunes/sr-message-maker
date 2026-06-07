@@ -1,27 +1,41 @@
 {
+  "千冶•刃": {
+    "card": "https://act-upload.mihoyo.com/sr-wiki/2026/06/01/197948068/636907fc1235e6c99e02f706059d3dc4_4760348994882387611.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp",
+    "name": "千冶•刃",
+    "avatar": "https://patchwiki.biligame.com/images/sr/6/6d/fmmvaxj6k2orw5zbw9y3ur7z6b7cdag.png",
+    "type": "虚无",
+    "info": ""
+  },
+  "爻光": {
+    "card": "https://act-upload.mihoyo.com/sr-wiki/2026/06/03/276833758/6b8cc36dcf1a72d90c5c31015bce225c_7214664461178878452.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp",
+    "name": "爻光",
+    "avatar": "https://patchwiki.biligame.com/images/sr/d/dd/g9zc7p0op80hxgy12p7pgbot8wof7bt.png",
+    "type": "欢愉",
+    "info": ""
+  },
   "绯英": {
-    "card": "https://act-upload.mihoyo.com/sr-wiki/2026/05/13/276833758/822c14a5d5eed457483156e36e0256e1_3151101613085995360.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp",
+    "card": "https://act-upload.mihoyo.com/sr-wiki/2026/06/03/276833758/3d3689c782883c56305c2c921d40efca_8071699513577932991.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp",
     "name": "绯英",
     "avatar": "https://patchwiki.biligame.com/images/sr/e/eb/nv1jnzcc8ijrp8d23vsc0xzofjqaozx.png",
     "type": "欢愉",
     "info": ""
   },
   "缇宝": {
-    "card": "https://act-upload.mihoyo.com/sr-wiki/2026/05/13/276833758/05ee28c8d20951ffc0fa8dd593fa5942_4844229332820044945.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp",
+    "card": "https://act-upload.mihoyo.com/sr-wiki/2026/06/03/276833758/f7fcc2175f3633517454c76ed5de517e_1037078140540448778.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp",
     "name": "缇宝",
     "avatar": "https://patchwiki.biligame.com/images/sr/1/16/s15opurtx1s67wf670orxm0ysqnr7nk.png",
     "type": "同谐",
     "info": "缇宝老师随时在哦~"
   },
   "星期日": {
-    "card": "https://act-upload.mihoyo.com/sr-wiki/2026/05/13/276833758/ef7ec1ef18c5dd4b5e9ad824ba9b07bb_1735644736002393869.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp",
+    "card": "https://act-upload.mihoyo.com/sr-wiki/2026/06/03/276833758/ad25cd4c126ed31051964bfaeac64274_7039445046835411028.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp",
     "name": "星期日",
     "avatar": "https://patchwiki.biligame.com/images/sr/8/8d/65lqy256fqzq7jiaznl1bys2ito0oez.png",
     "type": "同谐",
     "info": "♪正在收听《若我不曾见过太阳》"
   },
   "飞霄": {
-    "card": "https://act-upload.mihoyo.com/sr-wiki/2026/05/13/276833758/478c708993c9e99a0115c5a4031179a5_1206703161352985002.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp",
+    "card": "https://act-upload.mihoyo.com/sr-wiki/2026/06/03/276833758/fb3f3cb808700dd3aa180932141a301a_3796448915002452799.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp",
     "name": "飞霄",
     "avatar": "https://patchwiki.biligame.com/images/sr/d/df/iq1o5mvremm66200xe7a5klm5lb1vc4.png",
     "type": "巡猎",
@@ -101,13 +115,6 @@
     "card": "https://act-upload.mihoyo.com/sr-wiki/2026/03/25/276833758/4df83cd20a74a28c29e3ec801b2a8afb_6082143109495346447.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp",
     "name": "火花",
     "avatar": "https://patchwiki.biligame.com/images/sr/1/1d/guxpvan8rcg0hoy9rv9upi4kw60kd8z.png",
-    "type": "欢愉",
-    "info": ""
-  },
-  "爻光": {
-    "card": "https://act-upload.mihoyo.com/sr-wiki/2026/03/25/276833758/8bfc69b8edb462e8be1778fccc237947_4741533359627034656.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp",
-    "name": "爻光",
-    "avatar": "https://patchwiki.biligame.com/images/sr/d/dd/g9zc7p0op80hxgy12p7pgbot8wof7bt.png",
     "type": "欢愉",
     "info": ""
   },
