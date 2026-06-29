@@ -1,13 +1,27 @@
 {
+  "昔涟": {
+    "card": "https://act-upload.mihoyo.com/sr-wiki/2026/06/25/276833758/7cf8e3b0ce80a291a8d564548ed03827_1432370803979141961.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp",
+    "name": "昔涟",
+    "avatar": "https://patchwiki.biligame.com/images/sr/e/ed/ctq3torprjw781nkmgoxshovz2wl1dw.png",
+    "type": "记忆",
+    "info": ""
+  },
+  "白厄": {
+    "card": "https://act-upload.mihoyo.com/sr-wiki/2026/06/25/276833758/b1b80ca161e298e81f4bf915698e83f5_8747181645802561193.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp",
+    "name": "白厄",
+    "avatar": "https://patchwiki.biligame.com/images/sr/0/0f/71ifmfc3f77xp5mrsnww56mto2ul2qz.png",
+    "type": "毁灭",
+    "info": "赞美太阳！"
+  },
   "千冶•刃": {
-    "card": "https://act-upload.mihoyo.com/sr-wiki/2026/06/01/197948068/636907fc1235e6c99e02f706059d3dc4_4760348994882387611.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp",
+    "card": "https://act-upload.mihoyo.com/sr-wiki/2026/06/25/276833758/2698dc59bee36d68d8d700d091bed110_1919252556188307786.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp",
     "name": "千冶•刃",
     "avatar": "https://patchwiki.biligame.com/images/sr/6/6d/fmmvaxj6k2orw5zbw9y3ur7z6b7cdag.png",
     "type": "虚无",
     "info": ""
   },
   "爻光": {
-    "card": "https://act-upload.mihoyo.com/sr-wiki/2026/06/03/276833758/6b8cc36dcf1a72d90c5c31015bce225c_7214664461178878452.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp",
+    "card": "https://act-upload.mihoyo.com/sr-wiki/2026/06/25/276833758/8bfc69b8edb462e8be1778fccc237947_2953907972106333055.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp",
     "name": "爻光",
     "avatar": "https://patchwiki.biligame.com/images/sr/d/dd/g9zc7p0op80hxgy12p7pgbot8wof7bt.png",
     "type": "欢愉",
@@ -180,20 +194,6 @@
     "avatar": "https://patchwiki.biligame.com/images/sr/6/60/kwdehoxn9net3nsjwub5r16ix6ipofo.png",
     "type": "丰饶",
     "info": "莫生气，莫生气，哪有工夫生闲气"
-  },
-  "昔涟": {
-    "card": "https://act-upload.mihoyo.com/sr-wiki/2025/12/17/276833758/f1174587f9bcce21047c9b6793128857_728874597615351576.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp",
-    "name": "昔涟",
-    "avatar": "https://patchwiki.biligame.com/images/sr/e/ed/ctq3torprjw781nkmgoxshovz2wl1dw.png",
-    "type": "记忆",
-    "info": ""
-  },
-  "白厄": {
-    "card": "https://act-upload.mihoyo.com/sr-wiki/2025/12/17/276833758/8cd4b246b30f78edda38fca2901b7efb_7980247191554538901.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp",
-    "name": "白厄",
-    "avatar": "https://patchwiki.biligame.com/images/sr/0/0f/71ifmfc3f77xp5mrsnww56mto2ul2qz.png",
-    "type": "毁灭",
-    "info": "赞美太阳！"
   },
   "赛飞儿": {
     "card": "https://act-upload.mihoyo.com/sr-wiki/2025/12/17/276833758/b8e0a99f5b1f56b18a9f37805bd6b5e5_7059467133634383450.png?x-oss-process=image/quality,q_75/resize,s_280/format,webp",
